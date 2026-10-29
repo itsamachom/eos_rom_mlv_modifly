@@ -6,6 +6,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include <stdlib.h>
+#include <sys/stat.h>
 #include "../firmware/src/menu.h"
 
 #define CONFIG_600D 1
@@ -24,6 +25,10 @@
 #define COLOR_ORANGE 3
 #define COLOR_CYAN 4
 #define COLOR_GRAY(a) ((a)+10)
+#define FONT_ID(font) ((font)&255)
+#define FONT_FG(font) (((font)>>8)&255)
+#define O_RDONLY 0
+#define O_SYNC 0
 #define FONT(font,fg,bg) ((font)|((fg)<<8)|((bg)<<16))
 enum { BGMT_INFO=1, BGMT_PRESS_LEFT, BGMT_WHEEL_LEFT, BGMT_PRESS_RIGHT,
        BGMT_WHEEL_RIGHT, BGMT_PRESS_UP, BGMT_WHEEL_UP, BGMT_PRESS_DOWN,
@@ -35,6 +40,30 @@ static struct menu_entry * last_entry;
 static const int menu_sem=1,gui_sem=2;
 #define SUBMENU_OR_EDIT (submenu_level || edit_mode)
 #define RECORDING recording
+static int photo_thai_enabled;
+static int io_missing,io_corrupt,io_short,thai_pixels;
+static unsigned char framebuffer[720*480];
+static const char * atlas_path(void) { const char * p=getenv("PHOTO_TEST_ATLAS");assert(p);return p; }
+static int FIO_GetFileSize(const char * p,unsigned * size)
+{
+    (void)p;struct stat st;if(io_missing || stat(atlas_path(),&st))return -1;
+    *size=(unsigned)st.st_size;return 0;
+}
+static void * fio_malloc(unsigned n) { assert(n<=512*1024);return malloc(n); }
+static void fio_free(void * p) { free(p); }
+static FILE * FIO_OpenFile(const char * p,int flags) { (void)p;(void)flags;return fopen(atlas_path(),"rb"); }
+static int FIO_ReadFile(FILE * file,void * data,unsigned n)
+{
+    int got=fread(data,1,n,file);
+    if(io_corrupt && got)((unsigned char*)data)[0]^=1;
+    return io_short && got ? got-1 : got;
+}
+static void FIO_CloseFile(FILE * file) { fclose(file); }
+static uint8_t * bmp_vram(void) { return framebuffer; }
+static void bmp_putpixel_fast(uint8_t * b,int x,int y,int color)
+{
+    assert(x>=0 && x<720 && y>=0 && y<480);b[y*720+x]=color;thai_pixels++;
+}
 static char output[30000];
 static int text_count;
 static int bmp_string_width(int font,const char * s) { return (int)strlen(s)*((font&255)==FONT_SMALL?8:(font&255)==FONT_MED?12:(font&255)==FONT_MED_LARGE?14:16); }
@@ -129,7 +158,7 @@ int main(void)
     press(BGMT_PRESS_DOWN);assert(photo_page_index==0);
     press(BGMT_PRESS_RIGHT);assert(photo_pane==PHOTO_ITEMS && actions==0);
     press(BGMT_PRESS_UP);assert(photo_selection[0]==6);
-    assert(strstr(output,"Page 2/2"));
+    assert(strstr(output,"Page") && strstr(output,"2/2"));
     press(BGMT_PRESS_DOWN);assert(photo_selection[0]==0);
     press(BGMT_PRESS_LEFT);assert(photo_pane==PHOTO_CATEGORIES && photo_page_index==0);
     puts("PASS vertical category/item navigation and horizontal pane focus without setting changes");
@@ -174,7 +203,7 @@ int main(void)
     assert(photo_menu_key(BGMT_INFO));assert(!photo_classic);
     puts("PASS Q keeps original advanced editors and INFO returns to Photo UI");
 
-    reset();photo_page_index=5;photo_selection[5]=1;render();
+    reset();photo_page_index=5;photo_selection[5]=2;render();
     press(BGMT_PRESS_RIGHT);assert(photo_pane==PHOTO_ITEMS);
     press(BGMT_PRESS_SET);assert(photo_classic && prefs.selected && actions==0);
     press(BGMT_INFO);assert(!photo_classic);press(BGMT_MENU);assert(close_requests==1);
@@ -206,7 +235,7 @@ int main(void)
         more[i].max=50;more[i].parent_menu=&options;if(i<5)more[i].next=&more[i+1];}
     threshold.next=more;
     go_peak();for(int i=0;i<5;i++)press(BGMT_PRESS_DOWN);
-    assert(strstr(output,"Opts 2/2"));
+    assert(strstr(output,"Options") && strstr(output,"2/2"));
     puts("PASS detail options paginate at four enlarged two-line rows");
 
     reset();
@@ -217,5 +246,47 @@ int main(void)
     }
     assert(actions==0);
     puts("PASS all enlarged-font pages/panes remain inside the framebuffer without running actions");
+    reset();photo_thai_enabled=1;
+    assert(photo_thai_prepare() && photo_thai_active());
+    for(unsigned i=0;i<COUNT(photo_thai_phrases);i++)for(int style=0;style<3;style++)
+    {
+        int font=FONT(style+2,COLOR_WHITE,COLOR_BLACK);
+        const struct photo_thai_mask * m=&photo_thai_phrases[i].masks[style];
+        assert(m->offset+m->encoded_size<=PHOTO_TH_BYTES);
+        int before=thai_pixels;
+        assert(photo_thai_text(font,1,1,m->width,photo_thai_phrases[i].key));
+        assert(thai_pixels>before);
+    }
+    puts("PASS every generated Thai phrase/size decodes and paints bounded pixels");
+    reset();photo_thai_enabled=1;go_peak();
+    assert(PHOTO_DETAIL_ROWS==3 && thai_pixels>0);
+    for(unsigned p=0;p<COUNT(photo_pages);p++)for(int i=0;i<photo_pages[p].count;i++)
+    for(int pane=PHOTO_CATEGORIES;pane<=PHOTO_DETAILS;pane++)
+    { photo_page_index=p;photo_selection[p]=i;photo_pane=pane;render(); }
+    assert(actions==0);
+    assert(photo_thai_text(FONT(FONT_LARGE,1,0),10,10,318,"ON,2.0,R"));
+    assert(!photo_thai_text(FONT(FONT_LARGE,1,0),10,10,318,"Untranslated original warning"));
+    photo_thai_enabled=0;assert(!photo_thai_active());
+    puts("PASS Thai layouts, compound numeric values and unchanged English fallback");
+    reset();photo_thai_enabled=1;
+    struct menu_entry language={.name="Photo UI Language",.priv=&photo_thai_enabled,.max=1,.icon_type=IT_DICE};
+    prefs.children=&language;
+    photo_page_index=5;photo_pane=PHOTO_ITEMS;render();
+    press(BGMT_PRESS_RIGHT);press(BGMT_PRESS_SET);press(BGMT_PRESS_RIGHT);
+    assert(photo_thai_enabled==0 && !photo_thai_active() && PHOTO_DETAIL_ROWS==4);
+    press(BGMT_PRESS_SET);press(BGMT_PRESS_SET);press(BGMT_PRESS_RIGHT);
+    assert(photo_thai_enabled==1 && photo_thai_active() && PHOTO_DETAIL_ROWS==3 && run_actions==0);
+    prefs.children=NULL;
+    puts("PASS language switch edits the real setting without changing shooting controls");
+    for(int kind=0;kind<3;kind++)
+    {
+        fio_free(photo_thai_atlas);photo_thai_atlas=NULL;photo_thai_attempted=0;photo_thai_enabled=1;
+        io_missing=kind==0;io_corrupt=kind==1;io_short=kind==2;
+        assert(!photo_thai_prepare() && !photo_thai_active());
+        assert(!photo_thai_text(FONT(FONT_LARGE,1,0),10,10,318,"Focus Peak"));
+        render();assert(strstr(output,"Thai font missing"));
+    }
+    io_missing=io_corrupt=io_short=0;photo_thai_enabled=0;
+    puts("PASS missing, corrupted and short Thai resources safely retain English");
     return 0;
 }

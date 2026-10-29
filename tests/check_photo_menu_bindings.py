@@ -34,6 +34,7 @@ def cstring(addr):
 
 
 arrays = {
+    "customize_menu": "Prefs",
     "shoot_menus": "Shoot", "expo_menus": "Expo",
     "picstyle_features_menu": "Expo", "trap_focus_menu": "Focus",
     "focus_menu": "Focus", "zebra_menus": "Overlay", "cropmarks_menu": "Overlay",

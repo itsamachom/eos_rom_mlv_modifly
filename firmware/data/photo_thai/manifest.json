@@ -1,0 +1,17 @@
+{
+  "font": "Noto Sans Thai",
+  "weight": 600,
+  "font_version": "Version 2.002",
+  "font_sha256": "5a1c559bb539583c8a1fd99d1c5b9491e5e14478c9cd2bd0970d5c3096cc9ef8",
+  "atlas_sha256": "9ede64b4f893a99deb5a262ba53bc67c91917427dff3c8185bdc727d94db3ba7",
+  "atlas_crc32": "47f94fc4",
+  "atlas_bytes": 435236,
+  "translated_phrases": 318,
+  "font_sizes": [
+    23,
+    28,
+    32
+  ],
+  "shaping": "Pillow RAQM/HarfBuzz, language th, ltr",
+  "pillow": "12.3.0"
+}

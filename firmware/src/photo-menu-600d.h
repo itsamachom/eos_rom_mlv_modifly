@@ -4,8 +4,10 @@
  */
 #ifdef CONFIG_600D
 
+#include "photo-thai-600d.h"
+
 #define PHOTO_ROWS 6
-#define PHOTO_DETAIL_ROWS 4
+#define PHOTO_DETAIL_ROWS (photo_thai_active() ? 3 : 4)
 struct photo_item {
     const char * label;
     const char * menu;
@@ -61,6 +63,7 @@ static const struct photo_item photo_movie[] = {
     {"Movie Tweaks", "Movie", "Movie Tweaks"},
 };
 static const struct photo_item photo_setup[] = {
+    {"Language", "Prefs", "Photo UI Language"},
     {"Modules", "Modules", NULL},
     {"Preferences", "Prefs", NULL},
     {"Display", "Display", NULL},
@@ -144,6 +147,7 @@ static int photo_select_original(struct menu * parent, struct menu_entry * entry
 /* Clip by actual font width, not character count, to keep the two panes apart. */
 static void photo_text(int font, int x, int y, int width, const char * text)
 {
+    if (photo_thai_text(font, x, y, width, text)) return;
     char buf[MENU_MAX_HELP_LEN];
     snprintf(buf, sizeof(buf), "%s", text ? text : "");
     char * newline = strchr(buf, '\n');
@@ -206,20 +210,22 @@ static void photo_invalidate(void)
 
 static void photo_detail_row(int row, const char * name, const char * value, int selected)
 {
-    int y = 113 + row * 70;
+    int pitch = photo_thai_active() ? 92 : 70;
+    int y = 113 + row * pitch;
     int bg = selected ? COLOR_ORANGE : COLOR_GRAY(5);
     int fg = selected ? COLOR_BLACK : COLOR_WHITE;
-    bmp_fill(bg, 376, y, 330, 67);
+    bmp_fill(bg, 376, y, 330, pitch - 3);
     photo_text(FONT(FONT_MED_LARGE, fg, bg), 382, y + 1, 318, name);
     photo_text(FONT(FONT_LARGE, selected ? COLOR_BLACK : COLOR_CYAN, bg),
-        382, y + 31, 318, value);
-    draw_line(376, y + 68, 705, y + 68, COLOR_GRAY(15));
+        382, y + (photo_thai_active() ? 39 : 31), 318, value);
+    draw_line(376, y + pitch - 2, 705, y + pitch - 2, COLOR_GRAY(15));
 }
 
 static int photo_menu_draw(void)
 {
     if (!photo_home_active()) return 0;
     take_semaphore(menu_sem, 0);
+    photo_thai_prepare();
     const struct photo_page * page = &photo_pages[photo_page_index];
     int index = photo_selection[photo_page_index];
     const struct photo_item * item = &page->items[index];
@@ -236,9 +242,10 @@ static int photo_menu_draw(void)
 
     bmp_fill(COLOR_BLACK, 0, 0, 720, 480);
     bmp_fill(COLOR_GRAY(5), 0, 0, 720, 48);
-    bmp_printf(FONT(FONT_LARGE, COLOR_WHITE, COLOR_GRAY(5)), 16, 6, "%s", page->name);
-    bmp_printf(FONT(FONT_MED, COLOR_WHITE, COLOR_GRAY(5)), 530, 14, "%s %d/%d",
-        photo_pane == PHOTO_DETAILS ? "Opts" : "Page",
+    photo_text(FONT(FONT_LARGE, COLOR_WHITE, COLOR_GRAY(5)), 16, 2, 500, page->name);
+    photo_text(FONT(FONT_MED, COLOR_WHITE, COLOR_GRAY(5)), 530, 8, 92,
+        photo_pane == PHOTO_DETAILS ? "Options" : "Page");
+    bmp_printf(FONT(FONT_MED, COLOR_WHITE, COLOR_GRAY(5)), 633, 14, "%d/%d",
         photo_pane == PHOTO_DETAILS ? photo_detail_index / PHOTO_DETAIL_ROWS + 1 : index / PHOTO_ROWS + 1,
         photo_pane == PHOTO_DETAILS ? (count ? (count + PHOTO_DETAIL_ROWS - 1) / PHOTO_DETAIL_ROWS : 1) :
         (page->count + PHOTO_ROWS - 1) / PHOTO_ROWS);
@@ -263,13 +270,14 @@ static int photo_menu_draw(void)
         int bg = selected ? (photo_pane == PHOTO_ITEMS ? COLOR_ORANGE : COLOR_GRAY(15)) : COLOR_BLACK;
         int fg = selected && photo_pane == PHOTO_ITEMS ? COLOR_BLACK : COLOR_WHITE;
         bmp_fill(bg, 64, y, 296, 51);
-        photo_text(FONT(FONT_LARGE, fg, bg), 76, y + 8, 276, page->items[n].label);
+        photo_text(FONT(FONT_LARGE, fg, bg), 76, y + (photo_thai_active() ? 3 : 8), 276, page->items[n].label);
     }
 
     bmp_fill(COLOR_GRAY(5), 370, 60, 342, 334);
     if (photo_pane == PHOTO_DETAILS)
         bmp_draw_rect(photo_editing ? COLOR_ORANGE : COLOR_CYAN, 369, 59, 344, 336);
-    photo_text(FONT(FONT_LARGE, COLOR_ORANGE, COLOR_GRAY(5)), 382, 67, 316, item->label);
+    photo_text(FONT(photo_thai_active() ? FONT_MED_LARGE : FONT_LARGE, COLOR_ORANGE, COLOR_GRAY(5)),
+        382, 64, 316, item->label);
     draw_line(376, 106, 704, 106, COLOR_GRAY(20));
     char help[MENU_MAX_HELP_LEN] = "";
     photo_display_target[0] = 0;
@@ -316,7 +324,8 @@ static int photo_menu_draw(void)
         }
     }
     draw_line(0, 400, 719, 400, COLOR_GRAY(20));
-    photo_text(FONT(FONT_MED_LARGE, COLOR_WHITE, COLOR_BLACK), 12, 406, 696,
+    photo_text(FONT(FONT_MED_LARGE, COLOR_WHITE, COLOR_BLACK), 12, 402, 696,
+        photo_thai_enabled && !photo_thai_active() ? "Thai font missing or mismatched; using English." :
         photo_confirm ? "Run this action? SET confirms; MENU cancels." : help);
     const char * hint = photo_pane == PHOTO_CATEGORIES
         ? "Up/Down Category   Right/SET Open   MENU Close"
@@ -325,7 +334,7 @@ static int photo_menu_draw(void)
         : photo_editing
         ? "Left/Right Change   SET Done   MENU Done"
         : "Up/Down Option   SET Edit   Left Back   Q More";
-    photo_text(FONT(FONT_MED, COLOR_CYAN, COLOR_BLACK), 12, 450, 696,
+    photo_text(FONT(FONT_MED, COLOR_CYAN, COLOR_BLACK), 12, 445, 696,
         photo_confirm ? "SET Run   MENU Cancel" : hint);
     give_semaphore(menu_sem);
     return 1;
