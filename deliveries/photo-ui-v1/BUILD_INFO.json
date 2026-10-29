@@ -1,0 +1,26 @@
+{
+  "source_commit": "ccd82147ee442e572e7e3ab036d01fd6c7a88696",
+  "version": "PHOTO-UI-v1.600D.102",
+  "target": "600D.102",
+  "camera_tested": false,
+  "modules": [
+    "adv_int",
+    "autoexpo",
+    "deflick",
+    "dual_iso",
+    "ettr",
+    "file_man",
+    "img_name",
+    "pic_view",
+    "silent"
+  ],
+  "autoexec_bytes": 484128,
+  "autoexec_sha256": "d7834683932d9e82fbe7cceca257b413c20166e98ad66e18adf973361975390e",
+  "zip_bytes": 1587598,
+  "zip_sha256": "b44515309bb9791f7e455291bfcf34a4ffabc87a9ce066fc6db8a3f27d57688b",
+  "host_test_groups_passed": 8,
+  "target_bindings_checked": 32,
+  "gcc": "14.2.1 (Debian 15:14.2.rel1-1)",
+  "qemu": false,
+  "hardware_baseline_report": "User reported that the unmodified baseline booted and worked; this UI build has not been tested on camera."
+}
