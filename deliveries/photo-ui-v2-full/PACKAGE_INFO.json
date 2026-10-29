@@ -1,0 +1,12 @@
+{
+  "version": "PHOTO-UI-v2.600D.102",
+  "target": "600D.102",
+  "source_commit": "24ac35eaed0a4912917d088590085597cd9f7b77",
+  "payload_identical_to_v2": true,
+  "user_reported_v2_working_on_already_installed_camera": true,
+  "first_install_hardware_tested": false,
+  "installer_rebuilt_or_modified": false,
+  "installer_sha256": "7e33d8a2a71ad92c412d291fb0ecb6de0b9404c212571d51fd82f839688070e3",
+  "zip_sha256": "78faa104b3bdf444a3e1a4313ef2ec1d2d27ec8ff25fa6e54bb5189a4d65a8b7",
+  "zip_bytes": 1672869
+}
