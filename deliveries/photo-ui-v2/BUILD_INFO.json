@@ -1,0 +1,24 @@
+{
+  "source_commit": "24ac35eaed0a4912917d088590085597cd9f7b77",
+  "version": "PHOTO-UI-v2.600D.102",
+  "target": "600D.102",
+  "camera_tested": false,
+  "modules": [
+    "adv_int",
+    "autoexpo",
+    "deflick",
+    "dual_iso",
+    "ettr",
+    "file_man",
+    "img_name",
+    "pic_view",
+    "silent"
+  ],
+  "autoexec_bytes": 485792,
+  "autoexec_sha256": "ebcea05db9fad63e614fb31a3e8ddccb75ca496c919be6a81d879b13ce4553e2",
+  "zip_sha256": "335d357a170a16b6fc88b268fed9742936c75e74d4a345475925257298a1d939",
+  "host_test_groups_passed": 12,
+  "target_bindings_checked": 32,
+  "gcc": "14.2.1 (Debian 15:14.2.rel1-1)",
+  "qemu": false
+}
