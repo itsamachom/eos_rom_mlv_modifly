@@ -1,0 +1,410 @@
+[
+  {
+    "file": "ML-SETUP.FIR",
+    "reference_bytes": 65852,
+    "built_bytes": 65852,
+    "equal": true,
+    "reference_sha256": "7e33d8a2a71ad92c412d291fb0ecb6de0b9404c212571d51fd82f839688070e3",
+    "built_sha256": "7e33d8a2a71ad92c412d291fb0ecb6de0b9404c212571d51fd82f839688070e3"
+  },
+  {
+    "file": "ML/README",
+    "reference_bytes": 1594,
+    "built_bytes": 1594,
+    "equal": true,
+    "reference_sha256": "43f92bf3fca6f64b0146c939f70113f58e58bd2e17eca85e52ee025283713063",
+    "built_sha256": "43f92bf3fca6f64b0146c939f70113f58e58bd2e17eca85e52ee025283713063"
+  },
+  {
+    "file": "ML/cropmks/CineSco2.bmp",
+    "reference_bytes": 7420,
+    "built_bytes": 7420,
+    "equal": true,
+    "reference_sha256": "7d6bae72a0875f50d70e26551ca57df09b66569df368385adcc6c7a61468688b",
+    "built_sha256": "7d6bae72a0875f50d70e26551ca57df09b66569df368385adcc6c7a61468688b"
+  },
+  {
+    "file": "ML/cropmks/CrssMtr2.bmp",
+    "reference_bytes": 11560,
+    "built_bytes": 11560,
+    "equal": true,
+    "reference_sha256": "3b29a492a330b2cddb2226e459e3978fbf181181844d4738e41ed2daf5574995",
+    "built_sha256": "3b29a492a330b2cddb2226e459e3978fbf181181844d4738e41ed2daf5574995"
+  },
+  {
+    "file": "ML/cropmks/Passport.bmp",
+    "reference_bytes": 19748,
+    "built_bytes": 19748,
+    "equal": true,
+    "reference_sha256": "07fef606ac1b2cec3ca7db9f8d6f288d706c82706c2ebb338589aba378a2ff91",
+    "built_sha256": "07fef606ac1b2cec3ca7db9f8d6f288d706c82706c2ebb338589aba378a2ff91"
+  },
+  {
+    "file": "ML/cropmks/PhiPhoto.bmp",
+    "reference_bytes": 12036,
+    "built_bytes": 12036,
+    "equal": true,
+    "reference_sha256": "acc7e2289d023ce5e25a3efe018e963a1c9609b5bea5152fe5b364c31adab196",
+    "built_sha256": "acc7e2289d023ce5e25a3efe018e963a1c9609b5bea5152fe5b364c31adab196"
+  },
+  {
+    "file": "ML/cropmks/PhiVideo.bmp",
+    "reference_bytes": 12894,
+    "built_bytes": 12894,
+    "equal": true,
+    "reference_sha256": "9b8e20f9a8e68b06e2992d7c2e1e0eea32febb8a709b1cd96b657189df2e7d95",
+    "built_sha256": "9b8e20f9a8e68b06e2992d7c2e1e0eea32febb8a709b1cd96b657189df2e7d95"
+  },
+  {
+    "file": "ML/data/apsc8p.lut",
+    "reference_bytes": 345600,
+    "built_bytes": 345600,
+    "equal": true,
+    "reference_sha256": "946a58b5463a1fe87d8e12fc2ab9e60e1cabf23c4426aafd1ae9899058599201",
+    "built_sha256": "946a58b5463a1fe87d8e12fc2ab9e60e1cabf23c4426aafd1ae9899058599201"
+  },
+  {
+    "file": "ML/data/apsc8r.lut",
+    "reference_bytes": 345600,
+    "built_bytes": 345600,
+    "equal": true,
+    "reference_sha256": "568bc0a50f846e2c078f00e63aff46a40d7f8214ae73ad6d3ab0afa3d6e844d8",
+    "built_sha256": "568bc0a50f846e2c078f00e63aff46a40d7f8214ae73ad6d3ab0afa3d6e844d8"
+  },
+  {
+    "file": "ML/data/ff8p.lut",
+    "reference_bytes": 345600,
+    "built_bytes": 345600,
+    "equal": true,
+    "reference_sha256": "68a37e3769f55a58163d301b901d19ad35586e3e74a5f0b6e3ddd6c9182192a5",
+    "built_sha256": "68a37e3769f55a58163d301b901d19ad35586e3e74a5f0b6e3ddd6c9182192a5"
+  },
+  {
+    "file": "ML/data/ff8r.lut",
+    "reference_bytes": 345600,
+    "built_bytes": 345600,
+    "equal": true,
+    "reference_sha256": "27318be8639042d141d4c797b65aeaf2e25d7971a3d1ae13b8398b8291357c14",
+    "built_sha256": "27318be8639042d141d4c797b65aeaf2e25d7971a3d1ae13b8398b8291357c14"
+  },
+  {
+    "file": "ML/fonts/arghlf22.rbf",
+    "reference_bytes": 11508,
+    "built_bytes": 11508,
+    "equal": true,
+    "reference_sha256": "311cf4d3da3e2fd2858fc6f7fd03dba9b413952ee0c5c20290fb5ec46dfae150",
+    "built_sha256": "311cf4d3da3e2fd2858fc6f7fd03dba9b413952ee0c5c20290fb5ec46dfae150"
+  },
+  {
+    "file": "ML/fonts/argnor23.rbf",
+    "reference_bytes": 12020,
+    "built_bytes": 12020,
+    "equal": true,
+    "reference_sha256": "76fb06e355ae026f3b26bda3a72c6a359e1d64101a8a0288a7e25f616d683e33",
+    "built_sha256": "76fb06e355ae026f3b26bda3a72c6a359e1d64101a8a0288a7e25f616d683e33"
+  },
+  {
+    "file": "ML/fonts/argnor28.rbf",
+    "reference_bytes": 14580,
+    "built_bytes": 14580,
+    "equal": true,
+    "reference_sha256": "c98bc131957f4abd2c952dd9900707a289e8a63f9d082af3828bb9cf240d65d1",
+    "built_sha256": "c98bc131957f4abd2c952dd9900707a289e8a63f9d082af3828bb9cf240d65d1"
+  },
+  {
+    "file": "ML/fonts/argnor32.rbf",
+    "reference_bytes": 20724,
+    "built_bytes": 20724,
+    "equal": true,
+    "reference_sha256": "7b882023241a101e35c6c929606d544f04545d67aba955f2a03c4fc078553133",
+    "built_sha256": "7b882023241a101e35c6c929606d544f04545d67aba955f2a03c4fc078553133"
+  },
+  {
+    "file": "ML/fonts/term12.rbf",
+    "reference_bytes": 1780,
+    "built_bytes": 1780,
+    "equal": true,
+    "reference_sha256": "44dc046eaa0938cee06bc4e2a65687403b6685e3a169770ec5afe468b1abd119",
+    "built_sha256": "44dc046eaa0938cee06bc4e2a65687403b6685e3a169770ec5afe468b1abd119"
+  },
+  {
+    "file": "ML/fonts/term20.rbf",
+    "reference_bytes": 5364,
+    "built_bytes": 5364,
+    "equal": true,
+    "reference_sha256": "383fa212a5cfe72556c8adf58f4fe586d9ebf64ae3f9941b1759db95d5920d4b",
+    "built_sha256": "383fa212a5cfe72556c8adf58f4fe586d9ebf64ae3f9941b1759db95d5920d4b"
+  },
+  {
+    "file": "ML/modules/600D_102.sym",
+    "reference_bytes": 36883,
+    "built_bytes": 37015,
+    "equal": false,
+    "reference_sha256": "cddfebeffadecfe5ffb4b6247a7e6d803ca7cab9704aea1eec6c6de2249f0c51",
+    "built_sha256": "cdbe697b4f7f951b8d50c29388082530dd933b700216c624d5dcab33144a87a0"
+  },
+  {
+    "file": "ML/modules/adv_int.mo",
+    "reference_bytes": 22804,
+    "built_bytes": 22812,
+    "equal": false,
+    "reference_sha256": "3920f91f8f43985d0e666b09de5f4cc6e4abf6ed8f91db02004b3f14fb71698b",
+    "built_sha256": "699e9857a0825448a4d1ac4daac03105eb5a8b59b2046ed833af05d911a9fe5a"
+  },
+  {
+    "file": "ML/modules/arkanoid.mo",
+    "reference_bytes": 13988,
+    "built_bytes": 14000,
+    "equal": false,
+    "reference_sha256": "2c4ec68e9efab54798864deec13cf5c84a47a9100a039147fe0f46ef7c24779a",
+    "built_sha256": "2ee889d040ab02586cfc7ef203a2af40f327f01e153bacad76a1980dcac930ec"
+  },
+  {
+    "file": "ML/modules/autoexpo.mo",
+    "reference_bytes": 18744,
+    "built_bytes": 18752,
+    "equal": false,
+    "reference_sha256": "b6c460dffbbb9f59fb0342dd38a540dbd7fffe0aee49f921d120d8cb2f2887c4",
+    "built_sha256": "86eb0e0c0e8e4a779578d2cfcdb22136c7fc5b7896ae5b6474449d40435a3c4e"
+  },
+  {
+    "file": "ML/modules/bench.mo",
+    "reference_bytes": 23212,
+    "built_bytes": 23128,
+    "equal": false,
+    "reference_sha256": "266ea6fc6aa6bce2644001efe394b9e679bc733bb24c576e82ba3f5a77076c2b",
+    "built_sha256": "679313d3a7687b19c44cad20eb7e32dcfd8c5472af59bb224dc866b0b0c0910b"
+  },
+  {
+    "file": "ML/modules/deflick.mo",
+    "reference_bytes": 8412,
+    "built_bytes": 8420,
+    "equal": false,
+    "reference_sha256": "40e39cb077065f457f46b908bbab6ca5ea483f1029705205bc09ba8a851de220",
+    "built_sha256": "250f89fd911c1ba7cad8a9f888e584a4a0052a2c465c42efa7add2975bded751"
+  },
+  {
+    "file": "ML/modules/dual_iso.mo",
+    "reference_bytes": 18236,
+    "built_bytes": 18200,
+    "equal": false,
+    "reference_sha256": "737995bb7ad2721bd519acb31f57e5b33868da25e0b567b739d05664d583f172",
+    "built_sha256": "8b1227d84cca554edfba707816aea70b99bd7efbf702722def86987d168f4f06"
+  },
+  {
+    "file": "ML/modules/edmac.mo",
+    "reference_bytes": 324804,
+    "built_bytes": 324812,
+    "equal": false,
+    "reference_sha256": "c52332a3c0982ba537aeb69294ed40b470f90adc8e2a82330eba7ab56d401d6d",
+    "built_sha256": "9177c5bd865ce798adbac7d4a0d29221644587d00d10a44810f194d87fb38a7d"
+  },
+  {
+    "file": "ML/modules/ettr.mo",
+    "reference_bytes": 31860,
+    "built_bytes": 31868,
+    "equal": false,
+    "reference_sha256": "64142c09a408497efd038dbf3ae79ebe3ee7edb41892c06e00ba0ff8a466ee05",
+    "built_sha256": "3b403adb6a43330499c33748bdc5a7948258b51236ef344dc1e469184ba81b6e"
+  },
+  {
+    "file": "ML/modules/file_man.mo",
+    "reference_bytes": 16904,
+    "built_bytes": 16912,
+    "equal": false,
+    "reference_sha256": "8c28c398faf5b36854eef649c84075a8e4e0f9f50d99399538b0d3e88b469ae0",
+    "built_sha256": "b8847a1ba1ed22f82af4abb1e071b42248da38704fcada4e90ca3b2fdd9018aa"
+  },
+  {
+    "file": "ML/modules/img_name.mo",
+    "reference_bytes": 8100,
+    "built_bytes": 8112,
+    "equal": false,
+    "reference_sha256": "e30737797d0159ed22b2a454ab15d27901847084d03e9cb821c5fb8dfed1b937",
+    "built_sha256": "ea70597a9f3855a85ce196cbfb43ec56c832a7ed095e35f63cd728a268fbb205"
+  },
+  {
+    "file": "ML/modules/lua.mo",
+    "reference_bytes": 355040,
+    "built_bytes": 355052,
+    "equal": false,
+    "reference_sha256": "2c58c3c258371c975b64c46cfb9bb40eb770fa46e2d272826ad9b43ee20e5420",
+    "built_sha256": "30f8faa8ff8b6c34b20a2dc0ce4a8ec5c2b1e0fd45bfd4e95f147a00931022fc"
+  },
+  {
+    "file": "ML/modules/mlv_lite.mo",
+    "reference_bytes": 70596,
+    "built_bytes": 72812,
+    "equal": false,
+    "reference_sha256": "85d7f00af1ecd2a2c01017d011c81b074940e96d2caa990710a3862489f3cdb8",
+    "built_sha256": "6a656ac2c251d7e269b16ee000b94f053696a9c04473bf377de0b7275c01a6c8"
+  },
+  {
+    "file": "ML/modules/mlv_play.mo",
+    "reference_bytes": 47652,
+    "built_bytes": 47660,
+    "equal": false,
+    "reference_sha256": "fe76c132aaa586d7157f4ab639dab16aded9948f27a753869959c464f50de701",
+    "built_sha256": "a6400f5195799ed0927875475a0d331e1feb40dc8008a48ed6558ac2aedabef1"
+  },
+  {
+    "file": "ML/modules/mlv_snd.mo",
+    "reference_bytes": 13336,
+    "built_bytes": 13348,
+    "equal": false,
+    "reference_sha256": "7c167bde901245ad5335673484fa7ee8a07222a5607dd9584a56975f6aadcac1",
+    "built_sha256": "1e041a375c14e1e23ed5908a1731f5efa60fd1c71e635554feb23851b6a97681"
+  },
+  {
+    "file": "ML/modules/pic_view.mo",
+    "reference_bytes": 7228,
+    "built_bytes": 7236,
+    "equal": false,
+    "reference_sha256": "fa63db4258baf9ab410bccfbe2844fadde5f0f4cf01588b6ebc86eb62e4d4763",
+    "built_sha256": "5fe0b1e9ab840153a3c265f9a60c5081178e75a0e0e578e938656ee8176f9722"
+  },
+  {
+    "file": "ML/modules/selftest.mo",
+    "reference_bytes": 101012,
+    "built_bytes": 101020,
+    "equal": false,
+    "reference_sha256": "957291503438b9f4722903a5b01d1930e4de07f1ec5cbffcdbe2ee4c0200dc5b",
+    "built_sha256": "33f33bc19241eb179a783c9d42697175182ba82b2efe95d86686191a38e9f2b6"
+  },
+  {
+    "file": "ML/modules/silent.mo",
+    "reference_bytes": 31000,
+    "built_bytes": 31008,
+    "equal": false,
+    "reference_sha256": "2f8bc2cbf4966bf40bb64a90d53d32dead52aa4acd70498cb4cc21dcf49145d7",
+    "built_sha256": "849e46573438314a83902eb092735bbd923526f32b0d257041c92c4ceb8caff8"
+  },
+  {
+    "file": "ML/scripts/api_test.lua",
+    "reference_bytes": 58893,
+    "built_bytes": 58893,
+    "equal": true,
+    "reference_sha256": "8e29abaaf9cea9afc8c6e3401faead2cabdf4ca5af9077c95000fea8ce9228fb",
+    "built_sha256": "8e29abaaf9cea9afc8c6e3401faead2cabdf4ca5af9077c95000fea8ce9228fb"
+  },
+  {
+    "file": "ML/scripts/calc.lua",
+    "reference_bytes": 5230,
+    "built_bytes": 5230,
+    "equal": true,
+    "reference_sha256": "b39cc5c8e528c76c55cb9befa38aed3e5c394b828264bb78b2eb54333f640b3d",
+    "built_sha256": "b39cc5c8e528c76c55cb9befa38aed3e5c394b828264bb78b2eb54333f640b3d"
+  },
+  {
+    "file": "ML/scripts/copy2m.lua",
+    "reference_bytes": 2874,
+    "built_bytes": 2874,
+    "equal": true,
+    "reference_sha256": "197a6870eacbc807e9ef70cd79e719e36f5deeba070a4558539232cfb1a1623b",
+    "built_sha256": "197a6870eacbc807e9ef70cd79e719e36f5deeba070a4558539232cfb1a1623b"
+  },
+  {
+    "file": "ML/scripts/editor.lua",
+    "reference_bytes": 41515,
+    "built_bytes": 41515,
+    "equal": true,
+    "reference_sha256": "312c28280a0bb8e085e84db604c3ada5b1d8f215a256df5d066e061898293230",
+    "built_sha256": "312c28280a0bb8e085e84db604c3ada5b1d8f215a256df5d066e061898293230"
+  },
+  {
+    "file": "ML/scripts/hello.lua",
+    "reference_bytes": 168,
+    "built_bytes": 168,
+    "equal": true,
+    "reference_sha256": "3c291619c2720842fa2f2a5a005348c37cb2b26d22a90391a1b2402969e452d8",
+    "built_sha256": "3c291619c2720842fa2f2a5a005348c37cb2b26d22a90391a1b2402969e452d8"
+  },
+  {
+    "file": "ML/scripts/lib/config.lua",
+    "reference_bytes": 4750,
+    "built_bytes": 4750,
+    "equal": true,
+    "reference_sha256": "662e0d0ccaed4bb3e7c1b1d503e1745bba1ff61105967c46e9c7f54d9e91ab85",
+    "built_sha256": "662e0d0ccaed4bb3e7c1b1d503e1745bba1ff61105967c46e9c7f54d9e91ab85"
+  },
+  {
+    "file": "ML/scripts/lib/keys.lua",
+    "reference_bytes": 2211,
+    "built_bytes": 2211,
+    "equal": true,
+    "reference_sha256": "a53cb0ad4e903c649ce59d81e551e17aa47db38c00aa2601c4d24249f602e639",
+    "built_sha256": "a53cb0ad4e903c649ce59d81e551e17aa47db38c00aa2601c4d24249f602e639"
+  },
+  {
+    "file": "ML/scripts/lib/logger.lua",
+    "reference_bytes": 4480,
+    "built_bytes": 4480,
+    "equal": true,
+    "reference_sha256": "fcccca8f431c2c9e6860529284260d81f06f525f476507d72d817f3a70ea9ab1",
+    "built_sha256": "fcccca8f431c2c9e6860529284260d81f06f525f476507d72d817f3a70ea9ab1"
+  },
+  {
+    "file": "ML/scripts/lib/strict.lua",
+    "reference_bytes": 1560,
+    "built_bytes": 1560,
+    "equal": true,
+    "reference_sha256": "aa22a16d13bbf8df19f26073da4749a37c0275fe936b59adb7afd1904bf6cbe0",
+    "built_sha256": "aa22a16d13bbf8df19f26073da4749a37c0275fe936b59adb7afd1904bf6cbe0"
+  },
+  {
+    "file": "ML/scripts/menutest.lua",
+    "reference_bytes": 2802,
+    "built_bytes": 2802,
+    "equal": true,
+    "reference_sha256": "a72b111602acd6d96d552800fb03c7080ebda01e62a9aaa56c810cb3eda104e2",
+    "built_sha256": "a72b111602acd6d96d552800fb03c7080ebda01e62a9aaa56c810cb3eda104e2"
+  },
+  {
+    "file": "ML/scripts/pong.lua",
+    "reference_bytes": 7600,
+    "built_bytes": 7600,
+    "equal": true,
+    "reference_sha256": "77054f6e519e86d4a5d1a296827338056830f8eeb461ec142708b5bcf9d3ac25",
+    "built_sha256": "77054f6e519e86d4a5d1a296827338056830f8eeb461ec142708b5bcf9d3ac25"
+  },
+  {
+    "file": "ML/scripts/recdelay.lua",
+    "reference_bytes": 3503,
+    "built_bytes": 3503,
+    "equal": true,
+    "reference_sha256": "d9ce2a8b71af05bf84dbb59f8e1efedf3e2df4d89ec571d48bacf851047caa38",
+    "built_sha256": "d9ce2a8b71af05bf84dbb59f8e1efedf3e2df4d89ec571d48bacf851047caa38"
+  },
+  {
+    "file": "ML/scripts/scrnshot.lua",
+    "reference_bytes": 536,
+    "built_bytes": 536,
+    "equal": true,
+    "reference_sha256": "3e58267bd1b76778b65440edec1b17e5898febf26cf7c9dc5e63749c6bbf3691",
+    "built_sha256": "3e58267bd1b76778b65440edec1b17e5898febf26cf7c9dc5e63749c6bbf3691"
+  },
+  {
+    "file": "ML/scripts/sokoban.lua",
+    "reference_bytes": 10331,
+    "built_bytes": 10331,
+    "equal": true,
+    "reference_sha256": "61220b7ba75b4b84d230a6189a2c88d0b841f0645e86f5c99c6afb965728e40e",
+    "built_sha256": "61220b7ba75b4b84d230a6189a2c88d0b841f0645e86f5c99c6afb965728e40e"
+  },
+  {
+    "file": "ML/scripts/unload.lua",
+    "reference_bytes": 2099,
+    "built_bytes": 2099,
+    "equal": true,
+    "reference_sha256": "00b37fe44158d6024fe01812de37e7f8a921ff4d96b78041f039652587a4057c",
+    "built_sha256": "00b37fe44158d6024fe01812de37e7f8a921ff4d96b78041f039652587a4057c"
+  },
+  {
+    "file": "autoexec.bin",
+    "reference_bytes": 480096,
+    "built_bytes": 480160,
+    "equal": false,
+    "reference_sha256": "69c7dc0bf065a3e0ac18219b35c7e73fe0dbc23a0b7ded9eb8efaa5761b16909",
+    "built_sha256": "cb558255c6a54b3b8999193425bf52d68ca76dd4acb8074649b1956d1793cb7a"
+  }
+]
