@@ -5705,7 +5705,7 @@ static void menu_open()
     customize_mode = 0;
     menu_help_active = 0;
 #ifdef CONFIG_600D
-    photo_classic = 0; /* each new opening starts in the redesigned menu */
+    photo_menu_reset(); /* each new opening starts in the category rail */
 #ifdef FEATURE_JUNKIE_MENU
     junkie_mode = 0;
 #endif

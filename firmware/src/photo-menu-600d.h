@@ -4,7 +4,8 @@
  */
 #ifdef CONFIG_600D
 
-#define PHOTO_ROWS 7
+#define PHOTO_ROWS 6
+#define PHOTO_DETAIL_ROWS 4
 struct photo_item {
     const char * label;
     const char * menu;
@@ -79,6 +80,24 @@ static const struct photo_page photo_pages[] = {
 static int photo_page_index;
 static int photo_selection[COUNT(photo_pages)];
 static int photo_classic;
+enum { PHOTO_CATEGORIES, PHOTO_ITEMS, PHOTO_DETAILS };
+static int photo_pane;
+static int photo_detail_index;
+static int photo_editing;
+static int photo_confirm;
+/* Names, not cached pointers: modules may remove/reorder entries. */
+static char photo_display_target[MENU_MAX_NAME_LEN];
+static int photo_display_page = -1;
+static int photo_display_item = -1;
+
+static void photo_menu_reset(void)
+{
+    photo_classic = 0;
+    photo_pane = PHOTO_CATEGORIES;
+    photo_detail_index = photo_editing = photo_confirm = 0;
+    photo_display_target[0] = 0;
+    photo_display_page = photo_display_item = -1;
+}
 
 static int photo_home_active(void)
 {
@@ -149,12 +168,52 @@ static void photo_read_info(struct menu_entry * entry, struct menu_display_info 
     if (entry->update) entry->update(entry, info);
 }
 
-static void photo_detail_row(int row, const char * name, const char * value)
+/* Resolve visible detail rows without retaining pointers between events. */
+static struct menu_entry * photo_detail_entry(struct menu_entry * root, int index, int * count)
 {
-    int y = 122 + row * 39;
-    draw_line(376, y + 33, 704, y + 33, COLOR_GRAY(15));
-    photo_text(FONT(FONT_MED, COLOR_WHITE, COLOR_GRAY(5)), 381, y, 183, name);
-    photo_text(FONT(FONT_MED, COLOR_CYAN, COLOR_GRAY(5)), 568, y, 133, value);
+    struct menu_entry * result = NULL;
+    int n = 0;
+    if (root && is_visible(root))
+    {
+        if (!root->children || root->priv || (root->select && root->select != menu_open_submenu))
+        {
+            if (n == index) result = root;
+            n++;
+        }
+        for (struct menu_entry * e = root->children; e; e = e->next)
+        {
+            if (!is_visible(e) || e->placeholder) continue;
+            if (n == index) result = e;
+            n++;
+        }
+    }
+    *count = n;
+    return result;
+}
+
+static int photo_can_edit(struct menu_entry * e)
+{
+    return e && e->icon_type != IT_ACTION && e->icon_type != IT_SUBMENU &&
+        e->select != menu_open_submenu &&
+        (e->select || (IS_ML_PTR(e->priv) && e->max > e->min));
+}
+
+static void photo_invalidate(void)
+{
+    photo_editing = photo_confirm = 0;
+    photo_display_target[0] = 0;
+}
+
+static void photo_detail_row(int row, const char * name, const char * value, int selected)
+{
+    int y = 113 + row * 70;
+    int bg = selected ? COLOR_ORANGE : COLOR_GRAY(5);
+    int fg = selected ? COLOR_BLACK : COLOR_WHITE;
+    bmp_fill(bg, 376, y, 330, 67);
+    photo_text(FONT(FONT_MED_LARGE, fg, bg), 382, y + 1, 318, name);
+    photo_text(FONT(FONT_LARGE, selected ? COLOR_BLACK : COLOR_CYAN, bg),
+        382, y + 31, 318, value);
+    draw_line(376, y + 68, 705, y + 68, COLOR_GRAY(15));
 }
 
 static int photo_menu_draw(void)
@@ -167,141 +226,256 @@ static int photo_menu_draw(void)
     struct menu * parent;
     struct menu_entry * entry = photo_resolve(item, &parent);
     if (parent && entry) photo_select_original(parent, entry);
+    int count = 0;
+    photo_detail_entry(entry, -1, &count);
+    if (photo_detail_index >= count)
+    {
+        photo_detail_index = count ? count - 1 : 0;
+        photo_invalidate();
+    }
 
     bmp_fill(COLOR_BLACK, 0, 0, 720, 480);
     bmp_fill(COLOR_GRAY(5), 0, 0, 720, 48);
     bmp_printf(FONT(FONT_LARGE, COLOR_WHITE, COLOR_GRAY(5)), 16, 6, "%s", page->name);
-    bmp_printf(FONT(FONT_MED, COLOR_WHITE, COLOR_GRAY(5)), 540, 14, "Page %d/%d",
-        index / PHOTO_ROWS + 1, (page->count + PHOTO_ROWS - 1) / PHOTO_ROWS);
+    bmp_printf(FONT(FONT_MED, COLOR_WHITE, COLOR_GRAY(5)), 530, 14, "%s %d/%d",
+        photo_pane == PHOTO_DETAILS ? "Opts" : "Page",
+        photo_pane == PHOTO_DETAILS ? photo_detail_index / PHOTO_DETAIL_ROWS + 1 : index / PHOTO_ROWS + 1,
+        photo_pane == PHOTO_DETAILS ? (count ? (count + PHOTO_DETAIL_ROWS - 1) / PHOTO_DETAIL_ROWS : 1) :
+        (page->count + PHOTO_ROWS - 1) / PHOTO_ROWS);
     draw_line(0, 48, 719, 48, COLOR_GRAY(20));
 
-    /* Six category badges in the PDF's left-hand rail. */
     for (int i = 0; i < (int)COUNT(photo_pages); i++)
     {
-        int y = 60 + i * 58;
+        int y = 60 + i * 56;
         int bg = i == photo_page_index ? COLOR_BLUE : COLOR_GRAY(10);
         bmp_fill(bg, 8, y, 44, 46);
         bmp_printf(FONT(FONT_LARGE, COLOR_WHITE, bg), 18, y + 5, "%s", photo_pages[i].badge);
-        if (i == photo_page_index) bmp_draw_rect(COLOR_WHITE, 7, y - 1, 46, 48);
+        if (i == photo_page_index)
+            bmp_draw_rect(photo_pane == PHOTO_CATEGORIES ? COLOR_ORANGE : COLOR_WHITE, 7, y - 1, 46, 48);
     }
 
     int first = (index / PHOTO_ROWS) * PHOTO_ROWS;
     for (int row = 0; row < PHOTO_ROWS && first + row < page->count; row++)
     {
         int n = first + row;
-        int y = 62 + row * 48;
+        int y = 60 + row * 56;
         int selected = n == index;
-        int bg = selected ? COLOR_ORANGE : COLOR_BLACK;
-        int fg = selected ? COLOR_BLACK : COLOR_WHITE;
-        bmp_fill(bg, 64, y, 296, 43);
-        bmp_fill(selected ? COLOR_BLACK : COLOR_BLUE, 70, y + 6, 27, 30);
-        bmp_printf(FONT(FONT_MED, COLOR_WHITE, selected ? COLOR_BLACK : COLOR_BLUE),
-            76, y + 9, "%d", row + 1);
-        photo_text(FONT(FONT_MED_LARGE, fg, bg), 104, y + 6, 249, page->items[n].label);
+        int bg = selected ? (photo_pane == PHOTO_ITEMS ? COLOR_ORANGE : COLOR_GRAY(15)) : COLOR_BLACK;
+        int fg = selected && photo_pane == PHOTO_ITEMS ? COLOR_BLACK : COLOR_WHITE;
+        bmp_fill(bg, 64, y, 296, 51);
+        photo_text(FONT(FONT_LARGE, fg, bg), 76, y + 8, 276, page->items[n].label);
     }
 
-    bmp_fill(COLOR_GRAY(5), 370, 60, 342, 344);
-    photo_text(FONT(FONT_MED_LARGE, COLOR_ORANGE, COLOR_GRAY(5)), 382, 72, 316, item->label);
-    draw_line(376, 110, 704, 110, COLOR_GRAY(20));
+    bmp_fill(COLOR_GRAY(5), 370, 60, 342, 334);
+    if (photo_pane == PHOTO_DETAILS)
+        bmp_draw_rect(photo_editing ? COLOR_ORANGE : COLOR_CYAN, 369, 59, 344, 336);
+    photo_text(FONT(FONT_LARGE, COLOR_ORANGE, COLOR_GRAY(5)), 382, 67, 316, item->label);
+    draw_line(376, 106, 704, 106, COLOR_GRAY(20));
     char help[MENU_MAX_HELP_LEN] = "";
+    photo_display_target[0] = 0;
+    photo_display_page = photo_page_index;
+    photo_display_item = index;
     if (!item->entry)
     {
-        photo_detail_row(0, "Open", "SET / Q");
-        photo_text(FONT(FONT_MED, COLOR_WHITE, COLOR_GRAY(5)), 382, 185, 316, "Original system menu");
-        photo_text(FONT(FONT_MED, COLOR_WHITE, COLOR_GRAY(5)), 382, 214, 316, "INFO returns to Photo UI");
-        snprintf(help, sizeof(help), "Modules, settings and recovery remain available.");
+        photo_detail_row(0, "System menu", "SET: Open", 0);
+        photo_text(FONT(FONT_MED_LARGE, COLOR_WHITE, COLOR_GRAY(5)), 382, 218, 316, "INFO: Photo / Classic");
+        snprintf(help, sizeof(help), "Original system settings remain available.");
     }
-    else if (!entry)
+    else if (!entry || !is_visible(entry))
     {
-        photo_detail_row(0, "Status", "Unavailable");
-        photo_text(FONT(FONT_MED, COLOR_WHITE, COLOR_GRAY(5)), 382, 185, 316, "Module may not be loaded.");
-        photo_text(FONT(FONT_MED, COLOR_WHITE, COLOR_GRAY(5)), 382, 214, 316, "See Setup > Modules.");
-        snprintf(help, sizeof(help), "No setting is changed when an item is unavailable.");
+        photo_detail_row(0, "Status", "Unavailable", 0);
+        photo_text(FONT(FONT_MED_LARGE, COLOR_WHITE, COLOR_GRAY(5)), 382, 218, 316, "See Setup > Modules");
+        snprintf(help, sizeof(help), "Module may not be loaded; no action is performed.");
     }
     else
     {
         struct menu_display_info info;
         photo_read_info(entry, &info);
-        /* Default display strings share storage; copy before reading children. */
         snprintf(help, sizeof(help), "%s", info.warning[0] ? info.warning :
             info.help[0] ? info.help : entry->help ? entry->help : "");
-        photo_detail_row(0, "Current", info.value[0] ? info.value : entry->children ? "Q: options" : "SET: action");
-        int row = 1;
-        for (struct menu_entry * child = entry->children; child && row < 6; child = child->next)
+        int first_detail = (photo_detail_index / PHOTO_DETAIL_ROWS) * PHOTO_DETAIL_ROWS;
+        for (int row = 0; row < PHOTO_DETAIL_ROWS && first_detail + row < count; row++)
         {
-            if (child->shidden || child->placeholder || child->advanced) continue;
-            photo_read_info(child, &info);
-            if (child->shidden) continue;
-            photo_detail_row(row++, info.name, info.value[0] ? info.value : "--");
+            int n = first_detail + row;
+            struct menu_entry * e = photo_detail_entry(entry, n, &count);
+            if (!e) continue;
+            int selected = photo_pane == PHOTO_DETAILS && n == photo_detail_index;
+            struct menu * ep = e == entry ? parent : e->parent_menu;
+            if (selected && ep) photo_select_original(ep, e);
+            photo_read_info(e, &info);
+            if (selected)
+            {
+                snprintf(photo_display_target, sizeof(photo_display_target), "%s", e->name);
+                if (info.warning[0] || info.help[0] || e->help)
+                    snprintf(help, sizeof(help), "%s", info.warning[0] ? info.warning :
+                        info.help[0] ? info.help : e->help);
+            }
+            const char * label = e == entry ? (e->icon_type == IT_ACTION ? "Action" : "Current") : info.name;
+            photo_detail_row(row, label, info.value[0] ? info.value :
+                e->children ? "SET: Open" : e->select ? "SET: Run" : "Read only", selected);
         }
-        if (entry->children)
-            photo_text(FONT(FONT_SMALL, COLOR_CYAN, COLOR_GRAY(5)), 382, 374, 318, "Q opens all original options");
     }
-    draw_line(0, 418, 719, 418, COLOR_GRAY(20));
-    photo_text(FONT(FONT_MED, COLOR_WHITE, COLOR_BLACK), 12, 425, 696, help);
-    photo_text(FONT(FONT_SMALL, COLOR_CYAN, COLOR_BLACK), 12, 458, 696,
-        RECORDING
-        ? "L/R Tab  Up/Down Item  SET Edit  Q/INFO Options  MENU Close"
-        : "L/R Tab  Up/Down Item  SET Edit  Q Options  MENU Close  INFO Classic");
+    draw_line(0, 400, 719, 400, COLOR_GRAY(20));
+    photo_text(FONT(FONT_MED_LARGE, COLOR_WHITE, COLOR_BLACK), 12, 406, 696,
+        photo_confirm ? "Run this action? SET confirms; MENU cancels." : help);
+    const char * hint = photo_pane == PHOTO_CATEGORIES
+        ? "Up/Down Category   Right/SET Open   MENU Close"
+        : photo_pane == PHOTO_ITEMS
+        ? "Up/Down Item   Right/SET Options   Left Back"
+        : photo_editing
+        ? "Left/Right Change   SET Done   MENU Done"
+        : "Up/Down Option   SET Edit   Left Back   Q More";
+    photo_text(FONT(FONT_MED, COLOR_CYAN, COLOR_BLACK), 12, 450, 696,
+        photo_confirm ? "SET Run   MENU Cancel" : hint);
     give_semaphore(menu_sem);
     return 1;
+}
+
+/* Re-resolve and select the exact visible target immediately before editing.
+ * Caller holds menu_sem. Matching the displayed name prevents ordinal shifts
+ * after dynamic hiding/unloading from operating on a different option.
+ */
+static struct menu_entry * photo_edit_target(struct menu ** parent, int * depth)
+{
+    const struct photo_item * item = &photo_pages[photo_page_index].items[photo_selection[photo_page_index]];
+    struct menu * root_parent;
+    struct menu_entry * root = photo_resolve(item, &root_parent);
+    int count;
+    struct menu_entry * e = photo_detail_entry(root, photo_detail_index, &count);
+    if (!e || photo_display_page != photo_page_index ||
+        photo_display_item != photo_selection[photo_page_index] ||
+        !streq(e->name, photo_display_target)) return NULL;
+    *parent = e == root ? root_parent : e->parent_menu;
+    if (!*parent || !is_visible(e)) return NULL;
+    *depth = photo_select_original(*parent, e);
+    return e;
+}
+
+static void photo_run_original(struct menu * parent, int depth, int mode)
+{
+    int old_level = submenu_level;
+    submenu_level = depth;
+    menu_entry_select(parent, mode);
+    /* Plain value changes stay inline. Native submenus, custom editors and
+     * Live View editors keep the state they explicitly requested. */
+    if (submenu_level == depth && !edit_mode && !menu_lv_transparent_mode)
+        submenu_level = old_level;
 }
 
 /* Return 1 when consumed. Called outside menu_sem by the normal key handler. */
 static int photo_menu_key(int key)
 {
-    /* INFO is Q on 600D while recording; leave that established mapping alone. */
     if (key == BGMT_INFO && !RECORDING)
     {
-        photo_classic = !photo_classic;
+        /* INFO from a native modal editor returns directly to Photo UI. */
+        photo_classic = photo_home_active();
         submenu_level = edit_mode = menu_lv_transparent_mode = menu_help_active = 0;
+        photo_invalidate();
         return 1;
     }
     if (!photo_home_active()) return 0;
+    if (key == BGMT_INFO && RECORDING) key = BGMT_Q;
     const struct photo_page * page = &photo_pages[photo_page_index];
-    switch (key)
+    int up = key == BGMT_PRESS_UP || key == BGMT_WHEEL_UP;
+    int down = key == BGMT_PRESS_DOWN || key == BGMT_WHEEL_DOWN;
+    int left = key == BGMT_PRESS_LEFT || key == BGMT_WHEEL_LEFT;
+    int right = key == BGMT_PRESS_RIGHT || key == BGMT_WHEEL_RIGHT;
+    int set = key == BGMT_PRESS_SET;
+    int q = key == BGMT_Q || key == BGMT_PLAY;
+
+    if (key == BGMT_MENU)
     {
-        case BGMT_PRESS_LEFT:
-        case BGMT_WHEEL_LEFT:
-            photo_page_index = MOD(photo_page_index - 1, COUNT(photo_pages));
-            return 1;
-        case BGMT_PRESS_RIGHT:
-        case BGMT_WHEEL_RIGHT:
-            photo_page_index = MOD(photo_page_index + 1, COUNT(photo_pages));
-            return 1;
-        case BGMT_PRESS_UP:
-        case BGMT_WHEEL_UP:
-            photo_selection[photo_page_index] = MOD(photo_selection[photo_page_index] - 1, page->count);
-            return 1;
-        case BGMT_PRESS_DOWN:
-        case BGMT_WHEEL_DOWN:
-            photo_selection[photo_page_index] = MOD(photo_selection[photo_page_index] + 1, page->count);
-            return 1;
-        case BGMT_MENU:
-            give_semaphore(gui_sem);
-            return 1;
-        case BGMT_PRESS_SET:
-        case BGMT_Q:
-        case BGMT_PLAY:
+        if (photo_editing || photo_confirm) photo_invalidate();
+        else give_semaphore(gui_sem);
+        return 1;
+    }
+    if (photo_confirm && !set) photo_confirm = 0;
+    if (photo_editing)
+    {
+        if (set) { photo_invalidate(); return 1; }
+        if (left || right || key == BGMT_WHEEL_UP || key == BGMT_WHEEL_DOWN)
         {
-            const struct photo_item * item = &page->items[photo_selection[photo_page_index]];
-            struct menu * parent;
+            struct menu * parent = NULL;
+            int depth = 0;
             take_semaphore(menu_sem, 0);
-            struct menu_entry * entry = photo_resolve(item, &parent);
-            int ok = parent && (!item->entry || (entry && is_visible(entry)));
-            int depth = ok ? photo_select_original(parent, entry) : 0;
+            struct menu_entry * e = photo_edit_target(&parent, &depth);
+            int ok = photo_can_edit(e);
             give_semaphore(menu_sem);
-            if (!ok) return 1; /* Never act on an unrelated previously selected entry. */
-            if (!item->entry) photo_classic = 1;
-            else
-            {
-                submenu_level = depth;
-                menu_entry_select(parent, key == BGMT_PRESS_SET ? 3 : 2);
-            }
+            if (ok) photo_run_original(parent, depth, (left || key == BGMT_WHEEL_UP) ? 1 : 0);
+            else photo_invalidate();
             return 1;
         }
-        default:
-            return 0;
+        return up || down || q; /* don't leave an edit accidentally */
     }
+    if (up || down)
+    {
+        int delta = up ? -1 : 1;
+        photo_invalidate();
+        if (photo_pane == PHOTO_CATEGORIES)
+        {
+            photo_page_index = MOD(photo_page_index + delta, COUNT(photo_pages));
+            photo_detail_index = 0;
+        }
+        else if (photo_pane == PHOTO_ITEMS)
+        {
+            photo_selection[photo_page_index] = MOD(photo_selection[photo_page_index] + delta, page->count);
+            photo_detail_index = 0;
+        }
+        else
+        {
+            struct menu * parent;
+            int count;
+            take_semaphore(menu_sem, 0);
+            struct menu_entry * root = photo_resolve(&page->items[photo_selection[photo_page_index]], &parent);
+            photo_detail_entry(root, -1, &count);
+            if (count) photo_detail_index = MOD(photo_detail_index + delta, count);
+            give_semaphore(menu_sem);
+        }
+        return 1;
+    }
+    if (left)
+    {
+        if (photo_pane > PHOTO_CATEGORIES) photo_pane--;
+        photo_invalidate();
+        return 1;
+    }
+    if (photo_pane < PHOTO_DETAILS && (right || set || q))
+    {
+        const struct photo_item * item = &page->items[photo_selection[photo_page_index]];
+        if (photo_pane == PHOTO_ITEMS && !item->entry)
+        {
+            struct menu * parent;
+            take_semaphore(menu_sem, 0);
+            photo_resolve(item, &parent);
+            if (parent) { photo_select_original(parent, NULL); photo_classic = 1; }
+            give_semaphore(menu_sem);
+        }
+        else photo_pane++;
+        photo_invalidate();
+        return 1;
+    }
+    if (photo_pane == PHOTO_DETAILS && (set || q))
+    {
+        struct menu * parent = NULL;
+        int depth = 0;
+        take_semaphore(menu_sem, 0);
+        struct menu_entry * e = photo_edit_target(&parent, &depth);
+        int editable = photo_can_edit(e);
+        int action = e && e->icon_type == IT_ACTION;
+        int open = e && (e->children || e->select == menu_open_submenu);
+        give_semaphore(menu_sem);
+        if (!e) { photo_invalidate(); return 1; }
+        if (q) { photo_invalidate(); photo_run_original(parent, depth, 2); }
+        else if (editable) { photo_editing = 1; photo_confirm = 0; }
+        else if (action)
+        {
+            if (!photo_confirm) photo_confirm = 1;
+            else { photo_invalidate(); photo_run_original(parent, depth, 3); }
+        }
+        else if (open) { photo_invalidate(); photo_run_original(parent, depth, 3); }
+        return 1;
+    }
+    /* Right at the rightmost pane does not modify anything. */
+    return right;
 }
 #endif
