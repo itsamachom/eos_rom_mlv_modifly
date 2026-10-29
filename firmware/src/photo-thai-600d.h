@@ -10,6 +10,8 @@ static int photo_thai_prepare(void)
 {
     if (!photo_thai_enabled) return 0;
     if (photo_thai_attempted) return photo_thai_atlas != NULL;
+    /* Avoid a first-time SD read/CRC/allocation during Canon video recording. */
+    if (RECORDING) return 0;
     photo_thai_attempted = 1;
     uint32_t size = 0;
     if (FIO_GetFileSize("ML/data/PHOTO_TH.BIN", &size) || size != PHOTO_TH_BYTES || size > 512 * 1024)

@@ -325,6 +325,8 @@ static int photo_menu_draw(void)
     }
     draw_line(0, 400, 719, 400, COLOR_GRAY(20));
     photo_text(FONT(FONT_MED_LARGE, COLOR_WHITE, COLOR_BLACK), 12, 402, 696,
+        photo_thai_enabled && !photo_thai_active() && RECORDING && !photo_thai_attempted
+        ? "Thai loads after recording; using English." :
         photo_thai_enabled && !photo_thai_active() ? "Thai font missing or mismatched; using English." :
         photo_confirm ? "Run this action? SET confirms; MENU cancels." : help);
     const char * hint = photo_pane == PHOTO_CATEGORIES

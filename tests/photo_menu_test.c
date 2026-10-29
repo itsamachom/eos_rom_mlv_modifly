@@ -247,6 +247,9 @@ int main(void)
     assert(actions==0);
     puts("PASS all enlarged-font pages/panes remain inside the framebuffer without running actions");
     reset();photo_thai_enabled=1;
+    recording=1;
+    assert(!photo_thai_prepare() && !photo_thai_attempted);
+    recording=0;
     assert(photo_thai_prepare() && photo_thai_active());
     for(unsigned i=0;i<COUNT(photo_thai_phrases);i++)for(int style=0;style<3;style++)
     {
