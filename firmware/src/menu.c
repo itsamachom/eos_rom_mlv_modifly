@@ -1318,6 +1318,10 @@ void menu_add_internal(
     int                 count
 )
 {
+#ifdef CONFIG_600D
+    /* Photo UI: remove ML audio/game menus; retain Canon audio and drivers. */
+    if (streq(name, "Audio") || streq(name, "Games")) return;
+#endif
 #if defined(POSITION_INDEPENDENT)
     menu_fixup_pic(new_entry, count);
 #endif
@@ -4558,6 +4562,8 @@ void menu_entry_select(
     mod_menu_dirty = 1;
 }
 
+#include "photo-menu-600d.h"
+
 /** Scroll side to side in the list of menus */
 static EXCLUDES(menu_sem)
 void menu_move(
@@ -4793,9 +4799,13 @@ menu_redraw_do()
         }
         //~ prev_z = z;
         
-        menus_display( menus, 0, 0 ); 
+        int photo_drawn = 0;
+#ifdef CONFIG_600D
+        photo_drawn = photo_menu_draw();
+#endif
+        if (!photo_drawn) menus_display( menus, 0, 0 );
 
-        if (!menu_lv_transparent_mode && !SUBMENU_OR_EDIT && !junkie_mode)
+        if (!photo_drawn && !menu_lv_transparent_mode && !SUBMENU_OR_EDIT && !junkie_mode)
         {
             if (is_menu_active("Help"))
                 menu_show_version();
@@ -5207,6 +5217,15 @@ handle_ml_menu_keys(struct event * event)
             return 0;
     }
     
+#ifdef CONFIG_600D
+    if (photo_menu_key(event->param))
+    {
+        menu_redraw_full();
+        keyrepeat_ack(event->param);
+        return 0;
+    }
+#endif
+
     // Find the selected menu or submenu (should be cached?)
     struct menu * menu = get_current_menu_or_submenu();
     
@@ -5685,6 +5704,12 @@ static void menu_open()
     edit_mode = 0;
     customize_mode = 0;
     menu_help_active = 0;
+#ifdef CONFIG_600D
+    photo_classic = 0; /* each new opening starts in the redesigned menu */
+#ifdef FEATURE_JUNKIE_MENU
+    junkie_mode = 0;
+#endif
+#endif
     keyrepeat = 0;
     menu_shown = 1;
     //~ menu_hidden_should_display_help = 0;
