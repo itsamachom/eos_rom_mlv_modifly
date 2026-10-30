@@ -1,4 +1,5 @@
 /* Canon 600D Photo menu front end, GPL-2.0-or-later.
+ * Modified 2026-10-30: serialize Photo UI state and bind edit/confirmation identity.
  * Included by menu.c: reuse its locking, values and editing paths.
  * No camera addresses or exposure/recording algorithms are changed here.
  */
@@ -88,6 +89,16 @@ static int photo_pane;
 static int photo_detail_index;
 static int photo_editing;
 static int photo_confirm;
+static int photo_native_busy;
+struct photo_identity {
+    uintptr_t root, entry, parent, priv;
+    menu_select_func select, select_Q;
+    unsigned root_name, entry_name;
+    int page, item, min, max, icon;
+    int valid;
+};
+static struct photo_identity photo_display_identity;
+static struct photo_identity photo_armed_identity;
 /* Names, not cached pointers: modules may remove/reorder entries. */
 static char photo_display_target[MENU_MAX_NAME_LEN];
 static int photo_display_page = -1;
@@ -95,11 +106,14 @@ static int photo_display_item = -1;
 
 static void photo_menu_reset(void)
 {
+    take_semaphore(menu_sem, 0);
     photo_classic = 0;
     photo_pane = PHOTO_CATEGORIES;
     photo_detail_index = photo_editing = photo_confirm = 0;
     photo_display_target[0] = 0;
     photo_display_page = photo_display_item = -1;
+    photo_display_identity.valid = photo_armed_identity.valid = 0;
+    give_semaphore(menu_sem);
 }
 
 static int photo_home_active(void)
@@ -206,6 +220,67 @@ static void photo_invalidate(void)
 {
     photo_editing = photo_confirm = 0;
     photo_display_target[0] = 0;
+    photo_display_identity.valid = photo_armed_identity.valid = 0;
+}
+
+/* All Photo UI state below is read/written with menu_sem held. No cached
+ * object is dereferenced: re-resolve entries and compare their identities. */
+static unsigned photo_name_hash(const char * name)
+{
+    unsigned hash = 2166136261u;
+    while (name && *name) { hash ^= (unsigned char)*name++; hash *= 16777619u; }
+    return hash;
+}
+
+static struct photo_identity photo_identity_of(struct menu_entry * root,
+    struct menu_entry * entry, struct menu * parent)
+{
+    struct photo_identity id = {0};
+    if (!root || !entry || !parent || !is_visible(root) || !is_visible(entry)) return id;
+    id.root = (uintptr_t)root;
+    id.entry = (uintptr_t)entry;
+    id.parent = (uintptr_t)parent;
+    id.priv = (uintptr_t)entry->priv;
+    id.select = entry->select; id.select_Q = entry->select_Q;
+    id.root_name = photo_name_hash(root->name); id.entry_name = photo_name_hash(entry->name);
+    id.page = photo_page_index; id.item = photo_selection[photo_page_index];
+    id.min = entry->min; id.max = entry->max; id.icon = entry->icon_type;
+    id.valid = 1;
+    return id;
+}
+
+static int photo_same_identity(const struct photo_identity * a, const struct photo_identity * b)
+{
+    return a->valid && b->valid && a->root == b->root && a->entry == b->entry &&
+        a->parent == b->parent && a->priv == b->priv && a->select == b->select &&
+        a->select_Q == b->select_Q && a->root_name == b->root_name &&
+        a->entry_name == b->entry_name && a->page == b->page && a->item == b->item &&
+        a->min == b->min && a->max == b->max && a->icon == b->icon;
+}
+
+static void photo_check_armed(const struct photo_identity * current)
+{
+    if ((photo_editing || photo_confirm) &&
+        (photo_pane != PHOTO_DETAILS || !photo_same_identity(&photo_armed_identity, current)))
+        photo_invalidate();
+}
+
+static void photo_validate_selection(void)
+{
+    if (photo_page_index < 0 || photo_page_index >= (int)COUNT(photo_pages))
+    {
+        photo_page_index = 0; photo_detail_index = 0; photo_invalidate();
+    }
+    int * index = &photo_selection[photo_page_index];
+    if (*index < 0 || *index >= photo_pages[photo_page_index].count)
+    {
+        *index = 0; photo_detail_index = 0; photo_invalidate();
+    }
+    if (photo_pane < PHOTO_CATEGORIES || photo_pane > PHOTO_DETAILS)
+    {
+        photo_pane = PHOTO_CATEGORIES; photo_invalidate();
+    }
+    if (photo_detail_index < 0) { photo_detail_index = 0; photo_invalidate(); }
 }
 
 static void photo_detail_row(int row, const char * name, const char * value, int selected)
@@ -223,11 +298,24 @@ static void photo_detail_row(int row, const char * name, const char * value, int
 
 static int photo_menu_draw(void)
 {
-    if (!photo_home_active()) return 0;
     take_semaphore(menu_sem, 0);
+    if (photo_native_busy)
+    {
+        /* Keep the displayed buffer until a callback (which may lock menus)
+         * finishes. Do not reselect or dereference its menu in another task. */
+        menu_redraw_cancel = 1;
+        give_semaphore(menu_sem);
+        return 1;
+    }
+    if (!photo_home_active()) { give_semaphore(menu_sem); return 0; }
+    photo_validate_selection();
     photo_thai_prepare();
-    const struct photo_page * page = &photo_pages[photo_page_index];
-    int index = photo_selection[photo_page_index];
+    const int page_index = photo_page_index;
+    const struct photo_page * page = &photo_pages[page_index];
+#ifdef PHOTO_MENU_SNAPSHOT_OBSERVER
+    PHOTO_MENU_SNAPSHOT_OBSERVER();
+#endif
+    int index = photo_selection[page_index];
     const struct photo_item * item = &page->items[index];
     struct menu * parent;
     struct menu_entry * entry = photo_resolve(item, &parent);
@@ -239,6 +327,10 @@ static int photo_menu_draw(void)
         photo_detail_index = count ? count - 1 : 0;
         photo_invalidate();
     }
+    struct menu_entry * current = photo_detail_entry(entry, photo_detail_index, &count);
+    struct menu * current_parent = current == entry ? parent : current ? current->parent_menu : NULL;
+    struct photo_identity current_id = photo_identity_of(entry, current, current_parent);
+    photo_check_armed(&current_id);
 
     bmp_fill(COLOR_BLACK, 0, 0, 720, 480);
     bmp_fill(COLOR_GRAY(5), 0, 0, 720, 48);
@@ -281,7 +373,8 @@ static int photo_menu_draw(void)
     draw_line(376, 106, 704, 106, COLOR_GRAY(20));
     char help[MENU_MAX_HELP_LEN] = "";
     photo_display_target[0] = 0;
-    photo_display_page = photo_page_index;
+    photo_display_identity.valid = 0;
+    photo_display_page = page_index;
     photo_display_item = index;
     if (!item->entry)
     {
@@ -313,6 +406,9 @@ static int photo_menu_draw(void)
             photo_read_info(e, &info);
             if (selected)
             {
+                struct photo_identity id = photo_identity_of(entry, e, ep);
+                photo_check_armed(&id);
+                photo_display_identity = id;
                 snprintf(photo_display_target, sizeof(photo_display_target), "%s", e->name);
                 if (info.warning[0] || info.help[0] || e->help)
                     snprintf(help, sizeof(help), "%s", info.warning[0] ? info.warning :
@@ -323,6 +419,13 @@ static int photo_menu_draw(void)
                 e->children ? "SET: Open" : e->select ? "SET: Run" : "Read only", selected);
         }
     }
+    /* Update callbacks can hide/reorder rows during this same redraw. Only
+     * publish a display identity that still resolves to the row just shown. */
+    current = photo_detail_entry(entry, photo_detail_index, &count);
+    current_parent = current == entry ? parent : current ? current->parent_menu : NULL;
+    current_id = photo_identity_of(entry, current, current_parent);
+    photo_check_armed(&current_id);
+    if (!photo_same_identity(&photo_display_identity, &current_id)) photo_display_identity.valid = 0;
     draw_line(0, 400, 719, 400, COLOR_GRAY(20));
     photo_text(FONT(FONT_MED_LARGE, COLOR_WHITE, COLOR_BLACK), 12, 402, 696,
         photo_thai_enabled && !photo_thai_active() && RECORDING && !photo_thai_attempted
@@ -343,8 +446,8 @@ static int photo_menu_draw(void)
 }
 
 /* Re-resolve and select the exact visible target immediately before editing.
- * Caller holds menu_sem. Matching the displayed name prevents ordinal shifts
- * after dynamic hiding/unloading from operating on a different option.
+ * Caller holds menu_sem. Presentation and armed-operation identities are
+ * separate, so redraw cannot transfer an edit or confirmation to a new row.
  */
 static struct menu_entry * photo_edit_target(struct menu ** parent, int * depth)
 {
@@ -353,11 +456,16 @@ static struct menu_entry * photo_edit_target(struct menu ** parent, int * depth)
     struct menu_entry * root = photo_resolve(item, &root_parent);
     int count;
     struct menu_entry * e = photo_detail_entry(root, photo_detail_index, &count);
-    if (!e || photo_display_page != photo_page_index ||
-        photo_display_item != photo_selection[photo_page_index] ||
-        !streq(e->name, photo_display_target)) return NULL;
+    if (!e) return NULL;
     *parent = e == root ? root_parent : e->parent_menu;
     if (!*parent || !is_visible(e)) return NULL;
+    struct photo_identity id = photo_identity_of(root, e, *parent);
+    if (!photo_same_identity(&photo_display_identity, &id) ||
+        ((photo_editing || photo_confirm) && !photo_same_identity(&photo_armed_identity, &id)))
+    {
+        photo_invalidate();
+        return NULL;
+    }
     *depth = photo_select_original(*parent, e);
     return e;
 }
@@ -373,8 +481,10 @@ static void photo_run_original(struct menu * parent, int depth, int mode)
         submenu_level = old_level;
 }
 
-/* Return 1 when consumed. Called outside menu_sem by the normal key handler. */
-static int photo_menu_key(int key)
+struct photo_pending_action { struct menu * parent; int depth, mode; };
+
+/* menu_sem is held. Callbacks are dispatched only after releasing it. */
+static int photo_menu_key_locked(int key, struct photo_pending_action * pending)
 {
     if (key == BGMT_INFO && !RECORDING)
     {
@@ -408,11 +518,9 @@ static int photo_menu_key(int key)
         {
             struct menu * parent = NULL;
             int depth = 0;
-            take_semaphore(menu_sem, 0);
             struct menu_entry * e = photo_edit_target(&parent, &depth);
             int ok = photo_can_edit(e);
-            give_semaphore(menu_sem);
-            if (ok) photo_run_original(parent, depth, (left || key == BGMT_WHEEL_UP) ? 1 : 0);
+            if (ok) *pending = (struct photo_pending_action){parent, depth, (left || key == BGMT_WHEEL_UP) ? 1 : 0};
             else photo_invalidate();
             return 1;
         }
@@ -436,11 +544,9 @@ static int photo_menu_key(int key)
         {
             struct menu * parent;
             int count;
-            take_semaphore(menu_sem, 0);
             struct menu_entry * root = photo_resolve(&page->items[photo_selection[photo_page_index]], &parent);
             photo_detail_entry(root, -1, &count);
-            if (count) photo_detail_index = MOD(photo_detail_index + delta, count);
-            give_semaphore(menu_sem);
+            if (count) photo_detail_index = MOD(MOD(photo_detail_index, count) + delta, count);
         }
         return 1;
     }
@@ -456,10 +562,8 @@ static int photo_menu_key(int key)
         if (photo_pane == PHOTO_ITEMS && !item->entry)
         {
             struct menu * parent;
-            take_semaphore(menu_sem, 0);
             photo_resolve(item, &parent);
             if (parent) { photo_select_original(parent, NULL); photo_classic = 1; }
-            give_semaphore(menu_sem);
         }
         else photo_pane++;
         photo_invalidate();
@@ -469,24 +573,56 @@ static int photo_menu_key(int key)
     {
         struct menu * parent = NULL;
         int depth = 0;
-        take_semaphore(menu_sem, 0);
         struct menu_entry * e = photo_edit_target(&parent, &depth);
         int editable = photo_can_edit(e);
         int action = e && e->icon_type == IT_ACTION;
         int open = e && (e->children || e->select == menu_open_submenu);
-        give_semaphore(menu_sem);
         if (!e) { photo_invalidate(); return 1; }
-        if (q) { photo_invalidate(); photo_run_original(parent, depth, 2); }
-        else if (editable) { photo_editing = 1; photo_confirm = 0; }
+        if (q) { photo_invalidate(); *pending = (struct photo_pending_action){parent, depth, 2}; }
+        else if (editable)
+        {
+            photo_armed_identity = photo_display_identity;
+            photo_editing = 1; photo_confirm = 0;
+        }
         else if (action)
         {
-            if (!photo_confirm) photo_confirm = 1;
-            else { photo_invalidate(); photo_run_original(parent, depth, 3); }
+            if (!photo_confirm) { photo_armed_identity = photo_display_identity; photo_confirm = 1; }
+            else { photo_invalidate(); *pending = (struct photo_pending_action){parent, depth, 3}; }
         }
-        else if (open) { photo_invalidate(); photo_run_original(parent, depth, 3); }
+        else if (open) { photo_invalidate(); *pending = (struct photo_pending_action){parent, depth, 3}; }
         return 1;
     }
     /* Right at the rightmost pane does not modify anything. */
     return right;
+}
+
+/* Modified 2026-10-30: all Photo UI key-state transitions share the renderer's
+ * lock; callbacks remain outside it to permit native menu reentrancy. */
+static int photo_menu_key(int key)
+{
+    /* Native-only keys (notably half-shutter) must not wait for a redraw. */
+    switch (key)
+    {
+        case BGMT_INFO: case BGMT_MENU: case BGMT_PRESS_SET: case BGMT_Q: case BGMT_PLAY:
+        case BGMT_PRESS_UP: case BGMT_PRESS_DOWN: case BGMT_PRESS_LEFT: case BGMT_PRESS_RIGHT:
+        case BGMT_WHEEL_UP: case BGMT_WHEEL_DOWN: case BGMT_WHEEL_LEFT: case BGMT_WHEEL_RIGHT:
+            break;
+        default: return 0;
+    }
+    struct photo_pending_action pending = {0};
+    take_semaphore(menu_sem, 0);
+    if (photo_native_busy) { give_semaphore(menu_sem); return 1; }
+    photo_validate_selection();
+    int consumed = photo_menu_key_locked(key, &pending);
+    if (pending.parent) photo_native_busy = 1;
+    give_semaphore(menu_sem);
+    if (pending.parent)
+    {
+        photo_run_original(pending.parent, pending.depth, pending.mode);
+        take_semaphore(menu_sem, 0);
+        photo_native_busy = 0;
+        give_semaphore(menu_sem);
+    }
+    return consumed;
 }
 #endif

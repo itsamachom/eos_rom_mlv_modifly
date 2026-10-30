@@ -7,6 +7,10 @@
 #include <string.h>
 #include <stdlib.h>
 #include <sys/stat.h>
+#include <pthread.h>
+#include <time.h>
+#include <errno.h>
+#include <limits.h>
 #include "../firmware/src/menu.h"
 
 #define CONFIG_600D 1
@@ -35,6 +39,11 @@ enum { BGMT_INFO=1, BGMT_PRESS_LEFT, BGMT_WHEEL_LEFT, BGMT_PRESS_RIGHT,
        BGMT_WHEEL_DOWN, BGMT_MENU, BGMT_PRESS_SET, BGMT_Q, BGMT_PLAY };
 static int submenu_level,edit_mode,menu_lv_transparent_mode,menu_help_active;
 static int recording,locks,close_requests,actions,last_mode,run_actions;
+static int menu_redraw_cancel;
+static int exercise_native_reentry;
+static int photo_menu_draw(void);
+static pthread_mutex_t menu_mutex = PTHREAD_MUTEX_INITIALIZER;
+static _Thread_local int owns_menu_lock;
 static struct menu * menus;
 static struct menu_entry * last_entry;
 static const int menu_sem=1,gui_sem=2;
@@ -84,8 +93,16 @@ static void draw_line(int x,int y,int xx,int yy,int color)
 {
     (void)color;assert(x>=0 && xx<720 && y>=0 && yy<480);
 }
-static void take_semaphore(int sem,int timeout) { (void)timeout;assert(sem==menu_sem && locks==0);locks++; }
-static void give_semaphore(int sem) { if(sem==gui_sem)close_requests++;else{assert(locks==1);locks--;} }
+static void take_semaphore(int sem,int timeout)
+{
+    (void)timeout;assert(sem==menu_sem && !owns_menu_lock);
+    assert(!pthread_mutex_lock(&menu_mutex));assert(locks==0);locks++;owns_menu_lock=1;
+}
+static void give_semaphore(int sem)
+{
+    if(sem==gui_sem)close_requests++;
+    else { assert(locks==1 && owns_menu_lock);locks--;owns_menu_lock=0;assert(!pthread_mutex_unlock(&menu_mutex)); }
+}
 static int is_visible(struct menu_entry * e) { return !e->shidden && !e->hidden && !e->placeholder; }
 static void entry_default_display_info(struct menu_entry * e,struct menu_display_info * info)
 {
@@ -99,6 +116,13 @@ void menu_open_submenu(void * priv, int delta) { (void)priv; (void)delta; submen
 static void menu_entry_select(struct menu * m,int mode)
 {
     assert(locks==0);assert(m->selected || IS_SUBMENU(m));actions++;last_mode=mode;
+    if(exercise_native_reentry)
+    {
+        take_semaphore(menu_sem,0);give_semaphore(menu_sem);
+        int before=text_count;menu_redraw_cancel=0;
+        assert(photo_menu_draw()==1 && menu_redraw_cancel && text_count==before);
+        menu_redraw_cancel=0;
+    }
     for(struct menu_entry * e=m->children;e;e=e->next)if(e->selected)
     {
         last_entry=e;
@@ -113,7 +137,42 @@ static void menu_entry_select(struct menu * m,int mode)
     }
     assert(!"No selected entry");
 }
+static void observe_snapshot(void);
+#define PHOTO_MENU_SNAPSHOT_OBSERVER() observe_snapshot()
 #include "../firmware/src/photo-menu-600d.h"
+
+static pthread_mutex_t race_mutex=PTHREAD_MUTEX_INITIALIZER;
+static pthread_cond_t race_condition=PTHREAD_COND_INITIALIZER;
+static pthread_t race_thread;
+static int race_enabled,race_attempted,race_done,race_blocked;
+static void * category_key_thread(void * unused)
+{
+    (void)unused;
+    assert(!pthread_mutex_lock(&race_mutex));race_attempted=1;
+    assert(!pthread_cond_broadcast(&race_condition));assert(!pthread_mutex_unlock(&race_mutex));
+    assert(photo_menu_key(BGMT_PRESS_UP));
+    assert(!pthread_mutex_lock(&race_mutex));race_done=1;
+    assert(!pthread_cond_broadcast(&race_condition));assert(!pthread_mutex_unlock(&race_mutex));
+    return NULL;
+}
+static void observe_snapshot(void)
+{
+    if(!race_enabled)return;
+    race_enabled=0;
+    assert(owns_menu_lock && locks==1);
+    assert(!pthread_create(&race_thread,NULL,category_key_thread,NULL));
+    assert(!pthread_mutex_lock(&race_mutex));
+    while(!race_attempted)assert(!pthread_cond_wait(&race_condition,&race_mutex));
+    struct timespec deadline;assert(timespec_get(&deadline,TIME_UTC)==TIME_UTC);
+    deadline.tv_nsec+=250000000;
+    if(deadline.tv_nsec>=1000000000){deadline.tv_sec++;deadline.tv_nsec-=1000000000;}
+    int rc=0;
+    while(!race_done && rc!=ETIMEDOUT)rc=pthread_cond_timedwait(&race_condition,&race_mutex,&deadline);
+    assert(!rc || rc==ETIMEDOUT);
+    race_blocked=!race_done;
+    assert(!pthread_mutex_unlock(&race_mutex));
+    assert(race_blocked && photo_page_index==4 && photo_selection[4]==0);
+}
 
 static int on=1,threshold_value=10;
 static struct menu_entry wrong={.name="Unrelated",.selected=1};
@@ -135,12 +194,14 @@ static void reset(void)
 {
     memset(photo_selection,0,sizeof(photo_selection));photo_page_index=0;photo_menu_reset();
     submenu_level=edit_mode=menu_help_active=menu_lv_transparent_mode=recording=0;
-    actions=last_mode=close_requests=run_actions=0;last_entry=NULL;locks=0;
+    actions=last_mode=close_requests=run_actions=exercise_native_reentry=menu_redraw_cancel=0;
+    last_entry=NULL;locks=0;
     on=1;threshold_value=10;
     peak.hidden=peak.shidden=peak.placeholder=0;peak.selected=0;
     threshold.hidden=threshold.shidden=0;threshold.selected=0;threshold.next=&action;
     threshold.parent_menu=action.parent_menu=&options;
-    action.selected=0;wrong.next=&peak;wrong.selected=1;
+    action.selected=action.shidden=action.hidden=0;action.next=NULL;
+    wrong.next=&peak;wrong.selected=1;
     overlay.next=&prefs;prefs.next=&options;options.next=NULL;menus=&overlay;
     overlay.selected=1;prefs.selected=0;output[0]=0;text_count=0;
 }
@@ -153,6 +214,58 @@ static void go_peak(void)
 }
 int main(void)
 {
+    reset();photo_page_index=4;photo_selection[3]=7;
+    race_enabled=1;race_attempted=race_done=race_blocked=0;
+    render();assert(!pthread_join(race_thread,NULL));
+    assert(race_blocked && photo_page_index==3 && photo_selection[3]==7);
+    render();assert(strstr(output,"Page") && strstr(output,"2/2"));
+    puts("PASS key task waits for the redraw snapshot lock and uses the correct category bounds");
+
+    reset();photo_page_index=-1;photo_selection[0]=999;photo_detail_index=-10;photo_pane=99;
+    render();assert(photo_page_index==0 && photo_selection[0]==0 && photo_detail_index==0 && photo_pane==PHOTO_CATEGORIES);
+    photo_page_index=999;assert(photo_menu_key(BGMT_PRESS_DOWN));
+    assert(photo_page_index==1);assert(!photo_menu_key(123456));
+    reset();go_peak();photo_detail_index=INT_MAX;
+    assert(photo_menu_key(BGMT_PRESS_DOWN));assert(photo_detail_index>=0 && photo_detail_index<3);
+    puts("PASS invalid category/item/pane indices recover before any array access");
+
+    reset();go_peak();
+    int other_value=20;
+    struct menu_entry other={.name="Other numeric option",.priv=&other_value,.min=1,.max=50,.parent_menu=&options,.next=&action};
+    threshold.next=&other;
+    press(BGMT_PRESS_DOWN);press(BGMT_PRESS_SET);assert(photo_editing);
+    threshold.shidden=1;render();assert(!photo_editing && !photo_confirm);
+    press(BGMT_PRESS_RIGHT);assert(other_value==20 && actions==0);
+    press(BGMT_PRESS_SET);assert(photo_editing);press(BGMT_PRESS_RIGHT);
+    assert(other_value==21 && last_entry==&other);
+    puts("PASS redraw cancels an armed edit after a hidden row shifts a different value into its slot");
+
+    reset();go_peak();
+    struct menu_entry next_action={.name="Different capture action",.icon_type=IT_ACTION,.parent_menu=&options};
+    action.next=&next_action;
+    press(BGMT_PRESS_DOWN);press(BGMT_PRESS_DOWN);press(BGMT_PRESS_SET);assert(photo_confirm);
+    action.shidden=1;render();assert(!photo_confirm && run_actions==0);
+    press(BGMT_PRESS_SET);assert(photo_confirm && run_actions==0);
+    press(BGMT_PRESS_SET);assert(run_actions==1 && last_entry==&next_action);
+    puts("PASS redraw requires a fresh confirmation after the target action is replaced");
+
+    reset();go_peak();press(BGMT_PRESS_DOWN);press(BGMT_PRESS_SET);
+    struct menu_entry same_name=threshold;same_name.selected=0;
+    peak.children=&same_name;options.children=&same_name;render();
+    assert(!photo_editing);press(BGMT_PRESS_RIGHT);assert(actions==0 && threshold_value==10);
+    peak.children=options.children=&threshold;
+    puts("PASS same-name replacement objects cannot inherit the old edit identity");
+
+    reset();go_peak();press(BGMT_PRESS_DOWN);press(BGMT_PRESS_SET);
+    photo_menu_reset();photo_classic=0;photo_pane=PHOTO_ITEMS;photo_page_index=3;photo_selection[3]=1;render();
+    assert(!photo_editing && !photo_confirm);
+    puts("PASS menu reset clears armed and displayed identities under the shared lock");
+
+    reset();go_peak();press(BGMT_PRESS_DOWN);press(BGMT_PRESS_SET);
+    exercise_native_reentry=1;press(BGMT_PRESS_RIGHT);exercise_native_reentry=0;
+    assert(threshold_value==11 && last_entry==&threshold && !photo_native_busy && locks==0);
+    puts("PASS native callbacks may reenter menu locking while redraw preserves their selected target");
+
     reset();render();
     press(BGMT_PRESS_UP);assert(photo_page_index==5);
     press(BGMT_PRESS_DOWN);assert(photo_page_index==0);
