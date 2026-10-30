@@ -67,11 +67,11 @@ for full in (False, True):
         assert not any("ROM" in n.upper() and n.upper().endswith(".BIN") for n in z.namelist())
     archives.append(dest)
 source = out / "600D-PHOTO-UI-TH2-source.zip"
-subprocess.run(["git", "archive", "--format=zip", "--prefix=600D-photo-ui-th1-source/", "-o", str(source), sha,
+subprocess.run(["git", "archive", "--format=zip", "--prefix=600D-photo-ui-th2-source/", "-o", str(source), sha,
                 *paths, "PHOTO_UI_V2.md"], cwd=root, check=True)
 with zipfile.ZipFile(source) as z:
     assert z.testzip() is None
-    assert z.read("600D-photo-ui-th1-source/firmware/data/photo_thai/PHOTO_TH.BIN") == atlas
+    assert z.read("600D-photo-ui-th2-source/firmware/data/photo_thai/PHOTO_TH.BIN") == atlas
 archives.append(source)
 info = {"source_commit": sha, "version": "PHOTO-UI-TH2.600D.102", "camera_tested": False,
         "first_install_hardware_tested": False, "host_test_groups_passed": 23, "target_bindings_checked": 33,
