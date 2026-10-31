@@ -1,0 +1,29 @@
+{
+  "version": "PHOTO-UI-v3.600D.102",
+  "target": "600D.102",
+  "source_commit": "ce1e5cac6c4d5c7d6b072278c8f8e8540e8b9133",
+  "base_commit": "ca97d4ea27d08fee3698c5c8ac2ee0753b75a2f2",
+  "camera_tested": false,
+  "first_install_hardware_tested": false,
+  "installer_rebuilt_or_modified": false,
+  "installer_sha256": "7e33d8a2a71ad92c412d291fb0ecb6de0b9404c212571d51fd82f839688070e3",
+  "source_sha256": "cbc421749a86e912617458f84f113d220bc36b2046460ade98914f7fe03bf911",
+  "autoexec_sha256": "d1830ee1b9bbf4a89275351695c7b314f304a78ea417f33e8849da60e3137f07",
+  "autoexec_bytes": 519712,
+  "modules": [
+    "adv_int",
+    "arkanoid",
+    "autoexpo",
+    "deflick",
+    "dual_iso",
+    "ettr",
+    "file_man",
+    "img_name",
+    "lua",
+    "pic_view"
+  ],
+  "host_test_groups_passed": 13,
+  "target_bindings_checked": 34,
+  "qemu": false,
+  "zip_sha256": "81d6010d56c2d2bbc97ce5b6f4a6cb7839c350149525f9cfafd1b6978a375de0"
+}
