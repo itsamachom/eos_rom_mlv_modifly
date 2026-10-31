@@ -1,0 +1,24 @@
+{
+  "release": "v3r2",
+  "repository": "itsamachom/eos_rom_mlv_modifly",
+  "intended_prerelease": true,
+  "payload_source_commit": "5f543089565c1574606ea2436315e6ea5419ce70",
+  "checks": {
+    "payload_checksums_verified": true,
+    "exact_upstream_import_verified": true,
+    "fork_identity_and_ai_disclosure_present": true,
+    "upstream_credits_preserved": true
+  },
+  "blockers": [
+    {
+      "id": "dependency_corresponding_source",
+      "detail": "Implementation source/build patches and original notices for inherited dietlibc 0.33 and Newlib 1.20.0 archives have not been verified. Exact upstream archive inheritance is confirmed."
+    },
+    {
+      "id": "github_release_api_access",
+      "detail": "GitHub API CONNECT through the configured proxy returns 403. Domain additions api.github.com/uploads.github.com are saved in environment draft but not applied."
+    }
+  ],
+  "published": false,
+  "tag_created": false
+}

@@ -1,0 +1,36 @@
+{
+  "upstream_url": "https://github.com/reticulatedpines/magiclantern_simplified",
+  "compared_upstream_commit": "142472e95054d73640f50789ac0fd66325499d82",
+  "import_commit": "359f828",
+  "compared_imported_files": 2257,
+  "identical_blob_count": 2257,
+  "different_paths": [],
+  "not_found_upstream": [],
+  "inherited_artifacts": [
+    {
+      "path": "firmware/src/libs/dietlib-0.33-none-eabi-Os/dietlibc.a",
+      "sha256": "21c61d561fbd852f46eb891052efaa8cd3c634261803793ffe600eac67861d9a",
+      "bytes": 763560,
+      "upstream_blob_identical": true
+    },
+    {
+      "path": "firmware/src/libs/arm-none-eabi-O3/libc.a",
+      "sha256": "827ab079a8ae4d44e72d7db41ee508f5e9a9e138e052696afc7b446d8778c2d8",
+      "bytes": 3946624,
+      "upstream_blob_identical": true
+    },
+    {
+      "path": "firmware/src/libs/arm-none-eabi-O3/libm.a",
+      "sha256": "b7a54d1594bb9202e0c4457887dcc01216c87d51134d6da7d93ac371ef71506d",
+      "bytes": 1331906,
+      "upstream_blob_identical": true
+    },
+    {
+      "path": "firmware/platform/600D.102/ML-SETUP.FIR",
+      "sha256": "7e33d8a2a71ad92c412d291fb0ecb6de0b9404c212571d51fd82f839688070e3",
+      "bytes": 65852,
+      "upstream_blob_identical": true
+    }
+  ],
+  "corresponding_library_source_verified": false
+}

@@ -1,0 +1,177 @@
+{
+  "payload_source_commit": "5f543089565c1574606ea2436315e6ea5419ce70",
+  "baseline_import_commit": "359f828",
+  "notice": "Fork changes are Codex/LLM-assisted; see AI_ASSISTANCE.md. This manifest supplements, not replaces, original file notices.",
+  "files": [
+    {
+      "change": "A",
+      "path": "assets/fonts/noto-sans-thai/NotoSansThai.ttf",
+      "last_change_commit_date": "2026-10-31T13:53:25Z"
+    },
+    {
+      "change": "A",
+      "path": "assets/fonts/noto-sans-thai/OFL.txt",
+      "last_change_commit_date": "2026-10-31T13:53:25Z"
+    },
+    {
+      "change": "A",
+      "path": "assets/fonts/noto-sans-thai/SOURCE.md",
+      "last_change_commit_date": "2026-10-31T13:53:25Z"
+    },
+    {
+      "change": "A",
+      "path": "firmware/data/fonts/thai/NOTO-LICENSE.txt",
+      "last_change_commit_date": "2026-10-31T10:10:17Z"
+    },
+    {
+      "change": "A",
+      "path": "firmware/data/photo_thai/PHOTO_TH.BIN",
+      "last_change_commit_date": "2026-10-31T14:50:38Z"
+    },
+    {
+      "change": "A",
+      "path": "firmware/data/photo_thai/manifest.json",
+      "last_change_commit_date": "2026-10-31T14:50:38Z"
+    },
+    {
+      "change": "M",
+      "path": "firmware/platform/600D.102/Makefile",
+      "last_change_commit_date": "2026-10-31T13:53:25Z"
+    },
+    {
+      "change": "M",
+      "path": "firmware/platform/600D.102/modules.included",
+      "last_change_commit_date": "2026-10-31T10:10:17Z"
+    },
+    {
+      "change": "M",
+      "path": "firmware/src/debug.c",
+      "last_change_commit_date": "2026-10-31T13:53:25Z"
+    },
+    {
+      "change": "M",
+      "path": "firmware/src/menu.c",
+      "last_change_commit_date": "2026-10-31T14:50:38Z"
+    },
+    {
+      "change": "A",
+      "path": "firmware/src/photo-camera-info-600d.h",
+      "last_change_commit_date": "2026-10-31T13:53:25Z"
+    },
+    {
+      "change": "A",
+      "path": "firmware/src/photo-menu-600d.h",
+      "last_change_commit_date": "2026-10-31T14:50:38Z"
+    },
+    {
+      "change": "A",
+      "path": "firmware/src/photo-thai-600d.h",
+      "last_change_commit_date": "2026-10-31T13:53:25Z"
+    },
+    {
+      "change": "A",
+      "path": "firmware/src/photo-thai-data.h",
+      "last_change_commit_date": "2026-10-31T14:50:38Z"
+    },
+    {
+      "change": "M",
+      "path": "firmware/src/propvalues.c",
+      "last_change_commit_date": "2026-10-31T10:10:17Z"
+    },
+    {
+      "change": "M",
+      "path": "firmware/src/propvalues.h",
+      "last_change_commit_date": "2026-10-31T10:10:17Z"
+    },
+    {
+      "change": "M",
+      "path": "firmware/src/shoot.c",
+      "last_change_commit_date": "2026-10-31T10:10:17Z"
+    },
+    {
+      "change": "A",
+      "path": "scripts/build-photo-ui.sh",
+      "last_change_commit_date": "2026-10-31T14:50:38Z"
+    },
+    {
+      "change": "A",
+      "path": "tests/check_game_registration.py",
+      "last_change_commit_date": "2026-10-31T14:50:38Z"
+    },
+    {
+      "change": "A",
+      "path": "tests/check_packaged_games.py",
+      "last_change_commit_date": "2026-10-31T14:50:38Z"
+    },
+    {
+      "change": "A",
+      "path": "tests/check_photo_menu_bindings.py",
+      "last_change_commit_date": "2026-10-31T13:53:25Z"
+    },
+    {
+      "change": "A",
+      "path": "tests/check_photo_ui_v3.py",
+      "last_change_commit_date": "2026-10-31T14:50:38Z"
+    },
+    {
+      "change": "A",
+      "path": "tests/photo_menu_test.c",
+      "last_change_commit_date": "2026-10-31T14:50:38Z"
+    },
+    {
+      "change": "A",
+      "path": "tests/run-photo-menu-tests.sh",
+      "last_change_commit_date": "2026-10-31T13:53:25Z"
+    },
+    {
+      "change": "A",
+      "path": "tools/generate_photo_thai.py",
+      "last_change_commit_date": "2026-10-31T13:53:25Z"
+    },
+    {
+      "change": "A",
+      "path": "tools/package_photo_ui.py",
+      "last_change_commit_date": "2026-10-29T09:02:06Z"
+    },
+    {
+      "change": "A",
+      "path": "tools/package_photo_ui_full.py",
+      "last_change_commit_date": "2026-10-29T09:39:33Z"
+    },
+    {
+      "change": "A",
+      "path": "tools/package_photo_ui_v3.py",
+      "last_change_commit_date": "2026-10-31T10:10:49Z"
+    },
+    {
+      "change": "A",
+      "path": "tools/package_photo_ui_v3r1.py",
+      "last_change_commit_date": "2026-10-31T13:53:25Z"
+    },
+    {
+      "change": "A",
+      "path": "tools/package_photo_ui_v3r2.py",
+      "last_change_commit_date": "2026-10-31T14:50:38Z"
+    },
+    {
+      "change": "A",
+      "path": "tools/render_photo_ui_proofs.py",
+      "last_change_commit_date": "2026-10-31T13:54:14Z"
+    },
+    {
+      "change": "A",
+      "path": "tools/requirements-thai.txt",
+      "last_change_commit_date": "2026-10-31T13:53:25Z"
+    },
+    {
+      "change": "A",
+      "path": "translations/photo_th.json",
+      "last_change_commit_date": "2026-10-31T14:50:38Z"
+    },
+    {
+      "change": "A",
+      "path": "translations/photo_th.original.json",
+      "last_change_commit_date": "2026-10-31T13:53:25Z"
+    }
+  ]
+}
