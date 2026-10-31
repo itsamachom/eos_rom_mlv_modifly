@@ -212,6 +212,10 @@ int main(void)
     assert(strstr(output,"Opts 2/2"));
     puts("PASS detail options paginate at four enlarged two-line rows");
 
+    reset();photo_page_index=5;photo_selection[5]=7;photo_pane=PHOTO_ITEMS;
+    render();press(BGMT_PRESS_SET);assert(!photo_classic && actions==0);
+    puts("PASS missing Games system menu cannot open or execute until its module loads");
+
     reset();
     for(unsigned p=0;p<COUNT(photo_pages);p++)for(int i=0;i<photo_pages[p].count;i++)
     for(int pane=PHOTO_CATEGORIES;pane<=PHOTO_DETAILS;pane++)

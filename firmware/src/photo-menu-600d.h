@@ -288,7 +288,7 @@ static int photo_menu_draw(void)
     photo_display_target[0] = 0;
     photo_display_page = photo_page_index;
     photo_display_item = index;
-    if (!item->entry)
+    if (!item->entry && parent)
     {
         photo_detail_row(0, "System menu", "SET: Open", 0);
         photo_text(FONT(FONT_MED_LARGE, COLOR_WHITE, COLOR_GRAY(5)), 382, 218, 316, "INFO: Photo / Classic");

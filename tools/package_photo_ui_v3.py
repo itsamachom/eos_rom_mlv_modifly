@@ -36,7 +36,7 @@ info={'version':'PHOTO-UI-v3.600D.102','target':'600D.102','source_commit':sha,
       'first_install_hardware_tested':False,'installer_rebuilt_or_modified':False,
       'installer_sha256':fir_hash,'source_sha256':digest(source.read_bytes()),
       'autoexec_sha256':digest(binary),'autoexec_bytes':len(binary),'modules':sorted(expected),
-      'host_test_groups_passed':12,'target_bindings_checked':34,'qemu':False}
+      'host_test_groups_passed':13,'target_bindings_checked':34,'qemu':False}
 dest=out/'600D-102-PHOTO-UI-v3-FULL-EXPERIMENTAL.zip'
 with zipfile.ZipFile(dest,'w',zipfile.ZIP_DEFLATED) as z:
     for n,b in payload.items(): z.writestr(n,b)
