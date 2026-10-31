@@ -1,0 +1,47 @@
+{
+  "version": "PHOTO-UI-v3r1.600D.102",
+  "target": "600D.102",
+  "source_commit": "12d71a6ddf73e192ed903687b8561cc45a11f0f9",
+  "base_commit": "ca97d4ea27d08fee3698c5c8ac2ee0753b75a2f2",
+  "camera_tested": false,
+  "first_install_hardware_tested": false,
+  "installer_rebuilt_or_modified": false,
+  "installer_sha256": "7e33d8a2a71ad92c412d291fb0ecb6de0b9404c212571d51fd82f839688070e3",
+  "source_sha256": "70fe64eb257f88decdc871abb89f515033f1f07338f6f4962f4fd199d0c032d5",
+  "autoexec_sha256": "af92d4a1be7888dbbccb50d3aa6d5a76683383386b2b0570cdfd3b5780b7456a",
+  "autoexec_bytes": 505152,
+  "modules": [
+    "adv_int",
+    "arkanoid",
+    "autoexpo",
+    "deflick",
+    "dual_iso",
+    "ettr",
+    "file_man",
+    "img_name",
+    "lua",
+    "pic_view"
+  ],
+  "host_test_groups_passed": 26,
+  "target_bindings_checked": 38,
+  "qemu": false,
+  "restored_translation_ref": "d68c29673c4919d961530cf0ba0f8403ed4cf81c",
+  "thai_manifest": {
+    "font": "Noto Sans Thai",
+    "weight": 600,
+    "font_version": "Version 2.002",
+    "font_sha256": "5a1c559bb539583c8a1fd99d1c5b9491e5e14478c9cd2bd0970d5c3096cc9ef8",
+    "atlas_sha256": "1171ebae12f416ad1df86c89f272fda215e7f4d8b4d03fc61bb75f839361cf64",
+    "atlas_crc32": "9459363f",
+    "atlas_bytes": 473885,
+    "translated_phrases": 340,
+    "font_sizes": [
+      23,
+      28,
+      32
+    ],
+    "shaping": "Pillow RAQM/HarfBuzz, language th, ltr",
+    "pillow": "12.3.0"
+  },
+  "zip_sha256": "b79d8163282c461954f3252bc3aa577f75d4ef10261ddb9e831df9eba4a17a1c"
+}
