@@ -6,6 +6,11 @@
 #include <stdarg.h>
 #include <string.h>
 #include <stdlib.h>
+#include <sys/stat.h>
+#include <pthread.h>
+#include <time.h>
+#include <errno.h>
+#include <limits.h>
 #include "../firmware/src/menu.h"
 
 #define CONFIG_600D 1
@@ -14,8 +19,6 @@
 #define MOD(a,b) ((((int)(a)%(int)(b))+(int)(b))%(int)(b))
 #define streq(a,b) (!strcmp(a,b))
 #define ICON_ML_SUBMENU 100
-#define FONT_BG(f) (((f)>>16)&255)
-#define FONT_FG(f) (((f)>>8)&255)
 #define FONT_SMALL 1
 #define FONT_MED 2
 #define FONT_MED_LARGE 3
@@ -26,20 +29,85 @@
 #define COLOR_ORANGE 3
 #define COLOR_CYAN 4
 #define COLOR_GRAY(a) ((a)+10)
+#define FONT_ID(font) ((font)&255)
+#define FONT_FG(font) (((font)>>8)&255)
+#define O_RDONLY 0
+#define O_SYNC 0
 #define FONT(font,fg,bg) ((font)|((fg)<<8)|((bg)<<16))
 enum { BGMT_INFO=1, BGMT_PRESS_LEFT, BGMT_WHEEL_LEFT, BGMT_PRESS_RIGHT,
        BGMT_WHEEL_RIGHT, BGMT_PRESS_UP, BGMT_WHEEL_UP, BGMT_PRESS_DOWN,
        BGMT_WHEEL_DOWN, BGMT_MENU, BGMT_PRESS_SET, BGMT_Q, BGMT_PLAY };
 static int submenu_level,edit_mode,menu_lv_transparent_mode,menu_help_active;
 static int recording,locks,close_requests,actions,last_mode,run_actions;
+static int menu_redraw_cancel;
+static int exercise_native_reentry;
+static int photo_menu_draw(void);
+static pthread_mutex_t menu_mutex = PTHREAD_MUTEX_INITIALIZER;
+static _Thread_local int owns_menu_lock;
 static struct menu * menus;
 static struct menu_entry * last_entry;
 static const int menu_sem=1,gui_sem=2;
 #define SUBMENU_OR_EDIT (submenu_level || edit_mode)
 #define RECORDING recording
+static int photo_thai_enabled;
+static int io_missing,io_corrupt,io_short,thai_pixels;
+static unsigned char framebuffer[720*480];
+static const char * atlas_path(void) { const char * p=getenv("PHOTO_TEST_ATLAS");assert(p);return p; }
+static int FIO_GetFileSize(const char * p,unsigned * size)
+{
+    (void)p;struct stat st;if(io_missing || stat(atlas_path(),&st))return -1;
+    *size=(unsigned)st.st_size;return 0;
+}
+static void * fio_malloc(unsigned n) { assert(n<=512*1024);return malloc(n); }
+static void fio_free(void * p) { free(p); }
+static FILE * FIO_OpenFile(const char * p,int flags) { (void)p;(void)flags;return fopen(atlas_path(),"rb"); }
+static int FIO_ReadFile(FILE * file,void * data,unsigned n)
+{
+    int got=fread(data,1,n,file);
+    if(io_corrupt && got)((unsigned char*)data)[0]^=1;
+    return io_short && got ? got-1 : got;
+}
+static void FIO_CloseFile(FILE * file) { fclose(file); }
+static uint8_t * bmp_vram(void) { return framebuffer; }
+static void bmp_putpixel_fast(uint8_t * b,int x,int y,int color)
+{
+    assert(x>=0 && x<720 && y>=0 && y<480);b[y*720+x]=color;thai_pixels++;
+}
 static char output[30000];
 static int text_count;
 static int bmp_string_width(int font,const char * s) { return (int)strlen(s)*((font&255)==FONT_SMALL?8:(font&255)==FONT_MED?12:(font&255)==FONT_MED_LARGE?14:16); }
+/* Optional host proofs use the shipped RBF glyphs and production Thai blitter.
+ * Camera values below are explicit test fixtures, never hardware readings. */
+static void proof_ascii(int font,int x,int y,const char * text)
+{
+    const char * dir=getenv("PHOTO_PROOF_RBF_DIR");if(!dir)return;
+    static unsigned char * rbf[5];
+    int id=FONT_ID(font);assert(id>=2 && id<=4);
+    if(!rbf[id]) {
+        char path[512];snprintf(path,sizeof(path),"%s/argnor%d.rbf",dir,id==2?23:id==3?28:32);
+        FILE * f=fopen(path,"rb");assert(f);assert(!fseek(f,0,SEEK_END));long size=ftell(f);rewind(f);
+        rbf[id]=malloc(size);assert(rbf[id]);assert(fread(rbf[id],1,size,f)==(size_t)size);fclose(f);
+    }
+    int h[11];memcpy(h,rbf[id]+72,sizeof(h));
+    int stride=h[0]/h[2];
+    for(const unsigned char * c=(const unsigned char*)text;*c;c++) {
+        assert(*c>=h[4] && *c<=h[5]);
+        int w=rbf[id][h[7]+*c-h[4]];
+        unsigned char * bits=rbf[id]+h[8]+(*c-h[4])*h[0];
+        for(int yy=0;yy<h[2];yy++)for(int xx=0;xx<w;xx++) {
+            assert(x+xx>=0 && x+xx<720 && y+yy>=0 && y+yy<480);
+            framebuffer[(y+yy)*720+x+xx]=(bits[yy*stride+xx/8] & (1<<(xx%8))) ? FONT_FG(font) : (font>>16)&255;
+        }
+        x+=w;
+    }
+}
+static void save_proof(const char * name)
+{
+    const char * dir=getenv("PHOTO_PROOF_OUT");if(!dir)return;
+    char path[512];snprintf(path,sizeof(path),"%s/%s.pgm",dir,name);
+    FILE * f=fopen(path,"wb");assert(f);fprintf(f,"P5\n720 480\n255\n");
+    assert(fwrite(framebuffer,1,sizeof(framebuffer),f)==sizeof(framebuffer));fclose(f);
+}
 static void bmp_printf(int font,int x,int y,const char * fmt,...)
 {
     char text[512];
@@ -47,18 +115,32 @@ static void bmp_printf(int font,int x,int y,const char * fmt,...)
     assert(x>=0 && y>=0 && x+bmp_string_width(font,text)<=720 && y<480);
     assert(strlen(output)+strlen(text)+2<sizeof(output));
     strcat(output,text);strcat(output,"\n");text_count++;
+    proof_ascii(font,x,y,text);
 }
 static void bmp_fill(int color,int x,int y,int w,int h)
 {
-    (void)color;assert(x>=0 && y>=0 && w>0 && h>0 && x+w<=720 && y+h<=480);
+    assert(x>=0 && y>=0 && w>0 && h>0 && x+w<=720 && y+h<=480);
+    for(int yy=y;yy<y+h;yy++)memset(framebuffer+yy*720+x,color,w);
 }
-static void bmp_draw_rect(int color,int x,int y,int w,int h) { bmp_fill(color,x,y,w,h); }
+static void bmp_draw_rect(int color,int x,int y,int w,int h)
+{
+    bmp_fill(color,x,y,w,1);bmp_fill(color,x,y+h-1,w,1);
+    bmp_fill(color,x,y,1,h);bmp_fill(color,x+w-1,y,1,h);
+}
 static void draw_line(int x,int y,int xx,int yy,int color)
 {
     (void)color;assert(x>=0 && xx<720 && y>=0 && yy<480);
 }
-static void take_semaphore(int sem,int timeout) { (void)timeout;assert(sem==menu_sem && locks==0);locks++; }
-static void give_semaphore(int sem) { if(sem==gui_sem)close_requests++;else{assert(locks==1);locks--;} }
+static void take_semaphore(int sem,int timeout)
+{
+    (void)timeout;assert(sem==menu_sem && !owns_menu_lock);
+    assert(!pthread_mutex_lock(&menu_mutex));assert(locks==0);locks++;owns_menu_lock=1;
+}
+static void give_semaphore(int sem)
+{
+    if(sem==gui_sem)close_requests++;
+    else { assert(locks==1 && owns_menu_lock);locks--;owns_menu_lock=0;assert(!pthread_mutex_unlock(&menu_mutex)); }
+}
 static int is_visible(struct menu_entry * e) { return !e->shidden && !e->hidden && !e->placeholder; }
 static void entry_default_display_info(struct menu_entry * e,struct menu_display_info * info)
 {
@@ -72,6 +154,13 @@ void menu_open_submenu(void * priv, int delta) { (void)priv; (void)delta; submen
 static void menu_entry_select(struct menu * m,int mode)
 {
     assert(locks==0);assert(m->selected || IS_SUBMENU(m));actions++;last_mode=mode;
+    if(exercise_native_reentry)
+    {
+        take_semaphore(menu_sem,0);give_semaphore(menu_sem);
+        int before=text_count;menu_redraw_cancel=0;
+        assert(photo_menu_draw()==1 && menu_redraw_cancel && text_count==before);
+        menu_redraw_cancel=0;
+    }
     for(struct menu_entry * e=m->children;e;e=e->next)if(e->selected)
     {
         last_entry=e;
@@ -86,7 +175,45 @@ static void menu_entry_select(struct menu * m,int mode)
     }
     assert(!"No selected entry");
 }
+static char camera_model[32]="Canon EOS 600D", firmware_version[32]="1.0.2";
+static int shutter_count_valid,shutter_count,shutter_count_plus_lv_actuations;
+#include "../firmware/src/photo-camera-info-600d.h"
+static void observe_snapshot(void);
+#define PHOTO_MENU_SNAPSHOT_OBSERVER() observe_snapshot()
 #include "../firmware/src/photo-menu-600d.h"
+
+static pthread_mutex_t race_mutex=PTHREAD_MUTEX_INITIALIZER;
+static pthread_cond_t race_condition=PTHREAD_COND_INITIALIZER;
+static pthread_t race_thread;
+static int race_enabled,race_attempted,race_done,race_blocked;
+static void * category_key_thread(void * unused)
+{
+    (void)unused;
+    assert(!pthread_mutex_lock(&race_mutex));race_attempted=1;
+    assert(!pthread_cond_broadcast(&race_condition));assert(!pthread_mutex_unlock(&race_mutex));
+    assert(photo_menu_key(BGMT_PRESS_UP));
+    assert(!pthread_mutex_lock(&race_mutex));race_done=1;
+    assert(!pthread_cond_broadcast(&race_condition));assert(!pthread_mutex_unlock(&race_mutex));
+    return NULL;
+}
+static void observe_snapshot(void)
+{
+    if(!race_enabled)return;
+    race_enabled=0;
+    assert(owns_menu_lock && locks==1);
+    assert(!pthread_create(&race_thread,NULL,category_key_thread,NULL));
+    assert(!pthread_mutex_lock(&race_mutex));
+    while(!race_attempted)assert(!pthread_cond_wait(&race_condition,&race_mutex));
+    struct timespec deadline;assert(timespec_get(&deadline,TIME_UTC)==TIME_UTC);
+    deadline.tv_nsec+=250000000;
+    if(deadline.tv_nsec>=1000000000){deadline.tv_sec++;deadline.tv_nsec-=1000000000;}
+    int rc=0;
+    while(!race_done && rc!=ETIMEDOUT)rc=pthread_cond_timedwait(&race_condition,&race_mutex,&deadline);
+    assert(!rc || rc==ETIMEDOUT);
+    race_blocked=!race_done;
+    assert(!pthread_mutex_unlock(&race_mutex));
+    assert(race_blocked && photo_page_index==4 && photo_selection[4]==0);
+}
 
 static int on=1,threshold_value=10;
 static struct menu_entry wrong={.name="Unrelated",.selected=1};
@@ -108,12 +235,14 @@ static void reset(void)
 {
     memset(photo_selection,0,sizeof(photo_selection));photo_page_index=0;photo_menu_reset();
     submenu_level=edit_mode=menu_help_active=menu_lv_transparent_mode=recording=0;
-    actions=last_mode=close_requests=run_actions=0;last_entry=NULL;locks=0;
+    actions=last_mode=close_requests=run_actions=exercise_native_reentry=menu_redraw_cancel=0;
+    last_entry=NULL;locks=0;
     on=1;threshold_value=10;
     peak.hidden=peak.shidden=peak.placeholder=0;peak.selected=0;
     threshold.hidden=threshold.shidden=0;threshold.selected=0;threshold.next=&action;
     threshold.parent_menu=action.parent_menu=&options;
-    action.selected=0;wrong.next=&peak;wrong.selected=1;
+    action.selected=action.shidden=action.hidden=0;action.next=NULL;
+    wrong.next=&peak;wrong.selected=1;
     overlay.next=&prefs;prefs.next=&options;options.next=NULL;menus=&overlay;
     overlay.selected=1;prefs.selected=0;output[0]=0;text_count=0;
 }
@@ -126,13 +255,65 @@ static void go_peak(void)
 }
 int main(void)
 {
+    reset();photo_page_index=4;photo_selection[3]=7;
+    race_enabled=1;race_attempted=race_done=race_blocked=0;
+    render();assert(!pthread_join(race_thread,NULL));
+    assert(race_blocked && photo_page_index==3 && photo_selection[3]==7);
+    render();assert(strstr(output,"Page") && strstr(output,"2/2"));
+    puts("PASS key task waits for the redraw snapshot lock and uses the correct category bounds");
+
+    reset();photo_page_index=-1;photo_selection[0]=999;photo_detail_index=-10;photo_pane=99;
+    render();assert(photo_page_index==0 && photo_selection[0]==0 && photo_detail_index==0 && photo_pane==PHOTO_CATEGORIES);
+    photo_page_index=999;assert(photo_menu_key(BGMT_PRESS_DOWN));
+    assert(photo_page_index==1);assert(!photo_menu_key(123456));
+    reset();go_peak();photo_detail_index=INT_MAX;
+    assert(photo_menu_key(BGMT_PRESS_DOWN));assert(photo_detail_index>=0 && photo_detail_index<3);
+    puts("PASS invalid category/item/pane indices recover before any array access");
+
+    reset();go_peak();
+    int other_value=20;
+    struct menu_entry other={.name="Other numeric option",.priv=&other_value,.min=1,.max=50,.parent_menu=&options,.next=&action};
+    threshold.next=&other;
+    press(BGMT_PRESS_DOWN);press(BGMT_PRESS_SET);assert(photo_editing);
+    threshold.shidden=1;render();assert(!photo_editing && !photo_confirm);
+    press(BGMT_PRESS_RIGHT);assert(other_value==20 && actions==0);
+    press(BGMT_PRESS_SET);assert(photo_editing);press(BGMT_PRESS_RIGHT);
+    assert(other_value==21 && last_entry==&other);
+    puts("PASS redraw cancels an armed edit after a hidden row shifts a different value into its slot");
+
+    reset();go_peak();
+    struct menu_entry next_action={.name="Different capture action",.icon_type=IT_ACTION,.parent_menu=&options};
+    action.next=&next_action;
+    press(BGMT_PRESS_DOWN);press(BGMT_PRESS_DOWN);press(BGMT_PRESS_SET);assert(photo_confirm);
+    action.shidden=1;render();assert(!photo_confirm && run_actions==0);
+    press(BGMT_PRESS_SET);assert(photo_confirm && run_actions==0);
+    press(BGMT_PRESS_SET);assert(run_actions==1 && last_entry==&next_action);
+    puts("PASS redraw requires a fresh confirmation after the target action is replaced");
+
+    reset();go_peak();press(BGMT_PRESS_DOWN);press(BGMT_PRESS_SET);
+    struct menu_entry same_name=threshold;same_name.selected=0;
+    peak.children=&same_name;options.children=&same_name;render();
+    assert(!photo_editing);press(BGMT_PRESS_RIGHT);assert(actions==0 && threshold_value==10);
+    peak.children=options.children=&threshold;
+    puts("PASS same-name replacement objects cannot inherit the old edit identity");
+
+    reset();go_peak();press(BGMT_PRESS_DOWN);press(BGMT_PRESS_SET);
+    photo_menu_reset();photo_classic=0;photo_pane=PHOTO_ITEMS;photo_page_index=3;photo_selection[3]=1;render();
+    assert(!photo_editing && !photo_confirm);
+    puts("PASS menu reset clears armed and displayed identities under the shared lock");
+
+    reset();go_peak();press(BGMT_PRESS_DOWN);press(BGMT_PRESS_SET);
+    exercise_native_reentry=1;press(BGMT_PRESS_RIGHT);exercise_native_reentry=0;
+    assert(threshold_value==11 && last_entry==&threshold && !photo_native_busy && locks==0);
+    puts("PASS native callbacks may reenter menu locking while redraw preserves their selected target");
+
     reset();render();
-    press(BGMT_PRESS_UP);assert(photo_page_index==5);
+    press(BGMT_PRESS_UP);assert(photo_page_index==6);
     press(BGMT_PRESS_DOWN);assert(photo_page_index==0);
     press(BGMT_PRESS_DOWN);assert(photo_page_index==1);
     press(BGMT_PRESS_RIGHT);assert(photo_pane==PHOTO_ITEMS && actions==0);
     press(BGMT_PRESS_UP);assert(photo_selection[1]==6);
-    assert(strstr(output,"Page 2/2"));
+    assert(strstr(output,"Page") && strstr(output,"2/2"));
     press(BGMT_PRESS_DOWN);assert(photo_selection[1]==0);
     press(BGMT_PRESS_LEFT);assert(photo_pane==PHOTO_CATEGORIES && photo_page_index==1);
     puts("PASS vertical category/item navigation and horizontal pane focus without setting changes");
@@ -160,7 +341,7 @@ int main(void)
     puts("PASS dynamically hidden or shifted options never execute a different stale target");
 
     reset();go_peak();wrong.next=NULL;assert(photo_menu_key(BGMT_PRESS_SET));
-    assert(actions==0 && !photo_editing);render();assert(photo_display_target[0]==0);
+    assert(actions==0 && !photo_editing);render();assert(strstr(output,"Unavailable"));
     puts("PASS unloaded modules cannot activate stale settings");
 
     reset();go_peak();press(BGMT_PRESS_DOWN);press(BGMT_PRESS_DOWN);
@@ -177,7 +358,7 @@ int main(void)
     assert(photo_menu_key(BGMT_INFO));assert(!photo_classic);
     puts("PASS Q keeps original advanced editors and INFO returns to Photo UI");
 
-    reset();photo_page_index=5;photo_selection[5]=1;render();
+    reset();photo_page_index=5;photo_selection[5]=2;render();
     press(BGMT_PRESS_RIGHT);assert(photo_pane==PHOTO_ITEMS);
     press(BGMT_PRESS_SET);assert(photo_classic && prefs.selected && actions==0);
     press(BGMT_INFO);assert(!photo_classic);press(BGMT_MENU);assert(close_requests==1);
@@ -209,12 +390,8 @@ int main(void)
         more[i].max=50;more[i].parent_menu=&options;if(i<5)more[i].next=&more[i+1];}
     threshold.next=more;
     go_peak();for(int i=0;i<5;i++)press(BGMT_PRESS_DOWN);
-    assert(strstr(output,"Opts 2/2"));
+    assert(strstr(output,"Options") && strstr(output,"2/2"));
     puts("PASS detail options paginate at four enlarged two-line rows");
-
-    reset();photo_page_index=5;photo_selection[5]=7;photo_pane=PHOTO_ITEMS;
-    render();press(BGMT_PRESS_SET);assert(!photo_classic && actions==0);
-    puts("PASS missing Games system menu cannot open or execute until its module loads");
 
     reset();
     for(unsigned p=0;p<COUNT(photo_pages);p++)for(int i=0;i<photo_pages[p].count;i++)
@@ -224,5 +401,87 @@ int main(void)
     }
     assert(actions==0);
     puts("PASS all enlarged-font pages/panes remain inside the framebuffer without running actions");
+    reset();photo_thai_enabled=1;
+    recording=1;
+    assert(!photo_thai_prepare() && !photo_thai_attempted);
+    recording=0;
+    assert(photo_thai_prepare() && photo_thai_active());
+    for(unsigned i=0;i<COUNT(photo_thai_phrases);i++)for(int style=0;style<3;style++)
+    {
+        int font=FONT(style+2,COLOR_WHITE,COLOR_BLACK);
+        const struct photo_thai_mask * m=&photo_thai_phrases[i].masks[style];
+        assert(m->offset+m->encoded_size<=PHOTO_TH_BYTES);
+        int before=thai_pixels;
+        assert(photo_thai_text(font,1,1,m->width,photo_thai_phrases[i].key));
+        assert(thai_pixels>before);
+    }
+    puts("PASS every generated Thai phrase/size decodes and paints bounded pixels");
+    reset();photo_thai_enabled=1;go_peak();
+    assert(PHOTO_DETAIL_ROWS==3 && thai_pixels>0);
+    for(unsigned p=0;p<COUNT(photo_pages);p++)for(int i=0;i<photo_pages[p].count;i++)
+    for(int pane=PHOTO_CATEGORIES;pane<=PHOTO_DETAILS;pane++)
+    { photo_page_index=p;photo_selection[p]=i;photo_pane=pane;render(); }
+    assert(actions==0);
+    assert(photo_thai_text(FONT(FONT_LARGE,1,0),10,10,318,"ON,2.0,R"));
+    assert(!photo_thai_text(FONT(FONT_LARGE,1,0),10,10,318,"Untranslated original warning"));
+    photo_thai_enabled=0;assert(!photo_thai_active());
+    puts("PASS Thai layouts, compound numeric values and unchanged English fallback");
+    for (int thai=0;thai<=1;thai++)
+    {
+        reset();photo_thai_enabled=thai;
+        struct menu_entry * camera=&photo_camera_info_menu[0];
+        struct menu helpmenu={.name="Help",.children=camera};
+        options.next=&helpmenu;
+        struct menu_entry * model=&camera->children[0], * fw=&camera->children[1];
+        model->next=fw;fw->next=NULL;model->parent_menu=fw->parent_menu=&helpmenu;
+        photo_page_index=5;photo_selection[5]=6;photo_pane=PHOTO_DETAILS;render();
+        assert(strstr(output,"Canon EOS 600D") && strstr(output,"1.0.2") && !strstr(output,"..."));
+        if(thai)save_proof("camera-info");
+        assert(!photo_can_edit(model) && !photo_can_edit(fw));
+        struct menu_display_info info;photo_read_info(model,&info);assert(!strcmp(info.value,"Canon EOS 600D"));
+        photo_read_info(fw,&info);assert(!strcmp(info.value,"1.0.2"));
+        struct menu_entry counter={.name="Shutter Count",.children=photo_shutter_details,.select=menu_open_submenu};
+        struct menu debugmenu={.name="Debug",.children=&counter};
+        options.next=&debugmenu;
+        for(int i=0;i<3;i++) { photo_shutter_details[i].parent_menu=&debugmenu;photo_shutter_details[i].next=i<2?&photo_shutter_details[i+1]:NULL; }
+        photo_selection[5]=7;photo_detail_index=0;
+        shutter_count_valid=0;render();
+        for(int i=0;i<3;i++) { photo_read_info(&photo_shutter_details[i],&info);assert(!strcmp(info.value,"Unavailable"));assert(!photo_can_edit(&photo_shutter_details[i])); }
+        shutter_count_valid=1;shutter_count=12345;shutter_count_plus_lv_actuations=12445;render();
+        if(thai)save_proof("shutter-details-fixture");
+        const char * expected[]={"12345","100","12445"};
+        for(int i=0;i<3;i++) { photo_read_info(&photo_shutter_details[i],&info);assert(!strcmp(info.value,expected[i])); }
+        assert(!strstr(output,"..."));
+        camera->children[0].next=NULL;options.next=NULL;
+    }
+    puts("PASS production camera model/firmware rows fit uncut and remain read-only in Thai and English");
+    puts("PASS three production shutter detail rows distinguish unavailable, mechanical, Live View and combined values");
+    reset();photo_page_index=6;photo_pane=PHOTO_ITEMS;render();
+    assert(!strcmp(photo_pages[6].name,"Games"));press(BGMT_PRESS_RIGHT);press(BGMT_PRESS_SET);
+    save_proof("games");
+    assert(actions==0 && !photo_editing && !photo_confirm);
+    reset();photo_thai_enabled=1;photo_page_index=0;photo_selection[0]=1;photo_pane=PHOTO_ITEMS;render();save_proof("shoot");
+    puts("PASS separate Games category stays unavailable until its actual game modules register");
+
+    reset();photo_thai_enabled=1;
+    struct menu_entry language={.name="Photo UI Language",.priv=&photo_thai_enabled,.max=1,.icon_type=IT_DICE};
+    prefs.children=&language;
+    photo_page_index=5;photo_pane=PHOTO_ITEMS;render();
+    press(BGMT_PRESS_RIGHT);press(BGMT_PRESS_SET);press(BGMT_PRESS_RIGHT);
+    assert(photo_thai_enabled==0 && !photo_thai_active() && PHOTO_DETAIL_ROWS==4);
+    press(BGMT_PRESS_SET);press(BGMT_PRESS_SET);press(BGMT_PRESS_RIGHT);
+    assert(photo_thai_enabled==1 && photo_thai_active() && PHOTO_DETAIL_ROWS==3 && run_actions==0);
+    prefs.children=NULL;
+    puts("PASS language switch edits the real setting without changing shooting controls");
+    for(int kind=0;kind<3;kind++)
+    {
+        fio_free(photo_thai_atlas);photo_thai_atlas=NULL;photo_thai_attempted=0;photo_thai_enabled=1;
+        io_missing=kind==0;io_corrupt=kind==1;io_short=kind==2;
+        assert(!photo_thai_prepare() && !photo_thai_active());
+        assert(!photo_thai_text(FONT(FONT_LARGE,1,0),10,10,318,"Focus Peak"));
+        render();assert(strstr(output,"Thai font missing"));
+    }
+    io_missing=io_corrupt=io_short=0;photo_thai_enabled=0;
+    puts("PASS missing, corrupted and short Thai resources safely retain English");
     return 0;
 }

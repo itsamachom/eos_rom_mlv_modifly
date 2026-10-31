@@ -40,6 +40,10 @@
 #include "lvinfo.h"
 #include "powersave.h"
 
+#ifdef CONFIG_600D
+static CONFIG_INT("menu.photo.thai", photo_thai_enabled, 1);
+#endif
+
 #define CONFIG_MENU_ICONS
 //~ #define CONFIG_MENU_DIM_HACKS
 #undef SUBMENU_DEBUG_JUNKIE
@@ -317,7 +321,16 @@ static struct menu_entry customize_menu[] = {
         .priv   = &customize_mode,
         .max    = 1,
         .select = customize_toggle,
-    }
+    },
+#ifdef CONFIG_600D
+    {
+        .name = "Photo UI Language",
+        .priv = &photo_thai_enabled,
+        .max = 1,
+        .choices = CHOICES("English", "Thai"),
+        .help = "Choose English or Thai for Photo UI only.",
+    },
+#endif
 };
 
 static int is_customize_selected(struct menu * menu) // argument is optional, just for speedup

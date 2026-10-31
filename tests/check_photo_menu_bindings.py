@@ -34,7 +34,7 @@ def cstring(addr):
 
 
 arrays = {
-    "debug_menus": "Debug", "photo_camera_info_menu": "Help", "shoot_menus": "Shoot", "expo_menus": "Expo",
+    "customize_menu": "Prefs", "debug_menus": "Debug", "photo_camera_info_menu": "Help", "shoot_menus": "Shoot", "expo_menus": "Expo",
     "picstyle_features_menu": "Expo", "trap_focus_menu": "Focus",
     "focus_menu": "Focus", "zebra_menus": "Overlay", "cropmarks_menu": "Overlay",
     "mov_menus": "Movie", "movie_tweaks_menus": "Movie", "mov_tweak_menus": "Movie Tweaks",
@@ -58,13 +58,18 @@ for s in sections:
 
 header = (root / "firmware/src/photo-menu-600d.h").read_text()
 bindings = re.findall(r'\{"[^"]+", "([^"]+)", "([^"]+)"\}', header)
-module_bindings = {("Shoot", "Silent Picture"), ("Expo", "Dual ISO"), ("Expo", "Auto ETTR")}
+module_bindings = {("Shoot", "Silent Picture"), ("Expo", "Dual ISO"), ("Expo", "Auto ETTR"), ("Games", "Arkanoid")}
 for menu, entry in bindings:
     if (menu, entry) in module_bindings:
         # Modules are resolved dynamically on the camera. Check packaged strings.
-        mod = {"Silent Picture": "silent", "Dual ISO": "dual_iso", "Auto ETTR": "ettr"}[entry]
+        mod = {"Silent Picture": "silent", "Dual ISO": "dual_iso", "Auto ETTR": "ettr", "Arkanoid": "arkanoid"}[entry]
         blob = (path.parent / "zip/ML/modules" / (mod + ".mo")).read_bytes()
         assert entry.encode() + b"\0" in blob, (menu, entry)
+    elif menu == "Scripts":
+        script = {"Pong Game": "pong.lua", "Sokoban Game": "sokoban.lua"}[entry]
+        text = (path.parent / "zip/ML/scripts" / script).read_text()
+        assert text.split("--[[", 1)[1].strip().splitlines()[0].strip() == entry
+        assert (path.parent / "zip/ML/modules/lua.mo").is_file()
     else:
         assert (menu, entry) in registered, f"Unresolved Photo UI binding: {menu} / {entry}"
 print(f"PASS {len(bindings)} Photo UI bindings match linked ARM menus or packaged modules")

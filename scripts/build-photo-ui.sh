@@ -11,4 +11,4 @@ if [[ ${1:-} == --clean ]]; then
     make -C platform/600D.102 ARM_BINPATH="$arm_bin" clean
     make -C modules ARM_BINPATH="$arm_bin" clean
 fi
-make -C platform/600D.102 -j4 ARM_BINPATH="$arm_bin" CONFIG_QEMU=n VERSION=PHOTO-UI-v3.600D.102
+make -C platform/600D.102 -j4 ARM_BINPATH="$arm_bin" CONFIG_QEMU=n VERSION=PHOTO-UI-v3r1.600D.102

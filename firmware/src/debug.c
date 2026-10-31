@@ -689,18 +689,7 @@ static MENU_UPDATE_FUNC(image_buf_display)
 }
 #endif
 
-#ifdef CONFIG_600D
-static MENU_UPDATE_FUNC(photo_camera_info_display)
-{
-    MENU_SET_VALUE("%s / %s", camera_model[0] ? camera_model : "Unavailable",
-        firmware_version[0] ? firmware_version : "Unavailable");
-}
-static struct menu_entry photo_camera_info_menu[] = {
-    { .name = "Camera Info", .update = photo_camera_info_display,
-      .help = "Camera model and Canon firmware read from camera properties.",
-      .icon_type = IT_ALWAYS_ON },
-};
-#endif
+#include "photo-camera-info-600d.h"
 
 static MENU_UPDATE_FUNC(shuttercount_display)
 {
@@ -1126,6 +1115,11 @@ static struct menu_entry debug_menus[] = {
         .name = "Shutter Count",
         .update = shuttercount_display,
         //.essential = FOR_MOVIE | FOR_PHOTO,
+        #ifdef CONFIG_600D
+        .select = menu_open_submenu,
+        .help = "Mechanical shutter, Live View and combined actuations from Canon.",
+        .children = photo_shutter_details,
+        #endif
         #if defined(CONFIG_DIGIC_8X)
         .help = "Number of shutter actions. Open submenu to learn more.",
         .select = menu_open_submenu,
@@ -1151,7 +1145,7 @@ static struct menu_entry debug_menus[] = {
             },
             MENU_EOL,
         },
-        #else // no submenu, classic style
+        #elif !defined(CONFIG_600D) // no submenu, classic style
         .help = "Number of pics taken + number of LiveView actuations",
         .icon_type = IT_ALWAYS_ON,
         #endif

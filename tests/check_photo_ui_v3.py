@@ -1,5 +1,7 @@
 """Regression checks for menu inventory and camera-property availability semantics."""
 import re
+import sys
+import json
 import subprocess
 from pathlib import Path
 root=Path(__file__).resolve().parents[1]
@@ -15,12 +17,19 @@ assert 'silent' not in modules and {'arkanoid','lua'} <= set(modules)
 for game in ['pong.lua','sokoban.lua']:
     assert (root/'firmware/scripts'/game).read_bytes()==subprocess.check_output(['git','show','359f828:firmware/scripts/'+game],cwd=root)
 # Rendering assets must regenerate identically when the authoring tools are available.
-asset=root/'firmware/src/photo-thai-600d.h'
+asset=root/'firmware/data/photo_thai/PHOTO_TH.BIN'
 before=asset.read_bytes()
-subprocess.run(['python3',str(root/'tools/generate_photo_thai.py')],check=True)
+subprocess.run([sys.executable,str(root/'tools/generate_photo_thai.py')],check=True)
 assert asset.read_bytes()==before
-print('PASS retained menu inventory, required names, removed silent module, original games and reproducible Thai assets')
-
+# Restore every existing translation except the explicitly requested names.
+old_lex=json.loads((root/'translations/photo_th.original.json').read_text())
+lex=json.loads((root/'translations/photo_th.json').read_text())
+renamed={'Intervalometer','Advanced Bracket','Zebras','Histogram','Waveform'}
+for key,value in old_lex.items():
+    if key not in renamed: assert lex[key]==value, key
+assert 'PHOTO_PAGE("Games", "G", photo_games)' in h
+assert 'int h=30*w/t->width' not in (root/'firmware/src/photo-thai-600d.h').read_text()
+print('PASS retained menu inventory, original translations/font sizes, separate Games category, original games and reproducible atlas')
 # Compile the actual production property-handler body, not a duplicated formula.
 import tempfile
 body=(root/'firmware/src/propvalues.c').read_text().split('PROP_HANDLER(PROP_SHUTTER_COUNTER)\n{',1)[1].split('\n}',1)[0]

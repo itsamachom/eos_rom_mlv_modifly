@@ -1,0 +1,1410 @@
+{
+  "Shoot": {
+    "th": "ถ่ายภาพ",
+    "max_width": 276
+  },
+  "Focus": {
+    "th": "โฟกัส",
+    "max_width": 276
+  },
+  "Expo": {
+    "th": "ค่าแสง",
+    "max_width": 276
+  },
+  "Overlay": {
+    "th": "ตัวช่วยแสดงภาพ",
+    "max_width": 276
+  },
+  "Movie": {
+    "th": "วิดีโอ",
+    "max_width": 276
+  },
+  "Setup": {
+    "th": "ตั้งค่า",
+    "max_width": 276
+  },
+  "Intervalometer": {
+    "th": "Time-lapse",
+    "max_width": 276
+  },
+  "Bulb Timer": {
+    "th": "ตั้งเวลาชัตเตอร์ B",
+    "max_width": 276
+  },
+  "Advanced Bracket": {
+    "th": "ถ่ายคร่อม",
+    "max_width": 276
+  },
+  "Silent Picture": {
+    "th": "ถ่ายภาพแบบเงียบ",
+    "max_width": 276
+  },
+  "Mirror Lockup": {
+    "th": "ล็อกกระจกสะท้อน",
+    "max_width": 276
+  },
+  "Flash Tweaks": {
+    "th": "ตั้งค่าแฟลช",
+    "max_width": 276
+  },
+  "Shoot Preferences": {
+    "th": "ตั้งค่าการถ่ายภาพ",
+    "max_width": 276
+  },
+  "Trap Focus": {
+    "th": "ถ่ายเมื่อเข้าโฟกัส",
+    "max_width": 276
+  },
+  "Focus Stacking": {
+    "th": "ถ่ายคร่อมโฟกัส",
+    "max_width": 276
+  },
+  "Rack Focus": {
+    "th": "ย้ายระยะโฟกัส",
+    "max_width": 276
+  },
+  "Follow Focus": {
+    "th": "ควบคุมโฟกัส",
+    "max_width": 276
+  },
+  "Focus End Point": {
+    "th": "จุดสิ้นสุดโฟกัส",
+    "max_width": 276
+  },
+  "Focus Settings": {
+    "th": "ตั้งค่าโฟกัส",
+    "max_width": 276
+  },
+  "DOF Settings": {
+    "th": "ตั้งค่าระยะชัด",
+    "max_width": 276
+  },
+  "White Balance": {
+    "th": "สมดุลแสงขาว",
+    "max_width": 276
+  },
+  "ISO": {
+    "th": "ISO",
+    "max_width": 276
+  },
+  "Shutter": {
+    "th": "ความเร็วชัตเตอร์",
+    "max_width": 276
+  },
+  "Aperture": {
+    "th": "รูรับแสง",
+    "max_width": 276
+  },
+  "Picture Style": {
+    "th": "รูปแบบภาพ",
+    "max_width": 276
+  },
+  "Dual ISO": {
+    "th": "Dual ISO",
+    "max_width": 276
+  },
+  "Auto ETTR": {
+    "th": "ETTR อัตโนมัติ",
+    "max_width": 276
+  },
+  "Zebras": {
+    "th": "zebra settings",
+    "max_width": 276
+  },
+  "Focus Peak": {
+    "th": "ไฮไลต์จุดชัด",
+    "max_width": 276
+  },
+  "Magic Zoom": {
+    "th": "ขยายช่วยโฟกัส",
+    "max_width": 276
+  },
+  "Histogram": {
+    "th": "Histogram",
+    "max_width": 276
+  },
+  "Spotmeter": {
+    "th": "วัดความสว่างจุด",
+    "max_width": 276
+  },
+  "Cropmarks": {
+    "th": "เส้นกรอบภาพ",
+    "max_width": 276
+  },
+  "Waveform": {
+    "th": "Waveform",
+    "max_width": 276
+  },
+  "Global Draw": {
+    "th": "เปิดตัวช่วยแสดงภาพ",
+    "max_width": 276
+  },
+  "Time Indicator": {
+    "th": "เวลาในการบันทึก",
+    "max_width": 276
+  },
+  "REC key": {
+    "th": "ปุ่มบันทึกวิดีโอ",
+    "max_width": 276
+  },
+  "Movie Tweaks": {
+    "th": "ตั้งค่าวิดีโอ",
+    "max_width": 276
+  },
+  "Modules": {
+    "th": "โมดูลเสริม",
+    "max_width": 276
+  },
+  "Preferences": {
+    "th": "การตั้งค่า",
+    "max_width": 276
+  },
+  "Display": {
+    "th": "การแสดงผล",
+    "max_width": 276
+  },
+  "Version / Help": {
+    "th": "เวอร์ชัน / วิธีใช้",
+    "max_width": 276
+  },
+  "Diagnostics": {
+    "th": "ตรวจสอบระบบ",
+    "max_width": 276
+  },
+  "Language": {
+    "th": "ภาษา / Language",
+    "max_width": 276
+  },
+  "Photo UI Language": {
+    "th": "ภาษาเมนู Photo UI",
+    "max_width": 318
+  },
+  "English": {
+    "th": "English",
+    "max_width": 318
+  },
+  "Thai": {
+    "th": "ภาษาไทย",
+    "max_width": 318
+  },
+  "Page": {
+    "th": "หน้า",
+    "max_width": 318
+  },
+  "Options": {
+    "th": "ตัวเลือก",
+    "max_width": 318
+  },
+  "Current": {
+    "th": "ค่าปัจจุบัน",
+    "max_width": 318
+  },
+  "Action": {
+    "th": "คำสั่ง",
+    "max_width": 318
+  },
+  "System menu": {
+    "th": "เมนูระบบ",
+    "max_width": 318
+  },
+  "SET: Open": {
+    "th": "SET: เปิดเมนู",
+    "max_width": 318
+  },
+  "SET: Run": {
+    "th": "SET: เริ่มทำงาน",
+    "max_width": 318
+  },
+  "Read only": {
+    "th": "แสดงค่าเท่านั้น",
+    "max_width": 318
+  },
+  "Status": {
+    "th": "สถานะ",
+    "max_width": 318
+  },
+  "Unavailable": {
+    "th": "ยังใช้งานไม่ได้",
+    "max_width": 318
+  },
+  "See Setup > Modules": {
+    "th": "ดู ตั้งค่า > โมดูลเสริม",
+    "max_width": 318
+  },
+  "INFO: Photo / Classic": {
+    "th": "INFO: เมนูใหม่ / เดิม",
+    "max_width": 318
+  },
+  "Original system settings remain available.": {
+    "th": "ยังเปิดเมนูตั้งค่าระบบเดิมได้",
+    "max_width": 696
+  },
+  "Module may not be loaded; no action is performed.": {
+    "th": "อาจยังไม่โหลดโมดูล จึงไม่เรียกคำสั่ง",
+    "max_width": 696
+  },
+  "Run this action? SET confirms; MENU cancels.": {
+    "th": "เริ่มทำงานหรือไม่? SET ยืนยัน  MENU ยกเลิก",
+    "max_width": 696
+  },
+  "Up/Down Category   Right/SET Open   MENU Close": {
+    "th": "ขึ้น/ลง เลือกหมวด   ขวา/SET เข้า   MENU ปิด",
+    "max_width": 696
+  },
+  "Up/Down Item   Right/SET Options   Left Back": {
+    "th": "ขึ้น/ลง เลือกรายการ   ขวา/SET เข้า   ซ้าย ย้อนกลับ",
+    "max_width": 696
+  },
+  "Left/Right Change   SET Done   MENU Done": {
+    "th": "ซ้าย/ขวา ปรับค่า   SET/MENU จบการปรับ",
+    "max_width": 696
+  },
+  "Up/Down Option   SET Edit   Left Back   Q More": {
+    "th": "ขึ้น/ลง เลือก   SET แก้ค่า   ซ้าย กลับ   Q เพิ่มเติม",
+    "max_width": 696
+  },
+  "SET Run   MENU Cancel": {
+    "th": "SET เริ่มทำงาน   MENU ยกเลิก",
+    "max_width": 696
+  },
+  "ON": {
+    "th": "เปิด",
+    "max_width": 318
+  },
+  "OFF": {
+    "th": "ปิด",
+    "max_width": 318
+  },
+  "Auto": {
+    "th": "อัตโนมัติ",
+    "max_width": 318
+  },
+  "Disabled": {
+    "th": "ไม่ใช้",
+    "max_width": 318
+  },
+  "Enabled": {
+    "th": "เปิดใช้",
+    "max_width": 318
+  },
+  "Leave Menu": {
+    "th": "เมื่อออกจากเมนู",
+    "max_width": 318
+  },
+  "Half Shutter": {
+    "th": "กดชัตเตอร์ครึ่งหนึ่ง",
+    "max_width": 318
+  },
+  "Take a Pic": {
+    "th": "ถ่ายภาพแรก",
+    "max_width": 318
+  },
+  "Take a pic every": {
+    "th": "ช่วงห่างแต่ละภาพ",
+    "max_width": 318
+  },
+  "Start trigger": {
+    "th": "เงื่อนไขเริ่มถ่าย",
+    "max_width": 318
+  },
+  "Start after": {
+    "th": "หน่วงก่อนเริ่ม",
+    "max_width": 318
+  },
+  "Stop after": {
+    "th": "หยุดหลังถ่ายครบ",
+    "max_width": 318
+  },
+  "Exposure duration": {
+    "th": "ระยะเวลาเปิดรับแสง",
+    "max_width": 318
+  },
+  "Display during exposure": {
+    "th": "หน้าจอขณะเปิดรับแสง",
+    "max_width": 318
+  },
+  "Don't change": {
+    "th": "ไม่เปลี่ยน",
+    "max_width": 318
+  },
+  "Turn off": {
+    "th": "ปิดหน้าจอ",
+    "max_width": 318
+  },
+  "Show previous pic": {
+    "th": "แสดงภาพก่อนหน้า",
+    "max_width": 318
+  },
+  "Bracket type": {
+    "th": "รูปแบบการคร่อมค่า",
+    "max_width": 318
+  },
+  "Frames": {
+    "th": "จำนวนภาพ",
+    "max_width": 318
+  },
+  "EV increment": {
+    "th": "ระยะห่างค่าแสง EV",
+    "max_width": 318
+  },
+  "Sequence": {
+    "th": "ลำดับการถ่าย",
+    "max_width": 318
+  },
+  "2-second delay": {
+    "th": "หน่วงเวลา 2 วินาที",
+    "max_width": 318
+  },
+  "ISO shifting": {
+    "th": "เลื่อนค่า ISO",
+    "max_width": 318
+  },
+  "Exposure (Tv,Ae)": {
+    "th": "ค่าแสง (Tv, Ae)",
+    "max_width": 318
+  },
+  "Exposure (Flash)": {
+    "th": "แสงแฟลช",
+    "max_width": 318
+  },
+  "DOF (Aperture)": {
+    "th": "ระยะชัด (รูรับแสง)",
+    "max_width": 318
+  },
+  "Autodetect": {
+    "th": "ตรวจจับอัตโนมัติ",
+    "max_width": 318
+  },
+  "MLU mode": {
+    "th": "วิธีล็อกกระจก",
+    "max_width": 318
+  },
+  "Handheld Shutter": {
+    "th": "ชัตเตอร์เมื่อถือกล้อง",
+    "max_width": 318
+  },
+  "Handheld Delay": {
+    "th": "หน่วงเมื่อถือกล้อง",
+    "max_width": 318
+  },
+  "Normal MLU Delay": {
+    "th": "หน่วงหลังยกกระจก",
+    "max_width": 318
+  },
+  "Flash expo comp.": {
+    "th": "ชดเชยแสงแฟลช",
+    "max_width": 318
+  },
+  "Flash / No flash": {
+    "th": "สลับใช้แฟลช",
+    "max_width": 318
+  },
+  "3rd p. flash LV": {
+    "th": "แฟลชเสริมใน LV",
+    "max_width": 318
+  },
+  "Pics at once": {
+    "th": "จำนวนภาพต่อชุด",
+    "max_width": 318
+  },
+  "Use Autofocus": {
+    "th": "ใช้โฟกัสอัตโนมัติ",
+    "max_width": 318
+  },
+  "Post scripts": {
+    "th": "สคริปต์หลังถ่าย",
+    "max_width": 318
+  },
+  "Snap Simulation": {
+    "th": "จำลองการกดชัตเตอร์",
+    "max_width": 318
+  },
+  "Number of pics": {
+    "th": "จำนวนภาพ",
+    "max_width": 318
+  },
+  "Focus using": {
+    "th": "วิธีควบคุมโฟกัส",
+    "max_width": 318
+  },
+  "Arrow keys": {
+    "th": "ปุ่มทิศทาง",
+    "max_width": 318
+  },
+  "Run focus stack": {
+    "th": "เริ่มถ่ายคร่อมโฟกัส",
+    "max_width": 318
+  },
+  "Num. pics in front": {
+    "th": "ภาพระยะชัดด้านหน้า",
+    "max_width": 318
+  },
+  "Num. pics behind": {
+    "th": "ภาพระยะชัดด้านหลัง",
+    "max_width": 318
+  },
+  "Focus steps / picture": {
+    "th": "ระยะเลื่อนต่อภาพ",
+    "max_width": 318
+  },
+  "Flash Delay": {
+    "th": "หน่วงรอแฟลช",
+    "max_width": 318
+  },
+  "Copy rack focus range": {
+    "th": "ใช้ช่วงย้ายโฟกัส",
+    "max_width": 318
+  },
+  "Trigger mode": {
+    "th": "เงื่อนไขเริ่มทำงาน",
+    "max_width": 318
+  },
+  "Bracket focus": {
+    "th": "คร่อมโฟกัส",
+    "max_width": 318
+  },
+  "Step Size": {
+    "th": "ระยะเลื่อนโฟกัส",
+    "max_width": 318
+  },
+  "Step Delay": {
+    "th": "หน่วงระหว่างเลื่อน",
+    "max_width": 318
+  },
+  "Step Wait": {
+    "th": "รอให้เลื่อนเสร็จ",
+    "max_width": 318
+  },
+  "Left/Right dir": {
+    "th": "ทิศทางซ้าย/ขวา",
+    "max_width": 318
+  },
+  "Up/Down dir": {
+    "th": "ทิศทางขึ้น/ลง",
+    "max_width": 318
+  },
+  "Start Delay": {
+    "th": "หน่วงก่อนเริ่ม",
+    "max_width": 318
+  },
+  "Circle of Confusion": {
+    "th": "วงกลมความคลาด",
+    "max_width": 318
+  },
+  "DOF formula": {
+    "th": "สูตรคำนวณระยะชัด",
+    "max_width": 318
+  },
+  "DOF info in LiveView": {
+    "th": "ข้อมูลระยะชัดใน LV",
+    "max_width": 318
+  },
+  "Simple": {
+    "th": "แบบพื้นฐาน",
+    "max_width": 318
+  },
+  "Diffraction-aware": {
+    "th": "คำนึงถึงการเลี้ยวเบน",
+    "max_width": 318
+  },
+  "Filter bias": {
+    "th": "ลักษณะขอบที่ตรวจจับ",
+    "max_width": 318
+  },
+  "Strong edges": {
+    "th": "เน้นขอบชัด",
+    "max_width": 318
+  },
+  "Balanced": {
+    "th": "สมดุล",
+    "max_width": 318
+  },
+  "Fine details": {
+    "th": "เน้นรายละเอียดเล็ก",
+    "max_width": 318
+  },
+  "Method": {
+    "th": "วิธีตรวจจับ",
+    "max_width": 318
+  },
+  "Display type": {
+    "th": "รูปแบบการแสดง",
+    "max_width": 318
+  },
+  "Threshold": {
+    "th": "เกณฑ์จุดชัด",
+    "max_width": 318
+  },
+  "Color": {
+    "th": "สี",
+    "max_width": 318
+  },
+  "Grayscale image": {
+    "th": "แสดงภาพขาวดำ",
+    "max_width": 318
+  },
+  "Red": {
+    "th": "แดง",
+    "max_width": 318
+  },
+  "Green": {
+    "th": "เขียว",
+    "max_width": 318
+  },
+  "Blue": {
+    "th": "น้ำเงิน",
+    "max_width": 318
+  },
+  "Cyan": {
+    "th": "ฟ้า",
+    "max_width": 318
+  },
+  "Magenta": {
+    "th": "ม่วงแดง",
+    "max_width": 318
+  },
+  "Yellow": {
+    "th": "เหลือง",
+    "max_width": 318
+  },
+  "Global Focus": {
+    "th": "สีตามความชัดทั้งภาพ",
+    "max_width": 318
+  },
+  "Local Focus": {
+    "th": "สีตามความชัดเฉพาะส่วน",
+    "max_width": 318
+  },
+  "Blinking dots": {
+    "th": "จุดกะพริบ",
+    "max_width": 318
+  },
+  "Fine dots": {
+    "th": "จุดละเอียด",
+    "max_width": 318
+  },
+  "Alpha blend": {
+    "th": "ซ้อนสีโปร่งแสง",
+    "max_width": 318
+  },
+  "Sharpness": {
+    "th": "ความคมชัด",
+    "max_width": 318
+  },
+  "Raw": {
+    "th": "Raw",
+    "max_width": 318
+  },
+  "Color Space": {
+    "th": "ระบบสี",
+    "max_width": 318
+  },
+  "Underexposure": {
+    "th": "เตือนส่วนมืด",
+    "max_width": 318
+  },
+  "Overexposure": {
+    "th": "เตือนส่วนสว่าง",
+    "max_width": 318
+  },
+  "When recording": {
+    "th": "ขณะบันทึกวิดีโอ",
+    "max_width": 318
+  },
+  "Use RAW zebras": {
+    "th": "ใช้ RAW เตือนแสง",
+    "max_width": 318
+  },
+  "Size": {
+    "th": "ขนาด",
+    "max_width": 318
+  },
+  "Position": {
+    "th": "ตำแหน่ง",
+    "max_width": 318
+  },
+  "Magnification": {
+    "th": "อัตราขยาย",
+    "max_width": 318
+  },
+  "Focus confirm": {
+    "th": "ยืนยันโฟกัส",
+    "max_width": 318
+  },
+  "Look-up Table": {
+    "th": "ตารางสี",
+    "max_width": 318
+  },
+  "Spotmeter Unit": {
+    "th": "หน่วยความสว่าง",
+    "max_width": 318
+  },
+  "Spot Position": {
+    "th": "ตำแหน่งวัด",
+    "max_width": 318
+  },
+  "Histogram type": {
+    "th": "รูปแบบฮิสโตแกรม",
+    "max_width": 318
+  },
+  "RAW EV indicator": {
+    "th": "แสดง EV จาก RAW",
+    "max_width": 318
+  },
+  "Scaling": {
+    "th": "สเกลกราฟ",
+    "max_width": 318
+  },
+  "Clip warning": {
+    "th": "เตือนส่วนแสงล้น",
+    "max_width": 318
+  },
+  "Waveform Size": {
+    "th": "ขนาดกราฟเวฟฟอร์ม",
+    "max_width": 318
+  },
+  "WBShift G/M": {
+    "th": "ปรับสมดุลเขียว/ม่วง",
+    "max_width": 318
+  },
+  "WBShift B/A": {
+    "th": "ปรับสมดุลน้ำเงิน/อำพัน",
+    "max_width": 318
+  },
+  "R multiplier": {
+    "th": "ตัวคูณสีแดง",
+    "max_width": 318
+  },
+  "G multiplier": {
+    "th": "ตัวคูณสีเขียว",
+    "max_width": 318
+  },
+  "B multiplier": {
+    "th": "ตัวคูณสีน้ำเงิน",
+    "max_width": 318
+  },
+  "Equivalent ISO": {
+    "th": "ISO เทียบเท่า",
+    "max_width": 318
+  },
+  "Canon analog ISO": {
+    "th": "ISO แอนะล็อก Canon",
+    "max_width": 318
+  },
+  "Canon digital ISO": {
+    "th": "ISO ดิจิทัล Canon",
+    "max_width": 318
+  },
+  "ML digital ISO": {
+    "th": "ISO ดิจิทัล ML",
+    "max_width": 318
+  },
+  "ISO Selection": {
+    "th": "วิธีเลือก ISO",
+    "max_width": 318
+  },
+  "Active style": {
+    "th": "รูปแบบที่ใช้อยู่",
+    "max_width": 318
+  },
+  "Sharpness strength": {
+    "th": "ระดับความคมชัด",
+    "max_width": 318
+  },
+  "Sharpness fineness": {
+    "th": "ความละเอียดขอบ",
+    "max_width": 318
+  },
+  "Sharpness threshold": {
+    "th": "เกณฑ์ความคมชัด",
+    "max_width": 318
+  },
+  "Contrast": {
+    "th": "ความเปรียบต่าง",
+    "max_width": 318
+  },
+  "Saturation": {
+    "th": "ความอิ่มตัวของสี",
+    "max_width": 318
+  },
+  "Color Tone": {
+    "th": "โทนสี",
+    "max_width": 318
+  },
+  "Standard": {
+    "th": "มาตรฐาน",
+    "max_width": 318
+  },
+  "Portrait": {
+    "th": "ภาพบุคคล",
+    "max_width": 318
+  },
+  "Landscape": {
+    "th": "ภาพวิว",
+    "max_width": 318
+  },
+  "Neutral": {
+    "th": "เป็นกลาง",
+    "max_width": 318
+  },
+  "Faithful": {
+    "th": "ตามจริง",
+    "max_width": 318
+  },
+  "Monochrome": {
+    "th": "ขาวดำ",
+    "max_width": 318
+  },
+  "Recovery ISO": {
+    "th": "ISO กู้รายละเอียด",
+    "max_width": 318
+  },
+  "Dynamic range gained": {
+    "th": "ช่วงแสงที่เพิ่มขึ้น",
+    "max_width": 318
+  },
+  "Midtone overlapping": {
+    "th": "ช่วงทับซ้อนโทนกลาง",
+    "max_width": 318
+  },
+  "Every other frame": {
+    "th": "สลับทุกภาพ",
+    "max_width": 318
+  },
+  "Custom file prefix": {
+    "th": "คำนำหน้าชื่อไฟล์",
+    "max_width": 318
+  },
+  "Slowest shutter": {
+    "th": "ชัตเตอร์ช้าที่สุด",
+    "max_width": 318
+  },
+  "Exposure target": {
+    "th": "ค่าแสงเป้าหมาย",
+    "max_width": 318
+  },
+  "Highlight ignore": {
+    "th": "สัดส่วนแสงจ้าที่ยอมข้าม",
+    "max_width": 318
+  },
+  "Allow clipping": {
+    "th": "ยอมให้แสงล้น",
+    "max_width": 318
+  },
+  "Midtone SNR limit": {
+    "th": "SNR โทนกลาง",
+    "max_width": 318
+  },
+  "Shadow SNR limit": {
+    "th": "เกณฑ์สัญญาณส่วนมืด",
+    "max_width": 318
+  },
+  "Link to Canon shutter": {
+    "th": "เชื่อมชัตเตอร์ Canon",
+    "max_width": 318
+  },
+  "Link to Dual ISO": {
+    "th": "เชื่อมกับ Dual ISO",
+    "max_width": 318
+  },
+  "Show metered areas": {
+    "th": "แสดงบริเวณวัดแสง",
+    "max_width": 318
+  },
+  "Allow beeps": {
+    "th": "อนุญาตเสียงเตือน",
+    "max_width": 318
+  },
+  "Show debug info": {
+    "th": "แสดงข้อมูลตรวจสอบ",
+    "max_width": 318
+  },
+  "Silent Mode": {
+    "th": "วิธีถ่ายภาพเงียบ",
+    "max_width": 318
+  },
+  "Slit-Scan Mode": {
+    "th": "วิธีถ่ายแบบสแกน",
+    "max_width": 318
+  },
+  "File Format": {
+    "th": "รูปแบบไฟล์",
+    "max_width": 318
+  },
+  "Movie Restart": {
+    "th": "เริ่มบันทึกใหม่อัตโนมัติ",
+    "max_width": 318
+  },
+  "REC/STBY notify": {
+    "th": "แสดงสถานะบันทึก/รอ",
+    "max_width": 318
+  },
+  "Force LiveView": {
+    "th": "เปิด LiveView ค้าง",
+    "max_width": 318
+  },
+  "Shutter Lock": {
+    "th": "ล็อกค่าชัตเตอร์",
+    "max_width": 318
+  },
+  "Elapsed": {
+    "th": "เวลาที่บันทึกแล้ว",
+    "max_width": 318
+  },
+  "Remain.Card": {
+    "th": "เวลาคงเหลือตามการ์ด",
+    "max_width": 318
+  },
+  "Remain.4GB": {
+    "th": "เวลาคงเหลือถึง 4 GB",
+    "max_width": 318
+  },
+  "HalfShutter": {
+    "th": "กดชัตเตอร์ครึ่งหนึ่ง",
+    "max_width": 318
+  },
+  "Small": {
+    "th": "เล็ก",
+    "max_width": 318
+  },
+  "Medium": {
+    "th": "กลาง",
+    "max_width": 318
+  },
+  "Large": {
+    "th": "ใหญ่",
+    "max_width": 318
+  },
+  "Always": {
+    "th": "ตลอดเวลา",
+    "max_width": 318
+  },
+  "Never": {
+    "th": "ไม่ใช้",
+    "max_width": 318
+  },
+  "Top-left": {
+    "th": "ซ้ายบน",
+    "max_width": 318
+  },
+  "Top-right": {
+    "th": "ขวาบน",
+    "max_width": 318
+  },
+  "Bottom-left": {
+    "th": "ซ้ายล่าง",
+    "max_width": 318
+  },
+  "Bottom-right": {
+    "th": "ขวาล่าง",
+    "max_width": 318
+  },
+  "Center": {
+    "th": "กึ่งกลาง",
+    "max_width": 318
+  },
+  "Advanced...": {
+    "th": "ขั้นสูง...",
+    "max_width": 318
+  },
+  "seconds": {
+    "th": "วินาที",
+    "max_width": 318
+  },
+  "shots": {
+    "th": "ภาพ",
+    "max_width": 318
+  },
+  "Take pictures at fixed intervals (for timelapse).": {
+    "th": "ถ่ายภาพตามช่วงเวลาที่ตั้งไว้ สำหรับไทม์แลปส์",
+    "max_width": 696
+  },
+  "Duration between two shots.": {
+    "th": "ระยะเวลาระหว่างการถ่ายแต่ละภาพ",
+    "max_width": 696
+  },
+  "How to trigger the intervalometer start:": {
+    "th": "เลือกเหตุการณ์ที่ใช้เริ่มถ่ายตามช่วงเวลา",
+    "max_width": 696
+  },
+  "Start the intervalometer after X seconds / minutes / hours.": {
+    "th": "ตั้งเวลาหน่วงก่อนเริ่มถ่าย",
+    "max_width": 696
+  },
+  "Stop the intervalometer after taking X shots.": {
+    "th": "หยุดเมื่อถ่ายครบจำนวนที่กำหนด",
+    "max_width": 696
+  },
+  "For very long exposures (several minutes).": {
+    "th": "ตั้งเวลาเปิดรับแสงนานในโหมด B",
+    "max_width": 696
+  },
+  "Advanced bracketing (expo, flash, DOF). Press shutter once.": {
+    "th": "ถ่ายคร่อมค่าแสง แฟลช หรือระยะชัด",
+    "max_width": 696
+  },
+  "Takes pictures at different focus points.": {
+    "th": "ถ่ายหลายภาพโดยเลื่อนระยะชัด ไม่ได้รวมภาพให้",
+    "max_width": 696
+  },
+  "Show which parts of the image are in focus.": {
+    "th": "แสดงขอบบริเวณที่เข้าโฟกัส",
+    "max_width": 696
+  },
+  "How many pixels are considered in focus (percentage).": {
+    "th": "กำหนดสัดส่วนพิกเซลที่แสดงว่าอยู่ในระยะชัด",
+    "max_width": 696
+  },
+  "Focus peaking color (fixed or color coding).": {
+    "th": "เลือกสีไฮไลต์บริเวณที่เข้าโฟกัส",
+    "max_width": 696
+  },
+  "Display LiveView image in grayscale.": {
+    "th": "แสดงภาพ LiveView เป็นขาวดำ",
+    "max_width": 696
+  },
+  "Change current picture style.": {
+    "th": "เปลี่ยนรูปแบบภาพที่ใช้อยู่",
+    "max_width": 696
+  },
+  "Time indicator while recording.": {
+    "th": "เลือกข้อมูลเวลาที่แสดงขณะบันทึกวิดีโอ",
+    "max_width": 696
+  },
+  "Use M mode to avoid exposure flicker.": {
+    "th": "ใช้โหมด M เพื่อหลีกเลี่ยงความสว่างกระพริบ",
+    "max_width": 696
+  },
+  "This feature only works in movie mode.": {
+    "th": "ใช้ได้เฉพาะโหมดวิดีโอ",
+    "max_width": 696
+  },
+  "This feature only works in photo mode.": {
+    "th": "ใช้ได้เฉพาะโหมดภาพนิ่ง",
+    "max_width": 696
+  },
+  "This feature only works in LiveView.": {
+    "th": "ใช้ได้เมื่อเปิด LiveView",
+    "max_width": 696
+  },
+  "This feature does not work in LiveView.": {
+    "th": "ใช้ไม่ได้ขณะเปิด LiveView",
+    "max_width": 696
+  },
+  "This feature requires autofocus enabled.": {
+    "th": "ต้องตั้งเลนส์เป็นโฟกัสอัตโนมัติ AF",
+    "max_width": 696
+  },
+  "This feature requires manual focus.": {
+    "th": "ต้องตั้งเลนส์เป็นโฟกัสมือ MF",
+    "max_width": 696
+  },
+  "This feature requires a chipped (electronic) lens.": {
+    "th": "ต้องใช้เลนส์ที่สื่อสารกับกล้องได้",
+    "max_width": 696
+  },
+  "This feature requires Manual (M) mode.": {
+    "th": "ต้องใช้โหมดแมนนวล M",
+    "max_width": 696
+  },
+  "This feature requires manual ISO.": {
+    "th": "ต้องกำหนด ISO เอง",
+    "max_width": 696
+  },
+  "This feature works best in Manual (M) mode.": {
+    "th": "แนะนำให้ใช้โหมดแมนนวล M",
+    "max_width": 696
+  },
+  "This feature works best in movie mode.": {
+    "th": "เหมาะสำหรับโหมดวิดีโอ",
+    "max_width": 696
+  },
+  "This feature works best in photo mode.": {
+    "th": "เหมาะสำหรับโหมดภาพนิ่ง",
+    "max_width": 696
+  },
+  "This feature works best in LiveView.": {
+    "th": "แนะนำให้เปิด LiveView",
+    "max_width": 696
+  },
+  "This feature works best with GlobalDraw enabled.": {
+    "th": "แนะนำให้เปิดตัวช่วยแสดงภาพ",
+    "max_width": 696
+  },
+  "GlobalDraw is OFF.": {
+    "th": "ยังไม่ได้เปิดตัวช่วยแสดงภาพ",
+    "max_width": 696
+  },
+  "GlobalDraw is disabled, check your settings.": {
+    "th": "ตัวช่วยแสดงภาพถูกปิด ตรวจการตั้งค่า",
+    "max_width": 696
+  },
+  "ExpSim is OFF.": {
+    "th": "ยังไม่ได้เปิดจำลองค่าแสง ExpSim",
+    "max_width": 696
+  },
+  "Display Gain is active.": {
+    "th": "กำลังใช้การเพิ่มความสว่างจอ",
+    "max_width": 696
+  },
+  "Sound recording is disabled. Enable it from Canon menu.": {
+    "th": "เปิดบันทึกเสียงจากเมนู Canon",
+    "max_width": 696
+  },
+  "Disable sound recording from Canon menu!": {
+    "th": "ปิดบันทึกเสียงจากเมนู Canon ก่อน",
+    "max_width": 696
+  },
+  "Autofocus and bracketing don't mix.": {
+    "th": "ไม่แนะนำใช้ AF ร่วมกับการถ่ายคร่อมค่า",
+    "max_width": 696
+  },
+  "Enable Global Draw first": {
+    "th": "เปิดตัวช่วยแสดงภาพก่อน",
+    "max_width": 696
+  },
+  "Allowed actions": {
+    "th": "คำสั่งที่อนุญาต",
+    "max_width": 318
+  },
+  "Auto adjust Kelvin + G/M": {
+    "th": "เคลวิน + G/M ออโต้",
+    "max_width": 318
+  },
+  "Bitmap": {
+    "th": "ไฟล์เส้นกรอบภาพ",
+    "max_width": 318
+  },
+  "Force style for REC": {
+    "th": "บังคับรูปแบบขณะบันทึก",
+    "max_width": 318
+  },
+  "Intervalometer Script": {
+    "th": "สคริปต์ถ่ายตามช่วงเวลา",
+    "max_width": 318
+  },
+  "Raw zebra underexposure": {
+    "th": "เตือนส่วนมืดจาก RAW",
+    "max_width": 318
+  },
+  "Require long press": {
+    "th": "ต้องกดค้าง",
+    "max_width": 318
+  },
+  "Show in PLAY mode": {
+    "th": "แสดงขณะดูภาพ",
+    "max_width": 318
+  },
+  "Show in photo mode": {
+    "th": "แสดงในโหมดภาพนิ่ง",
+    "max_width": 318
+  },
+  "Style for recording": {
+    "th": "รูปแบบภาพขณะบันทึก",
+    "max_width": 318
+  },
+  "All values": {
+    "th": "ทุกค่า",
+    "max_width": 318
+  },
+  "Always ON": {
+    "th": "เปิดตลอด",
+    "max_width": 318
+  },
+  "Always On": {
+    "th": "เปิดตลอด",
+    "max_width": 318
+  },
+  "Blink & Beep": {
+    "th": "กะพริบและเสียงเตือน",
+    "max_width": 318
+  },
+  "Bottom-Left": {
+    "th": "ซ้ายล่าง",
+    "max_width": 318
+  },
+  "Bottom-Right": {
+    "th": "ขวาล่าง",
+    "max_width": 318
+  },
+  "Continuous": {
+    "th": "ต่อเนื่อง",
+    "max_width": 318
+  },
+  "Dynamic Range": {
+    "th": "ช่วงการรับแสง",
+    "max_width": 318
+  },
+  "ETTR hint": {
+    "th": "คำแนะนำ ETTR",
+    "max_width": 318
+  },
+  "File List": {
+    "th": "รายการไฟล์",
+    "max_width": 318
+  },
+  "Focus box": {
+    "th": "กรอบโฟกัส",
+    "max_width": 318
+  },
+  "Full": {
+    "th": "เต็มขนาด",
+    "max_width": 318
+  },
+  "FullScreen": {
+    "th": "เต็มจอ",
+    "max_width": 318
+  },
+  "Green Bars": {
+    "th": "แถบสีเขียว",
+    "max_width": 318
+  },
+  "Half": {
+    "th": "ครึ่งขนาด",
+    "max_width": 318
+  },
+  "Handheld": {
+    "th": "ถือกล้องด้วยมือ",
+    "max_width": 318
+  },
+  "Hide": {
+    "th": "ซ่อน",
+    "max_width": 318
+  },
+  "Hold AF button": {
+    "th": "กดปุ่ม AF ค้าง",
+    "max_width": 318
+  },
+  "Linear": {
+    "th": "เชิงเส้น",
+    "max_width": 318
+  },
+  "Log": {
+    "th": "ลอการิทึม",
+    "max_width": 318
+  },
+  "Luma": {
+    "th": "ความสว่าง",
+    "max_width": 318
+  },
+  "Luma Fast": {
+    "th": "ความสว่างแบบเร็ว",
+    "max_width": 318
+  },
+  "ON (1s)": {
+    "th": "เปิด (1 วินาที)",
+    "max_width": 318
+  },
+  "ON, all modes": {
+    "th": "เปิดทุกโหมด",
+    "max_width": 318
+  },
+  "Percent": {
+    "th": "เปอร์เซ็นต์",
+    "max_width": 318
+  },
+  "Photo only": {
+    "th": "ภาพนิ่งเท่านั้น",
+    "max_width": 318
+  },
+  "QuickReview": {
+    "th": "ดูภาพหลังถ่าย",
+    "max_width": 318
+  },
+  "RAW HistoBar (MAX)": {
+    "th": "แถบ RAW ค่าสูงสุด",
+    "max_width": 318
+  },
+  "RAW-based (RGB)": {
+    "th": "ใช้ข้อมูล RAW (RGB)",
+    "max_width": 318
+  },
+  "Red Crossout": {
+    "th": "กากบาทสีแดง",
+    "max_width": 318
+  },
+  "Self-Timer": {
+    "th": "ตั้งเวลาถ่าย",
+    "max_width": 318
+  },
+  "Show": {
+    "th": "แสดง",
+    "max_width": 318
+  },
+  "SplitScreen": {
+    "th": "แบ่งจอ",
+    "max_width": 318
+  },
+  "Start & CPUlens": {
+    "th": "เริ่มและใช้เลนส์มีชิป",
+    "max_width": 318
+  },
+  "Start only": {
+    "th": "เริ่มเท่านั้น",
+    "max_width": 318
+  },
+  "Start/Stop": {
+    "th": "เริ่ม/หยุด",
+    "max_width": 318
+  },
+  "Stop only": {
+    "th": "หยุดเท่านั้น",
+    "max_width": 318
+  },
+  "Top-Left": {
+    "th": "ซ้ายบน",
+    "max_width": 318
+  },
+  "Top-Right": {
+    "th": "ขวาบน",
+    "max_width": 318
+  },
+  "UserDef1": {
+    "th": "ผู้ใช้กำหนด 1",
+    "max_width": 318
+  },
+  "UserDef2": {
+    "th": "ผู้ใช้กำหนด 2",
+    "max_width": 318
+  },
+  "UserDef3": {
+    "th": "ผู้ใช้กำหนด 3",
+    "max_width": 318
+  },
+  "YUV-based, Luma": {
+    "th": "YUV ความสว่าง",
+    "max_width": 318
+  },
+  "YUV-based, RGB": {
+    "th": "YUV สี RGB",
+    "max_width": 318
+  },
+  "ZoomIn (+)": {
+    "th": "ปุ่มขยาย (+)",
+    "max_width": 318
+  },
+  "Choose English or Thai for Photo UI only.": {
+    "th": "เลือกภาษาเฉพาะหน้าตา Photo UI",
+    "max_width": 696
+  },
+  "Time-lapse": {
+    "th": "Time-lapse",
+    "max_width": 276
+  },
+  "Bracketing": {
+    "th": "ถ่ายคร่อม",
+    "max_width": 276
+  },
+  "zebra settings": {
+    "th": "zebra settings",
+    "max_width": 276
+  },
+  "Bitrate (CBR)": {
+    "th": "Bitrate (CBR)",
+    "max_width": 276
+  },
+  "Bit Rate": {
+    "th": "Bitrate (CBR)",
+    "max_width": 318
+  },
+  "Camera Info": {
+    "th": "ข้อมูลกล้อง",
+    "max_width": 276
+  },
+  "Shutter Count": {
+    "th": "จำนวนชัตเตอร์",
+    "max_width": 276
+  },
+  "Camera Model": {
+    "th": "รุ่นกล้อง",
+    "max_width": 318
+  },
+  "Canon Firmware": {
+    "th": "เฟิร์มแวร์ Canon",
+    "max_width": 318
+  },
+  "Mechanical Shutter": {
+    "th": "ชัตเตอร์กลไก",
+    "max_width": 318
+  },
+  "Live View Actuations": {
+    "th": "กลไก Live View",
+    "max_width": 318
+  },
+  "Combined Actuations": {
+    "th": "รวมการทำงาน",
+    "max_width": 318
+  },
+  "Games": {
+    "th": "เกม",
+    "max_width": 276
+  },
+  "Scripts": {
+    "th": "สคริปต์",
+    "max_width": 276
+  },
+  "Arkanoid": {
+    "th": "Arkanoid",
+    "max_width": 276
+  },
+  "Pong": {
+    "th": "Pong",
+    "max_width": 276
+  },
+  "Sokoban": {
+    "th": "Sokoban",
+    "max_width": 276
+  },
+  "Audio": {
+    "th": "เสียง",
+    "max_width": 276
+  },
+  "Shoot (all)": {
+    "th": "เมนูถ่ายภาพเดิม",
+    "max_width": 276
+  },
+  "Focus (all)": {
+    "th": "เมนูโฟกัสเดิม",
+    "max_width": 276
+  },
+  "Expo (all)": {
+    "th": "เมนูค่าแสงเดิม",
+    "max_width": 276
+  },
+  "Overlay (all)": {
+    "th": "เมนูแสดงภาพเดิม",
+    "max_width": 276
+  },
+  "Movie (all)": {
+    "th": "เมนูวิดีโอเดิม",
+    "max_width": 276
+  },
+  "Camera model and firmware reported by Canon.": {
+    "th": "ข้อมูลรุ่นกล้องและเฟิร์มแวร์จาก Canon",
+    "max_width": 696
+  },
+  "Camera model reported by Canon.": {
+    "th": "ชื่อรุ่นที่อ่านได้จากกล้อง",
+    "max_width": 696
+  },
+  "Canon firmware version reported by camera.": {
+    "th": "รุ่นเฟิร์มแวร์ Canon ที่อ่านได้จากกล้อง",
+    "max_width": 696
+  },
+  "Mechanical shutter, Live View and combined actuations from Canon.": {
+    "th": "แยกชัตเตอร์กลไก กลไก Live View และผลรวม",
+    "max_width": 696
+  },
+  "Mechanical shutter count from Canon.": {
+    "th": "จำนวนชัตเตอร์กลไกจาก Canon ไม่ใช่จำนวนไฟล์ภาพ",
+    "max_width": 696
+  },
+  "Live View: combined minus mechanical.": {
+    "th": "กลไก Live View เท่ากับผลรวมลบชัตเตอร์",
+    "max_width": 696
+  },
+  "Combined mechanical and Live View count.": {
+    "th": "รวมชัตเตอร์กลไกและการทำงานจาก Live View",
+    "max_width": 696
+  }
+}
