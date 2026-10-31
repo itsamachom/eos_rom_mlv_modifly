@@ -16,21 +16,30 @@
 
 ## Unresolved before a new public binary Release
 
-The upstream and fork both contain prebuilt dietlibc/Newlib archives. The linked
-dietlibc object members are referenced in firmware/platform/Makefile; Lua also
-extracts stdio objects into lua.mo. The source bundle contains dietlibc headers,
-but the corresponding implementation source for these linked archives has not
-been found or verified in the inspected upstream tree. Newlib 1.20.0 is named by
-firmware/src/libs/README.txt, but the full original source/notices and any patch
-set used for those archive bytes have not been established either.
+The inherited dietlibc 0.33 archive is GPL-licensed, and the corresponding
+implementation source and any patches remain unverified. Lua also extracts
+stdio objects from it. PR #321's updated README explicitly states "no build notes
+or source in this repository" for dietlibc. Matching the archive bytes to upstream
+establishes inheritance, not completeness of corresponding source.
 
-An exact match to upstream archive bytes establishes inheritance, not completeness
-of corresponding source or a redistribution review. Do not silently substitute
-modern toolchain sources or a guessed upstream tarball and call it verified.
-Obtain the original library source, versions and build/patch information, retain
-the required notices, and update the source supplement with evidence. The source
-URL supplied by the user has been checked; this outstanding question concerns
-the upstream's prebuilt libraries, not an unknown fork source URL.
+Follow-up evidence: [upstream PR #321](https://github.com/reticulatedpines/magiclantern_simplified/pull/321),
+inspected at d727e1e148e48a2a63c1cf1742e71a361ca61361, adds COPYING.DIETLIBC and
+COPYING.NEWLIB. Those texts have been retained verbatim in licenses/ with hashes
+and paths in UPSTREAM_PR_EVIDENCE.json. The PR identifies
+https://sourceware.org/pub/newlib/newlib-1.20.0.tar.gz and documents the historical
+Newlib configuration. This resolves the missing-notice/source-reference question
+for Newlib at the documentation level; no claim is made that its tarball was
+downloaded or that the inherited archives were independently rebuilt.
+
+PR #290 addresses mixed system/dietlibc headers in Lua, not the source of the
+historical archive. Neither PR's proposed build/header changes are incorporated
+into this fork's existing v3r2 camera payload by this release-documentation work.
+Do not change tested ABI/header assumptions merely to prepare a release.
+
+The outstanding maintainer question is narrowed to dietlibc's original source,
+version/patch set and available build information. Do not substitute a guessed
+tarball or mark the source gate passed solely because a GPL license text is now
+present. See SOURCE_PROVENANCE_QUESTION.md for the prepared, unsent follow-up.
 
 The original installer is byte-identical to the compared upstream prebuilt FIR.
 It has not been independently rebuilt. Its Makefile references CCF11102.FIR;

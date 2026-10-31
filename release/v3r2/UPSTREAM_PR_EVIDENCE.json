@@ -1,0 +1,21 @@
+{
+  "pull_request": "https://github.com/reticulatedpines/magiclantern_simplified/pull/321",
+  "inspected_commit": "d727e1e148e48a2a63c1cf1742e71a361ca61361",
+  "related_build_fix": "https://github.com/reticulatedpines/magiclantern_simplified/pull/290",
+  "files": [
+    {
+      "upstream_path": "src/libs/COPYING.DIETLIBC",
+      "local_path": "release/v3r2/licenses/DIETLIBC-GPL-2.0.txt",
+      "sha256": "204d8eff92f95aac4df6c8122bc1505f468f3a901e5a4cc08940e0ede1938994"
+    },
+    {
+      "upstream_path": "src/libs/COPYING.NEWLIB",
+      "local_path": "release/v3r2/licenses/NEWLIB-NOTICES.txt",
+      "sha256": "4c85ccccc1da6cd480ccd8dedf3580350f2e33d570aa338de90a77dde8b3caeb"
+    }
+  ],
+  "newlib_source_reference": "https://sourceware.org/pub/newlib/newlib-1.20.0.tar.gz",
+  "inherited_archive_blobs_unchanged_vs_imported_upstream": true,
+  "dietlibc_readme_statement": "no build notes or source in this repository.",
+  "verification_limit": "PR documentation and license recovery; does not establish dietlibc corresponding source or adopt proposed header/build changes."
+}

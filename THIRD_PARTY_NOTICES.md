@@ -13,8 +13,8 @@ headers, notices, license texts and attribution when redistributing.
 | Noto Sans Thai and derived Thai phrase masks | 2022 The Noto Project Authors; SIL OFL 1.1 | assets/fonts/noto-sans-thai/OFL.txt, SOURCE.md, release/v3r2/licenses/NOTO-SANS-THAI-OFL-1.1.txt |
 | Arkanoid | Original module credits include pravdomil.cz; original GPL notices retained | firmware/modules/arkanoid/README.rst and arkanoid.c |
 | Pong / Sokoban scripts | Original source comments and attribution retained byte-for-byte | firmware/scripts/pong.lua, firmware/scripts/sokoban.lua |
-| Inherited dietlibc 0.33 archive | Exact upstream binary inheritance verified; complete corresponding archive source/notices not yet verified | firmware/src/libs/dietlib-0.33-none-eabi-Os/dietlibc.a; see release/v3r2/PROVENANCE.md |
-| Inherited Newlib 1.20.0 archives | Version stated by upstream README; per-component original source/notices still require verification | firmware/src/libs/README.txt and arm-none-eabi-O3 archives |
+| Inherited dietlibc 0.33 archive | Exact upstream binary inheritance verified; GPL notice recovered from PR #321; corresponding archive source remains unverified | firmware/src/libs/dietlib-0.33-none-eabi-Os/dietlibc.a; see release/v3r2/PROVENANCE.md |
+| Inherited Newlib 1.20.0 archives | Newlib 1.20.0 source URL/build notes and COPYING.NEWLIB recovered from PR #321; original per-file terms still apply | firmware/src/libs/README.txt, arm-none-eabi-O3 archives and release/v3r2/licenses/NEWLIB-NOTICES.txt |
 | GCC runtime | Toolchain-provided libgcc linked into the payload; keep applicable GCC runtime licensing/exception information | Toolchain documentation and release source audit; not a claim that the compiler itself is part of this fork |
 | Original ML-SETUP.FIR | Unchanged prebuilt installer distributed by the identified upstream; not a Canon firmware updater | firmware/platform/600D.102/ML-SETUP.FIR; shared installer sources in firmware/installer and firmware/src |
 
@@ -39,3 +39,13 @@ See AI_ASSISTANCE.md for fork modifications and LLM disclosure. Before marking a
 binary release ready, resolve the source/notices questions in
 release/v3r2/READINESS.json rather than treating inherited binaries as proof of
 complete corresponding source.
+
+## Follow-up license evidence
+
+Upstream PR #321, inspected at d727e1e148e48a2a63c1cf1742e71a361ca61361,
+adds GPL/Newlib license texts. Verbatim copies and hashes are preserved in
+release/v3r2/licenses and UPSTREAM_PR_EVIDENCE.json. The proposed README supplies
+the Newlib 1.20.0 source URL, but explicitly says dietlibc source/build notes are
+not in the repository. This does not resolve the dietlibc corresponding-source
+gate. PR #290 is a Lua header compatibility fix; no build fixes were applied to
+the camera payload in this documentation update.

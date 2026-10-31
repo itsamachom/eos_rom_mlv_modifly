@@ -7,18 +7,23 @@
     "payload_checksums_verified": true,
     "exact_upstream_import_verified": true,
     "fork_identity_and_ai_disclosure_present": true,
-    "upstream_credits_preserved": true
+    "upstream_credits_preserved": true,
+    "dependency_license_texts_recovered_from_upstream_pr": true,
+    "newlib_120_source_reference_identified": true
   },
   "blockers": [
     {
       "id": "dependency_corresponding_source",
-      "detail": "Implementation source/build patches and original notices for inherited dietlibc 0.33 and Newlib 1.20.0 archives have not been verified. Exact upstream archive inheritance is confirmed."
+      "detail": "Dietlibc 0.33 implementation source and any patches corresponding to the inherited archive remain unverified. PR #321 supplies GPL/Newlib notices and a Newlib 1.20.0 source URL, but explicitly says dietlibc source/build notes are absent."
     },
     {
       "id": "github_release_api_access",
-      "detail": "GitHub API CONNECT through the configured proxy returns 403. Domain additions api.github.com/uploads.github.com are saved in environment draft but not applied."
+      "detail": "Last automated GitHub API attempt received proxy CONNECT 403. Domain draft is not confirmed applied. The maintainer can publish via the existing GitHub web draft after the source audit passes; API access is not a prerequisite for manual publication.",
+      "scope": "automated_publishing_only"
     }
   ],
   "published": false,
-  "tag_created": false
+  "tag_created": null,
+  "maintainer_reported_github_draft_created": true,
+  "tag_status_note": "No local v3r2 tag was created by the agent. Remote tag state after the maintainer-created draft has not been queried."
 }

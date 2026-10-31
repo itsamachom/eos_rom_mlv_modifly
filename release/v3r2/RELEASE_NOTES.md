@@ -48,6 +48,6 @@ hardware. QEMU was not run.** Previous-version user reports do not establish
 v3r2 readiness. ML-SETUP.FIR is unchanged from upstream and was not independently
 rebuilt. Keep upstream warranty disclaimers and original credits/licenses.
 
-A new public binary Release must wait for the outstanding dependency source/
-notice audit in PROVENANCE.md. Publishing this document does not mark that audit
+A new public binary Release must wait for the outstanding dietlibc corresponding-source
+audit in PROVENANCE.md. Publishing this document does not mark that audit
 complete. Do not label the release GPL/source-audited until its gates are resolved.

@@ -1,18 +1,18 @@
-# Prepared dependency-source question (not sent)
+# Prepared follow-up for PR #321 (not sent)
 
-For a source-complete distribution of the Canon 600D.102 fork, could the upstream
-maintainers identify the original source release, patches, compiler flags and
-license/copyright notices for these inherited archives?
+Suggested location: https://github.com/reticulatedpines/magiclantern_simplified/pull/321
 
-- src/libs/dietlib-0.33-none-eabi-Os/dietlibc.a
-- src/libs/arm-none-eabi-O3/libc.a
-- src/libs/arm-none-eabi-O3/libm.a
+Thank you for adding the dependency license texts and Newlib source/build information.
 
-The fork's imported copies match upstream
-142472e95054d73640f50789ac0fd66325499d82 exactly. README.txt names Newlib 1.20.0,
-and the dietlibc directory names 0.33; implementation source for the archive
-members has not been established by this audit. Lua extracts additional stdio
-objects from dietlibc as part of its module.
+For redistribution of a downstream 600D fork with corresponding source, could you
+point me to the dietlibc 0.33 implementation source used for
+`src/libs/dietlib-0.33-none-eabi-Os/dietlibc.a`?
 
-This is a prepared question for maintainer review. It has not been posted or
-sent to upstream, and no upstream endorsement is claimed.
+Was it built from an unmodified dietlibc 0.33 release, or were patches required
+for ML/ARM? Any patch set or original build instructions would help. The README
+added here says "no build notes or source in this repository".
+
+Our inherited archive matches upstream commit
+`142472e95054d73640f50789ac0fd66325499d82` exactly. This is a source-provenance
+question, not a request to endorse our fork or review its AI-assisted changes.
+This question was drafted with AI assistance; no code change is proposed here.
