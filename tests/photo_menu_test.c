@@ -440,6 +440,10 @@ int main(void)
         assert(!photo_can_edit(model) && !photo_can_edit(fw));
         struct menu_display_info info;photo_read_info(model,&info);assert(!strcmp(info.value,"Canon EOS 600D"));
         photo_read_info(fw,&info);assert(!strcmp(info.value,"1.0.2"));
+        camera_model[0]=firmware_version[0]=0;
+        photo_read_info(model,&info);assert(!strcmp(info.value,"Unavailable"));
+        photo_read_info(fw,&info);assert(!strcmp(info.value,"Unavailable"));
+        strcpy(camera_model,"Canon EOS 600D");strcpy(firmware_version,"1.0.2");
         struct menu_entry counter={.name="Shutter Count",.children=photo_shutter_details,.select=menu_open_submenu};
         struct menu debugmenu={.name="Debug",.children=&counter};
         options.next=&debugmenu;

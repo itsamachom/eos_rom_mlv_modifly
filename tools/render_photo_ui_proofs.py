@@ -17,7 +17,7 @@ with tempfile.TemporaryDirectory() as tmp:
     out=Image.new('RGB',(1440,1020),'#111111');draw=ImageDraw.Draw(out)
     for i,name in enumerate(['shoot','games','camera-info','shutter-details-fixture']):
         raw=Image.open(Path(tmp)/(name+'.pgm'));im=raw.convert('RGB')
-        im.putdata([palette.get(v,(255,0,255)) for v in raw.getdata()])
+        im.putdata([palette.get(v,(255,0,255)) for v in raw.tobytes()])
         x=i%2*720;y=i//2*510;out.paste(im,(x,y+30))
         draw.text((x+12,y+7),'HOST LAYOUT PROOF - '+name+(' (simulated counts)' if 'shutter' in name else ''),fill='white')
     dest=root/'previews/photo-ui-v3r1-layout-proof.png';dest.parent.mkdir(exist_ok=True);out.save(dest)
