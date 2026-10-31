@@ -14,6 +14,8 @@
 #define MOD(a,b) ((((int)(a)%(int)(b))+(int)(b))%(int)(b))
 #define streq(a,b) (!strcmp(a,b))
 #define ICON_ML_SUBMENU 100
+#define FONT_BG(f) (((f)>>16)&255)
+#define FONT_FG(f) (((f)>>8)&255)
 #define FONT_SMALL 1
 #define FONT_MED 2
 #define FONT_MED_LARGE 3
@@ -127,11 +129,12 @@ int main(void)
     reset();render();
     press(BGMT_PRESS_UP);assert(photo_page_index==5);
     press(BGMT_PRESS_DOWN);assert(photo_page_index==0);
+    press(BGMT_PRESS_DOWN);assert(photo_page_index==1);
     press(BGMT_PRESS_RIGHT);assert(photo_pane==PHOTO_ITEMS && actions==0);
-    press(BGMT_PRESS_UP);assert(photo_selection[0]==6);
+    press(BGMT_PRESS_UP);assert(photo_selection[1]==6);
     assert(strstr(output,"Page 2/2"));
-    press(BGMT_PRESS_DOWN);assert(photo_selection[0]==0);
-    press(BGMT_PRESS_LEFT);assert(photo_pane==PHOTO_CATEGORIES && photo_page_index==0);
+    press(BGMT_PRESS_DOWN);assert(photo_selection[1]==0);
+    press(BGMT_PRESS_LEFT);assert(photo_pane==PHOTO_CATEGORIES && photo_page_index==1);
     puts("PASS vertical category/item navigation and horizontal pane focus without setting changes");
 
     reset();go_peak();
@@ -157,7 +160,7 @@ int main(void)
     puts("PASS dynamically hidden or shifted options never execute a different stale target");
 
     reset();go_peak();wrong.next=NULL;assert(photo_menu_key(BGMT_PRESS_SET));
-    assert(actions==0 && !photo_editing);render();assert(strstr(output,"Unavailable"));
+    assert(actions==0 && !photo_editing);render();assert(photo_display_target[0]==0);
     puts("PASS unloaded modules cannot activate stale settings");
 
     reset();go_peak();press(BGMT_PRESS_DOWN);press(BGMT_PRESS_DOWN);
@@ -188,7 +191,7 @@ int main(void)
     struct menu nested={.name="Movie Tweaks",.children=&timer,.icon=ICON_ML_SUBMENU,
         .parent_menu=&movie,.parent_entry=&tweaks};
     options.next=&movie;movie.next=&nested;timer.parent_menu=&nested;
-    photo_page_index=4;photo_selection[4]=0;photo_pane=PHOTO_ITEMS;render();
+    photo_page_index=4;photo_selection[4]=1;photo_pane=PHOTO_ITEMS;render();
     press(BGMT_PRESS_RIGHT);press(BGMT_PRESS_SET);press(BGMT_PRESS_RIGHT);
     assert(actions==1 && last_entry==&timer && submenu_level==0);
     options.next=NULL;

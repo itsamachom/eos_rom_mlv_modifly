@@ -166,6 +166,7 @@ bool FAST is_movie_mode()
     #endif
 }
 
+volatile int shutter_count_valid = 0;
 volatile int shutter_count = 0;
 volatile int shutter_count_plus_lv_actuations = 0;
 #if defined(CONFIG_DIGIC_8X)
@@ -200,6 +201,8 @@ PROP_HANDLER(PROP_RELEASE_COUNTER)
 #else
 PROP_HANDLER(PROP_SHUTTER_COUNTER)
 {
+    if (len < 8 || buf[0] > 0x7fffffff || buf[1] > 0x7fffffff || buf[1] < buf[0]) return;
+    shutter_count_valid = 1;
     shutter_count = buf[0];
     shutter_count_plus_lv_actuations = buf[1];
 }

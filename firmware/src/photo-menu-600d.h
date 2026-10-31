@@ -4,6 +4,8 @@
  */
 #ifdef CONFIG_600D
 
+#include "photo-thai-600d.h"
+
 #define PHOTO_ROWS 6
 #define PHOTO_DETAIL_ROWS 4
 struct photo_item {
@@ -19,10 +21,9 @@ struct photo_page {
 };
 
 static const struct photo_item photo_shoot[] = {
-    {"Intervalometer", "Shoot", "Intervalometer"},
+    {"Time-lapse", "Shoot", "Intervalometer"},
     {"Bulb Timer", "Shoot", "Bulb Timer"},
-    {"Advanced Bracket", "Shoot", "Advanced Bracket"},
-    {"Silent Picture", "Shoot", "Silent Picture"},
+    {"Bracketing", "Shoot", "Advanced Bracket"},
     {"Mirror Lockup", "Shoot", "Mirror Lockup"},
     {"Flash Tweaks", "Shoot", "Flash Tweaks"},
     {"Shoot Preferences", "Shoot", "Shoot Preferences"},
@@ -46,7 +47,7 @@ static const struct photo_item photo_expo[] = {
     {"Auto ETTR", "Expo", "Auto ETTR"},
 };
 static const struct photo_item photo_overlay[] = {
-    {"Zebras", "Overlay", "Zebras"},
+    {"zebra settings", "Overlay", "Zebras"},
     {"Focus Peak", "Overlay", "Focus Peak"},
     {"Magic Zoom", "Overlay", "Magic Zoom"},
     {"Histogram", "Overlay", "Histogram"},
@@ -56,6 +57,7 @@ static const struct photo_item photo_overlay[] = {
     {"Global Draw", "Overlay", "Global Draw"},
 };
 static const struct photo_item photo_movie[] = {
+    {"Bitrate (CBR)", "Movie", "Bit Rate"},
     {"Time Indicator", "Movie Tweaks", "Time Indicator"},
     {"REC key", "Movie", "REC key"},
     {"Movie Tweaks", "Movie", "Movie Tweaks"},
@@ -66,6 +68,16 @@ static const struct photo_item photo_setup[] = {
     {"Display", "Display", NULL},
     {"Version / Help", "Help", NULL},
     {"Diagnostics", "Debug", NULL},
+    {"Camera Info", "Help", "Camera Info"},
+    {"Shutter Count", "Debug", "Shutter Count"},
+    {"Games", "Games", NULL},
+    {"Scripts", "Scripts", NULL},
+    {"Audio", "Audio", NULL},
+    {"Shoot (all)", "Shoot", NULL},
+    {"Focus (all)", "Focus", NULL},
+    {"Expo (all)", "Expo", NULL},
+    {"Overlay (all)", "Overlay", NULL},
+    {"Movie (all)", "Movie", NULL},
 };
 #define PHOTO_PAGE(name, badge, items) {name, badge, items, COUNT(items)}
 static const struct photo_page photo_pages[] = {
@@ -144,6 +156,7 @@ static int photo_select_original(struct menu * parent, struct menu_entry * entry
 /* Clip by actual font width, not character count, to keep the two panes apart. */
 static void photo_text(int font, int x, int y, int width, const char * text)
 {
+    if (photo_thai_text(font, x, y, width, text)) return;
     char buf[MENU_MAX_HELP_LEN];
     snprintf(buf, sizeof(buf), "%s", text ? text : "");
     char * newline = strchr(buf, '\n');
@@ -236,7 +249,7 @@ static int photo_menu_draw(void)
 
     bmp_fill(COLOR_BLACK, 0, 0, 720, 480);
     bmp_fill(COLOR_GRAY(5), 0, 0, 720, 48);
-    bmp_printf(FONT(FONT_LARGE, COLOR_WHITE, COLOR_GRAY(5)), 16, 6, "%s", page->name);
+    photo_text(FONT(FONT_LARGE, COLOR_WHITE, COLOR_GRAY(5)), 16, 6, 500, page->name);
     bmp_printf(FONT(FONT_MED, COLOR_WHITE, COLOR_GRAY(5)), 530, 14, "%s %d/%d",
         photo_pane == PHOTO_DETAILS ? "Opts" : "Page",
         photo_pane == PHOTO_DETAILS ? photo_detail_index / PHOTO_DETAIL_ROWS + 1 : index / PHOTO_ROWS + 1,

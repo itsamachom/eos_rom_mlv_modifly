@@ -689,8 +689,24 @@ static MENU_UPDATE_FUNC(image_buf_display)
 }
 #endif
 
+#ifdef CONFIG_600D
+static MENU_UPDATE_FUNC(photo_camera_info_display)
+{
+    MENU_SET_VALUE("%s / %s", camera_model[0] ? camera_model : "Unavailable",
+        firmware_version[0] ? firmware_version : "Unavailable");
+}
+static struct menu_entry photo_camera_info_menu[] = {
+    { .name = "Camera Info", .update = photo_camera_info_display,
+      .help = "Camera model and Canon firmware read from camera properties.",
+      .icon_type = IT_ALWAYS_ON },
+};
+#endif
+
 static MENU_UPDATE_FUNC(shuttercount_display)
 {
+#ifdef CONFIG_600D
+    if (!shutter_count_valid) { MENU_SET_VALUE("Unavailable"); return; }
+#endif
 #if defined(CONFIG_DIGIC_8X)
     // just shutter count value
     MENU_SET_VALUE("%d", shutter_count);
@@ -1839,6 +1855,9 @@ void debug_menu_init()
     crop_factor_menu_init();
     customize_menu_init();
     menu_add( "Debug", debug_menus, COUNT(debug_menus) );
+#ifdef CONFIG_600D
+    menu_add("Help", photo_camera_info_menu, COUNT(photo_camera_info_menu));
+#endif
     
     #ifdef FEATURE_SHOW_FREE_MEMORY
     mem_menu_init();

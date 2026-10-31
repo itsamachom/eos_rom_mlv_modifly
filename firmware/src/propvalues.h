@@ -77,6 +77,7 @@ extern int af_mode;
 extern int metering_mode;
 extern int dofpreview;
 extern int display_sensor;
+extern volatile int shutter_count_valid;
 extern int shutter_count;
 extern int shutter_count_plus_lv_actuations;
 #if defined(CONFIG_DIGIC_8X)

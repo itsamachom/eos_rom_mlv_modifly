@@ -3597,7 +3597,9 @@ MENU_PLACEHOLDER("Post Deflicker"),
 
     },
     #endif
+    #ifndef CONFIG_600D
     MENU_PLACEHOLDER("Silent Picture"),
+    #endif
     #ifdef FEATURE_MLU_HANDHELD
         #ifndef FEATURE_MLU
         #error This requires FEATURE_MLU.
