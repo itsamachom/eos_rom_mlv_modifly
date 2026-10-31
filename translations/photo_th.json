@@ -112,7 +112,7 @@
     "max_width": 276
   },
   "Focus Peak": {
-    "th": "ไฮไลต์จุดชัด",
+    "th": "Focus Peaking",
     "max_width": 276
   },
   "Magic Zoom": {
@@ -1406,5 +1406,45 @@
   "Combined mechanical and Live View count.": {
     "th": "รวมชัตเตอร์กลไกและการทำงานจาก Live View",
     "max_width": 696
+  },
+  "Pong and Sokoban use lua.mo, not separate modules.": {
+    "th": "Pong และ Sokoban ใช้โมดูล lua",
+    "max_width": 696
+  },
+  "Arkanoid needs arkanoid.mo loaded after restart.": {
+    "th": "Arkanoid ต้องโหลดโมดูลหลังรีสตาร์ต",
+    "max_width": 696
+  },
+  "Start game": {
+    "th": "เริ่มเกม",
+    "max_width": 318
+  },
+  "Run Script": {
+    "th": "เริ่มสคริปต์",
+    "max_width": 318
+  },
+  "Edit Script": {
+    "th": "แก้ไขสคริปต์",
+    "max_width": 318
+  },
+  "Autorun": {
+    "th": "เริ่มเมื่อเปิดกล้อง",
+    "max_width": 318
+  },
+  "SET twice starts Arkanoid; Left/Right advances intro.": {
+    "th": "SET สองครั้งเริ่มเกม ซ้าย/ขวาผ่านหน้าเริ่ม",
+    "max_width": 696
+  },
+  "Run Script starts the game; leave Autorun off.": {
+    "th": "เลือกเริ่มสคริปต์เพื่อเล่น ไม่ต้องเปิดเริ่มอัตโนมัติ",
+    "max_width": 696
+  },
+  "Load arkanoid; reboot.": {
+    "th": "เปิดโมดูล arkanoid",
+    "max_width": 316
+  },
+  "Load lua; reboot.": {
+    "th": "เปิดโมดูล lua",
+    "max_width": 316
   }
 }

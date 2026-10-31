@@ -466,6 +466,27 @@ int main(void)
     assert(actions==0 && !photo_editing && !photo_confirm);
     reset();photo_thai_enabled=1;photo_page_index=0;photo_selection[0]=1;photo_pane=PHOTO_ITEMS;render();save_proof("shoot");
     puts("PASS separate Games category stays unavailable until its actual game modules register");
+    reset();photo_page_index=6;photo_pane=PHOTO_ITEMS;
+    struct menu_entry game_start={.name="Arkanoid",.icon_type=IT_ACTION,.select=NULL};
+    struct menu game_menu={.name="Games",.children=&game_start};
+    game_start.parent_menu=&game_menu;options.next=&game_menu;
+    render();press(BGMT_PRESS_RIGHT);press(BGMT_PRESS_SET);
+    assert(photo_confirm && run_actions==0);
+    press(BGMT_PRESS_SET);assert(run_actions==1 && last_entry==&game_start && last_mode==3);
+    puts("PASS loaded Arkanoid reaches its real root action only after two SET confirmations");
+    reset();photo_thai_enabled=0;photo_page_index=6;photo_selection[6]=1;photo_pane=PHOTO_ITEMS;
+    render();assert(strstr(output,"Load lua; reboot."));
+    struct menu_entry run_game={.name="Run Script",.icon_type=IT_ACTION};
+    struct menu_entry script={.name="Pong Game",.icon_type=IT_ACTION,.select=menu_open_submenu,.priv=&on,.children=&run_game};
+    struct menu script_menu={.name="Scripts",.children=&script};
+    struct menu script_submenu={.name="Pong Game",.children=&run_game,.icon=ICON_ML_SUBMENU,.parent_menu=&script_menu,.parent_entry=&script};
+    script_menu.next=&script_submenu;options.next=&script_menu;
+    script.parent_menu=&script_menu;run_game.parent_menu=&script_submenu;
+    render();press(BGMT_PRESS_RIGHT);
+    assert(!strcmp(photo_display_target,"Run Script"));
+    press(BGMT_PRESS_SET);assert(photo_confirm && run_actions==0);
+    press(BGMT_PRESS_SET);assert(run_actions==1 && last_entry==&run_game && last_mode==3);
+    puts("PASS Lua game containers lead directly to Run Script and never execute or enable Autorun automatically");
 
     reset();photo_thai_enabled=1;
     struct menu_entry language={.name="Photo UI Language",.priv=&photo_thai_enabled,.max=1,.icon_type=IT_DICE};

@@ -1332,8 +1332,8 @@ void menu_add_internal(
 )
 {
 #ifdef CONFIG_600D
-    /* Photo UI: remove ML audio/game menus; retain Canon audio and drivers. */
-    if (streq(name, "Audio") || streq(name, "Games")) return;
+    /* Preserve the existing audio policy; game modules must register Games. */
+    if (streq(name, "Audio")) return;
 #endif
 #if defined(POSITION_INDEPENDENT)
     menu_fixup_pic(new_entry, count);

@@ -49,7 +49,7 @@ static const struct photo_item photo_expo[] = {
 };
 static const struct photo_item photo_overlay[] = {
     {"zebra settings", "Overlay", "Zebras"},
-    {"Focus Peak", "Overlay", "Focus Peak"},
+    {"Focus Peaking", "Overlay", "Focus Peak"},
     {"Magic Zoom", "Overlay", "Magic Zoom"},
     {"Histogram", "Overlay", "Histogram"},
     {"Spotmeter", "Overlay", "Spotmeter"},
@@ -209,7 +209,9 @@ static struct menu_entry * photo_detail_entry(struct menu_entry * root, int inde
     int n = 0;
     if (root && is_visible(root))
     {
-        if (!root->children || root->priv || (root->select && root->select != menu_open_submenu))
+        int game_script = photo_page_index == 6 && root->select == menu_open_submenu &&
+            root->icon_type == IT_ACTION && root->children;
+        if (!game_script && (!root->children || root->priv || (root->select && root->select != menu_open_submenu)))
         {
             if (n == index) result = root;
             n++;
@@ -401,8 +403,16 @@ static int photo_menu_draw(void)
     else if (!entry || !is_visible(entry))
     {
         photo_detail_row(0, "Status", "Unavailable", 0);
-        photo_text(FONT(FONT_MED_LARGE, COLOR_WHITE, COLOR_GRAY(5)), 382, 218, 316, "See Setup > Modules");
-        snprintf(help, sizeof(help), "Module may not be loaded; no action is performed.");
+        const char * module_hint = photo_page_index == 6 && item->entry && streq(item->entry, "Arkanoid")
+            ? "Load arkanoid; reboot." : photo_page_index == 6 && item->entry &&
+            (streq(item->entry, "Pong Game") || streq(item->entry, "Sokoban Game"))
+            ? "Load lua; reboot." : "See Setup > Modules";
+        photo_text(FONT(FONT_MED_LARGE, COLOR_WHITE, COLOR_GRAY(5)), 382, 218, 316, module_hint);
+        snprintf(help, sizeof(help), "%s", photo_page_index == 6 && item->entry && streq(item->entry, "Arkanoid")
+            ? "Arkanoid needs arkanoid.mo loaded after restart." : photo_page_index == 6 && item->entry &&
+            (streq(item->entry, "Pong Game") || streq(item->entry, "Sokoban Game"))
+            ? "Pong and Sokoban use lua.mo, not separate modules."
+            : "Module may not be loaded; no action is performed.");
     }
     else
     {
@@ -430,7 +440,12 @@ static int photo_menu_draw(void)
                     snprintf(help, sizeof(help), "%s", info.warning[0] ? info.warning :
                         info.help[0] ? info.help : e->help);
             }
-            const char * label = e == entry ? (e->icon_type == IT_ACTION ? "Action" : "Current") : info.name;
+            const char * label = e == entry ? (e->icon_type == IT_ACTION ?
+                (photo_page_index == 6 ? "Start game" : "Action") : "Current") : info.name;
+            if (selected && photo_page_index == 6)
+                snprintf(help, sizeof(help), "%s", streq(item->entry, "Arkanoid")
+                    ? "SET twice starts Arkanoid; Left/Right advances intro."
+                    : "Run Script starts the game; leave Autorun off.");
             photo_detail_row(row, label, info.value[0] ? info.value :
                 e->children ? "SET: Open" : e->select ? "SET: Run" : "Read only", selected);
         }

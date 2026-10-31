@@ -24,7 +24,7 @@ assert asset.read_bytes()==before
 # Restore every existing translation except the explicitly requested names.
 old_lex=json.loads((root/'translations/photo_th.original.json').read_text())
 lex=json.loads((root/'translations/photo_th.json').read_text())
-renamed={'Intervalometer','Advanced Bracket','Zebras','Histogram','Waveform'}
+renamed={'Intervalometer','Advanced Bracket','Zebras','Histogram','Waveform','Focus Peak'}
 for key,value in old_lex.items():
     if key not in renamed: assert lex[key]==value, key
 assert 'PHOTO_PAGE("Games", "G", photo_games)' in h
