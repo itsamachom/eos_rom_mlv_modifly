@@ -32,3 +32,7 @@ Serve the repository root and open /docs/ (Thai) or /docs/en/ (English). Check b
 Before changing hardware-test claims, record exact camera/firmware/package checksum, tested behavior, date and observed failures. Keep first-install testing distinct from updating an already ML-enabled camera. Do not replace experimental wording with stable merely because host checks pass.
 
 If financial contributions open later, name the recipient and purpose, use an appropriate external provider, disclose fees/affiliate links and preserve GPL rights. Update both languages and the privacy explanation when adding any external embeds or services.
+
+## Editing website content
+
+For a Thai beginner's guide to editing text through GitHub, see [EDITING_TH.md](EDITING_TH.md). The inspiration story is marked `CONTENT: story` in both language files. Ordinary text changes do not require a firmware build or release. If Pages is later activated from this branch, committed site changes become visible after a successful Pages deployment; the site is still a draft until hosting is configured.

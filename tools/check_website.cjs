@@ -50,6 +50,10 @@ const types = {'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-
           }
           assert(!/paypal|buymeacoffee|stripe|promptpay/i.test(href),'Payment link added while support is closed');
         }
+        if(width===1440 && lang==='th') {
+          const box=await page.locator('#story').boundingBox();
+          await page.screenshot({path:path.join(out,'website-th-story.png'),clip:{x:box.x-16,y:box.y,width:box.width+32,height:box.height}});
+        }
         if(width===1440 || (width===390 && lang==='th'))await page.screenshot({path:path.join(out,`website-${lang}-${width===1440?'desktop':'mobile'}.png`),fullPage:true});
       }
       await page.goto(target);
