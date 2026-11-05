@@ -27,3 +27,7 @@ python3 tools/publish_v3r2_release.py --publish
 Staging อยู่ /workspace/release-staging/v3r2 โดยค่าเริ่มต้น ชุดนี้ยังไม่ใช่ release-ready ตราบที่ READINESS.json ยังมี blocker การบันทึก network draft ไม่ใช่การเปิดสิทธิ์ runtime หรือการ publish GitHub Release
 
 หลักฐานเพิ่มเติมจากผลค้นหาของผู้ใช้: [PR #321](https://github.com/reticulatedpines/magiclantern_simplified/pull/321) และ UPSTREAM_PR_EVIDENCE.json คำถามถึงต้นทางปรับให้เหลือ dietlibc แล้ว
+
+## ความคืบหน้าการค้นซอร์ส 5 พฤศจิกายน 2026
+
+[พบ source candidate จากสอง mirror แล้ว](DIETLIBC_SOURCE_AUDIT.md) ครอบคลุม object ที่ core/Lua ใช้ 54/54 และ compile เป็น ARM ได้ครบ แต่ยังไม่ยืนยัน build/config/patches ของ archive ทั้งชุด เก็บ snapshot พร้อม license ไว้ใน source-candidates/ และรายงานเทียบ object ไว้แล้ว ไม่เปลี่ยนไบนารีหรือปลด gate ของ Release

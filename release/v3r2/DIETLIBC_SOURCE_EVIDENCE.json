@@ -1,0 +1,58 @@
+{
+  "audit_date_asia_bangkok": "2026-11-05",
+  "source_candidate_found": true,
+  "source_correspondence_verified": false,
+  "source_mirrors": [
+    {
+      "url": "https://github.com/ensc/dietlibc",
+      "revision": "9689726fa931309b7662fb3cd7c2f29567f76d23",
+      "lineage": "CVS branch; not patched default branch"
+    },
+    {
+      "url": "https://github.com/rsenn/dietlibc",
+      "revision": "9c3f1c7726133e8ec084c1743b2e107fff8a2704",
+      "lineage": "independent CVS import"
+    }
+  ],
+  "identical_candidate_git_tree": "59b130f2b25010bfb4c49410fa8488182e038c08",
+  "candidate_tree_files": 1833,
+  "candidate_changelog_line": "0.33:",
+  "candidate_archive_path": "release/v3r2/source-candidates/dietlibc-cvs-20130222-9689726.tar.gz",
+  "candidate_archive_sha256": "da74861995909ac8b1be16fe01b0a98e09385c3fb014e281664e0a94c41603c5",
+  "legacy_magic_lantern": {
+    "repository": "https://github.com/frantony/magic-lantern",
+    "introduced_in_commit": "d3f6810facfaf3ac201fbfa6f27a2d1fbf10654f",
+    "archive_sha256": "21c61d561fbd852f46eb891052efaa8cd3c634261803793ffe600eac67861d9a",
+    "archive_identical_to_v3r2": true,
+    "author_name": "alex",
+    "commit_author_date": "2013-03-19T00:22:56+02:00",
+    "message": "Time to go on a diet :) switched to dietlib, needed for TCC. fPIC may be broken.",
+    "compiler_context_not_proof": {
+      "Makefile.user.default": "4.7.3",
+      "contrib/toolchain/summon-arm": "4.6.2 / optional Linaro 4.5-2011.02-0"
+    }
+  },
+  "comparison_summary": {
+    "objects_used_by_core": 18,
+    "objects_used_by_lua": 40,
+    "unique_objects": 54,
+    "mapped_sources": 54,
+    "compiled": 54,
+    "equal_text_sections": 8,
+    "equal_allocated_images_relocations_exports": 10,
+    "equal_nonempty_allocated_images_relocations_exports": 9,
+    "equal_empty_objects": 1,
+    "headers_compared": 36,
+    "identical_headers": 32
+  },
+  "experimental_config": "WANT_FASTER_STRING_ROUTINES disabled only in isolated compile overlay",
+  "limitations": [
+    "Original archive compiler producer information is stripped.",
+    "No original dietfeatures configuration or library build recipe has been established.",
+    "Only a subset of inherited object images match with the current compiler.",
+    "Byte matches in long-lived routines do not uniquely identify the historical source version.",
+    "No claim is made that an unmatched object proves a source patch."
+  ],
+  "firmware_changed": false,
+  "release_published": false
+}

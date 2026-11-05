@@ -9,12 +9,15 @@
     "fork_identity_and_ai_disclosure_present": true,
     "upstream_credits_preserved": true,
     "dependency_license_texts_recovered_from_upstream_pr": true,
-    "newlib_120_source_reference_identified": true
+    "newlib_120_source_reference_identified": true,
+    "dietlibc_source_candidate_found": true,
+    "dietlibc_selected_object_source_coverage_checked": true,
+    "dietlibc_corresponding_source_verified": false
   },
   "blockers": [
     {
       "id": "dependency_corresponding_source",
-      "detail": "Dietlibc 0.33 implementation source and any patches corresponding to the inherited archive remain unverified. PR #321 supplies GPL/Newlib notices and a Newlib 1.20.0 source URL, but explicitly says dietlibc source/build notes are absent."
+      "detail": "A mirrored 0.33-line source candidate now covers all 54 used object names and compiles them. Two CVS imports have an identical tree; the archive matches the 2013 Magic Lantern introduction. Nine nonempty object images match with an isolated small-string config experiment. Original build/config/patch correspondence for the whole archive remains unverified; see DIETLIBC_SOURCE_AUDIT.md."
     },
     {
       "id": "github_release_api_access",
@@ -25,5 +28,6 @@
   "published": false,
   "tag_created": null,
   "maintainer_reported_github_draft_created": true,
-  "tag_status_note": "No local v3r2 tag was created by the agent. Remote tag state after the maintainer-created draft has not been queried."
+  "tag_status_note": "No local v3r2 tag was created by the agent. Remote tag state after the maintainer-created draft has not been queried.",
+  "dietlibc_source_evidence": "DIETLIBC_SOURCE_EVIDENCE.json"
 }
