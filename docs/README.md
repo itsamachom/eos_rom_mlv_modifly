@@ -5,6 +5,9 @@ Branch: site/eos-600d-bilingual. Static HTML/CSS for GitHub Pages; no build depe
 - Thai: index.html
 - English: en/index.html
 - Shared styles: assets/site.css
+- Thai articles: articles/inspiration.html and articles/before-a-release.html
+- English articles: en/articles/ with matching filenames
+- Editorial tone: [CONTENT_STYLE.md](CONTENT_STYLE.md)
 
 This branch is a reviewable draft. Pushing it does not activate Pages or publish a firmware release. The owner has chosen not to accept money yet; do not add payment links, account details or QR codes without an explicit later request.
 
@@ -36,3 +39,8 @@ If financial contributions open later, name the recipient and purpose, use an ap
 ## Editing website content
 
 For a Thai beginner's guide to editing text through GitHub, see [EDITING_TH.md](EDITING_TH.md). The inspiration story is marked `CONTENT: story` in both language files. Ordinary text changes do not require a firmware build or release. If Pages is later activated from this branch, committed site changes become visible after a successful Pages deployment; the site is still a draft until hosting is configured.
+
+Articles use `CONTENT: article-body`; homepage article cards use `CONTENT: journal`.
+Language switches on an article open its translation, rather than the homepage.
+The latest source-review links point to the pinned audit record at `31b1022`;
+this does not change the firmware source or incorporate the audit branch here.

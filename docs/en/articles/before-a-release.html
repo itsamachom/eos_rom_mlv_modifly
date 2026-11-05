@@ -1,0 +1,33 @@
+<!doctype html>
+<!-- Fork project website; GPL-2.0-or-later. See repository LICENSE and notices. -->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What we prepare before sharing an experimental release — EOS 600D</title>
+<meta name="description" content="A plain-language look at experimental builds, computer and camera testing, and why source verification matters before a release."><meta name="theme-color" content="#101512">
+<meta property="og:title" content="What we prepare before sharing an experimental release"><meta property="og:description" content="A plain-language look at experimental builds, computer and camera testing, and why source verification matters before a release."><meta property="og:type" content="article"><meta property="og:locale" content="en_US">
+<link rel="icon" href="../../assets/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../assets/site.css">
+<link rel="alternate" hreflang="en" href="before-a-release.html"><link rel="alternate" hreflang="th" href="../../articles/before-a-release.html"></head>
+<body><a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap top-inner"><a class="brand" href="../" aria-label="EOS 600D home"><span class="mark" aria-hidden="true">+</span><span><strong>EOS 600D</strong><small>FIRMWARE ADD-ON</small></span></a><nav aria-label="Main navigation"><a href="../#story">Project</a><a href="../#journal">Journal</a><a href="../#status">Status</a><a class="language" href="../../articles/before-a-release.html" lang="th" hreflang="th">ภาษาไทย <svg class="arrow-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></svg></a></nav></div></header>
+<main id="main" class="wrap article-wrap"><article class="article-page">
+<a class="back-link" href="../#journal">← Back to the journal</a>
+<header class="article-header"><div class="eyebrow">Development notes</div><h1>What we prepare before sharing an experimental release</h1><p class="article-meta"><time datetime="2026-11-05">Updated 5 November 2026</time> · Project notes</p><p class="article-lead">We would like fellow photographers to explore what we are making. Before inviting anyone to install it, we need to explain where the files come from, what we have checked, and what remains unknown.</p></header>
+<!-- CONTENT: article-body — keep both languages aligned -->
+<div class="article-body"><h2>What “experimental” means here</h2>
+<p>v3r2 is still experimental and targets only the Canon EOS 600D running Canon firmware 1.0.2. We have not announced it as stable or ready for general use. A file being present in the repository does not mean that all review and testing is complete.</p>
+<h2>Computer testing is a starting point</h2>
+<p>We have built the software and checked parts of it on a computer. Those checks help us find code problems and inspect menu connections, but they cannot tell us how every part will behave on a real camera.</p>
+<p>For v3r2, photography, video, gameplay and first-time installation have not yet been verified on hardware. When further results are available, we will record the camera model, build version and tested behavior so readers can assess the evidence for themselves.</p>
+<h2>Source and credits belong in release preparation</h2>
+<p>This project builds on many other people’s work. We need to preserve their credits and license notices, and check that the source and build information we provide correspond to the binaries we intend to distribute.</p>
+<p>We have found a dietlibc source candidate and tried building it with several toolchains. Its correspondence with the inherited library has not been fully established. This audit has not changed the v3r2 binaries or cleared the release requirement. You can read the <a href="https://github.com/itsamachom/eos_rom_mlv_modifly/blob/31b1022/release/v3r2/DIETLIBC_SOURCE_AUDIT.md">source audit on GitHub</a> for the technical details.</p>
+<h2>What readers should find before a download</h2>
+<p>A release page needs to identify the supported camera and Canon firmware, and include source, build instructions, licenses, credits and checksums for verifying the files. It also needs actual test results, known problems and a clear account of what has not been tested. These details help users make an informed decision.</p>
+<h2>Ways to help while the review continues</h2>
+<p>Suggestions about translations, clearer articles and topics you would like to learn about are welcome. You do not need to install an experimental build to help us review the wording. The website is not accepting financial contributions at this stage.</p>
+<p>If you already have test results, you can share the camera model, Canon firmware, build version and observed behavior in an issue. Please leave out personal information and Canon ROM dumps. We will use verified information to update the status in both languages.</p></div>
+<!-- END CONTENT: article-body -->
+<aside class="article-invitation" aria-labelledby="invitation-title"><h2 id="invitation-title">Something you would like to share?</h2><p>Ideas for clearer wording and topics you would like us to write about are welcome.</p><a href="https://github.com/itsamachom/eos_rom_mlv_modifly/issues">Share an idea on GitHub <svg class="arrow-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></svg></a></aside>
+<p class="article-caution">Experimental project · v3r2 is not ready for general release. Camera testing and source verification remain open. <a href="../#status">See the current status</a></p>
+<nav class="related-reading" aria-label="More to read"><span class="eyebrow">More to read</span><a href="inspiration.html">A familiar camera, and the idea behind a Thai menu <svg class="arrow-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></svg></a></nav>
+</article></main>
+<footer class="footer"><div class="wrap"><p class="disclosure">An independent Magic Lantern fork from Thailand. Developed with Codex/LLM assistance. Original credits and licenses are retained.</p><div class="copyright"><a href="../">Project home</a> · <a href="../#support">Ways to contribute</a> · <a href="../../articles/before-a-release.html" lang="th">ภาษาไทย</a></div></div></footer></body></html>

@@ -61,9 +61,47 @@ const types = {'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-
       await page.keyboard.press('Enter');assert(new URL(page.url()).hash==='#main');
       await page.locator('details summary').first().click();assert(await page.locator('details').first().getAttribute('open')!==null);
       await page.locator('a.language').click();assert.equal(await page.locator('html').getAttribute('lang'),lang==='th'?'en':'th');
+      // Follow the journal as a reader would, then check each article's
+      // responsive layout, navigation and corresponding translation.
+      await page.goto(target);
+      const articlePaths=await page.locator('#journal .journal-card > a').evaluateAll(as=>as.map(a=>a.getAttribute('href')));
+      assert.equal(articlePaths.length,2);
+      for(const articlePath of articlePaths) {
+        const articleURL=new URL(articlePath,target).href;
+        for(const width of [1440,768,390,320]) {
+          await page.setViewportSize({width,height:1000});
+          assert.equal((await page.goto(articleURL)).status(),200);
+          await page.evaluate(()=>document.fonts.ready);
+          assert.equal(await page.locator('html').getAttribute('lang'),lang);
+          assert.equal(await page.locator('h1').count(),1);
+          assert.equal(await page.locator('article .article-body h2').count()>=4,true);
+          assert.equal(await page.locator('form,iframe,script').count(),0);
+          assert(!(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)),`${articlePath}: overflow at ${width}px`);
+          assert.equal(await page.locator('time').getAttribute('datetime'),'2026-11-05');
+          const articleLinks=await page.locator('a').evaluateAll(as=>as.map(a=>a.getAttribute('href')));
+          for(const href of articleLinks) {
+            assert(href && href!=='#');
+            assert(!/paypal|buymeacoffee|stripe|promptpay/i.test(href));
+            if(href.startsWith('#'))assert.equal(await page.locator(href).count(),1,href);
+            else if(!href.startsWith('https://'))assert.equal((await context.request.get(new URL(href,articleURL).href)).status(),200,href);
+          }
+          const slug=path.basename(articlePath,'.html');
+          if(width===1440 || (width===390 && lang==='th')) {
+            const file=`article-${slug}-${lang}-${width===1440?'desktop':'mobile'}.png`;
+            await page.screenshot({path:path.join(out,file),fullPage:true});
+          }
+          if(slug==='inspiration' && ((lang==='th' && width===390)||(lang==='en' && width===1440)))await page.screenshot({path:path.join(out,`article-${lang}-first-screen.png`)});
+        }
+        await page.goto(articleURL);
+        await page.keyboard.press('Tab');assert.equal(await page.locator(':focus').getAttribute('class'),'skip');
+        await page.keyboard.press('Enter');assert(new URL(page.url()).hash==='#main');
+        await page.locator('a.language').click();
+        assert.equal(await page.locator('html').getAttribute('lang'),lang==='th'?'en':'th');
+        assert.equal(path.basename(new URL(page.url()).pathname),path.basename(articlePath),'Language switch lost the article');
+      }
       assert.deepEqual(failures,[]);
       await context.close();
-      console.log(`PASS ${lang}: mobile/tablet/desktop layout, local links, language switch, keyboard skip link, FAQ, no payment/form/tracker`);
+      console.log(`PASS ${lang}: homepage + two articles, 4 viewport widths, local links, matching translation, keyboard navigation, FAQ, no payment/form/tracker`);
     }
   } finally {
     if(browser)await browser.close();
