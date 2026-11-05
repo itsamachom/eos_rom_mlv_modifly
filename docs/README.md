@@ -17,9 +17,11 @@ Same repository: simplest start, one place for source/docs/site, project URL inc
 
 Separate website repository: cleaner website-specific name/history/access, easier to change independently. Requires managing a second repository and updating source/document links. These files can be moved unchanged; the language switch and stylesheet paths are relative.
 
-## Activate only after choosing where to host
+## Publish on GitHub Pages
 
-If retaining this repository, GitHub → repository Settings → Pages → Build and deployment → Deploy from a branch → branch site/eos-600d-bilingual → folder /docs → Save. Labels may vary with GitHub UI. No workflow, release upload token or Codex network-setting change is required for this branch-based Pages route. This will publish the website publicly; choose it only after reviewing the site. Firmware release/source verification is a separate process.
+The owner authorized public website publication on 5 November 2026. The site is prepared in this repository. Open [GitHub Pages settings](https://github.com/itsamachom/eos_rom_mlv_modifly/settings/pages), then choose Build and deployment → Source: Deploy from a branch → Branch: `site/eos-600d-bilingual` → Folder: `/docs` → Save. Labels may vary with the GitHub UI. The `.nojekyll` file serves the existing HTML/CSS directly. No Actions workflow or token needs to be added. Website publication is separate from publishing the firmware release.
+
+The workspace attempt to read/configure Pages through `api.github.com` returned `Forbidden` from the network. Pages settings and remote deployment status could not be verified. Website files have been pushed; this does not establish that Pages is active. The repository owner must complete the Pages settings step in the browser, or supported API access must become available. Do not describe the website as live until the Pages deployment reports success.
 
 The expected project-site address, if Pages is activated here, is:
 https://itsamachom.github.io/eos_rom_mlv_modifly/
