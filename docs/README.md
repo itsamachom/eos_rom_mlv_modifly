@@ -1,6 +1,6 @@
-# Website draft / ร่างเว็บไซต์ไทย–อังกฤษ
+# Project website / เว็บไซต์ไทย–อังกฤษ
 
-Branch: site/eos-600d-bilingual. Static HTML/CSS for GitHub Pages; no build dependencies, JavaScript, third-party embeds, tracking or payment forms. New website code is GPL-2.0-or-later; retain upstream notices in the firmware repository. Fonts use local system fallbacks, not remote font downloads. The menu illustration is original HTML/CSS and is labeled as an illustration, not a hardware screenshot.
+Branch: site/eos-600d-bilingual. Static HTML/CSS for GitHub Pages; no build dependencies, JavaScript, third-party embeds, tracking or payment forms. New website code is GPL-2.0-or-later; retain upstream notices in the firmware repository. Fonts use local system fallbacks, not remote font downloads. The hero and gallery use six real camera-menu photographs supplied by the project creator. EXIF/GPS metadata was removed without changing their decoded pixels or dimensions. The pictured build version is unspecified, and the captions do not claim full functional testing.
 
 - Thai: index.html
 - English: en/index.html
@@ -9,7 +9,7 @@ Branch: site/eos-600d-bilingual. Static HTML/CSS for GitHub Pages; no build depe
 - English articles: en/articles/ with matching filenames
 - Editorial tone: [CONTENT_STYLE.md](CONTENT_STYLE.md)
 
-This branch is a reviewable draft. Pushing it does not activate Pages or publish a firmware release. The owner has chosen not to accept money yet; do not add payment links, account details or QR codes without an explicit later request.
+The owner reported activating GitHub Pages on 5 November 2026. Deployment has not been independently verified from this workspace because API access was blocked. With Pages configured to serve this branch, subsequent pushes update the website after a successful deployment. Website updates do not publish a firmware release. The owner has chosen not to accept money yet; do not add payment links, account details or QR codes without an explicit later request.
 
 ## Repository choice
 
@@ -21,12 +21,12 @@ Separate website repository: cleaner website-specific name/history/access, easie
 
 The owner authorized public website publication on 5 November 2026. The site is prepared in this repository. Open [GitHub Pages settings](https://github.com/itsamachom/eos_rom_mlv_modifly/settings/pages), then choose Build and deployment → Source: Deploy from a branch → Branch: `site/eos-600d-bilingual` → Folder: `/docs` → Save. Labels may vary with the GitHub UI. The `.nojekyll` file serves the existing HTML/CSS directly. No Actions workflow or token needs to be added. Website publication is separate from publishing the firmware release.
 
-The workspace attempt to read/configure Pages through `api.github.com` returned `Forbidden` from the network. Pages settings and remote deployment status could not be verified. Website files have been pushed; this does not establish that Pages is active. The repository owner must complete the Pages settings step in the browser, or supported API access must become available. Do not describe the website as live until the Pages deployment reports success.
+The workspace attempt to read/configure Pages through `api.github.com` returned `Forbidden` from the network. Pages settings and remote deployment status could not be verified. Website files have been pushed; this does not establish that Pages is active. The owner subsequently reported that the browser setup succeeded. That is an owner-reported status, not an automated deployment check.
 
 The expected project-site address, if Pages is activated here, is:
 https://itsamachom.github.io/eos_rom_mlv_modifly/
 
-This address is not claimed to be live by this draft. Use the deployment status/link shown in GitHub Pages as the authority.
+This is the expected URL for the configuration the owner reported enabling. Use the deployment status/link shown in GitHub Pages as the authority.
 
 ## Local review
 
@@ -40,9 +40,15 @@ If financial contributions open later, name the recipient and purpose, use an ap
 
 ## Editing website content
 
-For a Thai beginner's guide to editing text through GitHub, see [EDITING_TH.md](EDITING_TH.md). The inspiration story is marked `CONTENT: story` in both language files. Ordinary text changes do not require a firmware build or release. If Pages is later activated from this branch, committed site changes become visible after a successful Pages deployment; the site is still a draft until hosting is configured.
+For a Thai beginner's guide to editing text through GitHub, see [EDITING_TH.md](EDITING_TH.md). The inspiration story is marked `CONTENT: story` in both language files. Ordinary text changes do not require a firmware build or release. If Pages is later activated from this branch, committed site changes become visible after a successful Pages deployment; the owner has now reported that hosting is configured.
 
 Articles use `CONTENT: article-body`; homepage article cards use `CONTENT: journal`.
 Language switches on an article open its translation, rather than the homepage.
 The latest source-review links point to the pinned audit record at `31b1022`;
 this does not change the firmware source or incorporate the audit branch here.
+
+## Creator channels and photo assets
+
+The homepage creator section links to the exact YouTube, Facebook and Blogger addresses supplied by the owner. These are plain links, without social embeds or tracking scripts. Article footers link back to the creator section.
+
+The six camera-menu photos were received in `Picture.zip` and integrated into both homepages. Their source-to-asset mapping, privacy processing checks and hashes are recorded in `website-content/menu-photos.json` outside the published tree. The gallery groups shooting, focus and setup images in Thai/English pairs and links to each full-size JPEG. Actual remote deployment is confirmed only by GitHub Pages; a push alone is not an independent live-site check.

@@ -5,7 +5,7 @@ const path = require('node:path');
 const http = require('node:http');
 const { chromium } = require('playwright');
 const root = path.resolve(__dirname, '..');
-const types = {'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml'};
+const types = {'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml','.jpg':'image/jpeg'};
 (async () => {
   const server = http.createServer(async (req,res) => {
     try {
@@ -38,6 +38,23 @@ const types = {'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-
         assert.equal(await page.locator('html').getAttribute('lang'),lang);
         assert.equal(await page.locator('h1').count(),1);
         assert.equal(await page.locator('form,iframe,script').count(),0);
+        assert.deepEqual(await page.locator('#creator .creator-channel').evaluateAll(as=>as.map(a=>a.href)),[
+          'https://www.youtube.com/@Online2easy',
+          'https://www.facebook.com/online2easy',
+          'https://online2hobby.blogspot.com/'
+        ]);
+        assert.equal(await page.locator('.hero-photo img').getAttribute('src'),`${lang==='th'?'assets/':'../assets/'}menu-photos/shoot-${lang}.jpg`);
+        assert.equal(await page.locator('.device').count(),0,'Concept illustration still present');
+        assert.equal(await page.locator('#gallery .photo-grid').count(),3);
+        assert.equal(await page.locator('#gallery img').count(),6);
+        assert.equal(new Set(await page.locator('#gallery img').evaluateAll(is=>is.map(i=>i.src))).size,6);
+        for(const img of await page.locator('.hero-photo img, #gallery img').all()) {
+          assert(await img.getAttribute('alt'));
+          await img.scrollIntoViewIfNeeded();
+          await img.evaluate(i=>i.decode());
+          assert.deepEqual(await img.evaluate(i=>[i.naturalWidth,i.naturalHeight]),[2000,1268]);
+          assert.equal(await img.evaluate(i=>i.parentElement.href===i.src),true,'Full-size photo link differs from image');
+        }
         assert(await page.locator('#status').innerText().then(t=>t.includes('28') && t.includes('38') && t.includes('dietlibc')));
         const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth);
         assert(!overflow,`${lang}: horizontal overflow at ${width}px`);
@@ -51,9 +68,13 @@ const types = {'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-
           assert(!/paypal|buymeacoffee|stripe|promptpay/i.test(href),'Payment link added while support is closed');
         }
         if(width===1440 && lang==='th') {
-          const box=await page.locator('#story').boundingBox();
-          await page.screenshot({path:path.join(out,'website-th-story.png'),clip:{x:box.x-16,y:box.y,width:box.width+32,height:box.height}});
+          await page.locator('#story').screenshot({path:path.join(out,'website-th-story.png')});
         }
+        if(width===1440) {
+          await page.locator('#creator').screenshot({path:path.join(out,`website-${lang}-creator.png`)});
+          await page.locator('#gallery').screenshot({path:path.join(out,`website-${lang}-gallery.png`)});
+        }
+        if(width===390 && lang==='th')await page.locator('.hero').screenshot({path:path.join(out,'website-th-hero-mobile.png')});
         if(width===1440 || (width===390 && lang==='th'))await page.screenshot({path:path.join(out,`website-${lang}-${width===1440?'desktop':'mobile'}.png`),fullPage:true});
       }
       await page.goto(target);

@@ -54,3 +54,35 @@
   .article-body h2{font-size:1.35rem}
   .article-invitation{padding:22px}
 }
+
+/* Public profiles are ordinary links; no embedded third-party widgets. */
+.creator{display:grid;grid-template-columns:1.1fr 1fr;gap:65px;align-items:center}
+.creator p{color:var(--muted);max-width:620px}
+.creator-channels{border:1px solid var(--line);border-radius:4px;background:var(--panel);padding:8px 28px}
+.creator-channel{display:block;padding:22px 0;text-decoration:none;border-bottom:1px solid var(--line)}
+.creator-channel:last-child{border-bottom:0}
+.channel-name{display:block;font-size:1.05rem;line-height:1.7}
+.channel-name>span{color:var(--accent);margin:0 6px}
+.channel-detail{display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--muted);font-size:.85rem;margin-top:5px}
+.creator-channel:hover .channel-name,.creator-channel:hover .channel-detail{color:var(--accent)}
+@media(max-width:960px){.creator{gap:35px}}
+@media(max-width:700px){.creator{grid-template-columns:1fr;gap:22px}.creator-channels{padding:4px 22px}.channel-name{font-size:1rem}}
+
+/* Actual camera photos keep their original proportions and full menu content. */
+.hero-photo{margin:0;min-width:0}
+.hero-photo>a,.menu-photo>a{display:block;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#080b09}
+.hero-photo>a:hover,.menu-photo>a:hover{border-color:var(--accent)}
+.hero-photo img,.menu-photo img{display:block;width:100%;height:auto;aspect-ratio:2000/1268;object-fit:contain}
+.hero-photo>a{box-shadow:0 25px 65px #0004}
+.hero-photo figcaption{font-size:.78rem;line-height:1.9;color:var(--muted);margin-top:16px}
+.hero-photo figcaption a{display:inline-block;margin-top:7px;color:var(--accent)}
+.menu-pair{margin-top:35px}
+.menu-pair h3{font-size:1.1rem;color:var(--accent);margin-bottom:16px}
+.photo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.menu-photo{margin:0;min-width:0}
+.menu-photo figcaption{padding:15px 0 0}
+.photo-language{font-size:.8rem;border:1px solid var(--line);border-radius:30px;padding:3px 10px;display:inline-block}
+.menu-photo figcaption p{font-size:.9rem;line-height:1.85;color:var(--muted);margin:10px 0 0}
+.gallery-note{color:var(--muted);font-size:.85rem;line-height:1.9;margin:35px 0 10px;padding-top:25px;border-top:1px solid var(--line)}
+.gallery-credit{color:var(--muted);font-size:.8rem;margin-bottom:0}
+@media(max-width:700px){.photo-grid{grid-template-columns:1fr;gap:24px}.menu-pair{margin-top:30px}.hero-photo figcaption{font-size:.8rem}}
