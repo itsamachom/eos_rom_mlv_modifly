@@ -6,7 +6,10 @@
   "placement": {
     "hero_th": "shoot-th",
     "hero_en": "shoot-en",
-    "gallery": "Three Thai/English pairs; no cropping or invented menu content"
+    "gallery": "Three Thai/English pairs; no cropping or invented menu content",
+    "maximum_display_width_px": 520,
+    "approximate_display_height_px": 330,
+    "click_to_enlarge": false
   },
   "caption_note": {
     "th": "ภาพถ่ายหน้าจอที่ผู้พัฒนาแบ่งปัน ยังไม่ได้ระบุเวอร์ชันบิลด์ของภาพ และภาพเหล่านี้ไม่ใช่ผลยืนยันการทดสอบทุกฟังก์ชัน",

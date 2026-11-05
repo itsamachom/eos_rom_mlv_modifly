@@ -31,7 +31,7 @@ const types = {'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-
       page.on('response',r=>{if(r.status()>=400)failures.push(`${r.status()}: ${r.url()}`);});
       await page.route('**/*',route=>route.request().url().startsWith(origin+'/') ? route.continue() : route.abort());
       const target = origin + (lang==='th' ? '/docs/' : '/docs/en/');
-      for (const width of [1440,768,390,320]) {
+      for (const width of [1920,1440,1024,768,390,320]) {
         await page.setViewportSize({width,height:1000});
         assert.equal((await page.goto(target)).status(),200);
         await page.evaluate(()=>document.fonts.ready);
@@ -53,8 +53,14 @@ const types = {'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-
           await img.scrollIntoViewIfNeeded();
           await img.evaluate(i=>i.decode());
           assert.deepEqual(await img.evaluate(i=>[i.naturalWidth,i.naturalHeight]),[2000,1268]);
-          assert.equal(await img.evaluate(i=>i.parentElement.href===i.src),true,'Full-size photo link differs from image');
+          assert.equal(await img.evaluate(i=>i.closest('a')===null),true,'Photo still opens a larger image');
+          const size=await img.boundingBox();
+          assert(size.width<=520.5,`${lang}: photo exceeds its 520px frame at ${width}px`);
+          assert(Math.abs(size.height/size.width-1268/2000)<0.01,'Photo proportions changed');
         }
+        assert.equal(await page.locator('a[href$=".jpg"]').count(),0,'A full-size photo link remains');
+        if(width>=1024)assert((await page.locator('.hero-copy').boundingBox()).width>=350,'Hero image squeezed the text column');
+        assert((await page.locator('link[rel="stylesheet"]').getAttribute('href')).includes('?v='),'CSS version missing');
         assert(await page.locator('#status').innerText().then(t=>t.includes('28') && t.includes('38') && t.includes('dietlibc')));
         const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth);
         assert(!overflow,`${lang}: horizontal overflow at ${width}px`);
