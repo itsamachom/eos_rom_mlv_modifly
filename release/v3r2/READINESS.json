@@ -17,7 +17,7 @@
   "blockers": [
     {
       "id": "dependency_corresponding_source",
-      "detail": "A mirrored 0.33-line source candidate now covers all 54 used object names and compiles them. Two CVS imports have an identical tree; the archive matches the 2013 Magic Lantern introduction. Nine nonempty object images match with an isolated small-string config experiment. Original build/config/patch correspondence for the whole archive remains unverified; see DIETLIBC_SOURCE_AUDIT.md."
+      "detail": "A mirrored 0.33-line candidate covers all 54 used object names. Pinned-source GCC 4.7.3 / GAS 2.23.1 compiles all 54; 32 nonempty object images match, with one empty object excluded. Old GAS explains errno/errlist padding. Twenty-one selected objects remain unmatched. GCC 4.6.2 has two internal compiler crashes and is inconclusive. Original build/config/patch correspondence for the archive remains unverified; see DIETLIBC_SOURCE_AUDIT.md and toolchain-audit/."
     },
     {
       "id": "github_release_api_access",

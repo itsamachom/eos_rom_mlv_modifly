@@ -64,10 +64,15 @@ def elf(data):
         st=raw(ss[s[6]]); entries=[]
         for off in range(s[4],s[4]+s[5],s[9]):
             no,val,size,info,other,idx=struct.unpack_from('<IIIBBH',data,off)
-            name=cs(st,no);entries.append(name)
+            name=cs(st,no)
+            section=sn[idx] if idx<len(sn) else idx
+            # STT_SECTION symbols commonly have an empty string-table name.
+            # Preserve their actual section instead of conflating every one.
+            target=('section',section,val) if info&15==3 else ('symbol',name,section,val,size,info>>4,info&15,other&3)
+            entries.append(target)
             if info&15==4:files.append(name)
             if info>>4 in [1,2] and idx and name:
-                exports.append((name,sn[idx] if idx<len(sn) else idx,val,size,info&15))
+                exports.append((name,section,val,size,info&15,info>>4,other&3))
         tables[i]=entries
     relocs=[]
     for s in ss:
@@ -143,7 +148,9 @@ summary={'objects_used_by_core':len(core_objects),'objects_used_by_lua':len(lua_
          'equal_nonempty_allocated_images_relocations_exports':sum(r.get('allocated_image_and_relocations_equal') is True and r.get('has_allocated_content') for r in rows),
          'equal_empty_objects':sum(r.get('allocated_image_and_relocations_equal') is True and not r.get('has_allocated_content') for r in rows),
          'headers_compared':len(headers),'identical_headers':sum(r['identical'] for r in headers)}
-report={'archive_path':str(archive.relative_to(root)),'archive_sha256':sha(original),
+report={'comparison_schema':2,
+        'comparison_scope':'Nonempty allocated section content/type/flags/size/alignment; relocations with canonical section targets and symbol metadata; defined exported symbols including binding and visibility. Not whole-ELF identity.',
+        'archive_path':str(archive.relative_to(root)),'archive_sha256':sha(original),
         'source_candidate_directory':str(source),'compiler':version,'compile_flags':flags,
         'configuration_experiment':'Disable WANT_FASTER_STRING_ROUTINES in an isolated header overlay; do not alter inherited or source candidate files.',
         'source_correspondence_verified':False,'summary':summary,'objects':rows,'headers':headers}

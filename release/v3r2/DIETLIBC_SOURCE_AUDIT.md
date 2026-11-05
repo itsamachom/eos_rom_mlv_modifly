@@ -58,13 +58,38 @@ archive เดิมระบุ ARM7TDMI / ARMv4T, ARM mode, Thumb-1 interworki
 
 snapshot เปิด `WANT_FASTER_STRING_ROUTINES` แต่ `strlen` ของ archive เป็น small-string implementation เมื่อปิดตัวเลือกนี้ใน **header overlay แยกสำหรับการทดลอง** จะประกอบ `.text` ของ `strlen` ได้ตรงกันทุกไบต์ ไม่ได้แก้ snapshot ต้นฉบับหรือไฟล์ใน firmware/ การเลือกนี้เป็นข้อสันนิษฐานที่บันทึกไว้ ไม่ใช่ config ที่ได้รับการยืนยันจากผู้สร้าง archive
 
-compiler ที่ใช้ทดลองคือ GCC 14.2.1 ปัจจุบัน ไม่ใช่ compiler เดิม ความต่างของ object อีก 44 รายการจึงไม่ได้พิสูจน์ว่ามี patches และไม่อาจใช้ยืนยันว่าไม่มี patches เช่นกัน ตัวอย่าง `errno.o` มี BSS padding ต่างกัน และ `errlist.o` มีขนาด rodata ต่างหนึ่งไบต์ อย่าตัด padding หรือเปลี่ยนค่าที่คาดหวังเพื่อเรียกว่าผ่าน strict comparison
+compiler ที่ใช้ทดลองรอบแรกคือ GCC 14.2.1 ปัจจุบัน ไม่ใช่ compiler เดิม ความต่างของ object อีก 44 รายการจึงไม่ได้พิสูจน์ว่ามี patches และไม่อาจใช้ยืนยันว่าไม่มี patches เช่นกัน ตัวอย่าง `errno.o` มี BSS padding ต่างกัน และ `errlist.o` มีขนาด rodata ต่างหนึ่งไบต์ การตรวจไม่ตัด padding หรือเปลี่ยนค่าที่คาดหวังเพื่อเรียกว่าผ่าน strict comparison ดูผลเครื่องมือรุ่นเก่าเพิ่มเติมด้านล่าง
 
 4 header ที่ต่างคือ unistd.h, math.h, ctype.h และ sys/cdefs.h ส่วนของ math.h มี prototype จาก Newlib เพิ่ม และ sys/cdefs.h มีหมายเหตุการแก้โดย a1ex ข้อเปรียบเทียบนี้บอกความใกล้เคียงของสายซอร์ส ไม่ได้ยืนยันว่า headers ของ Lua ที่คัดลอกไว้เป็น headers ที่ใช้ build archive จริง
 
 ดูรายละเอียดราย object และ flags ที่รันจริงใน
 [DIETLIBC_COMPARISON.json](DIETLIBC_COMPARISON.json) และ metadata ใน
 [DIETLIBC_SOURCE_EVIDENCE.json](DIETLIBC_SOURCE_EVIDENCE.json)
+
+### ตรวจต่อด้วยเครื่องมือรุ่นเก่า
+
+สร้าง GCC 4.7.3 จากซอร์สของ gcc-mirror และ GNU assembler 2.23.1 จาก RTEMS Sourceware mirror ในพื้นที่ audit แยก ระบุ commit และ hash ของ archive ที่ดาวน์โหลด ใช้ HTTPS พร้อมตรวจ certificate แต่ยังไม่ได้ตรวจ release signature ไม่ใช้ compiler เหล่านี้สร้างหรือแทนที่เฟิร์มแวร์ และไม่รัน ARM binary
+
+| Compiler / assembler | Compile ผ่าน | object ที่มีเนื้อหาและตรงตาม strict comparison |
+| --- | ---: | ---: |
+| GCC 14.2.1 / GAS 2.44 — รอบแรก | 54 / 54 | 9 |
+| GCC 14.2.1 / GAS 2.23.1 | 54 / 54 | 11 |
+| GCC 4.7.3 / GAS 2.44 | 54 / 54 | 30 |
+| GCC 4.7.3 / GAS 2.23.1 | 54 / 54 | 32 |
+| GCC 4.6.2 / GAS 2.44 — รอบไม่สมบูรณ์ | 52 / 54 | 17 (ผลบางส่วน) |
+| GCC 4.6.2 / GAS 2.23.1 — รอบไม่สมบูรณ์ | 52 / 54 | 19 (ผลบางส่วน) |
+
+ทุกแถวใช้ candidate source, flags และ small-string overlay แบบเดียวกัน ไม่นับ `atoi.o` ที่ว่าง ผลของ GCC 4.7.3 มี `.text` ที่ไม่ว่างตรงกัน 29 รายการ
+
+เมื่อเปลี่ยนเฉพาะ assembler จาก 2.44 เป็น 2.23.1 ทั้ง `errno.o` และ `errlist.o` ผ่าน strict comparison โดยไม่แก้ซอร์ส: `.bss` ของ errno มี padding เป็น 256 ไบต์ และ `.rodata` ของ errlist มี zero padding จนเป็น 3,536 ไบต์ตรง archive เดิม นี่เป็นหลักฐานทดลองว่าความต่างสองรายการนี้อธิบายได้ด้วย assembler โดยไม่ต้องสมมติ source patch แต่ยังไม่ยืนยันว่า archive เดิมใช้ assembler 2.23.1
+
+รอบแรกของ wrapper GCC 4.7.3 เคยดึง generated headers ผ่าน `-B` และ compile `strtoull.c` ไม่ผ่าน ไม่นำผลนั้นมานับ ตารางนี้ใช้ wrapper ที่แยกไดเรกทอรีค้นหา `cc1` ออกจาก headers แล้ว ตรวจ `-E -H` ว่าใช้ `limits.h` และ `stddef.h` ของ candidate จริง ไม่มีการเพิ่ม define เพื่อกลบข้อผิดพลาด
+
+การทดลองปิด `-ftree-ch`, `-freorder-blocks` และทั้งสองตัวพร้อมกันไม่ทำให้จำนวนตรงเพิ่มขึ้น ยังไม่มีหลักฐานว่า flags เหล่านี้เป็นของ build เดิม
+
+ตรวจ GCC 4.6.2 ตามเบาะแสใน bootstrap script เก่าด้วย สร้าง compiler ได้หลังปรับ optimization ของ **host generator เท่านั้น** โดยไม่แก้ compiler source แต่เมื่อใช้ compile candidate พบ internal compiler error (segmentation fault) ใน `__v_printf.c` และ `strtoull.c` ทั้งสอง assembler การตรวจรอบนี้จึงไม่สมบูรณ์ ไม่ตีความว่าเป็น source patch หรือพิสูจน์ว่า compiler เดิมเป็น/ไม่เป็นรุ่นนี้ และไม่ใช้แทนผล GCC 4.7.3 ที่ compile ครบ ดูข้อจำกัดและ workaround ในบันทึกเครื่องมือ
+
+รายละเอียดที่ทำซ้ำได้อยู่ใน [toolchain-audit/](toolchain-audit/README.md) พร้อมข้อมูลราย object แยกตามเครื่องมือ ผล 32 รายการที่ตรงช่วยลดข้อสงสัยเรื่อง toolchain แต่ยังเหลือ 21 รายการที่ต่างกัน และยังไม่ยืนยัน recipe/config/patches ของ archive ทั้งชุด
 
 ## 4. ทำซ้ำ
 

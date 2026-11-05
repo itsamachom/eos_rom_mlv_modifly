@@ -49,10 +49,35 @@
   "limitations": [
     "Original archive compiler producer information is stripped.",
     "No original dietfeatures configuration or library build recipe has been established.",
-    "Only a subset of inherited object images match with the current compiler.",
+    "Only a subset of inherited object images match with the tested toolchains.",
     "Byte matches in long-lived routines do not uniquely identify the historical source version.",
-    "No claim is made that an unmatched object proves a source patch."
+    "No claim is made that an unmatched object proves a source patch.",
+    "GCC 4.6.2 built on the modern host has two internal compiler errors; those failed compiles do not establish source patches."
   ],
   "firmware_changed": false,
-  "release_published": false
+  "release_published": false,
+  "comparison_summary_scope": "Original GCC 14.2.1 / GAS 2.44 baseline; see historical_toolchain_audit for later experiments.",
+  "historical_toolchain_audit": {
+    "manifest": "toolchain-audit/MANIFEST.json",
+    "best_complete_experiment": "gcc473-gas2231",
+    "summary": {
+      "objects_used_by_core": 18,
+      "objects_used_by_lua": 40,
+      "unique_objects": 54,
+      "mapped_sources": 54,
+      "compiled": 54,
+      "equal_text_sections": 29,
+      "equal_allocated_images_relocations_exports": 33,
+      "equal_nonempty_allocated_images_relocations_exports": 32,
+      "equal_empty_objects": 1,
+      "headers_compared": 36,
+      "identical_headers": 32
+    },
+    "remaining_unmatched_objects": 21,
+    "padding_differences_explained_with_old_assembler": [
+      "errno.o",
+      "errlist.o"
+    ],
+    "gcc462_experiment_complete": false
+  }
 }

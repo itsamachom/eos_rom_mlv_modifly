@@ -1,0 +1,10 @@
+/workspace/source-audit/dietlibc-033/cvs-20130222/lib/__v_printf.c: In function '__v_printf':
+/workspace/source-audit/dietlibc-033/cvs-20130222/lib/__v_printf.c:405:1: internal compiler error: Segmentation fault
+Please submit a full bug report,
+with preprocessed source if appropriate.
+See <http://gcc.gnu.org/bugs.html> for instructions.
+/workspace/source-audit/dietlibc-033/cvs-20130222/lib/strtoull.c: In function 'strtoull':
+/workspace/source-audit/dietlibc-033/cvs-20130222/lib/strtoull.c:57:1: internal compiler error: Segmentation fault
+Please submit a full bug report,
+with preprocessed source if appropriate.
+See <http://gcc.gnu.org/bugs.html> for instructions.

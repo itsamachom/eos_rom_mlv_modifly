@@ -1,4 +1,6 @@
 {
+  "comparison_schema": 2,
+  "comparison_scope": "Nonempty allocated section content/type/flags/size/alignment; relocations with canonical section targets and symbol metadata; defined exported symbols including binding and visibility. Not whole-ELF identity.",
   "archive_path": "firmware/src/libs/dietlib-0.33-none-eabi-Os/dietlibc.a",
   "archive_sha256": "21c61d561fbd852f46eb891052efaa8cd3c634261803793ffe600eac67861d9a",
   "source_candidate_directory": "/workspace/source-audit/dietlibc-033/cvs-20130222",
@@ -9,7 +11,7 @@
     "-mcpu=arm7tdmi",
     "-marm",
     "-nostdinc",
-    "-I/workspace/source-audit/dietlibc-033/comparison-final-alignment/small-strings-config",
+    "-I/workspace/source-audit/dietlibc-033/comparison-v2-gcc14-gas244/small-strings-config",
     "-I/workspace/source-audit/dietlibc-033/cvs-20130222",
     "-isystem",
     "/workspace/source-audit/dietlibc-033/cvs-20130222/include",

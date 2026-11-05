@@ -1,0 +1,2430 @@
+{
+  "comparison_schema": 2,
+  "comparison_scope": "Nonempty allocated section content/type/flags/size/alignment; relocations with canonical section targets and symbol metadata; defined exported symbols including binding and visibility. Not whole-ELF identity.",
+  "archive_path": "firmware/src/libs/dietlib-0.33-none-eabi-Os/dietlibc.a",
+  "archive_sha256": "21c61d561fbd852f46eb891052efaa8cd3c634261803793ffe600eac67861d9a",
+  "source_candidate_directory": "/workspace/source-audit/dietlibc-033/cvs-20130222",
+  "compiler": "xgcc (GCC) 4.7.3",
+  "compile_flags": [
+    "-c",
+    "-Os",
+    "-mcpu=arm7tdmi",
+    "-marm",
+    "-nostdinc",
+    "-I/workspace/source-audit/dietlibc-033/comparison-v2-gcc473-gas244/small-strings-config",
+    "-I/workspace/source-audit/dietlibc-033/cvs-20130222",
+    "-isystem",
+    "/workspace/source-audit/dietlibc-033/cvs-20130222/include",
+    "-D__dietlibc__",
+    "-std=gnu89",
+    "-fomit-frame-pointer",
+    "-fstrict-aliasing"
+  ],
+  "configuration_experiment": "Disable WANT_FASTER_STRING_ROUTINES in an isolated header overlay; do not alter inherited or source candidate files.",
+  "source_correspondence_verified": false,
+  "summary": {
+    "objects_used_by_core": 18,
+    "objects_used_by_lua": 40,
+    "unique_objects": 54,
+    "mapped_sources": 54,
+    "compiled": 54,
+    "equal_text_sections": 29,
+    "equal_allocated_images_relocations_exports": 31,
+    "equal_nonempty_allocated_images_relocations_exports": 30,
+    "equal_empty_objects": 1,
+    "headers_compared": 36,
+    "identical_headers": 32
+  },
+  "objects": [
+    {
+      "object": "__ltostr.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "a0833aad26220d647d626c6adedcdf9e1736d56f1d60fade87a90dccc317a7ea",
+      "archive_member_mtime_utc": "2013-03-18T15:33:51+00:00",
+      "inherited_source_file_symbols": [
+        "__ltostr.c"
+      ],
+      "candidate_source": "lib/__ltostr.c",
+      "candidate_source_sha256": "a9e2a04e8a381ab808f075ca464dcd06df2b8553316d30d5b67fd27a3ba19a83",
+      "compile_exit_code": 0,
+      "text_bytes_equal": false,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": false,
+      "relocations_equal": false,
+      "export_symbols_equal": false,
+      "allocated_image_and_relocations_equal": false,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 188,
+          "sha256": "8b1f92177940174f813a598f7930d9ee7c55538ecd50a71dddddf8805680e2c9"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 184,
+          "sha256": "3742402b596d1385c2856e7df046fced038eecbf6dd4abaed4c2b7f3d38bad26"
+        }
+      }
+    },
+    {
+      "object": "__v_printf.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "89dd62c54dfbaae01613eca2eb9f4d8da7da67729262d2f01444eb6149bb18db",
+      "archive_member_mtime_utc": "2013-03-18T15:33:56+00:00",
+      "inherited_source_file_symbols": [
+        "__v_printf.c"
+      ],
+      "candidate_source": "lib/__v_printf.c",
+      "candidate_source_sha256": "d666811b79779d858fa2887aff3cd99828ba59fc404a2b3b824c38ee630419d1",
+      "compile_exit_code": 0,
+      "text_bytes_equal": false,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": false,
+      "relocations_equal": false,
+      "export_symbols_equal": false,
+      "allocated_image_and_relocations_equal": false,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 2036,
+          "sha256": "ab9ddb13481f4b959c73bc282e03bdb43b7b98f6e251f97cae11507fd4723d38"
+        },
+        ".rodata": {
+          "type": 1,
+          "flags": 2,
+          "alignment": 1,
+          "size": 32,
+          "sha256": "97fec1b1f0590aae7f183f80616a56a2025d734bf9288dcbfdae512678816fc2"
+        },
+        ".rodata.str1.1": {
+          "type": 1,
+          "flags": 50,
+          "alignment": 1,
+          "size": 7,
+          "sha256": "d95f1f34940146cc9423fe21df0befdaa58ecb3be841de0fd1ae06820284e44d"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 2828,
+          "sha256": "c46dbf2af45a3f6ada367fa80f48864f85fa0598e85279f340159f0c93c5e4d0"
+        },
+        ".rodata": {
+          "type": 1,
+          "flags": 2,
+          "alignment": 1,
+          "size": 32,
+          "sha256": "97fec1b1f0590aae7f183f80616a56a2025d734bf9288dcbfdae512678816fc2"
+        },
+        ".rodata.str1.1": {
+          "type": 1,
+          "flags": 50,
+          "alignment": 1,
+          "size": 7,
+          "sha256": "d95f1f34940146cc9423fe21df0befdaa58ecb3be841de0fd1ae06820284e44d"
+        }
+      }
+    },
+    {
+      "object": "atoi.o",
+      "consumers": [
+        "core"
+      ],
+      "archive_member_sha256": "a735bb3ac49074d7f9a2df81bd986bdbc0a0f700f3881f62c76a7f28fed65fd0",
+      "archive_member_mtime_utc": "2013-03-18T15:33:49+00:00",
+      "inherited_source_file_symbols": [
+        "atoi.c"
+      ],
+      "candidate_source": "lib/atoi.c",
+      "candidate_source_sha256": "94ec0cdd9094b34c63aa7de76319f266cf692986d3159fad6f7ad1c529820da5",
+      "compile_exit_code": 0,
+      "text_bytes_equal": null,
+      "has_allocated_content": false,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {},
+      "candidate_alloc_sections": {}
+    },
+    {
+      "object": "atol.o",
+      "consumers": [
+        "core"
+      ],
+      "archive_member_sha256": "1083812b29127e3f9c746598389f228a19454acbd01603f543bb9fc0a27b74e6",
+      "archive_member_mtime_utc": "2013-03-18T15:33:49+00:00",
+      "inherited_source_file_symbols": [
+        "atol.c"
+      ],
+      "candidate_source": "lib/atol.c",
+      "candidate_source_sha256": "e5f22d0dd1e0f80fba6609cb80152c354b9de870742b2615383b35204eebb799",
+      "compile_exit_code": 0,
+      "text_bytes_equal": false,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": false,
+      "relocations_equal": false,
+      "export_symbols_equal": false,
+      "allocated_image_and_relocations_equal": false,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 124,
+          "sha256": "0446e618c00fc066179443abbc67c1bc48bf90e70ae23ac3da6bd068f8e2a6ea"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 140,
+          "sha256": "91ff515b60d113d1d9a26bb5b81bf4cd7f207f58cd368137debbd9ef6f509e48"
+        }
+      }
+    },
+    {
+      "object": "clearerr.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "fdd9ebe07e2284bdd71b57f45947ab1ae07d5c3a67df0d1b507ffa8ce63855a9",
+      "archive_member_mtime_utc": "2013-03-18T15:33:57+00:00",
+      "inherited_source_file_symbols": [
+        "clearerr.c"
+      ],
+      "candidate_source": "libstdio/clearerr.c",
+      "candidate_source_sha256": "2f6b39165fac9c78b8b041f45f47a3f79515b4bd8aae3d9ccb7ba6e974b08922",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 16,
+          "sha256": "e17c7cd5af34d4b03c7f7a85d07de2a3bb8e3de988aaf99f5a3394669f85da80"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 16,
+          "sha256": "e17c7cd5af34d4b03c7f7a85d07de2a3bb8e3de988aaf99f5a3394669f85da80"
+        }
+      }
+    },
+    {
+      "object": "errlist.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "6aeff91c78f4b940d206144cf90000315c658b25ead3b726fefcb8c5fac2e77a",
+      "archive_member_mtime_utc": "2013-03-18T15:33:45+00:00",
+      "inherited_source_file_symbols": [],
+      "candidate_source": "syscalls.s/errlist.S",
+      "candidate_source_sha256": "2d4a9641503f1fe91d59ef669da4551e2a8abbed78a7ef39f77b05479274d71e",
+      "compile_exit_code": 0,
+      "text_bytes_equal": null,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": false,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": false,
+      "inherited_alloc_sections": {
+        ".rodata": {
+          "type": 1,
+          "flags": 2,
+          "alignment": 16,
+          "size": 3536,
+          "sha256": "f7a91a7284932ee5a01475b81be7dee0fcb4ff1ee81efdf5ab38b7048097edf0"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".rodata": {
+          "type": 1,
+          "flags": 2,
+          "alignment": 16,
+          "size": 3535,
+          "sha256": "aff76d5de7ab21c7104fff8acc80000cc73de2edacb3e23c7d7fc5d4636115f0"
+        }
+      }
+    },
+    {
+      "object": "errlistu.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "2bbcb5e29b1f18b07cff75c0bdaf3e2e34a359c3f411143e1583339a18b4b13c",
+      "archive_member_mtime_utc": "2013-03-18T15:33:49+00:00",
+      "inherited_source_file_symbols": [
+        "errlistu.c"
+      ],
+      "candidate_source": "lib/errlistu.c",
+      "candidate_source_sha256": "054d47ce250a125649666932b9c40b8ff91914440e1ccef7c6886e658690039d",
+      "compile_exit_code": 0,
+      "text_bytes_equal": null,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".rodata": {
+          "type": 1,
+          "flags": 2,
+          "alignment": 1,
+          "size": 16,
+          "sha256": "a93b9f52e62b3d03e46157b43388169f709889e094cfe4da2920767228040dca"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".rodata": {
+          "type": 1,
+          "flags": 2,
+          "alignment": 1,
+          "size": 16,
+          "sha256": "a93b9f52e62b3d03e46157b43388169f709889e094cfe4da2920767228040dca"
+        }
+      }
+    },
+    {
+      "object": "errno.o",
+      "consumers": [
+        "core",
+        "lua"
+      ],
+      "archive_member_sha256": "96cad866d6c0657625159f5bd8b44c8699192251a120f72b6ea88746a9bbbb20",
+      "archive_member_mtime_utc": "2013-03-18T15:33:45+00:00",
+      "inherited_source_file_symbols": [],
+      "candidate_source": "syscalls.s/errno.S",
+      "candidate_source_sha256": "9034fec36a5cf4fb0a0b7ebe376e2cc1ffac0391387ffed911bb51c60c75a85d",
+      "compile_exit_code": 0,
+      "text_bytes_equal": null,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": false,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": false,
+      "inherited_alloc_sections": {
+        ".bss": {
+          "type": 8,
+          "flags": 3,
+          "alignment": 256,
+          "size": 256,
+          "sha256": null
+        }
+      },
+      "candidate_alloc_sections": {
+        ".bss": {
+          "type": 8,
+          "flags": 3,
+          "alignment": 256,
+          "size": 4,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "object": "errno_location.o",
+      "consumers": [
+        "core",
+        "lua"
+      ],
+      "archive_member_sha256": "8fc8c49779b16498ed78edde95c19c24392ee4b8af7a6cf681beeaadc702273a",
+      "archive_member_mtime_utc": "2013-03-18T15:33:49+00:00",
+      "inherited_source_file_symbols": [
+        "errno_location.c"
+      ],
+      "candidate_source": "lib/errno_location.c",
+      "candidate_source_sha256": "cbbcff187f4cb1c5e43f050f02783129ba667b7e96c7696d4c0e68c7c8bd1db4",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 12,
+          "sha256": "4e2a1308cf5172aefce46eb70c53325df89824060da69b7e467df53e293fe57c"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 12,
+          "sha256": "4e2a1308cf5172aefce46eb70c53325df89824060da69b7e467df53e293fe57c"
+        }
+      }
+    },
+    {
+      "object": "fclose.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "a4e1e3bd06b648b2c0966005da7e6031b1c886bfd566e4ba24555ee1b198de21",
+      "archive_member_mtime_utc": "2013-03-18T15:33:57+00:00",
+      "inherited_source_file_symbols": [
+        "fclose.c"
+      ],
+      "candidate_source": "libstdio/fclose.c",
+      "candidate_source_sha256": "f2ea24e546795ec75893942e5ead6a47143b6e33792cc587b4c7989523daeba9",
+      "compile_exit_code": 0,
+      "text_bytes_equal": false,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": false,
+      "relocations_equal": false,
+      "export_symbols_equal": false,
+      "allocated_image_and_relocations_equal": false,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 136,
+          "sha256": "963c7135bed9143d3a6d37df7aca781fa5f3b4dc2c0479cc5bdf38d5f8b0ac35"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 140,
+          "sha256": "b2a02f98dd025a63038ff5aa6121823cd9322f4db978ddc256c4d254cd7d5275"
+        }
+      }
+    },
+    {
+      "object": "fdglue.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "3e33e761dd2ff8a306990060e5c0e37882c03ba59abb03664538bde08feb06fb",
+      "archive_member_mtime_utc": "2013-03-18T15:33:57+00:00",
+      "inherited_source_file_symbols": [
+        "fdglue.c"
+      ],
+      "candidate_source": "libstdio/fdglue.c",
+      "candidate_source_sha256": "9339bc43b8367caf156af7305e45655222dedb2160adf978016818e05842ffba",
+      "compile_exit_code": 0,
+      "text_bytes_equal": false,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": false,
+      "relocations_equal": false,
+      "export_symbols_equal": false,
+      "allocated_image_and_relocations_equal": false,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 92,
+          "sha256": "b9bfe7c4d1663ac5d28d35f55e4c64b2cd7f2719090f9b99d177bf3773ff75af"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 108,
+          "sha256": "7826ab28b75eac1d9fa076c7d028eff049c1c9e2e82f54b82d706be1ddb3f494"
+        }
+      }
+    },
+    {
+      "object": "fdglue2.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "3960068a9519885beca8569681fbb45cc7f7245a303cac8c3287b55561d47cae",
+      "archive_member_mtime_utc": "2013-03-18T15:33:57+00:00",
+      "inherited_source_file_symbols": [
+        "fdglue2.c"
+      ],
+      "candidate_source": "libstdio/fdglue2.c",
+      "candidate_source_sha256": "a4a0f01e6b6beb813f4a8ea5d6ec047668e519543127d26ed95d6f5d498e1768",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 304,
+          "sha256": "6c2a16aff85c2d684a6001d711957170731db72524e423288cae46dc7ef58197"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 304,
+          "sha256": "6c2a16aff85c2d684a6001d711957170731db72524e423288cae46dc7ef58197"
+        }
+      }
+    },
+    {
+      "object": "feof.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "c77143d6dbfcaa50b5c913bd635e52b5d015647cecc981da933eef1a08841aff",
+      "archive_member_mtime_utc": "2013-03-18T15:33:57+00:00",
+      "inherited_source_file_symbols": [
+        "feof.c"
+      ],
+      "candidate_source": "libstdio/feof.c",
+      "candidate_source_sha256": "c25a7aa831903a74362874d3f1bac7dad3b2a91329d585b3e3f5db35c4fb97f8",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 24,
+          "sha256": "44c53e58795414ede45aa25c23154946eebd0373f91b1fa2da2f70971c76924e"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 24,
+          "sha256": "44c53e58795414ede45aa25c23154946eebd0373f91b1fa2da2f70971c76924e"
+        }
+      }
+    },
+    {
+      "object": "ferror.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "bd2d24f08cf9685057bde062a16fda1dc14b69d2cba0dbed617d3b5eb193f953",
+      "archive_member_mtime_utc": "2013-03-18T15:33:58+00:00",
+      "inherited_source_file_symbols": [
+        "ferror.c"
+      ],
+      "candidate_source": "libstdio/ferror.c",
+      "candidate_source_sha256": "de38ec954808612c3b3d2f8cd6ec5cd6e96ef6a82885b49b8dc97b2419e94d77",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 12,
+          "sha256": "8b599ee5daf42f540dfe51338169111c71709fbfbd98891b4040321c7b111364"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 12,
+          "sha256": "8b599ee5daf42f540dfe51338169111c71709fbfbd98891b4040321c7b111364"
+        }
+      }
+    },
+    {
+      "object": "fflush.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "217875b3a251aef5ca080096feb423f98d79a946a0ad4f46307d396951b7f729",
+      "archive_member_mtime_utc": "2013-03-18T15:33:58+00:00",
+      "inherited_source_file_symbols": [
+        "fflush.c"
+      ],
+      "candidate_source": "libstdio/fflush.c",
+      "candidate_source_sha256": "046a2ac83b7fa118a07628043744b62d68d19f1260d3025122615a3f99c343cd",
+      "compile_exit_code": 0,
+      "text_bytes_equal": false,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": false,
+      "relocations_equal": false,
+      "export_symbols_equal": false,
+      "allocated_image_and_relocations_equal": false,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 428,
+          "sha256": "d33488071241e6a043c52a45a6ef8eb42cdd26f8c655a5fe59ce86d71d76286c"
+        },
+        ".bss": {
+          "type": 8,
+          "flags": 3,
+          "alignment": 4,
+          "size": 4,
+          "sha256": null
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 432,
+          "sha256": "303ac391e4ff84f06c23330f5a1fc1ffbb4f57e83ef96ad30d993b644239f032"
+        },
+        ".bss": {
+          "type": 8,
+          "flags": 3,
+          "alignment": 4,
+          "size": 4,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "object": "fgetc_unlocked.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "e85e54df8f6cd0ea0d9057e70becfdbcc47fcd84a494e6853c009878958a3fab",
+      "archive_member_mtime_utc": "2013-03-18T15:33:58+00:00",
+      "inherited_source_file_symbols": [
+        "fgetc_unlocked.c"
+      ],
+      "candidate_source": "libstdio/fgetc_unlocked.c",
+      "candidate_source_sha256": "b4607b7a49ea30de060d172732987a1d9a95781f44c563d33cd90c16f7fe693c",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 204,
+          "sha256": "798239ddd0b7023e255d0548abb530eb7672531caaac873ffa951517309d2ebc"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 204,
+          "sha256": "798239ddd0b7023e255d0548abb530eb7672531caaac873ffa951517309d2ebc"
+        }
+      }
+    },
+    {
+      "object": "fgets.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "5f6829c28e4bf50232e5f06231b9e780568b50021540dbb9549c075610cd80ec",
+      "archive_member_mtime_utc": "2013-03-18T15:33:58+00:00",
+      "inherited_source_file_symbols": [
+        "fgets.c"
+      ],
+      "candidate_source": "libstdio/fgets.c",
+      "candidate_source_sha256": "846ce8fc4d224099a8794ccd2eb88836415accf01aca687d6fc9b5adee7d3788",
+      "compile_exit_code": 0,
+      "text_bytes_equal": false,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": false,
+      "relocations_equal": false,
+      "export_symbols_equal": false,
+      "allocated_image_and_relocations_equal": false,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 140,
+          "sha256": "5e2cfa87a6c3d4f715c2a0ac0fdd52e7ee60b31a98ba600adeb0b5d2ab3d79eb"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 148,
+          "sha256": "2b83cc6f70e63cd6658e5f37c3dc0dc794542b48421e46e322a830f62bb67c1f"
+        }
+      }
+    },
+    {
+      "object": "fopen.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "db40f27a309517ed9ec314ecd2336d25ea9b9bd3a0f2286c3b15f4b01927316a",
+      "archive_member_mtime_utc": "2013-03-18T15:33:58+00:00",
+      "inherited_source_file_symbols": [
+        "fopen.c"
+      ],
+      "candidate_source": "libstdio/fopen.c",
+      "candidate_source_sha256": "c5997ec851fb48c4bd0d1c89886c7f8baad3c6bbb9d743fcbd98a10daeed4832",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 76,
+          "sha256": "25b1fb1691d139307b20360b7a563b8da3649512f13234a773420839fcf93bb4"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 76,
+          "sha256": "25b1fb1691d139307b20360b7a563b8da3649512f13234a773420839fcf93bb4"
+        }
+      }
+    },
+    {
+      "object": "fprintf.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "f2ab00600671225974b4906f4fb4fb4a121e334cc64d9211d74364c1baf08ce8",
+      "archive_member_mtime_utc": "2013-03-18T15:33:58+00:00",
+      "inherited_source_file_symbols": [
+        "fprintf.c"
+      ],
+      "candidate_source": "libstdio/fprintf.c",
+      "candidate_source_sha256": "ea55e07a5236316515de9a96248f0ded4252fc54c24b523b53de8b8945ac18f0",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 36,
+          "sha256": "8a0495a7cb041f7e3efd57882591ec3634ecabd1b09306666fa51a628efedbda"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 36,
+          "sha256": "8a0495a7cb041f7e3efd57882591ec3634ecabd1b09306666fa51a628efedbda"
+        }
+      }
+    },
+    {
+      "object": "fputc_unlocked.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "542a96c1679834b6b3092bd2393f0c2dc9a1f452a3e97c42c351eb07e03ae0f7",
+      "archive_member_mtime_utc": "2013-03-18T15:33:58+00:00",
+      "inherited_source_file_symbols": [
+        "fputc_unlocked.c"
+      ],
+      "candidate_source": "libstdio/fputc_unlocked.c",
+      "candidate_source_sha256": "ffdaf67bff2a4129991092cd200ad1cf40ffac2e202d72c95ced86db6cfde868",
+      "compile_exit_code": 0,
+      "text_bytes_equal": false,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": false,
+      "relocations_equal": false,
+      "export_symbols_equal": false,
+      "allocated_image_and_relocations_equal": false,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 236,
+          "sha256": "74fdb2b399f30ed34467102be9c81df584bec4e8b8d28dd82c261a46ad801c50"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 240,
+          "sha256": "6c5ce150a4f6795747e5b31f60ee1dbe32093c66a7dc6e6853e0ffe7dd7533ef"
+        }
+      }
+    },
+    {
+      "object": "fputs.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "8ec89ab584427f41c871435737433c6a92b1896faab9a833d9217c76f0c1a51c",
+      "archive_member_mtime_utc": "2013-03-18T15:33:58+00:00",
+      "inherited_source_file_symbols": [
+        "fputs.c"
+      ],
+      "candidate_source": "libstdio/fputs.c",
+      "candidate_source_sha256": "0e798a516272189d004f0105d901532f1f9c0cc4d4b4d73a2ee85cae954b69b1",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 44,
+          "sha256": "2fe2593d894f4e1f2f40d11634d5ae89545c0a98f5b4cd3f8eee00a2ecc609d7"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 44,
+          "sha256": "2fe2593d894f4e1f2f40d11634d5ae89545c0a98f5b4cd3f8eee00a2ecc609d7"
+        }
+      }
+    },
+    {
+      "object": "fread.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "bb5d7f00f7be28d876c6c3ff63afc81ededbb3e4d37e8d07bfa530110ea25520",
+      "archive_member_mtime_utc": "2013-03-18T15:33:58+00:00",
+      "inherited_source_file_symbols": [
+        "fread.c"
+      ],
+      "candidate_source": "libstdio/fread.c",
+      "candidate_source_sha256": "81445e2f42987b64f4e1e45c1ce17df6c2da1b24e7225143bd149a77ea746c22",
+      "compile_exit_code": 0,
+      "text_bytes_equal": false,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": false,
+      "relocations_equal": false,
+      "export_symbols_equal": false,
+      "allocated_image_and_relocations_equal": false,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 192,
+          "sha256": "a6d9f8d14a3e34c0457a743ed11d383633ffac88dbd7fcc05117debbd06e0580"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 368,
+          "sha256": "017d9de0c88acb477670bbe238bb200a2b468edff31834df5d0cbf4093a2d7b6"
+        }
+      }
+    },
+    {
+      "object": "freopen.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "e67328cc51e7c97050d8f83540bff020464fd6690c29bfc352c25f14af08ed4a",
+      "archive_member_mtime_utc": "2013-03-18T15:33:58+00:00",
+      "inherited_source_file_symbols": [
+        "freopen.c"
+      ],
+      "candidate_source": "libstdio/freopen.c",
+      "candidate_source_sha256": "b853b218067681946faa7d03000f11616d15632d9979dc5446137d848464497d",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 204,
+          "sha256": "1efd2ff7db66288a0696f206f4ff96ba3a2286e26dba2aafab6f3dd465671804"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 204,
+          "sha256": "1efd2ff7db66288a0696f206f4ff96ba3a2286e26dba2aafab6f3dd465671804"
+        }
+      }
+    },
+    {
+      "object": "fseek.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "ddca2def12d0660676d08ac72bfa3c36b41d1e4c922ad1dce67f52b85c3b4553",
+      "archive_member_mtime_utc": "2013-03-18T15:33:58+00:00",
+      "inherited_source_file_symbols": [
+        "fseek.c"
+      ],
+      "candidate_source": "libstdio/fseek.c",
+      "candidate_source_sha256": "2ad8b568420d3800cd832e95a829ce55707fcff55e1b670da7d1e2879a744edd",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 84,
+          "sha256": "f66ce7b95b0efd7e57f97cd5c4531916a4099ebcff0e08254f4a3d8b53d2f126"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 84,
+          "sha256": "f66ce7b95b0efd7e57f97cd5c4531916a4099ebcff0e08254f4a3d8b53d2f126"
+        }
+      }
+    },
+    {
+      "object": "ftell.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "effd283388f29bef183cbd1a9592a1570c73d316170e4f4a39572ca7b0cfbd56",
+      "archive_member_mtime_utc": "2013-03-18T15:33:58+00:00",
+      "inherited_source_file_symbols": [
+        "ftell.c"
+      ],
+      "candidate_source": "libstdio/ftell.c",
+      "candidate_source_sha256": "91b8ce10fd120a1fe761efb74efff9cf1915c4a33c483a5df45916493fd87800",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 88,
+          "sha256": "04a124056bb6a694086e1e1d6b023f235d60c98ce58510f618707948b05a1f62"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 88,
+          "sha256": "04a124056bb6a694086e1e1d6b023f235d60c98ce58510f618707948b05a1f62"
+        }
+      }
+    },
+    {
+      "object": "fwrite.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "6d083f4892e5d494a62c7bc1a0639a8548adf70a773591e527fcdf7fbeb8603a",
+      "archive_member_mtime_utc": "2013-03-18T15:33:59+00:00",
+      "inherited_source_file_symbols": [
+        "fwrite.c"
+      ],
+      "candidate_source": "libstdio/fwrite.c",
+      "candidate_source_sha256": "d9b38d8217dac17a503ff2c271cb5cf6129ce09798893e2dfb175725d7b75c98",
+      "compile_exit_code": 0,
+      "text_bytes_equal": false,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": false,
+      "relocations_equal": false,
+      "export_symbols_equal": false,
+      "allocated_image_and_relocations_equal": false,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 464,
+          "sha256": "5a530a452517786d55bb875c1ee1ce7b48d4ebdf44f78e029fe51bc193c6a058"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 460,
+          "sha256": "e3902a5e6cd9d4298c287e42d5104b82fe461bd55619c9a0798cde71b42fe854"
+        }
+      }
+    },
+    {
+      "object": "localeconv.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "398520f54eea87fd97af0de59307676d354f5506388fe0d19d6e0c3a8707553c",
+      "archive_member_mtime_utc": "2013-03-18T15:34:05+00:00",
+      "inherited_source_file_symbols": [
+        "localeconv.c"
+      ],
+      "candidate_source": "libcruft/localeconv.c",
+      "candidate_source_sha256": "b1b0d452ff27d0fdefec08ee873f277c9a5d0ccd163eca4cfc8bb8731126aee6",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 12,
+          "sha256": "4e2a1308cf5172aefce46eb70c53325df89824060da69b7e467df53e293fe57c"
+        },
+        ".data": {
+          "type": 1,
+          "flags": 3,
+          "alignment": 4,
+          "size": 56,
+          "sha256": "1e222f6c5350e2ba8064d524abc367070fae142560a541169adf0b7f44fb33cc"
+        },
+        ".rodata.str1.1": {
+          "type": 1,
+          "flags": 50,
+          "alignment": 1,
+          "size": 3,
+          "sha256": "b732ffe27ec86a8c0a6eb3f58498020aec50f69eafb6b86eedcce690a4fa88ca"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 12,
+          "sha256": "4e2a1308cf5172aefce46eb70c53325df89824060da69b7e467df53e293fe57c"
+        },
+        ".data": {
+          "type": 1,
+          "flags": 3,
+          "alignment": 4,
+          "size": 56,
+          "sha256": "1e222f6c5350e2ba8064d524abc367070fae142560a541169adf0b7f44fb33cc"
+        },
+        ".rodata.str1.1": {
+          "type": 1,
+          "flags": 50,
+          "alignment": 1,
+          "size": 3,
+          "sha256": "b732ffe27ec86a8c0a6eb3f58498020aec50f69eafb6b86eedcce690a4fa88ca"
+        }
+      }
+    },
+    {
+      "object": "memchr.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "ee1894ee0b3dba585dcfa11bfe6fcd2eda2b456543b2efa5f38d82255d255026",
+      "archive_member_mtime_utc": "2013-03-18T15:33:52+00:00",
+      "inherited_source_file_symbols": [
+        "memchr.c"
+      ],
+      "candidate_source": "lib/memchr.c",
+      "candidate_source_sha256": "3854d03bb01e7cb5dc1f034687f3e5bcdc223bed5c01826f19ab3a412ac61ba4",
+      "compile_exit_code": 0,
+      "text_bytes_equal": false,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": false,
+      "relocations_equal": false,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": false,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 48,
+          "sha256": "2f0d6e15c1ab2fa9ad8c11b06b8fe2ebc960426adf7234fa7a3d33c03c1ca494"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 48,
+          "sha256": "a646314a0fa38202a955861c6e7df92af43e6675eda8b2010cb932677df55c1e"
+        }
+      }
+    },
+    {
+      "object": "memcmp.o",
+      "consumers": [
+        "core"
+      ],
+      "archive_member_sha256": "c7785a2da36efe646f000eb12a178fe5f8fc6babf97742dd8abdebd74f6e5b97",
+      "archive_member_mtime_utc": "2013-03-18T15:33:52+00:00",
+      "inherited_source_file_symbols": [
+        "memcmp.c"
+      ],
+      "candidate_source": "lib/memcmp.c",
+      "candidate_source_sha256": "f295dd3d665c5df70263a60b377e56ff0bc57f5e0574c3fb06da8210843c5e10",
+      "compile_exit_code": 0,
+      "text_bytes_equal": false,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": false,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": false,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 56,
+          "sha256": "388900f1425baa750e10adc032590e52d3ad2f837e5d3521429bfd88c95b47c0"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 56,
+          "sha256": "70d5518cda234d0f265c2d7fa5414ad2f9972b5856577e456cd2f3d34d6768f5"
+        }
+      }
+    },
+    {
+      "object": "memmove.o",
+      "consumers": [
+        "core"
+      ],
+      "archive_member_sha256": "10123ce5e6def7a8e452ae8f5e0ff3c03d396dd6dc90864af1e2923f0021f4dc",
+      "archive_member_mtime_utc": "2013-03-18T15:33:52+00:00",
+      "inherited_source_file_symbols": [
+        "memmove.c"
+      ],
+      "candidate_source": "lib/memmove.c",
+      "candidate_source_sha256": "58531eebc3240c01721b942b32b4869cbda941997240be07f109af00f9b5cc18",
+      "compile_exit_code": 0,
+      "text_bytes_equal": false,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": false,
+      "relocations_equal": false,
+      "export_symbols_equal": false,
+      "allocated_image_and_relocations_equal": false,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 104,
+          "sha256": "ace483869d15ebc131a4dcf715068bd3bee7d223c4988846c9ec315622250806"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 108,
+          "sha256": "c598b5a490c5a40071df03841812bcd725deae573869c4c49f788124aef88493"
+        }
+      }
+    },
+    {
+      "object": "printf.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "4fe2ecafdf2d3fce06a7ee0b5945eb1082ce5155797c957c8e914b39aaa4e2bc",
+      "archive_member_mtime_utc": "2013-03-18T15:33:59+00:00",
+      "inherited_source_file_symbols": [
+        "printf.c"
+      ],
+      "candidate_source": "libstdio/printf.c",
+      "candidate_source_sha256": "0cb5a385d82125a86f3bc62681f277d902647fd1031d6a003e4cee37b40ca29c",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 36,
+          "sha256": "3e4968d5d4af2f5e48962651c2b039868945d18b10ecec448a9642d9a149af4f"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 36,
+          "sha256": "3e4968d5d4af2f5e48962651c2b039868945d18b10ecec448a9642d9a149af4f"
+        }
+      }
+    },
+    {
+      "object": "setvbuf.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "9561cdc2c644c1d4e95245c0416cdff384c2796c020daab30acdf98ac85ef72b",
+      "archive_member_mtime_utc": "2013-03-18T15:33:59+00:00",
+      "inherited_source_file_symbols": [
+        "setvbuf.c"
+      ],
+      "candidate_source": "libstdio/setvbuf.c",
+      "candidate_source_sha256": "e6f5fcfcac7c3f95af8f8f8a6707ae44eb13b93976a4a32bf2af4c8158caf243",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 208,
+          "sha256": "3eacc5acd49f3901eeccc7ade5c29a6d62d274fbc5891d856097891f7bb4c703"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 208,
+          "sha256": "3eacc5acd49f3901eeccc7ade5c29a6d62d274fbc5891d856097891f7bb4c703"
+        }
+      }
+    },
+    {
+      "object": "stderr.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "49fe7210a0ee19c4c3b8c3be6d23d491c38051a586d612be1e411e11d7d9bfc6",
+      "archive_member_mtime_utc": "2013-03-18T15:33:59+00:00",
+      "inherited_source_file_symbols": [
+        "stderr.c"
+      ],
+      "candidate_source": "libstdio/stderr.c",
+      "candidate_source_sha256": "622704aabd0c123aebe03f4a7dcd40fde4e97a2a7fc13eb7e8f00efe01b1797c",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 28,
+          "sha256": "050bb109bc23f81a5770d3f6f725e12162a7bd9d81d04e3dc8b4c62d49c01bb0"
+        },
+        ".data": {
+          "type": 1,
+          "flags": 3,
+          "alignment": 4,
+          "size": 56,
+          "sha256": "2f71e7b806fd69a2c14043cbb9ea2ee2e4b3fbde038873cae13f6dd5e4c3863e"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 28,
+          "sha256": "050bb109bc23f81a5770d3f6f725e12162a7bd9d81d04e3dc8b4c62d49c01bb0"
+        },
+        ".data": {
+          "type": 1,
+          "flags": 3,
+          "alignment": 4,
+          "size": 56,
+          "sha256": "2f71e7b806fd69a2c14043cbb9ea2ee2e4b3fbde038873cae13f6dd5e4c3863e"
+        }
+      }
+    },
+    {
+      "object": "stdin.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "4171460b3f2609c9ae91ae39ed34be319b9269c7e56ecbb73d8f38f02c18c095",
+      "archive_member_mtime_utc": "2013-03-18T15:33:59+00:00",
+      "inherited_source_file_symbols": [
+        "stdin.c"
+      ],
+      "candidate_source": "libstdio/stdin.c",
+      "candidate_source_sha256": "7ac7a960552b0bc4834617bd49758aae1b91efe6df45dd4ec9eccbffe75c97b7",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 80,
+          "sha256": "5a463a291c644acd67a4d5407556ddf03a0262bf1cc33ad5c2ab3f5f8287ee0a"
+        },
+        ".data": {
+          "type": 1,
+          "flags": 3,
+          "alignment": 4,
+          "size": 56,
+          "sha256": "97fdc18f86e5013cca817137e281c13875a94cfb37ca25a1a8f9a2a81581782a"
+        },
+        ".bss": {
+          "type": 8,
+          "flags": 3,
+          "alignment": 4,
+          "size": 2052,
+          "sha256": null
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 80,
+          "sha256": "5a463a291c644acd67a4d5407556ddf03a0262bf1cc33ad5c2ab3f5f8287ee0a"
+        },
+        ".data": {
+          "type": 1,
+          "flags": 3,
+          "alignment": 4,
+          "size": 56,
+          "sha256": "97fdc18f86e5013cca817137e281c13875a94cfb37ca25a1a8f9a2a81581782a"
+        },
+        ".bss": {
+          "type": 8,
+          "flags": 3,
+          "alignment": 4,
+          "size": 2052,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "object": "stdout.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "f22b406df30122f77c9ad4f078eff0ddf8533995f28521fe5ab591900e43af66",
+      "archive_member_mtime_utc": "2013-03-18T15:33:59+00:00",
+      "inherited_source_file_symbols": [
+        "stdout.c"
+      ],
+      "candidate_source": "libstdio/stdout.c",
+      "candidate_source_sha256": "4e2ea29d6f5f5be535141eadc150eae099cf65ad752df483d3a9d9383abb949b",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 28,
+          "sha256": "050bb109bc23f81a5770d3f6f725e12162a7bd9d81d04e3dc8b4c62d49c01bb0"
+        },
+        ".data": {
+          "type": 1,
+          "flags": 3,
+          "alignment": 4,
+          "size": 56,
+          "sha256": "e9b153a32b5668bf7e884571db0a7dac2b31814a91f3f01fa79f455c5de33511"
+        },
+        ".bss": {
+          "type": 8,
+          "flags": 3,
+          "alignment": 1,
+          "size": 2048,
+          "sha256": null
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 28,
+          "sha256": "050bb109bc23f81a5770d3f6f725e12162a7bd9d81d04e3dc8b4c62d49c01bb0"
+        },
+        ".data": {
+          "type": 1,
+          "flags": 3,
+          "alignment": 4,
+          "size": 56,
+          "sha256": "e9b153a32b5668bf7e884571db0a7dac2b31814a91f3f01fa79f455c5de33511"
+        },
+        ".bss": {
+          "type": 8,
+          "flags": 3,
+          "alignment": 1,
+          "size": 2048,
+          "sha256": null
+        }
+      }
+    },
+    {
+      "object": "strcasecmp.o",
+      "consumers": [
+        "core"
+      ],
+      "archive_member_sha256": "6690ebe5d7abec5e92f06dd4aea43676387d690e5567718ea9375e77af07fde5",
+      "archive_member_mtime_utc": "2013-03-18T15:33:54+00:00",
+      "inherited_source_file_symbols": [
+        "strcasecmp.c"
+      ],
+      "candidate_source": "lib/strcasecmp.c",
+      "candidate_source_sha256": "6bd59f9c806a55f545dfdddc79ab535a6e62403a7fbe60ca2e68936bffecda6e",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 68,
+          "sha256": "42c3102d55317e5b17ed2582b8be03c67036216081364c6dbf7ebba90b661771"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 68,
+          "sha256": "42c3102d55317e5b17ed2582b8be03c67036216081364c6dbf7ebba90b661771"
+        }
+      }
+    },
+    {
+      "object": "strchr.o",
+      "consumers": [
+        "core"
+      ],
+      "archive_member_sha256": "bcb739b41e5a57ba57b6215578274bb3a44930dd7cd73909fda6d778fda2dd87",
+      "archive_member_mtime_utc": "2013-03-18T15:33:54+00:00",
+      "inherited_source_file_symbols": [
+        "strchr.c"
+      ],
+      "candidate_source": "lib/strchr.c",
+      "candidate_source_sha256": "998df59a25831b1743328eb89f4ba037935ea04ec664be30ac1ead9da3858bb4",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 44,
+          "sha256": "ae4177d4dbf80264725b1e0dc4bc7f88d82ca6dc26b4573e273205a5cab07ec4"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 44,
+          "sha256": "ae4177d4dbf80264725b1e0dc4bc7f88d82ca6dc26b4573e273205a5cab07ec4"
+        }
+      }
+    },
+    {
+      "object": "strcmp.o",
+      "consumers": [
+        "core"
+      ],
+      "archive_member_sha256": "23ec8e8eb5de217bc2b2667d6443a8f8c1e121146c8426508c110c125e94cfe0",
+      "archive_member_mtime_utc": "2013-03-18T15:33:54+00:00",
+      "inherited_source_file_symbols": [
+        "strcmp.c"
+      ],
+      "candidate_source": "lib/strcmp.c",
+      "candidate_source_sha256": "2aef9a82263f8cb151114e3a7167ab027aae58d31505a4ba78001cf67728e9d3",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 48,
+          "sha256": "ff75e43114091a187381f1ff5fc34ca20b892e8ddaff80b548c2e74edcdb1243"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 48,
+          "sha256": "ff75e43114091a187381f1ff5fc34ca20b892e8ddaff80b548c2e74edcdb1243"
+        }
+      }
+    },
+    {
+      "object": "strcpy.o",
+      "consumers": [
+        "core"
+      ],
+      "archive_member_sha256": "5e360eee6cf50757641bf151ee7148728a6c3402d6c7435afdf956b62e70882c",
+      "archive_member_mtime_utc": "2013-03-18T15:33:54+00:00",
+      "inherited_source_file_symbols": [],
+      "candidate_source": "arm/strcpy.S",
+      "candidate_source_sha256": "40222499d74bd7b1771d0d2b99d14d45cf9b48879030442f759d0b1a3e342178",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 28,
+          "sha256": "10430d09ed3a3b6bca8613edda854db15cc7ef1fe533ca2ab5b5f6b0fdf0d9f6"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 28,
+          "sha256": "10430d09ed3a3b6bca8613edda854db15cc7ef1fe533ca2ab5b5f6b0fdf0d9f6"
+        }
+      }
+    },
+    {
+      "object": "strerror.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "8b15f599f2dd7d0dbdf41db5cb987ebecc5292046207d256db43db6977f3d08d",
+      "archive_member_mtime_utc": "2013-03-18T15:33:54+00:00",
+      "inherited_source_file_symbols": [
+        "strerror.c"
+      ],
+      "candidate_source": "lib/strerror.c",
+      "candidate_source_sha256": "a521a0c6dd807f6c122c9f6a4d4272dd09d854924bb56f5136ae7535e64a62bf",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 28,
+          "sha256": "e6ce5583ea0cb376eb3927b017ab4a661c88d3e8418704920c3f630de1c1eaae"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 28,
+          "sha256": "e6ce5583ea0cb376eb3927b017ab4a661c88d3e8418704920c3f630de1c1eaae"
+        }
+      }
+    },
+    {
+      "object": "strlen.o",
+      "consumers": [
+        "core"
+      ],
+      "archive_member_sha256": "f9e83a2b943a92cdc135893b7bb839c7464a954a53bce37645662e8356519010",
+      "archive_member_mtime_utc": "2013-03-18T15:33:55+00:00",
+      "inherited_source_file_symbols": [],
+      "candidate_source": "arm/strlen.S",
+      "candidate_source_sha256": "af6401a799529db824b9cabbe9155c73ca51242fc71575ce927fd7654983b0ea",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 28,
+          "sha256": "842dc5dbf1215f8d663aa86d8a17f8035349ebac024e5892d2dbe4c222c02320"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 28,
+          "sha256": "842dc5dbf1215f8d663aa86d8a17f8035349ebac024e5892d2dbe4c222c02320"
+        }
+      }
+    },
+    {
+      "object": "strncmp.o",
+      "consumers": [
+        "core"
+      ],
+      "archive_member_sha256": "6bc4e01f8f13f605eb660504eb00167d44d5809f3d1321c44e49eab4d6c24406",
+      "archive_member_mtime_utc": "2013-03-18T15:33:55+00:00",
+      "inherited_source_file_symbols": [
+        "strncmp.c"
+      ],
+      "candidate_source": "lib/strncmp.c",
+      "candidate_source_sha256": "88689a76eb17aa8bc4711396df5508110c8ddf501fc47bf052493ddc8b7d6155",
+      "compile_exit_code": 0,
+      "text_bytes_equal": false,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": false,
+      "relocations_equal": false,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": false,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 56,
+          "sha256": "706137f69104dd6bd50a14b2c8b55a687903dc9d97ab7d62eb6948731f769023"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 56,
+          "sha256": "ad4e02b1a3cb497445314906f1819c0e217017309b8f6df4442dde0cea517db4"
+        }
+      }
+    },
+    {
+      "object": "strncpy.o",
+      "consumers": [
+        "core"
+      ],
+      "archive_member_sha256": "89bfd60a63f2af2ad672aa2dd08d2db22df453086d637a4911f250a8db46e282",
+      "archive_member_mtime_utc": "2013-03-18T15:33:55+00:00",
+      "inherited_source_file_symbols": [
+        "strncpy.c"
+      ],
+      "candidate_source": "lib/strncpy.c",
+      "candidate_source_sha256": "8397093e9de5636b0dd0b207fefbe934cec384ba7d1e6b3bb4c2e774848b7bd0",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 32,
+          "sha256": "4df96e8faacbba98e8387dec34836145b7fd00b2d4dac09427e3ad1165803d24"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 32,
+          "sha256": "4df96e8faacbba98e8387dec34836145b7fd00b2d4dac09427e3ad1165803d24"
+        }
+      }
+    },
+    {
+      "object": "strpbrk.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "19d7ac548bc68bda5a38961ab7522eaaeb6b36c9ba63f8f600b558a979fa68dd",
+      "archive_member_mtime_utc": "2013-03-18T15:33:55+00:00",
+      "inherited_source_file_symbols": [
+        "strpbrk.c"
+      ],
+      "candidate_source": "lib/strpbrk.c",
+      "candidate_source_sha256": "c9c7340fe15f707a9fa763d84981e4198bbb8f27da781754a06822c6fcd67a50",
+      "compile_exit_code": 0,
+      "text_bytes_equal": false,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": false,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": false,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 64,
+          "sha256": "a0eade656031d5392b711cf0bca584e12c146d13b6f830d45cb740efa63a9f75"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 64,
+          "sha256": "3d06312132523dad05e11e75f400756297a3b6ecbf0dea65a0f34c492227ce90"
+        }
+      }
+    },
+    {
+      "object": "strrchr.o",
+      "consumers": [
+        "core"
+      ],
+      "archive_member_sha256": "6277c4ce08f124912577779b20b49edc9acd5a45e67504bf199101884ddfdc4f",
+      "archive_member_mtime_utc": "2013-03-18T15:33:55+00:00",
+      "inherited_source_file_symbols": [
+        "strrchr.c"
+      ],
+      "candidate_source": "lib/strrchr.c",
+      "candidate_source_sha256": "cf56caac87e17b85fa691ce522220f21fdf9e9cea428791eadf9f2ea56ac06b0",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 40,
+          "sha256": "9aba28d647979ca4fb5e629050fb868db9cc4ca04d0a4f65e99902c5d0854fae"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 40,
+          "sha256": "9aba28d647979ca4fb5e629050fb868db9cc4ca04d0a4f65e99902c5d0854fae"
+        }
+      }
+    },
+    {
+      "object": "strspn.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "71d3a1b808c5fe2f0fba99a02b2a58db245fc0fbfcf309aab6c4fa7cc7468e94",
+      "archive_member_mtime_utc": "2013-03-18T15:33:55+00:00",
+      "inherited_source_file_symbols": [
+        "strspn.c"
+      ],
+      "candidate_source": "lib/strspn.c",
+      "candidate_source_sha256": "d15d61fc2580b4bf898c3729a83266e5f458fd709571f7ff685a6c2297c817c1",
+      "compile_exit_code": 0,
+      "text_bytes_equal": false,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": false,
+      "relocations_equal": false,
+      "export_symbols_equal": false,
+      "allocated_image_and_relocations_equal": false,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 64,
+          "sha256": "32ea2880e08edc72492a05a6c990941acdd7f6d21186b8444ab4eb1951bbb161"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 76,
+          "sha256": "df2aec012de0a77acb707e72c540673b972ddfaf765eb7cd27e014fd29cc146e"
+        }
+      }
+    },
+    {
+      "object": "strstr.o",
+      "consumers": [
+        "core",
+        "lua"
+      ],
+      "archive_member_sha256": "f5788128b53d6bd3dc5967fde8377f3644305040c6d97637fe6e6531c8767871",
+      "archive_member_mtime_utc": "2013-03-18T15:33:55+00:00",
+      "inherited_source_file_symbols": [
+        "strstr.c"
+      ],
+      "candidate_source": "lib/strstr.c",
+      "candidate_source_sha256": "3b2d2b0720e315ea7e33afd011129372c3e9ca353d2a30c81691a438576c9184",
+      "compile_exit_code": 0,
+      "text_bytes_equal": false,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": false,
+      "relocations_equal": false,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": false,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 140,
+          "sha256": "23c106b3174e3868e31348396ba4324f2ff12d35ef1743a8bfdb80b3411f20eb"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 140,
+          "sha256": "1a6853bd749a0b630d116758c6f63b2605983b57983949593240f2ed7f996df6"
+        }
+      }
+    },
+    {
+      "object": "strtof.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "deb68e6c5534a97242fcf4d7986a5367d4d494ffe78d12337efa3f4ad233adac",
+      "archive_member_mtime_utc": "2013-03-18T15:33:55+00:00",
+      "inherited_source_file_symbols": [
+        "strtof.c"
+      ],
+      "candidate_source": "lib/strtof.c",
+      "candidate_source_sha256": "25abbf302d1b9888ef16d70ae2b1594791fe907b9f0ab8b37a4bbd041f7a6a59",
+      "compile_exit_code": 0,
+      "text_bytes_equal": false,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": false,
+      "relocations_equal": false,
+      "export_symbols_equal": false,
+      "allocated_image_and_relocations_equal": false,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 484,
+          "sha256": "e649e73f361decee5cc3aa8779d012dd62e0dd7e658a3fbcebcaa4e86ee86911"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 496,
+          "sha256": "bae2aad0ec9a0020efdde966bf37fd03025bef2c235bc862699679fbd83f5caf"
+        }
+      }
+    },
+    {
+      "object": "strtol.o",
+      "consumers": [
+        "core",
+        "lua"
+      ],
+      "archive_member_sha256": "ef78e217f72c7b04e3e60b53a96994e025187aca4402d7a4d5cdaec42c696f46",
+      "archive_member_mtime_utc": "2013-03-18T15:33:55+00:00",
+      "inherited_source_file_symbols": [
+        "strtol.c"
+      ],
+      "candidate_source": "lib/strtol.c",
+      "candidate_source_sha256": "a382740b3c52cd130d57652d5a7a1e7b8fb34cca4df46a5faa3d22f1961acd29",
+      "compile_exit_code": 0,
+      "text_bytes_equal": false,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": false,
+      "relocations_equal": false,
+      "export_symbols_equal": false,
+      "allocated_image_and_relocations_equal": false,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 220,
+          "sha256": "64e28ee76c2395218d0f056e421e36506f8f1d48e1881dab5dec4583b616dc7f"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 224,
+          "sha256": "779e223a84a1f5423e3417463b97f43dd09b2eb4a6c068934933f6425e7e5529"
+        }
+      }
+    },
+    {
+      "object": "strtoul.o",
+      "consumers": [
+        "core"
+      ],
+      "archive_member_sha256": "8503b32bb955fdd3f935a6326bd0d30abb79851ef1452db7e27252f3dde13072",
+      "archive_member_mtime_utc": "2013-03-18T15:33:55+00:00",
+      "inherited_source_file_symbols": [
+        "strtoul.c"
+      ],
+      "candidate_source": "lib/strtoul.c",
+      "candidate_source_sha256": "9929ea6a734ca4d0f5f78a73a2db4650b0c23273548ad3fe3590056b0651b1a1",
+      "compile_exit_code": 0,
+      "text_bytes_equal": false,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": false,
+      "relocations_equal": false,
+      "export_symbols_equal": false,
+      "allocated_image_and_relocations_equal": false,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 412,
+          "sha256": "3c68a4d7f9088a98d0e37f8b388558b55a2ea0dc374219b0a1a0d3a7d01da3f0"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 428,
+          "sha256": "588b1ec8c7843f09881192580aa429802c4fedede8fc8e81d04f23cd93b72e4c"
+        }
+      }
+    },
+    {
+      "object": "strtoull.o",
+      "consumers": [
+        "core"
+      ],
+      "archive_member_sha256": "34b787a088dcf56659e0116ece31548e51e400126ff16881e6eda7f26487c34a",
+      "archive_member_mtime_utc": "2013-03-18T15:33:55+00:00",
+      "inherited_source_file_symbols": [
+        "strtoull.c"
+      ],
+      "candidate_source": "lib/strtoull.c",
+      "candidate_source_sha256": "c70c12c03ec243276d827bca7800e7740cd62585ee6e33d838343a27a1969b88",
+      "compile_exit_code": 0,
+      "text_bytes_equal": false,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": false,
+      "relocations_equal": false,
+      "export_symbols_equal": false,
+      "allocated_image_and_relocations_equal": false,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 520,
+          "sha256": "5611758cbf2f4cb2e83c38ba1f75f7c43cdef756080037af66928d5710631e2d"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 576,
+          "sha256": "4d66a303b2589b64de329f45bacf6c512992136fc2efb08e04ccdca05e964012"
+        }
+      }
+    },
+    {
+      "object": "ungetc.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "336e75e7cffc38ed7d13263b209c0e258095f4d5983284eee55fa3e8f0e9ca98",
+      "archive_member_mtime_utc": "2013-03-18T15:33:59+00:00",
+      "inherited_source_file_symbols": [
+        "ungetc.c"
+      ],
+      "candidate_source": "libstdio/ungetc.c",
+      "candidate_source_sha256": "50923744089b27a2c5b7625854a13af7b442a3aefb64fe556e49ae0e9e42364d",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 96,
+          "sha256": "2635420117d40ab337058eb2a40b267c7cc08e087572622db68307eb19b3513a"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 96,
+          "sha256": "2635420117d40ab337058eb2a40b267c7cc08e087572622db68307eb19b3513a"
+        }
+      }
+    },
+    {
+      "object": "vfprintf.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "4a9be091086b2b96c7486c97053f1552e92cc2142f907eeed2c6fd52747d833c",
+      "archive_member_mtime_utc": "2013-03-18T15:33:59+00:00",
+      "inherited_source_file_symbols": [
+        "vfprintf.c"
+      ],
+      "candidate_source": "libstdio/vfprintf.c",
+      "candidate_source_sha256": "519fcff8462824a12b59a37d415470ab345f916a35b3cf92d53a1878aa8b6d43",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 68,
+          "sha256": "4873b64eb7a23c7d53a8f28b0652b8011c4db9cf571186fa3be3f42cda5e557d"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 68,
+          "sha256": "4873b64eb7a23c7d53a8f28b0652b8011c4db9cf571186fa3be3f42cda5e557d"
+        }
+      }
+    },
+    {
+      "object": "vprintf.o",
+      "consumers": [
+        "lua"
+      ],
+      "archive_member_sha256": "ac901a7fe3e0a048a84deb2760356c3be75b05ba76cbf40c6342d0fe3c0215ae",
+      "archive_member_mtime_utc": "2013-03-18T15:33:59+00:00",
+      "inherited_source_file_symbols": [
+        "vprintf.c"
+      ],
+      "candidate_source": "libstdio/vprintf.c",
+      "candidate_source_sha256": "a4be1a953f52b6b0e8ec5d09274d73fd4ac6b3869390236a171270bd0aafd961",
+      "compile_exit_code": 0,
+      "text_bytes_equal": true,
+      "has_allocated_content": true,
+      "all_alloc_sections_equal": true,
+      "relocations_equal": true,
+      "export_symbols_equal": true,
+      "allocated_image_and_relocations_equal": true,
+      "inherited_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 100,
+          "sha256": "191972780d0e59390448203be006fb847934c20d8de7b3866f8c6215d3f2a1e9"
+        }
+      },
+      "candidate_alloc_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "alignment": 4,
+          "size": 100,
+          "sha256": "191972780d0e59390448203be006fb847934c20d8de7b3866f8c6215d3f2a1e9"
+        }
+      }
+    }
+  ],
+  "headers": [
+    {
+      "path": "alloca.h",
+      "inherited_sha256": "190520622b6f3b6c092d3008a66022380f3d4098ce3a8f388386ad8340bf8453",
+      "candidate_sha256": "190520622b6f3b6c092d3008a66022380f3d4098ce3a8f388386ad8340bf8453",
+      "identical": true
+    },
+    {
+      "path": "asm/arm-sigcontext.h",
+      "inherited_sha256": "6703e5ac75e581b1ccc3104749702a967657476acd333b5ed60cac9e3bbcabc6",
+      "candidate_sha256": "6703e5ac75e581b1ccc3104749702a967657476acd333b5ed60cac9e3bbcabc6",
+      "identical": true
+    },
+    {
+      "path": "asm/sigcontext.h",
+      "inherited_sha256": "eda9be38750c8b0bd24facd5be90300383d1f73d46035e6662c01f5b037ccc5b",
+      "candidate_sha256": "eda9be38750c8b0bd24facd5be90300383d1f73d46035e6662c01f5b037ccc5b",
+      "identical": true
+    },
+    {
+      "path": "asm/types.h",
+      "inherited_sha256": "3d319fc2d945a3a5fa9ab9308ab723a74add867d12236c3f7719c6ab2619cd90",
+      "candidate_sha256": "3d319fc2d945a3a5fa9ab9308ab723a74add867d12236c3f7719c6ab2619cd90",
+      "identical": true
+    },
+    {
+      "path": "assert.h",
+      "inherited_sha256": "29bffcc0675714df8c77d72054fdd278a85546b0aad9cb30c8e555a2e25a07d2",
+      "candidate_sha256": "29bffcc0675714df8c77d72054fdd278a85546b0aad9cb30c8e555a2e25a07d2",
+      "identical": true
+    },
+    {
+      "path": "clocale",
+      "inherited_sha256": "985f3ec93ea963a8c3806f9a9f66351bebbbe1ee2a29193bfd06a5064647c7af",
+      "candidate_sha256": "985f3ec93ea963a8c3806f9a9f66351bebbbe1ee2a29193bfd06a5064647c7af",
+      "identical": true
+    },
+    {
+      "path": "cstddef",
+      "inherited_sha256": "c12ce9b73b755e1832e8d641418d67eb9ce548cae7a6975aa61085c67f9b8e20",
+      "candidate_sha256": "c12ce9b73b755e1832e8d641418d67eb9ce548cae7a6975aa61085c67f9b8e20",
+      "identical": true
+    },
+    {
+      "path": "cstdlib",
+      "inherited_sha256": "7315ee2fe43b66499910523a7f2472a9a789d0895990fdc4284e1c426f8b3046",
+      "candidate_sha256": "7315ee2fe43b66499910523a7f2472a9a789d0895990fdc4284e1c426f8b3046",
+      "identical": true
+    },
+    {
+      "path": "ctype.h",
+      "inherited_sha256": "4786e6a09cfc707bb5ad910a03d232ef753aed20eb72550003f867ad3e8d6bab",
+      "candidate_sha256": "93f15744bba489195996cc1b7f2093f377665f3c14daf017aeeb348dc8bfa5c3",
+      "identical": false
+    },
+    {
+      "path": "cwchar",
+      "inherited_sha256": "42d3469215832340312ae30d924f77c604fcf100c9ce1cf89f917cd3de1c787d",
+      "candidate_sha256": "42d3469215832340312ae30d924f77c604fcf100c9ce1cf89f917cd3de1c787d",
+      "identical": true
+    },
+    {
+      "path": "cwctype",
+      "inherited_sha256": "f2efbaf6c53684684e31f728a9aa49b30189805b28b4b92752acc72d64138ec1",
+      "candidate_sha256": "f2efbaf6c53684684e31f728a9aa49b30189805b28b4b92752acc72d64138ec1",
+      "identical": true
+    },
+    {
+      "path": "endian.h",
+      "inherited_sha256": "431ece8756f2ba4dbb0effc0aec6c9f54b98a0502eddd5e928218d8735e83844",
+      "candidate_sha256": "431ece8756f2ba4dbb0effc0aec6c9f54b98a0502eddd5e928218d8735e83844",
+      "identical": true
+    },
+    {
+      "path": "errno.h",
+      "inherited_sha256": "7148a4053ac14acd4615715db75b19a2b3ce228dc10f32476492d1a55d899c88",
+      "candidate_sha256": "7148a4053ac14acd4615715db75b19a2b3ce228dc10f32476492d1a55d899c88",
+      "identical": true
+    },
+    {
+      "path": "float.h",
+      "inherited_sha256": "f24827fb09559aad05fae90a55aef81656cd536620918f1d3e96762bafb388db",
+      "candidate_sha256": "f24827fb09559aad05fae90a55aef81656cd536620918f1d3e96762bafb388db",
+      "identical": true
+    },
+    {
+      "path": "inttypes.h",
+      "inherited_sha256": "2614f9b824fe5f491c707678f029054cca8f91a960002e1eaa2546ca57f5cdd8",
+      "candidate_sha256": "2614f9b824fe5f491c707678f029054cca8f91a960002e1eaa2546ca57f5cdd8",
+      "identical": true
+    },
+    {
+      "path": "limits.h",
+      "inherited_sha256": "42ea32fedeb77b3962c5a5e9f759d4c287863f7e977e4509d6665ba7141696c9",
+      "candidate_sha256": "42ea32fedeb77b3962c5a5e9f759d4c287863f7e977e4509d6665ba7141696c9",
+      "identical": true
+    },
+    {
+      "path": "locale.h",
+      "inherited_sha256": "e51746d9311901db89d5c9fe271885f9b4403af3cd5496ad06c35fa1dd116d15",
+      "candidate_sha256": "e51746d9311901db89d5c9fe271885f9b4403af3cd5496ad06c35fa1dd116d15",
+      "identical": true
+    },
+    {
+      "path": "math.h",
+      "inherited_sha256": "c0abef0c89bafbe9fc6413acdd24c9972f2079ba268d22c65d92dc046044515d",
+      "candidate_sha256": "d64bf379f2d5f2eace4aa73a169a8e7469f07cb2e94ad9217ae8f9f5f8b8e06b",
+      "identical": false
+    },
+    {
+      "path": "signal.h",
+      "inherited_sha256": "1cc14996c5d0d1887ea0d859f4607d5ac258f94b0da95a67599116acc06ebb5e",
+      "candidate_sha256": "1cc14996c5d0d1887ea0d859f4607d5ac258f94b0da95a67599116acc06ebb5e",
+      "identical": true
+    },
+    {
+      "path": "stdarg.h",
+      "inherited_sha256": "e3ff65de125ba568f45e4655207c034746b91f7238ea4e7c473766d49db5fa79",
+      "candidate_sha256": "e3ff65de125ba568f45e4655207c034746b91f7238ea4e7c473766d49db5fa79",
+      "identical": true
+    },
+    {
+      "path": "stddef.h",
+      "inherited_sha256": "a7aa4e0c3818a81f9ec6cef6b145aec68dd1ce602d1c1208be97fab9f373353f",
+      "candidate_sha256": "a7aa4e0c3818a81f9ec6cef6b145aec68dd1ce602d1c1208be97fab9f373353f",
+      "identical": true
+    },
+    {
+      "path": "stdint.h",
+      "inherited_sha256": "af9fda023b6cd7aee2f97a75f9922a774e45d8adc858089b8129158e3492ca59",
+      "candidate_sha256": "af9fda023b6cd7aee2f97a75f9922a774e45d8adc858089b8129158e3492ca59",
+      "identical": true
+    },
+    {
+      "path": "stdio.h",
+      "inherited_sha256": "a8d9d6efbc7eb2862742424bf6d65d07e93faaf3c5c4ff1ba7407540405e8d10",
+      "candidate_sha256": "a8d9d6efbc7eb2862742424bf6d65d07e93faaf3c5c4ff1ba7407540405e8d10",
+      "identical": true
+    },
+    {
+      "path": "stdlib.h",
+      "inherited_sha256": "192a4d516194327ab675fec25d4fad9b851c08a32a91e09de101ce3137afb224",
+      "candidate_sha256": "192a4d516194327ab675fec25d4fad9b851c08a32a91e09de101ce3137afb224",
+      "identical": true
+    },
+    {
+      "path": "string.h",
+      "inherited_sha256": "00c2a75ade6a66be4ea38d80dfe330173e98055a283f751a47406a87a9cd8a1a",
+      "candidate_sha256": "00c2a75ade6a66be4ea38d80dfe330173e98055a283f751a47406a87a9cd8a1a",
+      "identical": true
+    },
+    {
+      "path": "sys/cdefs.h",
+      "inherited_sha256": "1ba793edb05561c0b0769a2344bb83f178cd2227c289070f031501a4f588c25d",
+      "candidate_sha256": "0764cd9d58ee6ee104909916ff2c6eaf75a9f6ae332eb0cfbc0f6fc9b832db59",
+      "identical": false
+    },
+    {
+      "path": "sys/fsuid.h",
+      "inherited_sha256": "2153e80b7c8ad190857c686f485fc5afedc8189fcd9a3ed1855ac7d16d273ce7",
+      "candidate_sha256": "2153e80b7c8ad190857c686f485fc5afedc8189fcd9a3ed1855ac7d16d273ce7",
+      "identical": true
+    },
+    {
+      "path": "sys/io.h",
+      "inherited_sha256": "2a0b3f15a37ac8b8e8dab9fbd9cebf493aa36af3ac4d57d161fc717da3ff68d0",
+      "candidate_sha256": "2a0b3f15a37ac8b8e8dab9fbd9cebf493aa36af3ac4d57d161fc717da3ff68d0",
+      "identical": true
+    },
+    {
+      "path": "sys/select.h",
+      "inherited_sha256": "427450023c093a43ec52bf8a77d7dc7b764651404fca70269dfa38b982c9979e",
+      "candidate_sha256": "427450023c093a43ec52bf8a77d7dc7b764651404fca70269dfa38b982c9979e",
+      "identical": true
+    },
+    {
+      "path": "sys/signal.h",
+      "inherited_sha256": "31dc64ab5a19df2d250c68d97a3b60c78385ae9ee25f2000cb8cf051ad372eac",
+      "candidate_sha256": "31dc64ab5a19df2d250c68d97a3b60c78385ae9ee25f2000cb8cf051ad372eac",
+      "identical": true
+    },
+    {
+      "path": "sys/stat.h",
+      "inherited_sha256": "25fb956e8cc9adc0a1f2aadbf2b5c8841d0bea459358bf4551197568a8d6c7c5",
+      "candidate_sha256": "25fb956e8cc9adc0a1f2aadbf2b5c8841d0bea459358bf4551197568a8d6c7c5",
+      "identical": true
+    },
+    {
+      "path": "sys/time.h",
+      "inherited_sha256": "7b2bb2c721e3bb79f94a25afe7d72a76184891559787142932beddd3e0a59a15",
+      "candidate_sha256": "7b2bb2c721e3bb79f94a25afe7d72a76184891559787142932beddd3e0a59a15",
+      "identical": true
+    },
+    {
+      "path": "sys/types.h",
+      "inherited_sha256": "3729d5f93a6419a4e39e3f6ce741c326354db1dff3efb20d95699bf625a839b2",
+      "candidate_sha256": "3729d5f93a6419a4e39e3f6ce741c326354db1dff3efb20d95699bf625a839b2",
+      "identical": true
+    },
+    {
+      "path": "sys/ucontext.h",
+      "inherited_sha256": "3a1627dec79d9cdb4591e2ce0f40403a45522ca4bc69f34b4f09de2a9d799412",
+      "candidate_sha256": "3a1627dec79d9cdb4591e2ce0f40403a45522ca4bc69f34b4f09de2a9d799412",
+      "identical": true
+    },
+    {
+      "path": "time.h",
+      "inherited_sha256": "59a594c98fd48ab733fbf94a3bb8e3f262887f6a7781cddcce8fea34ee743e15",
+      "candidate_sha256": "59a594c98fd48ab733fbf94a3bb8e3f262887f6a7781cddcce8fea34ee743e15",
+      "identical": true
+    },
+    {
+      "path": "unistd.h",
+      "inherited_sha256": "42ae0aad0079e399f5c71937ba355c207a0accc227a3475390c67d8a7f66755a",
+      "candidate_sha256": "3999c764a8e6a5aa2965643e26a07dc63d31cebbad06b06be8f0761f933c5c6d",
+      "identical": false
+    }
+  ]
+}

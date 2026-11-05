@@ -55,12 +55,18 @@ to all inherited files based only on their names.
 Implementation source is no longer simply missing: a 0.33-line candidate was
 found in two CVS mirrors with an identical 1,833-file tree. It maps and compiles
 all 54 object names used by the core/Lua. The inherited archive also matches the
-2013 Magic Lantern introduction commit exactly. Nine nonempty allocated object
-images match under the documented current-compiler/config experiment; an empty
-object is reported separately. The whole archive's original config/build/patch
+2013 Magic Lantern introduction commit exactly. A subsequent experiment built
+GCC 4.7.3 and GAS 2.23.1 from pinned source and compiled all 54 objects; 32
+nonempty allocated object images match (versus nine with the modern-toolchain
+baseline). Changing only GAS explains the two padding differences. An empty
+object is reported separately. A GCC 4.6.2 experiment is incomplete because of
+two internal compiler crashes, and is not used to infer source patches.
+The whole archive's original config/build/patch
 correspondence remains unverified, so the release gate remains open.
 
 The earlier repository-absence statements above describe what is in the imported
 Magic Lantern tree, not a claim that dietlibc implementation source cannot be
 found elsewhere. See [the new source audit](DIETLIBC_SOURCE_AUDIT.md),
-[comparison data](DIETLIBC_COMPARISON.json) and [source candidate](source-candidates/).
+[baseline comparison data](DIETLIBC_COMPARISON.json),
+[historical toolchain evidence](toolchain-audit/README.md) and
+[source candidate](source-candidates/).

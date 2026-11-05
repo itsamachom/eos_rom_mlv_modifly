@@ -1,0 +1,314 @@
+{
+  "audit_date_asia_bangkok": "2026-11-05",
+  "firmware_changed": false,
+  "release_published": false,
+  "source_correspondence_verified": false,
+  "experiments": [
+    {
+      "id": "gcc14-gas244",
+      "gcc": "14.2.1",
+      "gas": "2.44",
+      "report": "../DIETLIBC_COMPARISON.json",
+      "report_sha256": "c4d28f6f4ab478108af81d11c1c813b1874fbde06499ab5dc0a5acf9fab5d888",
+      "summary": {
+        "objects_used_by_core": 18,
+        "objects_used_by_lua": 40,
+        "unique_objects": 54,
+        "mapped_sources": 54,
+        "compiled": 54,
+        "equal_text_sections": 8,
+        "equal_allocated_images_relocations_exports": 10,
+        "equal_nonempty_allocated_images_relocations_exports": 9,
+        "equal_empty_objects": 1,
+        "headers_compared": 36,
+        "identical_headers": 32
+      },
+      "complete": true,
+      "comparison_schema": 2
+    },
+    {
+      "id": "gcc14-gas2231",
+      "gcc": "14.2.1",
+      "gas": "2.23.1",
+      "report": "gcc14-gas2231.json",
+      "report_sha256": "dbff25e4ceffc0ec387ba210ab8417bd1cb9876d5bc23c64c10c528f8eaf19ca",
+      "summary": {
+        "objects_used_by_core": 18,
+        "objects_used_by_lua": 40,
+        "unique_objects": 54,
+        "mapped_sources": 54,
+        "compiled": 54,
+        "equal_text_sections": 8,
+        "equal_allocated_images_relocations_exports": 12,
+        "equal_nonempty_allocated_images_relocations_exports": 11,
+        "equal_empty_objects": 1,
+        "headers_compared": 36,
+        "identical_headers": 32
+      },
+      "complete": true,
+      "comparison_schema": 2
+    },
+    {
+      "id": "gcc473-gas244",
+      "gcc": "4.7.3",
+      "gas": "2.44",
+      "report": "gcc473-gas244.json",
+      "report_sha256": "235b2e1c0c8e7fc30677362bd2c8977e68b2316b65e9cb39bc9ae272c6178df9",
+      "summary": {
+        "objects_used_by_core": 18,
+        "objects_used_by_lua": 40,
+        "unique_objects": 54,
+        "mapped_sources": 54,
+        "compiled": 54,
+        "equal_text_sections": 29,
+        "equal_allocated_images_relocations_exports": 31,
+        "equal_nonempty_allocated_images_relocations_exports": 30,
+        "equal_empty_objects": 1,
+        "headers_compared": 36,
+        "identical_headers": 32
+      },
+      "complete": true,
+      "comparison_schema": 2
+    },
+    {
+      "id": "gcc473-gas2231",
+      "gcc": "4.7.3",
+      "gas": "2.23.1",
+      "report": "gcc473-gas2231.json",
+      "report_sha256": "48700dcbd950c3b67e5701845eb0d0ec36e7e5c760ede28fdf47737e0375f090",
+      "summary": {
+        "objects_used_by_core": 18,
+        "objects_used_by_lua": 40,
+        "unique_objects": 54,
+        "mapped_sources": 54,
+        "compiled": 54,
+        "equal_text_sections": 29,
+        "equal_allocated_images_relocations_exports": 33,
+        "equal_nonempty_allocated_images_relocations_exports": 32,
+        "equal_empty_objects": 1,
+        "headers_compared": 36,
+        "identical_headers": 32
+      },
+      "complete": true,
+      "comparison_schema": 2
+    },
+    {
+      "id": "gcc462-gas244",
+      "gcc": "4.6.2",
+      "gas": "2.44",
+      "report": "gcc462-gas244.json",
+      "report_sha256": "dd8804ed98e24cff3d5fd0a28251e6b29f6cb0f6ebd7965282223d64e7854a6e",
+      "summary": {
+        "objects_used_by_core": 18,
+        "objects_used_by_lua": 40,
+        "unique_objects": 54,
+        "mapped_sources": 54,
+        "compiled": 52,
+        "equal_text_sections": 16,
+        "equal_allocated_images_relocations_exports": 18,
+        "equal_nonempty_allocated_images_relocations_exports": 17,
+        "equal_empty_objects": 1,
+        "headers_compared": 36,
+        "identical_headers": 32
+      },
+      "complete": false,
+      "failed_objects": [
+        "__v_printf.o",
+        "strtoull.o"
+      ],
+      "failure": "internal compiler error (segmentation fault)",
+      "comparison_schema": 2
+    },
+    {
+      "id": "gcc462-gas2231",
+      "gcc": "4.6.2",
+      "gas": "2.23.1",
+      "report": "gcc462-gas2231.json",
+      "report_sha256": "a13c7eab135656052d1247bf8440a77e07d3a07fa4fc0e97aa531cebd4bfdba0",
+      "summary": {
+        "objects_used_by_core": 18,
+        "objects_used_by_lua": 40,
+        "unique_objects": 54,
+        "mapped_sources": 54,
+        "compiled": 52,
+        "equal_text_sections": 16,
+        "equal_allocated_images_relocations_exports": 20,
+        "equal_nonempty_allocated_images_relocations_exports": 19,
+        "equal_empty_objects": 1,
+        "headers_compared": 36,
+        "identical_headers": 32
+      },
+      "complete": false,
+      "failed_objects": [
+        "__v_printf.o",
+        "strtoull.o"
+      ],
+      "failure": "internal compiler error (segmentation fault)",
+      "comparison_schema": 2
+    }
+  ],
+  "compiler_sources": [
+    {
+      "upstream": "https://github.com/gcc-mirror/gcc",
+      "tag": "releases/gcc-4.7.3",
+      "tag_object": "82434f4b6bd58811f12bbcd1fd1ab31b174a6c91",
+      "commit": "911595bf2d485c0d1e067d9a94a867d9b8281502",
+      "archive_sha256": "527877b1c52d600f1c4996bbc2390551b774b3c71fe8e6ad7e01429c2a732ee2",
+      "tls_verified": true,
+      "archive_signature_verified": false,
+      "purpose": "isolated provenance experiment; not used to rebuild or replace v3r2"
+    },
+    {
+      "upstream": "https://github.com/gcc-mirror/gcc",
+      "tag": "releases/gcc-4.6.2",
+      "tag_object": "78e7f3ad6f47f9905dce2e7e9c7d65c4aee07eb8",
+      "commit": "e563bfac09b88a85286f87570dbfb453de5d107a",
+      "archive_sha256": "2601bd14effe8611d9ecb5e0beb19ba04b1426d75a770024b00bd451b9e3ec56",
+      "tls_verified": true,
+      "archive_signature_verified": false
+    }
+  ],
+  "assembler_source": {
+    "repository": "https://github.com/RTEMS/sourceware-mirror-binutils-gdb",
+    "commit": "e19b140c881dae8f0f23a693bf2ed6d44b1bcc06",
+    "tag": "binutils-2_23_1",
+    "sha256": "fb810f07e9dbb56e76c31689728931a4df4e0208e8f4a580f8aedaeeef86e128",
+    "tls_verified": true,
+    "archive_signature_verified": false
+  },
+  "host_packages": [
+    {
+      "file": "bison_2%3a3.8.2+dfsg-1+b2_amd64.deb",
+      "sha256": "ce6eb1f7aad18850e32d223a68f54bcbe756d74f138c8ec5460ad9d220f4d335",
+      "fields": "Package: bison\nVersion: 2:3.8.2+dfsg-1+b2\nArchitecture: amd64"
+    },
+    {
+      "file": "flex_2.6.4-8.2+b4_amd64.deb",
+      "sha256": "75f963765232c356d0a2fb70e780dfa9de2425aca036ec60eefb7fc98a2c905b",
+      "fields": "Package: flex\nVersion: 2.6.4-8.2+b4\nArchitecture: amd64"
+    },
+    {
+      "file": "libmpc-dev_1.3.1-1+b3_amd64.deb",
+      "sha256": "01927983fa7a448180a0162e73619a1e8ad47839cea2b6dcc31c304b903e7fc0",
+      "fields": "Package: libmpc-dev\nVersion: 1.3.1-1+b3\nArchitecture: amd64"
+    },
+    {
+      "file": "libmpfr-dev_4.2.2-1_amd64.deb",
+      "sha256": "43cbe73a48cce65232ad5d4219a67dfdd0974f45aa88d381ae051d64052b996a",
+      "fields": "Package: libmpfr-dev\nVersion: 4.2.2-1\nArchitecture: amd64"
+    },
+    {
+      "file": "m4_1.4.19-8_amd64.deb",
+      "sha256": "221b3e224708c1da2a1a88b6824380593579b2254ae7d914afa14cbd5d343334",
+      "fields": "Package: m4\nVersion: 1.4.19-8\nArchitecture: amd64"
+    }
+  ],
+  "source_integrity": {
+    "gcc-source": {
+      "regular_files_checked": 76462,
+      "modified_or_missing": []
+    },
+    "binutils-source": {
+      "regular_files_checked": 13738,
+      "modified_or_missing": []
+    },
+    "gcc462-source": {
+      "regular_files_checked": 71456,
+      "modified_or_missing": []
+    },
+    "dietlibc-candidate": {
+      "regular_files_checked": 1833,
+      "modified_or_missing": []
+    }
+  },
+  "notes": [
+    "Only target compiler (all-gcc) and assembler (all-gas) built; no target library/runtime or firmware linked or executed.",
+    "Modern GCC 14.2.0 host; no bootstrap compiler verification; experimental tools only.",
+    "Initial GCC 4.7.3 run accidentally searched build-generated include and include-fixed via -B. It failed strtoull.c and is excluded. Accepted runs use a prefix directory containing only a cc1 symlink, with -nostdinc and candidate headers.",
+    "GCC 4.7.3 probes -fno-tree-ch, -fno-reorder-blocks, and their combination did not improve match counts; not evidence of original flags.",
+    "GCC 4.6.2 host gengtype generator rebuilt with -O0 to avoid block-scope pointer lifetime issue; original compiler sources unmodified. Final all-gcc build succeeded.",
+    "GCC 4.6.2 needs -fno-use-linker-plugin because only all-gcc was built. No linking is performed. Two target compiles crash internally; no conclusion about patches or historical toolchain is drawn from those failures.",
+    "All six published reports rerun with comparison schema 2: symbol binding/visibility and canonical STT_SECTION relocation targets included. Match counts unchanged."
+  ],
+  "build_artifacts": {
+    "configure-gcc.log": {
+      "bytes": 4999,
+      "sha256": "9cab4833f158721c51161dcc594cd6b875947e75a6a0287802262c0eb8546587"
+    },
+    "build-gcc.log": {
+      "bytes": 487211,
+      "sha256": "94d8ba0372a81303171677c4fd67d7ceb8d614759112577d8fe9beeab9b992eb"
+    },
+    "build-gcc-retry.log": {
+      "bytes": 7136,
+      "sha256": "8c1ef0b44a7b4e307b15353b7d4a996f789f380b070a2676f5190a938758c47d"
+    },
+    "build-gcc-retry2.log": {
+      "bytes": 5747285,
+      "sha256": "da3d32f42866df2a91ddf7f10dd62a032bcdca32871981b1ae5a2f74c87245f2"
+    },
+    "configure-binutils.log": {
+      "bytes": 4169,
+      "sha256": "2f68d6ec54b2f2ce89a18e43bcfe9688ce8f0f6a432732e2d4a4862ec17b693f"
+    },
+    "build-binutils.log": {
+      "bytes": 350237,
+      "sha256": "076ae4ce9d0ca48867379358436b9c497d8277130582b00962770429c1a02439"
+    },
+    "configure-gcc462.log": {
+      "bytes": 4733,
+      "sha256": "29a8e0846f6a321292c63331eaf980651fba4f1b572faf22a55c04819f35f02f"
+    },
+    "build-gcc462.log": {
+      "bytes": 2485695,
+      "sha256": "c7a251da0a452b7a2e896aa0bcd3b0ff23fc2912f170740568710ff5bf085724"
+    },
+    "build-gcc462-generator-o0.log": {
+      "bytes": 17702,
+      "sha256": "436c783e09230c7286b0d8915e2cddadcab6aa1ac1974e12dedef9d9b4f196ed"
+    },
+    "build-gcc462-retry.log": {
+      "bytes": 3211163,
+      "sha256": "01b8e345f21ed77c521428349828ba0c65fb84e5f895a875ce397f81cbdfe458"
+    },
+    "build-gcc/gcc/cc1": {
+      "bytes": 12860304,
+      "sha256": "457b99e891113794a0ecd584e6f1f581f4ea064f52984c1f900b7760af35af02"
+    },
+    "build-gcc/gcc/xgcc": {
+      "bytes": 674536,
+      "sha256": "60be71c8b2e2a0b445da38de9ae46366a83fc028be7cee2f5e14e264db24efee"
+    },
+    "build-gcc462/gcc/cc1": {
+      "bytes": 11964312,
+      "sha256": "f19aacdc143ea21cc5a1f1fc9f1b1e77d3202cb22549a5ba7ef45b7d4530f16b"
+    },
+    "build-gcc462/gcc/xgcc": {
+      "bytes": 412360,
+      "sha256": "f25e0f4b69fc97ef3c252a3cab78cc66fad288de5cbe43219bd15b21d86f9353"
+    },
+    "build-binutils/gas/as-new": {
+      "bytes": 1788560,
+      "sha256": "2853c01c0f7d6c12f39067e7efd2352c8fe3af9246056691e5a09f0bd5357ad5"
+    }
+  },
+  "wrappers": {
+    "gcc14-old-as": "7e2869f0d69eda5fa3896b8c8caca0226d2278d3dc6520b728d8fcffeba47957",
+    "gcc473-old-as": "d6a362f510e40cf2cc373d6d6b1504b85f3bd3ae46b83a1bdf0f13451f4d0f2b",
+    "assembler-dispatch.py": "897b15df6940c2f8b4eb8cd18715235521fbb99032f3e8fab7e7efc55e04a8d7",
+    "gcc473-modern-as": "dcd9a60fa4522cd3457cae84ea46d7bde27517679dee938e8959609a94a8f479",
+    "gcc462-modern-as": "2da4a90f955ae15d49ad509713790d12389d8355ef702ce44cd533c116e1ccdc",
+    "gcc462-old-as": "e45869da37fa032114d007da6f896db45ab91341ae7807e782f2ce68844d7eaf"
+  },
+  "best_complete_experiment": "gcc473-gas2231",
+  "comparison_schema": 2,
+  "audit_script_sha256": "7cb195dcdeba16569282bcb9cf663960b672241e78885c5bba8c8fad531e98fd",
+  "validation": {
+    "binding_only_mutation_detected": true,
+    "visibility_only_mutation_detected": true,
+    "relocation_section_target_mutation_detected": true,
+    "all_six_reports_schema_and_counts_checked": true,
+    "all_six_report_hashes_verified": true,
+    "compiler_and_assembler_source_trees_unmodified": true
+  }
+}

@@ -31,3 +31,5 @@ Staging อยู่ /workspace/release-staging/v3r2 โดยค่าเริ
 ## ความคืบหน้าการค้นซอร์ส 5 พฤศจิกายน 2026
 
 [พบ source candidate จากสอง mirror แล้ว](DIETLIBC_SOURCE_AUDIT.md) ครอบคลุม object ที่ core/Lua ใช้ 54/54 และ compile เป็น ARM ได้ครบ แต่ยังไม่ยืนยัน build/config/patches ของ archive ทั้งชุด เก็บ snapshot พร้อม license ไว้ใน source-candidates/ และรายงานเทียบ object ไว้แล้ว ไม่เปลี่ยนไบนารีหรือปลด gate ของ Release
+
+[ตรวจด้วยเครื่องมือรุ่นเก่าเพิ่มเติมแล้ว](toolchain-audit/README.md): GCC 4.7.3 / GAS 2.23.1 compile ครบ และมี object ที่มีเนื้อหาตรงตามเกณฑ์ 32 รายการ (เดิม 9) ส่วน GCC 4.6.2 มี internal compiler error 2 รายการจึงยังเป็นผลไม่สมบูรณ์ เหลือความต่างและ config/patches เดิมที่ยังไม่ยืนยัน

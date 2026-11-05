@@ -1,0 +1,2 @@
+#!/bin/sh
+exec "/workspace/ml-env/toolchain/usr/bin/arm-none-eabi-gcc"  -wrapper "/workspace/source-audit/dietlibc-033/legacy-toolchain/assembler-dispatch.py" "$@"

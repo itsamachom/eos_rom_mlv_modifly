@@ -1,0 +1,10 @@
+. /workspace/source-audit/dietlibc-033/cvs-20130222/include/ctype.h
+.. /workspace/source-audit/dietlibc-033/cvs-20130222/include/sys/cdefs.h
+. /workspace/source-audit/dietlibc-033/cvs-20130222/include/stdlib.h
+.. /workspace/source-audit/dietlibc-033/cvs-20130222/include/sys/types.h
+... /workspace/source-audit/dietlibc-033/cvs-20130222/include/inttypes.h
+.... /workspace/source-audit/dietlibc-033/cvs-20130222/include/endian.h
+... /workspace/source-audit/dietlibc-033/cvs-20130222/include/stddef.h
+.. /workspace/source-audit/dietlibc-033/cvs-20130222/include/alloca.h
+. /workspace/source-audit/dietlibc-033/cvs-20130222/include/errno.h
+. /workspace/source-audit/dietlibc-033/cvs-20130222/include/limits.h

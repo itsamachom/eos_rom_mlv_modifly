@@ -1,0 +1,2 @@
+#!/bin/sh
+exec "/workspace/source-audit/dietlibc-033/legacy-toolchain/build-gcc462/gcc/xgcc" -B"/workspace/source-audit/dietlibc-033/legacy-toolchain/compiler462-bin/" -fno-use-linker-plugin "$@"
