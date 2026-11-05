@@ -24,9 +24,13 @@ assert asset.read_bytes()==before
 # Restore every existing translation except the explicitly requested names.
 old_lex=json.loads((root/'translations/photo_th.original.json').read_text())
 lex=json.loads((root/'translations/photo_th.json').read_text())
-renamed={'Intervalometer','Advanced Bracket','Zebras','Histogram','Waveform','Focus Peak'}
+renamed={'Intervalometer','Advanced Bracket','Zebras','Histogram','Waveform','Focus Peak','Mirror Lockup','MLU mode','Exposure (Tv,Ae)','Normal MLU Delay'}
 for key,value in old_lex.items():
     if key not in renamed: assert lex[key]==value, key
+assert lex['Normal MLU Delay']['th'] == 'หน่วงเมื่อถ่าย Time-lapse/ถ่ายคร่อม'
+assert lex['Mirror Lockup']['th'] == 'ล็อคกระจกสะท้อน'
+assert lex['MLU mode']['th'] == 'วิธีล็อคกระจก'
+assert lex['Exposure (Tv,Ae)']['th'] == 'ค่าแสง (TV, AV)'
 assert 'PHOTO_PAGE("Games", "G", photo_games)' in h
 assert 'int h=30*w/t->width' not in (root/'firmware/src/photo-thai-600d.h').read_text()
 print('PASS retained menu inventory, original translations/font sizes, separate Games category, original games and reproducible atlas')

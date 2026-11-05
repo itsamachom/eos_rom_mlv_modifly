@@ -190,7 +190,11 @@ static CONFIG_INT( "mlu.mode", mlu_mode, 1);
 
 #define MLU_ALWAYS_ON (mlu_auto && mlu_mode == 0)
 #define MLU_SELF_TIMER (mlu_auto && mlu_mode == 1)
+#ifdef CONFIG_600D
+#define MLU_HANDHELD 0
+#else
 #define MLU_HANDHELD (mlu_auto && mlu_mode == 2)
+#endif
 
 #ifdef FEATURE_MLU_HANDHELD_DEBUG
 static int mlu_handled_debug = 0;
@@ -2918,8 +2922,17 @@ static MENU_UPDATE_FUNC(bulb_display)
 #endif
 
 #ifdef FEATURE_MLU
+/* Old 600D configs may still contain the removed Handheld mode (2). */
+static void mlu_normalize_mode(void)
+{
+#ifdef CONFIG_600D
+    if (mlu_mode < 0 || mlu_mode > 1) mlu_mode = 1;
+#endif
+}
+
 static void mlu_selftimer_update()
 {
+    mlu_normalize_mode();
     if (MLU_SELF_TIMER)
     {
         int mlu_auto_value = (drive_mode == DRIVE_SELFTIMER_2SEC || drive_mode == DRIVE_SELFTIMER_REMOTE) ? 1 : 0;
@@ -2934,6 +2947,7 @@ static void mlu_selftimer_update()
 static void
 mlu_update()
 {
+    mlu_normalize_mode();
     if (mlu_mode == 0)
         set_mlu(mlu_auto ? 1 : 0);
     else if (mlu_mode == 1)
@@ -2948,6 +2962,7 @@ mlu_update()
 static void
 mlu_toggle_mode( void * priv, int delta )
 {
+    mlu_normalize_mode();
     #ifdef FEATURE_MLU_HANDHELD
     mlu_mode = MOD(mlu_mode + delta, 3);
     #else
@@ -2967,6 +2982,7 @@ mlu_toggle( void * priv, int delta )
 
 static MENU_UPDATE_FUNC(mlu_display)
 {
+    mlu_normalize_mode();
     MENU_SET_VALUE(
         MLU_SELF_TIMER ? (get_mlu() ? "SelfTimer (ON)" : "SelfTimer (OFF)")
         : MLU_HANDHELD ? (mlu_handheld_shutter ? "HandH,1/2-1/125" : "Handheld")
@@ -3633,11 +3649,18 @@ MENU_PLACEHOLDER("Post Deflicker"),
                 #else
                 .max = 1,
                 #endif
+                #ifdef FEATURE_MLU_HANDHELD
                 .choices = CHOICES("Always ON", "Self-Timer", "Handheld"),
+                #else
+                .choices = CHOICES("Always ON", "Self-Timer"),
+                #endif
                 .help = "Choose when mirror lock-up should be active:",
                 .help2 = "Always ON: just the Canon mode, press shutter twice.\n"
                          "Self-Timer: MLU setting will be linked to Canon self-timer.\n"
-                         "Handheld: trick to reduce camera shake. Press shutter once.",
+                         #ifdef FEATURE_MLU_HANDHELD
+                         "Handheld: trick to reduce camera shake. Press shutter once."
+                         #endif
+                         ,
             },
             #ifdef FEATURE_MLU_HANDHELD
             {

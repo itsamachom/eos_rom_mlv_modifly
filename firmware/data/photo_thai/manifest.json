@@ -3,9 +3,9 @@
   "weight": 600,
   "font_version": "Version 2.002",
   "font_sha256": "5a1c559bb539583c8a1fd99d1c5b9491e5e14478c9cd2bd0970d5c3096cc9ef8",
-  "atlas_sha256": "7fe8b1aae1b223309a044560c2dbe476c4113cb4e88c60a71d08c38a6149718e",
-  "atlas_crc32": "85103c63",
-  "atlas_bytes": 495470,
+  "atlas_sha256": "592f53c0aea28bad901493e52e6d8e3bcaf050706d7bd9990f6028e57c50a89e",
+  "atlas_crc32": "4e9bed44",
+  "atlas_bytes": 495733,
   "translated_phrases": 350,
   "font_sizes": [
     23,
@@ -13,5 +13,8 @@
     32
   ],
   "shaping": "Pillow RAQM/HarfBuzz, language th, ltr",
-  "pillow": "12.3.0"
+  "pillow": "12.3.0",
+  "font_size_overrides": {
+    "Normal MLU Delay": 20
+  }
 }

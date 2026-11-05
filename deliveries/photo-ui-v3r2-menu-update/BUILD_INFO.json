@@ -1,0 +1,23 @@
+{
+  "version": "PHOTO-UI-v3r2-menu-update.600D.102",
+  "target": "600D.102",
+  "base_commit": "06961d8ee000652948188e98f5a1e70fa8c880c2",
+  "source_state": "Working source with uncommitted changes; exact files included in SOURCE ZIP, not a new committed release.",
+  "source_zip_sha256": "a4cdb1c0287af5a78ddb3a10c857c06a7f109e9f53301723ec9ca75cc4317f9c",
+  "autoexec_sha256": "a8bc9b25c7c3979825db4f954814247f807b5229c2418c36929e07a76f504e55",
+  "camera_tested": false,
+  "qemu_tested": false,
+  "installer_modified": false,
+  "checks_passed": [
+    "MLU production menu and legacy-mode callbacks",
+    "Photo UI ASan/UBSan host tests",
+    "Thai atlas regeneration and full label width",
+    "38 linked bindings",
+    "game registration and packaged module imports",
+    "ZIP CRC and autoexec XOR"
+  ],
+  "known_report_closed": "Multiple self-timer photos were the configured shot count, confirmed by user; no capture-count fix made.",
+  "ai_assistance": "Codex/LLM-assisted source, tests and translations; see AI_ASSISTANCE.md.",
+  "dependency_source_status": "Inherited dietlibc corresponding source remains unverified; see included release/v3r2/PROVENANCE.md and READINESS.json. This package is experimental and does not resolve the source audit.",
+  "full_zip_sha256": "6ca3af3c8fbf993a535fad5c6c2729387a517ed92de36ad566f4fb56022563d9"
+}

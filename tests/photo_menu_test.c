@@ -416,6 +416,13 @@ int main(void)
         assert(thai_pixels>before);
     }
     puts("PASS every generated Thai phrase/size decodes and paints bounded pixels");
+    for (int style=0;style<3;style++) {
+        int font=FONT(style+2,COLOR_WHITE,COLOR_BLACK);
+        const struct photo_thai_mask *m=photo_thai_find(font,"Normal MLU Delay");
+        assert(m && m->width<=318 && m->height<=44);
+        assert(photo_thai_text(font,382,114,318,"Normal MLU Delay"));
+    }
+    puts("PASS full Time-lapse/bracketing delay label fits the real detail column without English fallback");
     reset();photo_thai_enabled=1;go_peak();
     assert(PHOTO_DETAIL_ROWS==3 && thai_pixels>0);
     for(unsigned p=0;p<COUNT(photo_pages);p++)for(int i=0;i<photo_pages[p].count;i++)

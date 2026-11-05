@@ -40,7 +40,7 @@
     "max_width": 276
   },
   "Mirror Lockup": {
-    "th": "ล็อกกระจกสะท้อน",
+    "th": "ล็อคกระจกสะท้อน",
     "max_width": 276
   },
   "Flash Tweaks": {
@@ -360,7 +360,7 @@
     "max_width": 318
   },
   "Exposure (Tv,Ae)": {
-    "th": "ค่าแสง (Tv, Ae)",
+    "th": "ค่าแสง (TV, AV)",
     "max_width": 318
   },
   "Exposure (Flash)": {
@@ -376,7 +376,7 @@
     "max_width": 318
   },
   "MLU mode": {
-    "th": "วิธีล็อกกระจก",
+    "th": "วิธีล็อคกระจก",
     "max_width": 318
   },
   "Handheld Shutter": {
@@ -388,8 +388,9 @@
     "max_width": 318
   },
   "Normal MLU Delay": {
-    "th": "หน่วงหลังยกกระจก",
-    "max_width": 318
+    "th": "หน่วงเมื่อถ่าย Time-lapse/ถ่ายคร่อม",
+    "max_width": 318,
+    "font_size": 20
   },
   "Flash expo comp.": {
     "th": "ชดเชยแสงแฟลช",

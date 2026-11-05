@@ -17,3 +17,6 @@
 #undef FEATURE_SHOW_EDMAC_INFO
 
 #undef CONFIG_TSKMON
+
+/* Photo UI: only normal and self-timer mirror lock-up are exposed on 600D. */
+#undef FEATURE_MLU_HANDHELD

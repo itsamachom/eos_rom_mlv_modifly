@@ -20,7 +20,7 @@ font_data = TTFont(font_path)
 cmap = font_data.getBestCmap()
 sizes = (23, 28, 32)
 fonts = {}
-for size in sizes:
+for size in sorted(set(sizes) | {entry["font_size"] for entry in lexicon.values() if "font_size" in entry}):
     font = ImageFont.truetype(str(font_path), size, layout_engine=ImageFont.Layout.RAQM)
     font.set_variation_by_axes([600, 100])
     fonts[size] = font
@@ -56,9 +56,10 @@ for key, entry in lexicon.items():
         continue
     variants = []
     for size in sizes:
-        cache_key = (text, size)
+        render_size = min(size, entry.get("font_size", size))
+        cache_key = (text, size, render_size)
         if cache_key not in dedup:
-            font = fonts[size]
+            font = fonts[render_size]
             bbox = font.getbbox(text, language="th", direction="ltr")
             left_pad = max(0, -bbox[0])
             width = math.ceil(max(font.getlength(text, language="th"), bbox[2])) + left_pad + 1
@@ -100,6 +101,7 @@ header.append("};\n")
     "atlas_sha256": hashlib.sha256(data).hexdigest(), "atlas_crc32": "%08x" % zlib.crc32(data),
     "atlas_bytes": len(data), "translated_phrases": len(records), "font_sizes": sizes,
     "shaping": "Pillow RAQM/HarfBuzz, language th, ltr", "pillow": Image.__version__,
+    "font_size_overrides": {key: entry["font_size"] for key, entry in lexicon.items() if "font_size" in entry},
 }, indent=2) + "\n")
 print("Generated", len(records), "phrases; atlas", len(data), "bytes; CRC32 %08x" % zlib.crc32(data))
 
