@@ -27,7 +27,8 @@ lex=json.loads((root/'translations/photo_th.json').read_text())
 renamed={'Intervalometer','Advanced Bracket','Zebras','Histogram','Waveform','Focus Peak','Mirror Lockup','MLU mode','Exposure (Tv,Ae)','Normal MLU Delay'}
 for key,value in old_lex.items():
     if key not in renamed: assert lex[key]==value, key
-assert lex['Normal MLU Delay']['th'] == 'หน่วงเมื่อถ่าย Time-lapse/ถ่ายคร่อม'
+assert lex['Normal MLU Delay']['th'] == 'สำหรับ Timelapse/ถ่ายคร่อม'
+assert lex['Normal MLU Delay']['font_size'] == 25
 assert lex['Mirror Lockup']['th'] == 'ล็อคกระจกสะท้อน'
 assert lex['MLU mode']['th'] == 'วิธีล็อคกระจก'
 assert lex['Exposure (Tv,Ae)']['th'] == 'ค่าแสง (TV, AV)'

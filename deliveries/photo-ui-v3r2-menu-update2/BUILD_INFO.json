@@ -1,0 +1,25 @@
+{
+  "version": "PHOTO-UI-v3r2-menu-update2.600D.102",
+  "target": "600D.102",
+  "base_commit": "b5743925d91ace0b0810a13a9e893e50112e858c",
+  "source_state": "Exact working source in source ZIP; base commit plus uncommitted changes, not the base alone.",
+  "source_zip_sha256": "0bd4f548c540803f0cbb55f44e5fe983cf54204355aa4cde6f49bfd2ff50420b",
+  "autoexec_sha256": "74871dc734b9bca07c5d5dab9d534d879224bb6cbdf5b175c8063a1c55d28684",
+  "camera_tested": false,
+  "qemu_tested": false,
+  "installer_modified": false,
+  "checks_passed": [
+    "Thai atlas identical regeneration and label width",
+    "Photo UI ASan/UBSan including Setup page 2/3 navigation in both languages",
+    "read-only camera model and Canon firmware",
+    "three shutter counters with unavailable values",
+    "production MLU mode migration",
+    "38 linked bindings",
+    "packaged games and module imports",
+    "ZIP CRC and autoexec XOR"
+  ],
+  "label_font_size": 25,
+  "dependency_source_status": "Inherited dietlibc corresponding source remains unverified; included release/v3r2/PROVENANCE.md and READINESS.json describe limitations.",
+  "ai_assistance": "Codex/LLM-assisted label, font assets, navigation tests and documentation.",
+  "full_zip_sha256": "6794fc67fb77fcef8d5622d41c9808383e084b200e9b85d055bd68492d3481b0"
+}

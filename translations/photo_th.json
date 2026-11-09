@@ -388,9 +388,9 @@
     "max_width": 318
   },
   "Normal MLU Delay": {
-    "th": "หน่วงเมื่อถ่าย Time-lapse/ถ่ายคร่อม",
+    "th": "สำหรับ Timelapse/ถ่ายคร่อม",
     "max_width": 318,
-    "font_size": 20
+    "font_size": 25
   },
   "Flash expo comp.": {
     "th": "ชดเชยแสงแฟลช",

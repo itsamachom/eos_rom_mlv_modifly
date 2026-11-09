@@ -422,7 +422,7 @@ int main(void)
         assert(m && m->width<=318 && m->height<=44);
         assert(photo_thai_text(font,382,114,318,"Normal MLU Delay"));
     }
-    puts("PASS full Time-lapse/bracketing delay label fits the real detail column without English fallback");
+    puts("PASS shortened Time-lapse/bracketing delay label fits the real detail column without English fallback");
     reset();photo_thai_enabled=1;go_peak();
     assert(PHOTO_DETAIL_ROWS==3 && thai_pixels>0);
     for(unsigned p=0;p<COUNT(photo_pages);p++)for(int i=0;i<photo_pages[p].count;i++)
@@ -441,7 +441,11 @@ int main(void)
         options.next=&helpmenu;
         struct menu_entry * model=&camera->children[0], * fw=&camera->children[1];
         model->next=fw;fw->next=NULL;model->parent_menu=fw->parent_menu=&helpmenu;
-        photo_page_index=5;photo_selection[5]=6;photo_pane=PHOTO_DETAILS;render();
+        photo_page_index=5;photo_selection[5]=0;photo_pane=PHOTO_ITEMS;render();
+        for(int i=0;i<6;i++)press(BGMT_PRESS_DOWN);
+        assert(photo_selection[5]==6 && strstr(output,"2/3"));
+        press(BGMT_PRESS_RIGHT);
+        assert(photo_pane==PHOTO_DETAILS);
         assert(strstr(output,"Canon EOS 600D") && strstr(output,"1.0.2") && !strstr(output,"..."));
         if(thai)save_proof("camera-info");
         assert(!photo_can_edit(model) && !photo_can_edit(fw));
