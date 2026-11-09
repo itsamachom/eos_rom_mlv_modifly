@@ -175,6 +175,7 @@ static void menu_entry_select(struct menu * m,int mode)
     }
     assert(!"No selected entry");
 }
+static char build_version[96]="PHOTO-UI-test.600D.102";
 static char camera_model[32]="Canon EOS 600D", firmware_version[32]="1.0.2";
 static int shutter_count_valid,shutter_count,shutter_count_plus_lv_actuations;
 #include "../firmware/src/photo-camera-info-600d.h"
@@ -236,7 +237,7 @@ static void reset(void)
     memset(photo_selection,0,sizeof(photo_selection));photo_page_index=0;photo_menu_reset();
     submenu_level=edit_mode=menu_help_active=menu_lv_transparent_mode=recording=0;
     actions=last_mode=close_requests=run_actions=exercise_native_reentry=menu_redraw_cancel=0;
-    last_entry=NULL;locks=0;
+    last_entry=NULL;locks=0;photo_thai_enabled=0;
     on=1;threshold_value=10;
     peak.hidden=peak.shidden=peak.placeholder=0;peak.selected=0;
     threshold.hidden=threshold.shidden=0;threshold.selected=0;threshold.next=&action;
@@ -312,11 +313,39 @@ int main(void)
     press(BGMT_PRESS_DOWN);assert(photo_page_index==0);
     press(BGMT_PRESS_DOWN);assert(photo_page_index==1);
     press(BGMT_PRESS_RIGHT);assert(photo_pane==PHOTO_ITEMS && actions==0);
-    press(BGMT_PRESS_UP);assert(photo_selection[1]==6);
-    assert(strstr(output,"Page") && strstr(output,"2/2"));
-    press(BGMT_PRESS_DOWN);assert(photo_selection[1]==0);
+    press(BGMT_PRESS_UP);assert(photo_page_index==0 && photo_selection[0]==5);
+    press(BGMT_PRESS_DOWN);assert(photo_page_index==1 && photo_selection[1]==0);
     press(BGMT_PRESS_LEFT);assert(photo_pane==PHOTO_CATEGORIES && photo_page_index==1);
     puts("PASS vertical category/item navigation and horizontal pane focus without setting changes");
+    for(int keytype=0;keytype<2;keytype++)for(int page=0;page<7;page++)
+    {
+        reset();photo_page_index=page;photo_pane=PHOTO_ITEMS;
+        photo_selection[page]=photo_pages[page].count-1;render();
+        press(keytype ? BGMT_WHEEL_DOWN : BGMT_PRESS_DOWN);
+        assert(photo_page_index==(page+1)%7 && photo_selection[photo_page_index]==0);
+        press(keytype ? BGMT_WHEEL_UP : BGMT_PRESS_UP);
+        assert(photo_page_index==page && photo_selection[page]==photo_pages[page].count-1);
+        assert(photo_pane==PHOTO_ITEMS && !photo_editing && !photo_confirm && !actions);
+    }
+    puts("PASS Up/Down and wheel traverse category boundaries in both directions including G/S without changing settings");
+    reset();
+    const char *setup[]={"Language","Modules","Preferences","Display","Version","Camera Info","Shutter Count"};
+    assert(COUNT(photo_setup)==COUNT(setup));
+    for(unsigned i=0;i<COUNT(setup);i++)assert(!strcmp(photo_setup[i].label,setup[i]));
+    for(int thai=0;thai<=1;thai++)
+    {
+        reset();photo_thai_enabled=thai;
+        struct menu help={.name="Help",.children=&photo_camera_info_menu[1]};
+        photo_camera_info_menu[1].parent_menu=&help;options.next=&help;
+        photo_page_index=5;photo_selection[5]=4;photo_pane=PHOTO_ITEMS;render();
+        press(BGMT_PRESS_RIGHT);assert(strstr(output,"Build test"));
+        assert(!photo_can_edit(&photo_camera_info_menu[1]));
+        press(BGMT_PRESS_SET);press(BGMT_PRESS_RIGHT);assert(!actions && !photo_editing);
+        strcpy(build_version,"PHOTO-UI-v10r4.600D.102");render();
+        assert(strstr(output,"Build v10r4") && !strstr(output,"Build test"));
+        strcpy(build_version,"PHOTO-UI-test.600D.102");
+    }
+    puts("PASS Setup has only the seven requested entries and read-only Version follows the build string in both languages");
 
     reset();go_peak();
     assert(strstr(output,"Enable Global Draw first") && strstr(output,"Threshold"));
@@ -402,6 +431,7 @@ int main(void)
     assert(actions==0);
     puts("PASS all enlarged-font pages/panes remain inside the framebuffer without running actions");
     reset();photo_thai_enabled=1;
+    fio_free(photo_thai_atlas);photo_thai_atlas=NULL;photo_thai_attempted=0;
     recording=1;
     assert(!photo_thai_prepare() && !photo_thai_attempted);
     recording=0;
@@ -442,8 +472,8 @@ int main(void)
         struct menu_entry * model=&camera->children[0], * fw=&camera->children[1];
         model->next=fw;fw->next=NULL;model->parent_menu=fw->parent_menu=&helpmenu;
         photo_page_index=5;photo_selection[5]=0;photo_pane=PHOTO_ITEMS;render();
-        for(int i=0;i<6;i++)press(BGMT_PRESS_DOWN);
-        assert(photo_selection[5]==6 && strstr(output,"2/3"));
+        for(int i=0;i<5;i++)press(BGMT_PRESS_DOWN);
+        assert(photo_selection[5]==5 && strstr(output,"1/2"));
         press(BGMT_PRESS_RIGHT);
         assert(photo_pane==PHOTO_DETAILS);
         assert(strstr(output,"Canon EOS 600D") && strstr(output,"1.0.2") && !strstr(output,"..."));
@@ -459,7 +489,7 @@ int main(void)
         struct menu debugmenu={.name="Debug",.children=&counter};
         options.next=&debugmenu;
         for(int i=0;i<3;i++) { photo_shutter_details[i].parent_menu=&debugmenu;photo_shutter_details[i].next=i<2?&photo_shutter_details[i+1]:NULL; }
-        photo_selection[5]=7;photo_detail_index=0;
+        photo_selection[5]=6;photo_detail_index=0;
         shutter_count_valid=0;render();
         for(int i=0;i<3;i++) { photo_read_info(&photo_shutter_details[i],&info);assert(!strcmp(info.value,"Unavailable"));assert(!photo_can_edit(&photo_shutter_details[i])); }
         shutter_count_valid=1;shutter_count=12345;shutter_count_plus_lv_actuations=12445;render();

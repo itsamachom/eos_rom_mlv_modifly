@@ -8,7 +8,11 @@ root=Path(__file__).resolve().parents[1]
 h=(root/'firmware/src/photo-menu-600d.h').read_text()
 old=subprocess.check_output(['git','show','ca97d4ea27d08fee3698c5c8ac2ee0753b75a2f2:firmware/src/photo-menu-600d.h'],cwd=root,text=True)
 parse=lambda s: set(re.findall(r'\{"[^"]+", "([^"]+)", ("[^"]+"|NULL)\}',s))
-assert parse(old)-{('Shoot','"Silent Picture"')} <= parse(h)
+# Intentional removals: Silent Picture and the obsolete Setup system-menu shortcuts.
+removed={('Shoot','"Silent Picture"')} | {(menu,'NULL') for menu in
+    ['Help','Debug','Audio','Shoot','Focus','Expo','Overlay','Movie']}
+assert parse(old)-removed <= parse(h)
+assert ('Help','"Photo UI Version"') in parse(h)
 assert ('Shoot','"Silent Picture"') not in parse(h)
 for label in ['Histogram','Waveform','Time-lapse','Bracketing','zebra settings','Bitrate (CBR)']:
     assert '{"'+label+'",' in h

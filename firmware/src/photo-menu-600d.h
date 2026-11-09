@@ -68,16 +68,9 @@ static const struct photo_item photo_setup[] = {
     {"Modules", "Modules", NULL},
     {"Preferences", "Prefs", NULL},
     {"Display", "Display", NULL},
-    {"Version / Help", "Help", NULL},
-    {"Diagnostics", "Debug", NULL},
+    {"Version", "Help", "Photo UI Version"},
     {"Camera Info", "Help", "Camera Info"},
     {"Shutter Count", "Debug", "Shutter Count"},
-    {"Audio", "Audio", NULL},
-    {"Shoot (all)", "Shoot", NULL},
-    {"Focus (all)", "Focus", NULL},
-    {"Expo (all)", "Expo", NULL},
-    {"Overlay (all)", "Overlay", NULL},
-    {"Movie (all)", "Movie", NULL},
 };
 static const struct photo_item photo_games[] = {
     {"Arkanoid", "Games", "Arkanoid"},
@@ -568,7 +561,14 @@ static int photo_menu_key_locked(int key, struct photo_pending_action * pending)
         }
         else if (photo_pane == PHOTO_ITEMS)
         {
-            photo_selection[photo_page_index] = MOD(photo_selection[photo_page_index] + delta, page->count);
+            int next = photo_selection[photo_page_index] + delta;
+            if (next < 0 || next >= page->count)
+            {
+                /* Continue through categories without leaving the item pane. */
+                photo_page_index = MOD(photo_page_index + delta, COUNT(photo_pages));
+                photo_selection[photo_page_index] = down ? 0 : photo_pages[photo_page_index].count - 1;
+            }
+            else photo_selection[photo_page_index] = next;
             photo_detail_index = 0;
         }
         else

@@ -33,6 +33,17 @@ static MENU_UPDATE_FUNC(photo_combined_display)
     if (!shutter_count_valid) { MENU_SET_VALUE("Unavailable"); return; }
     MENU_SET_VALUE("%d", shutter_count_plus_lv_actuations);
 }
+/* The build system supplies this string; no release number is duplicated here. */
+static MENU_UPDATE_FUNC(photo_build_version_display)
+{
+    (void)entry;
+    const char * version = build_version;
+    if (strncmp(version, "PHOTO-UI-", 9) == 0) version += 9;
+    const char * target = strstr(version, ".600D.102");
+    int length = target ? (int)(target - version) : (int)strlen(version);
+    MENU_SET_VALUE("Build %.*s", length, version);
+}
+
 static struct menu_entry photo_camera_info_menu[] = {
     { .name = "Camera Info", .update = photo_camera_info_display,
       .help = "Camera model and firmware reported by Canon.",
@@ -45,6 +56,9 @@ static struct menu_entry photo_camera_info_menu[] = {
           MENU_EOL,
       },
     },
+    { .name = "Photo UI Version", .update = photo_build_version_display,
+      .icon_type = IT_ALWAYS_ON,
+      .help = "Development version of this Photo UI build." },
 };
 static struct menu_entry photo_shutter_details[] = {
             { .name = "Mechanical Shutter", .update = photo_mechanical_display, .icon_type = IT_ALWAYS_ON,

@@ -4,7 +4,15 @@ Photo UI ภาษาไทยสำหรับ **Canon EOS 600D / Canon firmwa
 
 นี่คือ release ของ fork `itsamachom/eos_rom_mlv_modifly` ไม่ใช่บิลด์ทางการหรือบิลด์ที่ทีม Magic Lantern หรือ Canon รับรอง โค้ด UI, tests, คำแปลและเอกสารของ fork ใช้ Codex/LLM ช่วย ดู [การเปิดเผยการใช้ AI](AI_ASSISTANCE.md)
 
-## v3r2 — Experimental
+## v3r3 — Experimental update
+
+รายการกลางเลื่อนต่อเนื่องข้ามหมวดได้ทั้งสองทิศ หน้า + ตัดทางลัดที่ไม่ได้ใช้ และเมนู **เวอร์ชั่น** แสดง Build v3r3 จากเลขรุ่นที่ใช้ build จริง ข้อมูลกล้องอยู่หน้าแรกของ +; จำนวนชัตเตอร์อยู่หน้า 2/2
+
+[แพ็กเกจ v3r3](deliveries/photo-ui-v3r3-full/) · [รายละเอียดและวิธีออกรุ่นถัดไป](PHOTO_UI_V3R3.md)
+
+ผ่าน ARM build และ host checks; ยังไม่ได้ทดสอบ v3r3 บนกล้องจริงหรือ QEMU ข้อจำกัด source audit เดิมยังเปิดอยู่
+
+## v3r2 — Previous experimental build
 
 - UI หมวดถ่ายภาพ/โฟกัส/ค่าแสง/ตัวช่วยแสดงภาพ/วิดีโอ/ตั้งค่า/เกม พร้อมภาษาไทยและอังกฤษ
 - Focus Peaking, Histogram, Waveform, Time-lapse, ถ่ายคร่อม, zebra settings และ Movie → Bitrate (CBR)

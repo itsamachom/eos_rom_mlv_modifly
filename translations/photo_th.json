@@ -163,6 +163,18 @@
     "th": "การแสดงผล",
     "max_width": 276
   },
+  "Version": {
+    "th": "เวอร์ชั่น",
+    "max_width": 276
+  },
+  "Photo UI Version": {
+    "th": "เวอร์ชั่น",
+    "max_width": 318
+  },
+  "Development version of this Photo UI build.": {
+    "th": "รุ่นพัฒนาเมนู Photo UI",
+    "max_width": 696
+  },
   "Version / Help": {
     "th": "เวอร์ชัน / วิธีใช้",
     "max_width": 276

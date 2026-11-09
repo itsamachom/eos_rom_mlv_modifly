@@ -29,3 +29,8 @@ python3 tests/check_packaged_games.py
 Do not publish camera binaries until the release's source, provenance, licenses,
 checksums and exact target have been reviewed. Use experimental/prerelease status
 until the hardware behavior claimed in the release notes has been tested.
+
+For every Photo UI release, update scripts/photo-ui-version.txt first. The build
+script, read-only Version menu and tools/package_photo_ui_current.py share that
+version. Add PHOTO_UI_<VERSION>.md notes, stage any new source files, and follow
+PHOTO_UI_V3R3.md. Never hardcode the next release label in the menu.

@@ -11,6 +11,7 @@ Affected work includes:
 - Camera property availability handling, camera/shutter detail presentation,
   menu selection, Games registration correction and package module selection.
 - Host tests, build/packaging/release helpers, documentation and translations.
+- v3r3 cross-category item navigation, simplified Setup menu and build-derived version display.
 
 The imported Magic Lantern source, original game scripts, original installer,
 Noto font and inherited library archives are not claimed as original fork or
