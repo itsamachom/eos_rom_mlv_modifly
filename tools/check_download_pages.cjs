@@ -70,6 +70,13 @@ const root = path.resolve(__dirname,'..');
         assert((await page.locator('body').innerText()).includes('1.0.2'));
         assert((await page.locator('body').innerText()).includes('Experimental'));
         assert.equal(await page.locator('form,iframe,script').count(),0);
+        assert(!/\bML\b(?![-/])/.test(await page.locator('body').innerText()),'Unexpanded Magic Lantern name in download prose');
+        assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(16, 21, 18)');
+        assert.equal(await page.locator('.download-card').first().evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(24, 32, 27)');
+        if(process.env.DOWNLOAD_PROOF_OUT && (width===1440 || width===390)) {
+          await fs.mkdir(process.env.DOWNLOAD_PROOF_OUT,{recursive:true});
+          await page.screenshot({path:path.join(process.env.DOWNLOAD_PROOF_OUT,`download-${lang}-${width}.png`),fullPage:true});
+        }
         assert(!(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)),`${lang}: download overflow at ${width}`);
         for(const href of await page.locator('a').evaluateAll(as=>as.map(a=>a.getAttribute('href')))) {
           assert(href && href!=='#');

@@ -2,7 +2,7 @@
 
 Canon EOS 600D / Canon firmware **1.0.2** · Public Experimental
 
-**ยังไม่เคยลง ML ก็ติดตั้งจากชุด FIRST-INSTALL ได้ ไม่ต้องลง ML จาก ZIP อื่นก่อน**
+**ยังไม่เคยลง Magic Lantern ก็ติดตั้งจากชุด FIRST-INSTALL ได้ ไม่ต้องลง Magic Lantern จาก ZIP อื่นก่อน**
 
 [หน้าเว็บดาวน์โหลด](https://itsamachom.github.io/eos_rom_mlv_modifly/download.html) · [English](https://itsamachom.github.io/eos_rom_mlv_modifly/en/download.html)
 
@@ -14,7 +14,7 @@ Canon EOS 600D / Canon firmware **1.0.2** · Public Experimental
 
 SHA256: `1cb9743d5e972d176c63ebf0ad31c0297ae54a0a2dfd04243507e21975dc0802`
 
-## 2. อัปเดต ML ที่มีแล้ว / Update
+## 2. อัปเดต Magic Lantern ที่มีแล้ว / Update
 
 ### [ดาวน์โหลด 600D-102-Thai-Menu-v3r5-UPDATE-doc1.zip](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/site/eos-600d-bilingual/downloads/v3r5/camera/600D-102-Thai-Menu-v3r5-UPDATE-doc1.zip)
 
