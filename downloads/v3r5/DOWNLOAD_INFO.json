@@ -12,22 +12,23 @@
   "autoexec_sha256": "45e92756159629e174b58362811ad4f8ba7464752cacf3393ebbd1bafad2fef2",
   "installer_sha256": "7e33d8a2a71ad92c412d291fb0ecb6de0b9404c212571d51fd82f839688070e3",
   "first_install": {
-    "filename": "600D-102-Thai-Menu-v3r5-FIRST-INSTALL.zip",
-    "path": "downloads/v3r5/first_install/600D-102-Thai-Menu-v3r5-FIRST-INSTALL.zip",
-    "bytes": 2132113,
-    "sha256": "f1f61642d4e4571d4b6e37bc2bbdf03c50820cd779ff6bb3157d4fd7f94313df"
+    "filename": "600D-102-Thai-Menu-v3r5-FIRST-INSTALL-doc1.zip",
+    "path": "downloads/v3r5/first_install/600D-102-Thai-Menu-v3r5-FIRST-INSTALL-doc1.zip",
+    "bytes": 2132252,
+    "sha256": "1cb9743d5e972d176c63ebf0ad31c0297ae54a0a2dfd04243507e21975dc0802"
   },
   "camera": {
-    "filename": "600D-102-Thai-Menu-v3r5-UPDATE.zip",
-    "path": "downloads/v3r5/camera/600D-102-Thai-Menu-v3r5-UPDATE.zip",
-    "bytes": 2066061,
-    "sha256": "30fbac55f76448580608dccaf3b29f8321685e8c573412e9bf9043814e1ea3bf"
+    "filename": "600D-102-Thai-Menu-v3r5-UPDATE-doc1.zip",
+    "path": "downloads/v3r5/camera/600D-102-Thai-Menu-v3r5-UPDATE-doc1.zip",
+    "bytes": 2066202,
+    "sha256": "22a70698962403168772413ab83032e13a39eb84d5beb103ab923062d5cc6392"
   },
   "source": {
-    "filename": "600D-PHOTO-UI-v3r5-source.zip",
-    "url": "https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/v3r5/deliveries/photo-ui-v3r5-full/600D-PHOTO-UI-v3r5-source.zip",
-    "bytes": 27320489,
-    "sha256": "0515860be52f46fff1c76d44f803e2cb75a488faacf0bc6c44859b3d7baf3885"
+    "filename": "600D-PHOTO-UI-v3r5-source-doc1.zip",
+    "path": "downloads/v3r5/source/600D-PHOTO-UI-v3r5-source-doc1.zip",
+    "url": "https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/site/eos-600d-bilingual/downloads/v3r5/source/600D-PHOTO-UI-v3r5-source-doc1.zip",
+    "bytes": 27320492,
+    "sha256": "900bb5add07ec09c7a430604de57e09ae5be489a2dc8d27a3b2d5539e975affc"
   },
   "verified": [
     "ZIP CRC",
@@ -41,5 +42,8 @@
   "first_install_hardware_tested": false,
   "qemu_tested": false,
   "installer_rebuilt": false,
-  "inherited_dependency_source_verified": false
+  "inherited_dependency_source_verified": false,
+  "documentation_revision": 1,
+  "install_th_sha256": "9bdfb1730706863f78d081e48afcba3c2d897151ae2e2ee596e9f8102eb5bc13",
+  "firmware_changed": false
 }

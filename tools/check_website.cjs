@@ -38,7 +38,7 @@ const types = {'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-
         await page.evaluate(()=>document.fonts.ready);
         assert.equal(await page.locator('html').getAttribute('lang'),lang);
         assert.equal(await page.locator('h1').count(),1);
-          for(const url of ['https://www.youtube.com/@Online2easy','https://www.facebook.com/online2easy','https://online2hobby.blogspot.com/'])assert.equal(await page.locator(`footer a[href="${url}"]`).count(),1);
+          for(const url of ['https://www.youtube.com/@Online2easy','https://www.facebook.com/online2easy','https://online2hobby.blogspot.com/']){const a=page.locator(`footer a[href="${url}"]`);assert.equal(await a.count(),1);assert.equal(await a.getAttribute('target'),'_blank');assert((await a.getAttribute('rel')).includes('noopener'));}
         assert.equal(await page.locator('form,iframe,script').count(),0);
         assert.deepEqual(await page.locator('#creator .creator-channel').evaluateAll(as=>as.map(a=>a.href)),[
           'https://www.youtube.com/@Online2easy',
@@ -86,6 +86,16 @@ const types = {'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-
         if(width===1440 || (width===390 && lang==='th'))await page.screenshot({path:path.join(out,`website-${lang}-${width===1440?'desktop':'mobile'}.png`),fullPage:true});
       }
       await page.goto(target);
+      for(const url of ['https://www.youtube.com/@Online2easy','https://www.facebook.com/online2easy','https://online2hobby.blogspot.com/']) {
+        await context.route(url,route=>route.fulfill({status:200,contentType:'text/html',body:'<!doctype html><title>External profile fixture</title><p>Profile</p>'}));
+        const before=page.url();
+        const [popup]=await Promise.all([context.waitForEvent('page'),page.locator(`#creator a[href="${url}"]`).click()]);
+        await popup.waitForLoadState('domcontentloaded');
+        assert.equal(page.url(),before,'Creator link replaced the project page');
+        assert.equal(await popup.evaluate(()=>window.opener===null),true);
+        await popup.close();
+      }
+      await page.goto(target);
       await page.keyboard.press('Tab');assert.equal(await page.locator(':focus').getAttribute('class'),'skip');
       await page.keyboard.press('Enter');assert(new URL(page.url()).hash==='#main');
       await page.locator('details summary').first().click();assert(await page.locator('details').first().getAttribute('open')!==null);
@@ -103,7 +113,7 @@ const types = {'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-
           await page.evaluate(()=>document.fonts.ready);
           assert.equal(await page.locator('html').getAttribute('lang'),lang);
           assert.equal(await page.locator('h1').count(),1);
-          for(const url of ['https://www.youtube.com/@Online2easy','https://www.facebook.com/online2easy','https://online2hobby.blogspot.com/'])assert.equal(await page.locator(`footer a[href="${url}"]`).count(),1);
+          for(const url of ['https://www.youtube.com/@Online2easy','https://www.facebook.com/online2easy','https://online2hobby.blogspot.com/']){const a=page.locator(`footer a[href="${url}"]`);assert.equal(await a.count(),1);assert.equal(await a.getAttribute('target'),'_blank');assert((await a.getAttribute('rel')).includes('noopener'));}
           assert.equal(await page.locator('article .article-body h2').count()>=4,true);
           assert.equal(await page.locator('form,iframe,script').count(),0);
           assert(!(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)),`${articlePath}: overflow at ${width}px`);

@@ -58,12 +58,13 @@ const root = path.resolve(__dirname,'..');
         assert.equal(await page.locator('[data-download="first_install"]').getAttribute('href'),packages.first_install.url);
         assert((await page.locator('#first-install-steps').innerText()).includes('32 GB'));
         assert((await page.locator('#first-install-steps').innerText()).includes('60'));
-        for(const url of ['https://www.youtube.com/@Online2easy','https://www.facebook.com/online2easy','https://online2hobby.blogspot.com/'])assert.equal(await page.locator(`footer a[href="${url}"]`).count(),1);
+        for(const url of ['https://www.youtube.com/@Online2easy','https://www.facebook.com/online2easy','https://online2hobby.blogspot.com/']){const a=page.locator(`footer a[href="${url}"]`);assert.equal(await a.count(),1);assert.equal(await a.getAttribute('target'),'_blank');assert((await a.getAttribute('rel')).includes('noopener'));}
         assert.equal(await page.locator('[data-download="camera"]').getAttribute('href'),cameraURL);
         assert.equal(await page.locator('[data-download="source"]').getAttribute('href'),meta.source.url);
         assert.notEqual(cameraURL,meta.source.url);
         assert((await page.locator('#camera-download').innerText()).includes(meta.camera.filename));
         assert((await page.locator('#source-download').innerText()).includes(meta.source.filename));
+        if(lang==='th')assert((await page.locator('#source-download').innerText()).includes('ซอร์สโค้ดของ fork'));
         assert((await page.locator('#camera-download .checksum').innerText()).includes(meta.camera.sha256));
         assert((await page.locator('#source-download .checksum').innerText()).includes(meta.source.sha256));
         assert((await page.locator('body').innerText()).includes('1.0.2'));
