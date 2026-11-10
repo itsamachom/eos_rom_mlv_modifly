@@ -4,7 +4,15 @@ Photo UI ภาษาไทยสำหรับ **Canon EOS 600D / Canon firmwa
 
 นี่คือ release ของ fork `itsamachom/eos_rom_mlv_modifly` ไม่ใช่บิลด์ทางการหรือบิลด์ที่ทีม Magic Lantern หรือ Canon รับรอง โค้ด UI, tests, คำแปลและเอกสารของ fork ใช้ Codex/LLM ช่วย ดู [การเปิดเผยการใช้ AI](AI_ASSISTANCE.md)
 
-## v3r3 — Experimental update
+## v3r4 — FIRMWARE ADD-ON Thai-Menu · Public Experimental
+
+แก้หน้าเวอร์ชั่นที่เคยแสดง `Build .*s` ให้แสดงเลขรุ่นจริง พร้อมชื่อ **FIRMWARE ADD-ON Thai-Menu** และเว็บไซต์ https://itsamachom.github.io/eos_rom_mlv_modifly/
+
+[ดาวน์โหลดแพ็กเกจ v3r4](deliveries/photo-ui-v3r4-full/) · [รายละเอียดและข้อจำกัด](PHOTO_UI_V3R4.md) · [ภาพตัวอย่างจาก host test](previews/photo-ui-v3r4-version-proof.png)
+
+สำหรับ Canon 600D / Canon firmware 1.0.2 เท่านั้น ยังไม่ได้ทดสอบ v3r4 บนกล้องจริงหรือ QEMU ไม่ใช่ Stable และ source audit ของ inherited dietlibc ยังไม่ครบ
+
+## v3r3 — Previous experimental update
 
 รายการกลางเลื่อนต่อเนื่องข้ามหมวดได้ทั้งสองทิศ หน้า + ตัดทางลัดที่ไม่ได้ใช้ และเมนู **เวอร์ชั่น** แสดง Build v3r3 จากเลขรุ่นที่ใช้ build จริง ข้อมูลกล้องอยู่หน้าแรกของ +; จำนวนชัตเตอร์อยู่หน้า 2/2
 

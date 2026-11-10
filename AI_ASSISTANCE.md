@@ -12,6 +12,7 @@ Affected work includes:
   menu selection, Games registration correction and package module selection.
 - Host tests, build/packaging/release helpers, documentation and translations.
 - v3r3 cross-category item navigation, simplified Setup menu and build-derived version display.
+- v3r4 Canon-compatible version formatting, FIRMWARE ADD-ON Thai-Menu identity, regression guards and bilingual public-package information.
 
 The imported Magic Lantern source, original game scripts, original installer,
 Noto font and inherited library archives are not claimed as original fork or

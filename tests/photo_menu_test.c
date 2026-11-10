@@ -178,7 +178,18 @@ static void menu_entry_select(struct menu * m,int mode)
 static char build_version[96]="PHOTO-UI-test.600D.102";
 static char camera_model[32]="Canon EOS 600D", firmware_version[32]="1.0.2";
 static int shutter_count_valid,shutter_count,shutter_count_plus_lv_actuations;
+/* Constrain this menu to the simple formats known to work on Canon.
+ * This is a regression guard, not an emulator of Canon's ROM formatter. */
+static void photo_test_camera_value(struct menu_display_info *info,const char *fmt,...)
+{
+    assert(!strchr(fmt,'%') || !strcmp(fmt,"%s") || !strcmp(fmt,"%d"));
+    va_list ap;va_start(ap,fmt);vsnprintf(info->value,MENU_MAX_VALUE_LEN,fmt,ap);va_end(ap);
+}
+#undef MENU_SET_VALUE
+#define MENU_SET_VALUE(fmt, ...) photo_test_camera_value(info,fmt, ## __VA_ARGS__)
 #include "../firmware/src/photo-camera-info-600d.h"
+#undef MENU_SET_VALUE
+#define MENU_SET_VALUE(fmt, ...) snprintf(info->value,MENU_MAX_VALUE_LEN,fmt, ## __VA_ARGS__)
 static void observe_snapshot(void);
 #define PHOTO_MENU_SNAPSHOT_OBSERVER() observe_snapshot()
 #include "../firmware/src/photo-menu-600d.h"
@@ -337,15 +348,33 @@ int main(void)
         reset();photo_thai_enabled=thai;
         struct menu help={.name="Help",.children=&photo_camera_info_menu[1]};
         photo_camera_info_menu[1].parent_menu=&help;options.next=&help;
+        for(int i=0;i<3;i++) {
+            photo_version_details[i].parent_menu=&help;
+            photo_version_details[i].next=i<2?&photo_version_details[i+1]:NULL;
+            assert(!photo_can_edit(&photo_version_details[i]));
+        }
         photo_page_index=5;photo_selection[5]=4;photo_pane=PHOTO_ITEMS;render();
-        press(BGMT_PRESS_RIGHT);assert(strstr(output,"Build test"));
+        press(BGMT_PRESS_RIGHT);
+        assert(strstr(output,"test") && !strstr(output,"Build ") && !strstr(output,".*s"));
+        assert(strstr(output,"FIRMWARE ADD-ON") && strstr(output,"Thai-Menu"));
+        assert(strstr(output,"itsamachom.github.io") && strstr(output,PHOTO_PROJECT_URL));
+        assert(!strstr(output,"..."));
         assert(!photo_can_edit(&photo_camera_info_menu[1]));
         press(BGMT_PRESS_SET);press(BGMT_PRESS_RIGHT);assert(!actions && !photo_editing);
         strcpy(build_version,"PHOTO-UI-v10r4.600D.102");render();
-        assert(strstr(output,"Build v10r4") && !strstr(output,"Build test"));
+        assert(strstr(output,"v10r4") && !strstr(output,"Build "));
+        strcpy(build_version,"PHOTO-UI-v3r4.600D.102");render();
+        assert(strstr(output,"v3r4") && !strstr(output,".*s"));
+        if(thai)save_proof("version-v3r4");
+        struct menu_display_info version_info;
+        memset(build_version,'X',sizeof(build_version)-1);build_version[sizeof(build_version)-1]=0;
+        photo_read_info(&photo_version_details[1],&version_info);
+        assert(strlen(version_info.value)==MENU_MAX_VALUE_LEN-1);
+        strcpy(build_version,"PHOTO-UI-.600D.102");
+        photo_read_info(&photo_version_details[1],&version_info);assert(!strcmp(version_info.value,"Unavailable"));
         strcpy(build_version,"PHOTO-UI-test.600D.102");
     }
-    puts("PASS Setup has only the seven requested entries and read-only Version follows the build string in both languages");
+    puts("PASS read-only project/version/site use simple Canon-compatible formats, update with the build and fit in both languages");
 
     reset();go_peak();
     assert(strstr(output,"Enable Global Draw first") && strstr(output,"Threshold"));

@@ -41,8 +41,36 @@ static MENU_UPDATE_FUNC(photo_build_version_display)
     if (strncmp(version, "PHOTO-UI-", 9) == 0) version += 9;
     const char * target = strstr(version, ".600D.102");
     int length = target ? (int)(target - version) : (int)strlen(version);
-    MENU_SET_VALUE("Build %.*s", length, version);
+    char value[MENU_MAX_VALUE_LEN];
+    if (length >= (int)sizeof(value)) length = sizeof(value) - 1;
+    memcpy(value, version, length);
+    value[length] = 0;
+    /* Canon's ROM formatter does not support the %.*s used by the old menu. */
+    MENU_SET_VALUE("%s", value[0] ? value : "Unavailable");
 }
+
+#define PHOTO_PROJECT_NAME "FIRMWARE ADD-ON"
+#define PHOTO_PROJECT_URL "https://itsamachom.github.io/eos_rom_mlv_modifly/"
+static MENU_UPDATE_FUNC(photo_project_display)
+{
+    (void)entry;
+    MENU_SET_VALUE("%s", PHOTO_PROJECT_NAME);
+}
+static MENU_UPDATE_FUNC(photo_project_site_display)
+{
+    (void)entry;
+    MENU_SET_NAME("%s", "itsamachom.github.io");
+    MENU_SET_VALUE("%s", "eos_rom_mlv_modifly");
+}
+static struct menu_entry photo_version_details[] = {
+    { .name = "Project", .update = photo_project_display,
+      .icon_type = IT_ALWAYS_ON, .help = PHOTO_PROJECT_URL },
+    { .name = "Thai-Menu", .update = photo_build_version_display,
+      .icon_type = IT_ALWAYS_ON, .help = PHOTO_PROJECT_URL },
+    { .name = "Website", .update = photo_project_site_display,
+      .icon_type = IT_ALWAYS_ON, .help = PHOTO_PROJECT_URL },
+    MENU_EOL,
+};
 
 static struct menu_entry photo_camera_info_menu[] = {
     { .name = "Camera Info", .update = photo_camera_info_display,
@@ -57,8 +85,8 @@ static struct menu_entry photo_camera_info_menu[] = {
       },
     },
     { .name = "Photo UI Version", .update = photo_build_version_display,
-      .icon_type = IT_ALWAYS_ON,
-      .help = "Development version of this Photo UI build." },
+      .select = menu_open_submenu, .children = photo_version_details,
+      .help = PHOTO_PROJECT_URL },
 };
 static struct menu_entry photo_shutter_details[] = {
             { .name = "Mechanical Shutter", .update = photo_mechanical_display, .icon_type = IT_ALWAYS_ON,

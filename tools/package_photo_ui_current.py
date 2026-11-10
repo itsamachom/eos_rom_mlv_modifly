@@ -49,6 +49,9 @@ with zipfile.ZipFile(source) as z:
     for name in files:
         assert z.read(prefix+name) == (root/name).read_bytes()
 info = {
+    'project':'FIRMWARE ADD-ON Thai-Menu',
+    'project_website':'https://itsamachom.github.io/eos_rom_mlv_modifly/',
+    'distribution_status':'Public Experimental; not Stable or source-audit complete',
     'version': version, 'target':'600D.102', 'base_commit':base,
     'source_state':'Exact indexed working files in source ZIP; base commit plus any working changes. Base alone is not necessarily the build source.',
     'source_zip_sha256':sha256(source.read_bytes()), 'autoexec_sha256':sha256(binary),

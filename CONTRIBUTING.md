@@ -34,3 +34,7 @@ For every Photo UI release, update scripts/photo-ui-version.txt first. The build
 script, read-only Version menu and tools/package_photo_ui_current.py share that
 version. Add PHOTO_UI_<VERSION>.md notes, stage any new source files, and follow
 PHOTO_UI_V3R3.md. Never hardcode the next release label in the menu.
+
+Canon's ROM formatter is not the host libc formatter. Version/identity values
+use literal strings, %s or %d; do not reintroduce dynamic precision (%.*s).
+The Photo UI tests enforce this subset for camera-info/version callbacks.
