@@ -363,9 +363,9 @@ int main(void)
         press(BGMT_PRESS_SET);press(BGMT_PRESS_RIGHT);assert(!actions && !photo_editing);
         strcpy(build_version,"PHOTO-UI-v10r4.600D.102");render();
         assert(strstr(output,"v10r4") && !strstr(output,"Build "));
-        strcpy(build_version,"PHOTO-UI-v3r4.600D.102");render();
-        assert(strstr(output,"v3r4") && !strstr(output,".*s"));
-        if(thai)save_proof("version-v3r4");
+        strcpy(build_version,"PHOTO-UI-v3r5.600D.102");render();
+        assert(strstr(output,"v3r5") && !strstr(output,".*s"));
+        if(thai)save_proof("version-v3r5");
         struct menu_display_info version_info;
         memset(build_version,'X',sizeof(build_version)-1);build_version[sizeof(build_version)-1]=0;
         photo_read_info(&photo_version_details[1],&version_info);

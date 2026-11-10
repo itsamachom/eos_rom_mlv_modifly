@@ -7,6 +7,7 @@ const { chromium } = require('playwright');
 const root = path.resolve(__dirname, '..');
 const types = {'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml','.jpg':'image/jpeg'};
 (async () => {
+  const currentVersion=(await fs.readFile(path.join(root,"scripts/photo-ui-version.txt"),"utf8")).trim();
   const server = http.createServer(async (req,res) => {
     try {
       let pathname = decodeURIComponent(new URL(req.url,'http://local.test').pathname);
@@ -37,6 +38,7 @@ const types = {'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-
         await page.evaluate(()=>document.fonts.ready);
         assert.equal(await page.locator('html').getAttribute('lang'),lang);
         assert.equal(await page.locator('h1').count(),1);
+          for(const url of ['https://www.youtube.com/@Online2easy','https://www.facebook.com/online2easy','https://online2hobby.blogspot.com/'])assert.equal(await page.locator(`footer a[href="${url}"]`).count(),1);
         assert.equal(await page.locator('form,iframe,script').count(),0);
         assert.deepEqual(await page.locator('#creator .creator-channel').evaluateAll(as=>as.map(a=>a.href)),[
           'https://www.youtube.com/@Online2easy',
@@ -61,7 +63,7 @@ const types = {'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-
         assert.equal(await page.locator('a[href$=".jpg"]').count(),0,'A full-size photo link remains');
         if(width>=1024)assert((await page.locator('.hero-copy').boundingBox()).width>=350,'Hero image squeezed the text column');
         assert((await page.locator('link[rel="stylesheet"]').getAttribute('href')).includes('?v='),'CSS version missing');
-        assert(await page.locator('#status').innerText().then(t=>t.includes('28') && t.includes('38') && t.includes('dietlibc')));
+        assert(await page.locator('#status').innerText().then(t=>t.includes(currentVersion) && t.includes('39') && t.includes('dietlibc')));
         const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth);
         assert(!overflow,`${lang}: horizontal overflow at ${width}px`);
         const links=await page.locator('a').evaluateAll(as=>as.map(a=>a.getAttribute('href')));
@@ -101,6 +103,7 @@ const types = {'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-
           await page.evaluate(()=>document.fonts.ready);
           assert.equal(await page.locator('html').getAttribute('lang'),lang);
           assert.equal(await page.locator('h1').count(),1);
+          for(const url of ['https://www.youtube.com/@Online2easy','https://www.facebook.com/online2easy','https://online2hobby.blogspot.com/'])assert.equal(await page.locator(`footer a[href="${url}"]`).count(),1);
           assert.equal(await page.locator('article .article-body h2').count()>=4,true);
           assert.equal(await page.locator('form,iframe,script').count(),0);
           assert(!(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)),`${articlePath}: overflow at ${width}px`);

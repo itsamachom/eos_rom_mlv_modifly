@@ -95,3 +95,10 @@
 .checksum{font-size:.8rem;line-height:1.8}.download-note{padding:18px 22px;border-left:3px solid var(--warm);background:var(--panel);color:var(--muted)}
 .update-steps{padding-left:24px;max-width:900px}.update-steps li{padding:8px 0}
 @media(max-width:700px){.download-grid{grid-template-columns:1fr}.download-card{padding:24px}.download-lead h1{font-size:2rem}}
+
+/* Three audiences: first install, existing-ML update, and developer source. */
+.download-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.developer-links{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin:20px auto;max-width:1120px;font-size:.85rem}
+.developer-links a{color:var(--accent)}
+@media(max-width:960px){.download-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.download-grid{grid-template-columns:1fr}}

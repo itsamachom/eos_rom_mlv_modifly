@@ -28,9 +28,10 @@ assert asset.read_bytes()==before
 # Restore every existing translation except the explicitly requested names.
 old_lex=json.loads((root/'translations/photo_th.original.json').read_text())
 lex=json.loads((root/'translations/photo_th.json').read_text())
-renamed={'Intervalometer','Advanced Bracket','Zebras','Histogram','Waveform','Focus Peak','Mirror Lockup','MLU mode','Exposure (Tv,Ae)','Normal MLU Delay'}
+renamed={'Intervalometer','Advanced Bracket','Zebras','Histogram','Waveform','Focus Peak','Mirror Lockup','MLU mode','Exposure (Tv,Ae)','Normal MLU Delay','Live View Actuations'}
 for key,value in old_lex.items():
     if key not in renamed: assert lex[key]==value, key
+assert lex['Live View Actuations']['th'] == 'โหมด Live View'
 assert lex['Normal MLU Delay']['th'] == 'สำหรับ Timelapse/ถ่ายคร่อม'
 assert lex['Normal MLU Delay']['font_size'] == 25
 assert lex['Mirror Lockup']['th'] == 'ล็อคกระจกสะท้อน'

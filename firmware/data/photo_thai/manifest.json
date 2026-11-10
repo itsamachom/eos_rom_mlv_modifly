@@ -3,9 +3,9 @@
   "weight": 600,
   "font_version": "Version 2.002",
   "font_sha256": "5a1c559bb539583c8a1fd99d1c5b9491e5e14478c9cd2bd0970d5c3096cc9ef8",
-  "atlas_sha256": "82ff241e629b42f264d24c87df5c3757ec7dc1fe9c084345685904e537073c54",
-  "atlas_crc32": "f95b3d1c",
-  "atlas_bytes": 501305,
+  "atlas_sha256": "c71a9ec5a50997dee27065785c932b4c8509ee617e2187063ea1a9ef9d01fdca",
+  "atlas_crc32": "5d3404f8",
+  "atlas_bytes": 501318,
   "translated_phrases": 355,
   "font_sizes": [
     23,

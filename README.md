@@ -1,45 +1,23 @@
-# Canon 600D Photo UI — Magic Lantern fork
+# FIRMWARE ADD-ON · Thai-Menu v3r5
 
-Photo UI ภาษาไทยสำหรับ **Canon EOS 600D / Canon firmware 1.0.2 เท่านั้น** พัฒนาต่อยอดจาก [Magic Lantern](https://www.magiclantern.fm/) และ [reticulatedpines/magiclantern_simplified](https://github.com/reticulatedpines/magiclantern_simplified)
+เมนูไทย–อังกฤษสำหรับ **Canon EOS 600D / Canon firmware 1.0.2 เท่านั้น** ต่อยอดจาก Magic Lantern โดยโครงการอิสระนี้
 
-นี่คือ release ของ fork `itsamachom/eos_rom_mlv_modifly` ไม่ใช่บิลด์ทางการหรือบิลด์ที่ทีม Magic Lantern หรือ Canon รับรอง โค้ด UI, tests, คำแปลและเอกสารของ fork ใช้ Codex/LLM ช่วย ดู [การเปิดเผยการใช้ AI](AI_ASSISTANCE.md)
+**ไม่ต้องติดตั้ง ML มาก่อน** หากกล้องยังไม่มี ML เลือกชุด **FIRST-INSTALL** ที่รวมตัวติดตั้งเดิมกับเมนูไทยรุ่นนี้ ผู้ที่มี ML แล้วเลือก **UPDATE** ส่วน Source แยกต่างหาก
 
-## v3r4 — FIRMWARE ADD-ON Thai-Menu · Public Experimental
+[ดาวน์โหลด: ติดตั้งครั้งแรก / อัปเดต / Source](DOWNLOAD.md) · [คู่มือติดตั้ง](INSTALL_TH.md) · [รายละเอียด v3r5](PHOTO_UI_V3R5.md) · [คู่มือเกม](GAMES_TH.md)
 
-แก้หน้าเวอร์ชั่นที่เคยแสดง `Build .*s` ให้แสดงเลขรุ่นจริง พร้อมชื่อ **FIRMWARE ADD-ON Thai-Menu** และเว็บไซต์ https://itsamachom.github.io/eos_rom_mlv_modifly/
+[เว็บไซต์โครงการ](https://itsamachom.github.io/eos_rom_mlv_modifly/) · [YouTube Online2easy](https://www.youtube.com/@Online2easy) · [Facebook Online2easy](https://www.facebook.com/online2easy) · [Online2hobby Blog](https://online2hobby.blogspot.com/)
 
-[ดาวน์โหลดไฟล์สำหรับกล้อง / Source แยกกัน](DOWNLOAD.md) · [รายละเอียดและข้อจำกัด](PHOTO_UI_V3R4.md) · [ภาพตัวอย่างจาก host test](previews/photo-ui-v3r4-version-proof.png)
+## รุ่นล่าสุด
 
-สำหรับ Canon 600D / Canon firmware 1.0.2 เท่านั้น ยังไม่ได้ทดสอบ v3r4 บนกล้องจริงหรือ QEMU ไม่ใช่ Stable และ source audit ของ inherited dietlibc ยังไม่ครบ
+v3r5 เปลี่ยน “กลไก Live View” เป็น “โหมด Live View” คงหน้าเวอร์ชั่น FIRMWARE ADD-ON / Thai-Menu, การเลื่อนข้ามหมวด และข้อมูลกล้อง/ชัตเตอร์ไว้ครบ
 
-## v3r3 — Previous experimental update
+**Public Experimental ไม่ใช่ Stable** ผ่าน ARM build และ host checks แต่รุ่นนี้ยังไม่ได้ทดสอบบนกล้องจริง/QEMU หรือยืนยันการติดตั้งครั้งแรกบนฮาร์ดแวร์ การรวม ML-SETUP.FIR เดิมไม่ได้ทำให้การทดสอบเหล่านี้ผ่านโดยอัตโนมัติ
 
-รายการกลางเลื่อนต่อเนื่องข้ามหมวดได้ทั้งสองทิศ หน้า + ตัดทางลัดที่ไม่ได้ใช้ และเมนู **เวอร์ชั่น** แสดง Build v3r3 จากเลขรุ่นที่ใช้ build จริง ข้อมูลกล้องอยู่หน้าแรกของ +; จำนวนชัตเตอร์อยู่หน้า 2/2
+## ที่มาและใบอนุญาต
 
-[แพ็กเกจ v3r3](deliveries/photo-ui-v3r3-full/) · [รายละเอียดและวิธีออกรุ่นถัดไป](PHOTO_UI_V3R3.md)
+ต้นทาง: [Magic Lantern](https://www.magiclantern.fm/) และ [reticulatedpines/magiclantern_simplified](https://github.com/reticulatedpines/magiclantern_simplified) เก็บเครดิตและใบอนุญาตเดิมตาม [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md), [LICENSE](LICENSE) และ source headers โครงการมี [Codex/LLM ช่วยพัฒนา](AI_ASSISTANCE.md) และไม่ได้รับการรับรองจาก Canon หรือ Magic Lantern
 
-ผ่าน ARM build และ host checks; ยังไม่ได้ทดสอบ v3r3 บนกล้องจริงหรือ QEMU ข้อจำกัด source audit เดิมยังเปิดอยู่
+[Provenance และข้อจำกัด inherited dietlibc](release/v3r2/PROVENANCE.md) ยังต้องยืนยัน corresponding source ให้ครบ เอกสาร release/v3r2 เก็บไว้เพราะเป็นหลักฐานของไลบรารีที่ยังใช้ ไม่ใช่รุ่นดาวน์โหลดหลัก
 
-## v3r2 — Previous experimental build
-
-- UI หมวดถ่ายภาพ/โฟกัส/ค่าแสง/ตัวช่วยแสดงภาพ/วิดีโอ/ตั้งค่า/เกม พร้อมภาษาไทยและอังกฤษ
-- Focus Peaking, Histogram, Waveform, Time-lapse, ถ่ายคร่อม, zebra settings และ Movie → Bitrate (CBR)
-- แก้การบล็อกการลงทะเบียนแท็บ Games บน 600D; Arkanoid ใช้โมดูล arkanoid, Pong/Sokoban ใช้ lua
-- ข้อมูลรุ่นกล้อง/เฟิร์มแวร์และชัตเตอร์กลไก/Live View/ผลรวมจาก property ที่อ่านได้จริง
-- ไม่ทำ Picture Style; นำ Silent Picture ออกจากชุดนี้
-
-**สถานะ:** build และ host checks ผ่าน แต่ v3r2 ยังไม่ได้ทดสอบการทำงานบนกล้องจริง การเล่นเกม หรือการติดตั้งครั้งแรก ไม่ควรเรียกว่า stable จากผล host tests
-
-[ไฟล์ทดสอบที่มีอยู่](deliveries/photo-ui-v3r2-full/) · [คู่มือติดตั้ง](PHOTO_UI_V3R2_INSTALL_TH.md) · [เปิดเกม](GAMES_V3R2_TH.md) · [รายละเอียด v3r2](PHOTO_UI_V3R2.md) · [สถานะการเตรียม Release](release/v3r2/README.md)
-
-ไฟล์สำหรับกล้องคือ `600D-102-PHOTO-UI-v3r2-FULL-EXPERIMENTAL.zip` **ไม่ใช่** Source code (zip) / Code → Download ZIP ของ GitHub ตรวจ SHA256SUMS ก่อนใช้ ผู้ที่ติดตั้ง ML แล้วให้อัปเดต autoexec.bin และ ML/ ทั้งชุดหลังสำรองข้อมูล ไม่เรียก Firmware Update ซ้ำเพื่ออัปเดต UI
-
-## ซอร์สและการ build
-
-ซอร์สที่ใช้ build v3r2 คือ commit `5f543089565c1574606ea2436315e6ea5419ce70` และ source ZIP ที่แจกคู่กับไบนารี แหล่งที่มาของโค้ดต้นทางและไลบรารีต้องแยกจาก source commit ของ fork ดู [Provenance](release/v3r2/PROVENANCE.md), [วิธี build](release/v3r2/BUILDING.md) และ [ข้อจำกัดที่ยังเปิดอยู่](release/v3r2/READINESS.json)
-
-## ลิขสิทธิ์และการมีส่วนร่วม
-
-เก็บลิขสิทธิ์และใบอนุญาตต้นทางตามแต่ละไฟล์ ส่วนหลักของ Magic Lantern ใช้ GPL; ข้อความ GPL v2 อยู่ใน [LICENSE](LICENSE) และ [firmware/COPYING](firmware/COPYING) ส่วนที่มีเงื่อนไขต่างกัน เช่น TCC, Lua และ Noto ใช้ใบอนุญาตเดิม ดู [Third-party notices](THIRD_PARTY_NOTICES.md) และ [เครดิตต้นทาง](firmware/doc/CREDITS.txt)
-
-[Contributing](CONTRIBUTING.md) · [นโยบาย LLM ของต้นทาง](firmware/LLM_POLICY.md)
+[วิธีมีส่วนร่วมและออกรุ่นถัดไป](CONTRIBUTING.md) · [ประวัติรุ่นเก่า](ARCHIVE.md)

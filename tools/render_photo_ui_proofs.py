@@ -20,5 +20,6 @@ with tempfile.TemporaryDirectory() as tmp:
         im.putdata([palette.get(v,(255,0,255)) for v in raw.tobytes()])
         x=i%2*720;y=i//2*510;out.paste(im,(x,y+30))
         draw.text((x+12,y+7),'HOST LAYOUT PROOF - '+name+(' (simulated counts)' if 'shutter' in name else ''),fill='white')
-    dest=root/'previews/photo-ui-v3r1-layout-proof.png';dest.parent.mkdir(exist_ok=True);out.save(dest)
+    release=(root/'scripts/photo-ui-version.txt').read_text().strip()
+    dest=root/f'previews/photo-ui-{release}-layout-proof.png';dest.parent.mkdir(exist_ok=True);out.save(dest)
     print(dest)

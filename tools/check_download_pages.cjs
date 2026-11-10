@@ -9,10 +9,14 @@ const root = path.resolve(__dirname,'..');
 (async()=>{
   const version = (await fs.readFile(path.join(root,'scripts/photo-ui-version.txt'),'utf8')).trim();
   const meta = JSON.parse(await fs.readFile(path.join(root,`downloads/${version}/DOWNLOAD_INFO.json`),'utf8'));
-  const payload = await fs.readFile(path.join(root,meta.camera.path));
-  assert.equal(payload.length,meta.camera.bytes);
-  assert.equal(crypto.createHash('sha256').update(payload).digest('hex'),meta.camera.sha256);
-  const cameraURL = `https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/site/eos-600d-bilingual/${meta.camera.path}`;
+  const packages={};
+  for(const key of ['first_install','camera']) {
+    const item=meta[key];const payload=await fs.readFile(path.join(root,item.path));
+    assert.equal(payload.length,item.bytes);
+    assert.equal(crypto.createHash('sha256').update(payload).digest('hex'),item.sha256);
+    packages[key]={...item,payload,url:`https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/site/eos-600d-bilingual/${item.path}`};
+  }
+  const cameraURL=packages.camera.url;
   const server = http.createServer(async(req,res)=>{
     try {
       let name = decodeURIComponent(new URL(req.url,'http://local.test').pathname);
@@ -37,7 +41,7 @@ const root = path.resolve(__dirname,'..');
       await page.route('**/*',route=>route.request().url().startsWith(origin+'/')?route.continue():route.abort());
       // Exercise the real link and browser download using the actual verified ZIP.
       // GitHub transport is separately checked against the published URL after upload.
-      await page.route(cameraURL,route=>route.fulfill({status:200,headers:{'Content-Type':'application/zip','Content-Disposition':`attachment; filename="${meta.camera.filename}"`},body:payload}));
+      for(const item of Object.values(packages))await page.route(item.url,route=>route.fulfill({status:200,headers:{'Content-Type':'application/zip','Content-Disposition':`attachment; filename="${item.filename}"`},body:item.payload}));
       const home=origin+(lang==='th'?'/docs/':'/docs/en/');
       await page.goto(home);
       await page.locator('.hero .actions a.primary').click();
@@ -50,7 +54,11 @@ const root = path.resolve(__dirname,'..');
         assert.equal(await page.locator('html').getAttribute('lang'),lang);
         assert.equal(await page.locator('h1').count(),1);
         assert((await page.locator('h1').innerText()).includes(version));
-        assert.equal(await page.locator('.download-card').count(),2);
+        assert.equal(await page.locator('.download-card').count(),3);
+        assert.equal(await page.locator('[data-download="first_install"]').getAttribute('href'),packages.first_install.url);
+        assert((await page.locator('#first-install-steps').innerText()).includes('32 GB'));
+        assert((await page.locator('#first-install-steps').innerText()).includes('60'));
+        for(const url of ['https://www.youtube.com/@Online2easy','https://www.facebook.com/online2easy','https://online2hobby.blogspot.com/'])assert.equal(await page.locator(`footer a[href="${url}"]`).count(),1);
         assert.equal(await page.locator('[data-download="camera"]').getAttribute('href'),cameraURL);
         assert.equal(await page.locator('[data-download="source"]').getAttribute('href'),meta.source.url);
         assert.notEqual(cameraURL,meta.source.url);
@@ -71,16 +79,19 @@ const root = path.resolve(__dirname,'..');
       await page.goto(target);
       await page.keyboard.press('Tab');assert.equal(await page.locator(':focus').getAttribute('class'),'skip');
       await page.keyboard.press('Enter');assert.equal(new URL(page.url()).hash,'#main');
-      const [download]=await Promise.all([page.waitForEvent('download'),page.locator('[data-download="camera"]').click()]);
-      assert.equal(download.suggestedFilename(),meta.camera.filename);
-      assert.equal(crypto.createHash('sha256').update(await fs.readFile(await download.path())).digest('hex'),meta.camera.sha256);
-      await download.delete();
+      for(const key of ['first_install','camera']) {
+        const item=packages[key];
+        const [download]=await Promise.all([page.waitForEvent('download'),page.locator(`[data-download="${key}"]`).click()]);
+        assert.equal(download.suggestedFilename(),item.filename);
+        assert.equal(crypto.createHash('sha256').update(await fs.readFile(await download.path())).digest('hex'),item.sha256);
+        await download.delete();
+      }
       await page.locator('a.language').click();
       assert.equal(await page.locator('html').getAttribute('lang'),lang==='th'?'en':'th');
       assert.equal(path.basename(new URL(page.url()).pathname),'download.html');
       assert.deepEqual(failures,[]);
       await context.close();
-      console.log(`PASS ${lang}: homepage to downloads, 4 widths, separate camera/source links and hashes, keyboard/language navigation, actual camera ZIP browser download`);
+      console.log(`PASS ${lang}: homepage to downloads, 4 widths, separate first-install/update/source links and hashes, keyboard/language navigation, both actual camera ZIP browser downloads and developer links`);
     }
   }finally{
     if(browser)await browser.close();

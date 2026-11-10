@@ -1,34 +1,45 @@
-# ดาวน์โหลด / Downloads — FIRMWARE ADD-ON Thai-Menu v3r4
+# FIRMWARE ADD-ON Thai-Menu v3r5 — ดาวน์โหลด / Downloads
 
-**Canon EOS 600D / Canon firmware 1.0.2 · Public Experimental**
-[หน้าเว็บดาวน์โหลดภาษาไทย](https://itsamachom.github.io/eos_rom_mlv_modifly/download.html) · [English download page](https://itsamachom.github.io/eos_rom_mlv_modifly/en/download.html)
+Canon EOS 600D / Canon firmware **1.0.2** · Public Experimental
 
-## 1. ไฟล์สำหรับอัปเดตกล้อง / Camera update
+**ยังไม่เคยลง ML ก็ติดตั้งจากชุด FIRST-INSTALL ได้ ไม่ต้องลง ML จาก ZIP อื่นก่อน**
 
-### [ดาวน์โหลด 600D-102-Thai-Menu-v3r4-UPDATE.zip](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/site/eos-600d-bilingual/downloads/v3r4/camera/600D-102-Thai-Menu-v3r4-UPDATE.zip)
+[หน้าเว็บดาวน์โหลด](https://itsamachom.github.io/eos_rom_mlv_modifly/download.html) · [English](https://itsamachom.github.io/eos_rom_mlv_modifly/en/download.html)
 
-**2.06 MB** — สำหรับกล้องที่ติดตั้ง ML แล้ว มี autoexec.bin และ ML/ ไม่มี Source ZIP หรือตัวติดตั้ง FIR ไม่ใช่แพ็กเกจสำหรับติดตั้ง ML ครั้งแรก
+## 1. ติดตั้งครั้งแรก / First installation
 
-Back up the card; replace autoexec.bin and the entire ML/ directory at the card root. Do not run Firmware Update again for this UI update. Read INSTALL_TH.md / INSTALL_EN.md inside the ZIP.
+### [ดาวน์โหลด 600D-102-Thai-Menu-v3r5-FIRST-INSTALL.zip](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/site/eos-600d-bilingual/downloads/v3r5/first_install/600D-102-Thai-Menu-v3r5-FIRST-INSTALL.zip)
 
-SHA256: `4ca725b055f087fc5eb93232baf12a6e477d2da7c72f59e2ebc1f8f7f4217373`
+**2.13 MB** — รวม autoexec.bin, ML/ และ ML-SETUP.FIR เดิม พร้อมคู่มือไทย/อังกฤษและต้นทาง ต้องอ่านคู่มือติดตั้งก่อน ไม่ใช่ไฟล์ Canon firmware update
 
-## 2. Source code สำหรับผู้พัฒนา / Developer source
+SHA256: `f1f61642d4e4571d4b6e37bc2bbdf03c50820cd779ff6bb3157d4fd7f94313df`
 
-### [ดาวน์โหลด 600D-PHOTO-UI-v3r4-source.zip](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/v3r4/deliveries/photo-ui-v3r4-full/600D-PHOTO-UI-v3r4-source.zip)
+## 2. อัปเดต ML ที่มีแล้ว / Update
 
-**27.36 MB** — ซอร์ส fork ที่ตรงกับไบนารี ใช้ศึกษา/พัฒนา **ไม่ใช่ไฟล์ลงกล้อง** ไม่ใช้ Code → Download ZIP หรือ Source code ที่ GitHub สร้างอัตโนมัติแทน camera update
+### [ดาวน์โหลด 600D-102-Thai-Menu-v3r5-UPDATE.zip](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/site/eos-600d-bilingual/downloads/v3r5/camera/600D-102-Thai-Menu-v3r5-UPDATE.zip)
 
-Source is pinned to tag [v3r4](https://github.com/itsamachom/eos_rom_mlv_modifly/tree/v3r4). Inherited dietlibc corresponding source remains unverified; including fork source does not close that audit.
+**2.07 MB** — autoexec.bin และ ML/ ไม่มี FIR ไม่เรียก Firmware Update ซ้ำเพื่ออัปเดตเมนู
 
-SHA256: `77564f9ebc11e5a5f219bd4dd511bd83a39c9a6bb250446724d910612397022d`
+SHA256: `30fbac55f76448580608dccaf3b29f8321685e8c573412e9bf9043814e1ea3bf`
 
-## 3. Checksum และข้อมูลรุ่น
+## 3. Source สำหรับผู้พัฒนา
 
-- [ดาวน์โหลด SHA256SUMS](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/site/eos-600d-bilingual/downloads/v3r4/SHA256SUMS) — ตรวจไฟล์ที่เลือก หรือวางทั้งสอง ZIP ไว้ด้วยกันแล้วรัน `sha256sum -c SHA256SUMS`
-- [ข้อมูลแพ็กเกจ](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/site/eos-600d-bilingual/downloads/v3r4/DOWNLOAD_INFO.json)
-- [รายละเอียด v3r4 และข้อจำกัด](https://github.com/itsamachom/eos_rom_mlv_modifly/blob/v3r4/PHOTO_UI_V3R4.md)
+### [ดาวน์โหลด 600D-PHOTO-UI-v3r5-source.zip](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/v3r5/deliveries/photo-ui-v3r5-full/600D-PHOTO-UI-v3r5-source.zip)
 
-ไฟล์สำหรับกล้องใช้ runtime bytes เดียวกับ Full v3r4 เดิมทุกไบต์ เป็นการแยกแพ็กเกจโดยไม่ rebuild เฟิร์มแวร์ รุ่นนี้ยังไม่ได้ทดสอบบนกล้องจริง/QEMU และไม่ใช่ Stable ไม่ใช่บิลด์ที่ Canon/Magic Lantern รับรอง เครดิตและใบอนุญาตต้นทางยังคงอยู่ในแพ็กเกจ
+**27.32 MB** — ซอร์ส fork ที่ตรงกับไบนารี ไม่ใช่ไฟล์ลงกล้อง ไม่ใช้ Code → Download ZIP แทนไฟล์ติดตั้ง
 
-The older Full ZIP bundles camera files and source together. It remains unchanged for archival use; the camera-only UPDATE ZIP above is the recommended download for an existing ML installation.
+SHA256: `0515860be52f46fff1c76d44f803e2cb75a488faacf0bc6c44859b3d7baf3885`
+
+## คู่มือและข้อจำกัด
+
+[คู่มือติดตั้ง](INSTALL_TH.md) · [รายละเอียด v3r5](https://github.com/itsamachom/eos_rom_mlv_modifly/blob/v3r5/PHOTO_UI_V3R5.md) · [SHA256SUMS](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/site/eos-600d-bilingual/downloads/v3r5/SHA256SUMS)
+
+การติดตั้งครั้งแรกอ้างอิงคู่มือต้นทาง ใช้แบตเตอรี่ Canon เต็ม, โหมด M, SD/SDHC ไม่เกิน 32 GB, สำรองก่อนฟอร์แมต และรีสตาร์ตเมื่อ installer ขึ้นจอเขียว/Please restart your camera. ไม่ปล่อยค้างนับถอยหลังถอนการติดตั้ง
+
+ตัวติดตั้ง FIR เดิมตรวจ hash/size แล้ว ไม่ได้ rebuild รุ่นนี้ยังไม่ได้ทดสอบบนกล้องจริง/QEMU หรือยืนยัน first install บนฮาร์ดแวร์ ไม่ใช่ Stable และ inherited dietlibc corresponding source ยังยืนยันไม่ครบ เก็บเครดิต/ใบอนุญาตเดิม ไม่ใช่บิลด์ที่ Canon หรือ Magic Lantern รับรอง
+
+## ผู้พัฒนา / Developer
+
+[YouTube Online2easy](https://www.youtube.com/@Online2easy) · [Facebook Online2easy](https://www.facebook.com/online2easy) · [Online2hobby Blog](https://online2hobby.blogspot.com/)
+
+[รุ่นเก่าในประวัติ Git](ARCHIVE.md) — หน้านี้แสดงเฉพาะรุ่นล่าสุด

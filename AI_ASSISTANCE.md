@@ -28,3 +28,5 @@ must follow the upstream policy and its maintainers' decisions.
 
 AI assistance does not establish correctness, rights clearance, hardware safety
 or completeness of corresponding source. See release readiness records.
+
+- v3r5 Live View wording, separate first-install/update packaging, installation documentation, download navigation cleanup and developer links.
