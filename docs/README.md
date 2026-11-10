@@ -54,3 +54,11 @@ The homepage creator section links to the exact YouTube, Facebook and Blogger ad
 The six camera-menu photos were received in `Picture.zip` and integrated into both homepages. Their source-to-asset mapping, privacy processing checks and hashes are recorded in `website-content/menu-photos.json` outside the published tree. The gallery groups shooting, focus and setup images in Thai/English pairs with non-clickable photos constrained to 520px wide (about 330px high) and scaled down on smaller screens. Actual remote deployment is confirmed only by GitHub Pages; a push alone is not an independent live-site check.
 
 Photo display widths are constrained by both CSS and inline HTML fallbacks so a stale stylesheet cannot make them fill the page at their native dimensions. All six pages reference a content-versioned stylesheet URL. After changing CSS, refresh its `?v=` value in every HTML page to prevent mixed cached styles. The original JPEG pixels and metadata-removal checks remain unchanged.
+
+## Camera and source downloads
+
+The Thai download page is download.html; English is en/download.html. Homepages and article navigation link there. DOWNLOAD.md is the GitHub download guide. Camera updates under downloads/<version>/camera contain autoexec.bin and ML/ but no source ZIP or FIR; matching source remains pinned to the original firmware tag. All runtime bytes match the tagged Full ZIP. These update-only packages are for cameras already running ML.
+
+To prepare a new public download after publishing a firmware tag: run python3 tools/package_camera_download.py, then python3 tools/render_download_pages.py. The renderer reads downloads/<version>/DOWNLOAD_INFO.json. Update homepage version text and refresh all site.css content-version links after CSS changes. Verify download links and SHA256SUMS. Do not move old tagged artifacts or claim live Pages deployment from a Git push alone.
+
+Run node tools/check_download_pages.cjs for the download flow and node tools/check_website.cjs for the existing homepages/articles. When checking in a temporary copy, copy docs, tools, scripts, downloads and previews. The download-flow test uses the actual verified camera ZIP as a browser-download fixture; separately verify public GitHub URLs after pushing. Firmware is unchanged by this distribution update.

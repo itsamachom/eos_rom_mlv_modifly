@@ -84,3 +84,14 @@
 .gallery-note{color:var(--muted);font-size:.85rem;line-height:1.9;margin:35px 0 10px;padding-top:25px;border-top:1px solid var(--line)}
 .gallery-credit{color:var(--muted);font-size:.8rem;margin-bottom:0}
 @media(max-width:700px){.photo-grid{grid-template-columns:1fr;gap:24px}.menu-pair{margin-top:30px}.hero-photo figcaption{font-size:.8rem}}
+
+/* Camera files and developer source are separate downloads. */
+.download-lead{max-width:960px;padding-bottom:30px}.download-lead h1{font-size:clamp(2rem,5vw,3.7rem)}
+.download-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.download-card{min-width:0;padding:30px;border:1px solid var(--line);border-radius:6px;background:var(--panel)}
+.download-card-primary{border-color:var(--accent)}.download-card h2{font-size:1.65rem;line-height:1.5}
+.download-card p{color:var(--muted)}.download-card .button{max-width:100%;white-space:normal;text-align:center}
+.file-name,.checksum{overflow-wrap:anywhere;word-break:break-word}.file-name{font-family:monospace;font-size:.9rem}
+.checksum{font-size:.8rem;line-height:1.8}.download-note{padding:18px 22px;border-left:3px solid var(--warm);background:var(--panel);color:var(--muted)}
+.update-steps{padding-left:24px;max-width:900px}.update-steps li{padding:8px 0}
+@media(max-width:700px){.download-grid{grid-template-columns:1fr}.download-card{padding:24px}.download-lead h1{font-size:2rem}}

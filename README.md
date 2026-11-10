@@ -8,7 +8,7 @@ Photo UI ภาษาไทยสำหรับ **Canon EOS 600D / Canon firmwa
 
 แก้หน้าเวอร์ชั่นที่เคยแสดง `Build .*s` ให้แสดงเลขรุ่นจริง พร้อมชื่อ **FIRMWARE ADD-ON Thai-Menu** และเว็บไซต์ https://itsamachom.github.io/eos_rom_mlv_modifly/
 
-[ดาวน์โหลดแพ็กเกจ v3r4](deliveries/photo-ui-v3r4-full/) · [รายละเอียดและข้อจำกัด](PHOTO_UI_V3R4.md) · [ภาพตัวอย่างจาก host test](previews/photo-ui-v3r4-version-proof.png)
+[ดาวน์โหลดไฟล์สำหรับกล้อง / Source แยกกัน](DOWNLOAD.md) · [รายละเอียดและข้อจำกัด](PHOTO_UI_V3R4.md) · [ภาพตัวอย่างจาก host test](previews/photo-ui-v3r4-version-proof.png)
 
 สำหรับ Canon 600D / Canon firmware 1.0.2 เท่านั้น ยังไม่ได้ทดสอบ v3r4 บนกล้องจริงหรือ QEMU ไม่ใช่ Stable และ source audit ของ inherited dietlibc ยังไม่ครบ
 
