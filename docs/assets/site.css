@@ -114,3 +114,18 @@
 #source-download h2,#source-download .eyebrow{color:var(--coral)}
 #source-download .button{border-color:var(--coral);color:var(--coral)}
 #source-download .button:hover{background:var(--coral);color:var(--bg)}
+
+/* Static learning library: local illustrated covers, external YouTube tabs. */
+.learning-intro{max-width:930px;padding-bottom:42px}.learning-intro p{color:var(--muted);max-width:760px;font-size:1.05rem}
+.featured-lesson,.video-feature{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:48px;align-items:center}
+.featured-lesson{padding-top:38px}.lesson-poster{display:block;min-width:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;text-decoration:none;background:var(--panel)}
+.lesson-poster img{display:block;width:100%;height:auto;aspect-ratio:16/9}.lesson-poster:hover{border-color:var(--accent)}
+.lesson-copy{min-width:0}.lesson-copy h2{font-size:clamp(1.7rem,3vw,2.45rem)}.lesson-copy p,.video-feature p,.playlist-panel p,.lesson-next p{color:var(--muted)}
+.text-link{align-self:center;color:var(--accent);font-size:.9rem}.lesson-copy .actions,.video-feature .actions{align-items:center}
+.playlist-panel{display:flex;gap:40px;align-items:center;justify-content:space-between}.playlist-panel>div{max-width:660px;min-width:0}.playlist-panel h2{color:var(--sky)}
+.playlist-button{flex-shrink:0;border-color:var(--sky);color:var(--sky);white-space:normal;text-align:center}
+.lesson-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.lesson-card{padding:26px;background:var(--panel);border:1px solid var(--line);border-radius:8px}.lesson-card p{color:var(--muted)}
+.video-callout{display:flex;align-items:center;justify-content:space-between;gap:28px;margin:42px 0 0;padding:26px 30px;border:1px solid #3e6872;border-radius:8px;background:var(--panel)}
+.video-callout>div{min-width:0}.video-callout h2{font-size:1.35rem;color:var(--sky);margin-bottom:10px}.video-callout p{color:var(--muted);margin:0;font-size:.95rem}.video-callout .eyebrow{margin-bottom:12px;color:var(--sky)}.video-callout .actions{margin-top:0;flex-shrink:0;max-width:350px}
+@media(max-width:960px){.top-inner{flex-wrap:wrap;padding-top:16px;padding-bottom:16px}.top nav{flex-wrap:wrap;row-gap:12px}.featured-lesson,.video-feature{gap:28px}.playlist-panel,.video-callout{flex-wrap:wrap}.video-callout .actions{max-width:100%;flex-shrink:1}}
+@media(max-width:700px){.featured-lesson,.video-feature,.lesson-grid{grid-template-columns:1fr}.featured-lesson{padding-top:24px}.video-feature .lesson-poster{order:-1}.playlist-panel{gap:16px}.video-callout{padding:22px}.learning-intro{padding-bottom:24px}.lesson-copy .actions .button{white-space:normal;text-align:center}.playlist-button{max-width:100%}}

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+<title id="title">FIRMWARE ADD-ON Thai-Menu installation lesson cover</title>
+<desc id="desc">An illustrated lesson cover with a play symbol; not a frame captured from the video.</desc>
+<rect width="960" height="540" rx="16" fill="#18201b"/>
+<g stroke="#344238" fill="none"><rect x="28" y="28" width="904" height="484" rx="12"/><path d="M55 100H905M55 452H905M700 125V427"/></g>
+<circle cx="60" cy="65" r="6" fill="#c7fb73"/>
+<text x="80" y="73" fill="#c7fb73" font-family="sans-serif" font-size="22" letter-spacing="3">FIRMWARE ADD-ON</text>
+<text x="60" y="200" fill="#c2cdc6" font-family="sans-serif" font-size="22" letter-spacing="4">INSTALLATION GUIDE</text>
+<text x="55" y="292" fill="#f6f8ee" font-family="sans-serif" font-size="76" font-weight="700">Thai-Menu</text>
+<text x="60" y="350" fill="#74d7f7" font-family="sans-serif" font-size="28">Watch. Prepare. Install.</text>
+<circle cx="807" cy="273" r="66" fill="#c7fb73"/>
+<path d="M790 240L840 273L790 306Z" fill="#101512"/>
+<text x="60" y="490" fill="#c2cdc6" font-family="sans-serif" font-size="19">CANON EOS 600D · PROJECT LEARNING LIBRARY</text>
+</svg>

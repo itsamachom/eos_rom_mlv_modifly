@@ -31,8 +31,8 @@ Example:
 | Topic | Current wording to preserve |
 | --- | --- |
 | Target | Canon EOS 600D / Canon firmware 1.0.2 only |
-| Release | Experimental v3r2; not ready for general release |
-| Hardware | Photography, video, gameplay and first installation remain unverified for v3r2 |
+| Release | Public Experimental v3r5; not Stable |
+| Hardware | Camera/QEMU and first installation remain unverified for v3r5 |
 | Source review | A dietlibc candidate was found; correspondence remains unresolved |
 | Identity | Independent fork; no Canon or Magic Lantern endorsement |
 | Financial support | Not accepting financial contributions through the site |

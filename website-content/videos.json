@@ -1,0 +1,19 @@
+{
+  "playlist_url": "https://www.youtube.com/playlist?list=PLUY4HsSfA1IU",
+  "featured": "installation-guide",
+  "videos": [
+    {
+      "id": "installation-guide",
+      "youtube_id": "Ii1Uv8L9Nf8",
+      "category": "installation",
+      "added_at": "2026-11-10",
+      "version_in_video": null,
+      "poster": "assets/video/installation-guide.svg",
+      "title": {"th": "วิดีโอสอนการติดตั้ง", "en": "Installation tutorial"},
+      "summary": {
+        "th": "คลิปติดตั้งที่ผู้พัฒนาแนะนำ ดูประกอบกับคู่มือและเลือกไฟล์ให้ตรงกับสถานะของกล้องก่อนเริ่ม",
+        "en": "The installation video recommended by the creator. Follow it alongside the written guide and choose the package that matches your camera's installation state."
+      }
+    }
+  ]
+}

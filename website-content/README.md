@@ -19,3 +19,7 @@ rendering, not complete functional or first-install testing. Credit the project
 creator, Online2easy; see the asset README for the photo-use statement.
 
 Display frames are at most 520px wide (approximately 330px high), with responsive scaling on smaller screens. This changes presentation only; source JPEG pixels remain intact.
+
+## Video catalog
+
+Add future lessons in videos.json and run tools/render_video_pages.py. The supplied installation video is Ii1Uv8L9Nf8; the supplied playlist is PLUY4HsSfA1IU. Video/playlist live availability could not be checked from the cloud proxy, so no title, duration, recording date or tested firmware version was inferred from YouTube. version_in_video is null until confirmed. Keep the playlist URL exactly as supplied unless the owner provides a replacement.
