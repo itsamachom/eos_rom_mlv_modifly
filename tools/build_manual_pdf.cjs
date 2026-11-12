@@ -7,6 +7,10 @@ const {chromium}=require('playwright');
 const root=path.resolve(__dirname,'..');
 (async()=>{
  const release=(await fs.readFile(path.join(root,'scripts/photo-ui-version.txt'),'utf8')).trim();
+ const catalog=JSON.parse(await fs.readFile(path.join(root,'docs/menu-previews',release,'manifest.json'),'utf8'));
+ const captures=new Map(catalog.screens.map(s=>[s.id,s]));
+ const manual=JSON.parse(await fs.readFile(path.join(root,'website-content/manual-th.json'),'utf8'));
+ const explanations=new Map(manual.items.map(e=>[e.key,e]));
  const server=http.createServer(async(req,res)=>{
   try{
    let name=decodeURIComponent(new URL(req.url,'http://local.test').pathname);if(name.endsWith('/'))name+='index.html';
@@ -29,6 +33,38 @@ const root=path.resolve(__dirname,'..');
    assert.equal(await page.locator('.menu-entry').count(),44);
    assert.equal(await page.locator('.menu-group').count(),7);
    assert.equal(await page.locator('article dt').count(),116);
+   assert.equal(await page.locator('article.menu-entry table.menu-table').count(),44);
+   assert.equal(await page.locator('tr.overview-row .menu-image-link').count(),44);
+   await page.locator('.menu-table img').evaluateAll(async imgs=>{
+    imgs.forEach(img=>img.loading='eager');await Promise.all(imgs.map(img=>img.decode()));
+   });
+   assert(await page.locator('.menu-table img').evaluateAll(imgs=>imgs.every(img=>img.naturalWidth===720&&img.naturalHeight===510&&img.getBoundingClientRect().width<=221)));
+   const rows=await page.locator('.menu-table tbody tr').evaluateAll(rows=>rows.map(row=>({
+    id:row.dataset.capture,key:row.closest('article').dataset.menuKey,
+    keys:[...row.querySelectorAll('dt')].map(dt=>dt.dataset.optionKey),
+    src:row.querySelector('img').getAttribute('src'),href:row.querySelector('a').href,
+    target:row.querySelector('a').target,rel:row.querySelector('a').rel,
+    note:row.querySelector('.capture-note')?.textContent||''
+   })));
+   for(const row of rows){
+    const capture=captures.get(row.id);assert(capture);assert.equal(capture.label,row.key);
+    assert.equal(row.src,`menu-previews/${release}/${capture.png}`);
+    assert.equal(row.href,'https://itsamachom.github.io/eos_rom_mlv_modifly/'+row.src);
+    assert.equal(row.target,'_blank');assert(row.rel.includes('noopener'));
+    const entry=explanations.get(row.key);const keys=Object.keys(entry.options);
+    for(const key of row.keys){
+     if(capture.pane==='options'){
+      const offset=capture.detail_count-keys.length;assert(offset===0||offset===1);
+      assert.equal(Math.floor((keys.indexOf(key)+offset)/3)+1,capture.option_page);
+     }else assert(row.note.includes('ยังไม่โหลดโมดูล'));
+    }
+   }
+   // Desktop pairs image/text; narrow screens stack each row without enlarging images.
+   const positions=await page.locator('#shoot-1 .overview-row').evaluate(row=>{
+    const image=row.querySelector('.image-cell').getBoundingClientRect();const text=row.querySelector('.explanation-cell').getBoundingClientRect();
+    return {imageX:image.x,imageBottom:image.bottom,textX:text.x,textY:text.y};
+   });
+   if(width>700)assert(positions.textX>positions.imageX+100);else assert(positions.textY>=positions.imageBottom-1);
    assert.equal(await page.locator('html').getAttribute('lang'),'th');
    assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1), JSON.stringify(await page.evaluate(()=>({width:innerWidth,scrollX:scrollX,total:document.documentElement.scrollWidth,wide:[...document.querySelectorAll('body *')].filter(e=>e.getBoundingClientRect().right+scrollX>innerWidth+1).slice(0,5).map(e=>[e.tagName,e.className,e.textContent.slice(0,80)])}))));
    assert(await page.evaluate(()=>document.fonts.check('18px ManualThai','คู่มือภาษาไทย')));
@@ -41,6 +77,14 @@ const root=path.resolve(__dirname,'..');
   await page.locator('.toc a[href="#setup"]').click();assert(page.url().endsWith('#setup'));
   await page.locator('.toc a[href="#setup-7"]').click();assert(page.url().endsWith('#setup-7'));
   assert((await page.locator('#setup-7').innerText()).includes('ไม่ใช่จำนวนไฟล์ภาพ'));
+  // Fulfill the full-size image locally: verify popup behavior without external network access.
+  await page.context().route('https://itsamachom.github.io/eos_rom_mlv_modifly/menu-previews/**',async route=>{
+   const pathname=new URL(route.request().url()).pathname.replace('/eos_rom_mlv_modifly/','');
+   await route.fulfill({contentType:'image/png',body:await fs.readFile(path.join(root,'docs',pathname))});
+  });
+  const fullImage=page.locator('#setup-7 .menu-image-link').first();const destination=await fullImage.getAttribute('href');
+  const popupWait=page.waitForEvent('popup');await fullImage.click();const popup=await popupWait;await popup.waitForLoadState();
+  assert.equal(popup.url(),destination);assert.equal(await popup.evaluate(()=>window.opener),null);await popup.close();
   for(const a of await page.locator('footer a').all()){
    assert.equal(await a.getAttribute('target'),'_blank');assert((await a.getAttribute('rel')).includes('noopener'));
   }
@@ -57,15 +101,19 @@ const root=path.resolve(__dirname,'..');
   }
   assert.deepEqual(failures,[]);assert.deepEqual(remote,[]);
   await page.goto(origin+'/manual-th.html');await page.evaluate(()=>document.fonts.ready);
+  await page.locator('.menu-table img').evaluateAll(async imgs=>{
+   imgs.forEach(img=>img.loading='eager');await Promise.all(imgs.map(img=>img.decode()));
+  });
   await page.emulateMedia({media:'print'});
   const out=path.join(root,'docs/manual',`Thai-Menu-${release}-Manual-TH.pdf`);await fs.mkdir(path.dirname(out),{recursive:true});
   await page.pdf({path:out,format:'A4',preferCSSPageSize:true,printBackground:false,tagged:true,outline:true,displayHeaderFooter:true,
    headerTemplate:'<span></span>',footerTemplate:`<div style="font-size:9px;color:#555;width:100%;text-align:center;font-family:Arial">Thai-Menu ${release} | Thai user manual | <span class="pageNumber"></span> / <span class="totalPages"></span></div>`});
   const bytes=await fs.readFile(out);assert.equal(bytes.subarray(0,5).toString(),'%PDF-');
   if(process.env.MANUAL_PREVIEW_OUT){
-   await page.emulateMedia({media:'screen'});await page.setViewportSize({width:1100,height:900});await page.goto(origin+'/manual-th.html#shoot-4');
+   await page.emulateMedia({media:'screen'});await page.setViewportSize({width:1100,height:900});await page.goto(origin+'/manual-th.html');
+   await page.evaluate(()=>{document.documentElement.style.scrollBehavior='auto';document.getElementById('shoot-4').scrollIntoView();});
    await page.screenshot({path:process.env.MANUAL_PREVIEW_OUT});
   }
-  console.log('PASS 44 menu entries / 116 child explanations, 5 widths, Thai font, TOC/deep links, screenshots, creator tabs and entry-point navigation; PDF exported: '+out);
+  console.log('PASS 44 illustrated tables / 116 child explanations, exact capture-page mapping, image decode/new-tab enlargement, 5 widths, Thai font, TOC/deep links, creator tabs and entry-point navigation; illustrated PDF exported: '+out);
  }finally{if(browser)await browser.close();await new Promise(r=>server.close(r));}
 })().catch(e=>{console.error(e);process.exit(1);});

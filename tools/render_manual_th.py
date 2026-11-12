@@ -13,6 +13,10 @@ data = json.loads((ROOT / 'website-content/manual-th.json').read_text())
 lex = json.loads((ROOT / 'translations/photo_th.json').read_text())
 release = (ROOT / 'scripts/photo-ui-version.txt').read_text().strip()
 assert data['release'] == release, 'Review the manual for the new release before regenerating'
+captures = json.loads((ROOT / f'docs/menu-previews/{release}/manifest.json').read_text())
+assert captures['release'] == release
+thai_captures = {(s['category'], s['item'], s['pane'], s['option_page']): s
+                 for s in captures['screens'] if s['language'] == 'th'}
 front = (ROOT / 'firmware/src/photo-menu-600d.h').read_text()
 pages = []
 for m in re.finditer(r'static const struct photo_item (\w+)\[\] = \{(.*?)\n\};', front, re.S):
@@ -35,6 +39,26 @@ for source in source_for_item.values(): assert (ROOT / source).is_file(), source
 esc = html.escape
 translated = lambda key: lex.get(key, {}).get('th', key)
 labeltext = lambda key: translated(key) + (f' ({key})' if translated(key) != key else '')
+
+
+def illustrated_row(capture, caption, explanation, markdown, *, overview=False):
+    """Reuse the original PNG; the full-size URL remains useful inside the PDF."""
+    local = f'menu-previews/{release}/{capture["png"]}'
+    assert (ROOT / 'docs' / local).is_file()
+    full = BASE + local
+    alt = 'ภาพจำลองเมนู ' + translated(capture['label']) + ' — ' + caption
+    image = (f'<a class="menu-image-link" href="{full}" target="_blank" rel="noopener noreferrer" '
+             f'aria-label="{esc(alt, quote=True)} เปิดภาพขยายในแท็บใหม่">'
+             f'<img src="{local}" width="720" height="510" loading="lazy" alt="{esc(alt, quote=True)}"></a>')
+    figure = (f'<figure>{image}<figcaption>{esc(caption)}<span>ภาพจำลองจากโค้ด</span><span>คลิกดูภาพเต็ม</span>'
+              '</figcaption></figure>')
+    # The Markdown edition uses the same paired table and clickable thumbnails.
+    md_image = (f'<a href="{full}" target="_blank" rel="noopener noreferrer">'
+                f'<img src="{full}" width="220" alt="{esc(alt, quote=True)}"></a><br>{esc(caption)}')
+    return (f'<tr class="{"overview-row" if overview else "option-row"}" '
+            f'data-capture="{capture["id"]}"><td class="image-cell">{figure}</td>'
+            f'<td class="explanation-cell">{explanation}</td></tr>',
+            f'| {md_image} | {markdown.replace("|", "&#124;")} |')
 intro = [
 ('ใช้คู่มือนี้กับรุ่นใด', f'คู่มือสำหรับ FIRMWARE ADD-ON Thai-Menu {release} บน Canon EOS 600D / Rebel T3i / Kiss X5 และ Canon firmware 1.0.2 ชื่อเมนูอ้างอิงโค้ดรุ่นนี้ ไม่ใช่คู่มือเฟิร์มแวร์ Canon ทั้งระบบ'),
 ('ขอบเขต', 'อธิบาย 44 รายการใน Photo UI และตัวเลือกย่อยที่ผูกไว้กับเมนูเหล่านี้ ส่วน Modules, Preferences, Display และ Scripts เป็นทางเข้าหน้าระบบเดิม รายการภายในอาจต่างตามโมดูลและสถานะกล้อง จึงไม่ถือว่าเป็นรายการตายตัวครบทุกหน้า Classic'),
@@ -89,14 +113,38 @@ for p, (slug, badge, title) in enumerate(groups):
         source = source_for_item.get(key, source_for_menu[menu])
         assert (ROOT / source).is_file()
         src = f'https://github.com/itsamachom/eos_rom_mlv_modifly/blob/{data["reviewed_source_commit"]}/{source}'
-        body += f'<article class="menu-entry" id="{ident}" data-menu-key="{esc(key, quote=True)}"><h3>{esc(name)}</h3><p>{esc(content["purpose"])}</p><p><strong>วิธีใช้:</strong> {esc(content["use"])}</p>'
-        md += [f'### {name}', '', content['purpose'], '', '**วิธีใช้:** ' + content['use'], '']
+        overview = thai_captures[p, i, 'item', 1]
+        assert overview['label'] == key
+        body += (f'<article class="menu-entry" id="{ident}" data-menu-key="{esc(key, quote=True)}"><h3 id="{ident}-title">{esc(name)}</h3>'
+                 f'<table class="menu-table" aria-labelledby="{ident}-title"><colgroup><col class="image-col"><col></colgroup>'
+                 f'<thead><tr><th scope="col">ภาพเมนู</th><th scope="col"><span class="print-menu-name">{esc(name)}</span>หน้าที่และวิธีใช้</th></tr></thead><tbody>')
+        md += [f'### {name}', '', '| ภาพเมนู — คลิกเพื่อขยาย | หน้าที่และวิธีใช้ |', '| --- | --- |']
+        explanation = f'<p>{esc(content["purpose"])}</p><p><strong>วิธีใช้:</strong> {esc(content["use"])}</p>'
+        md_explanation = esc(content['purpose']) + '<br><br><strong>วิธีใช้:</strong> ' + esc(content['use'])
+        row, md_row = illustrated_row(overview, 'หน้ารายการ', explanation, md_explanation, overview=True)
+        body += row; md.append(md_row)
         if content['options']:
-            body += '<h4>ตัวเลือกในเมนูนี้</h4><dl>'
-            for opt, explanation in content['options'].items():
-                body += f'<dt>{esc(labeltext(opt))}</dt><dd>{esc(explanation)}</dd>'
-                md += [f'- **{labeltext(opt)}:** {explanation}']
-            body += '</dl>'; md += ['']
+            option_groups = {}
+            options_available = (p, i, 'options', 1) in thai_captures
+            offset = overview['detail_count'] - len(content['options']) if options_available else 0
+            assert not options_available or offset in (0, 1), (key, offset)
+            for n, (opt, explanation) in enumerate(content['options'].items()):
+                option_groups.setdefault((n + offset) // 3 + 1, []).append((opt, explanation))
+            for number, options in option_groups.items():
+                capture = thai_captures[p, i, 'options', number] if options_available else overview
+                caption = f'ตัวเลือกหน้า {number}' if options_available else 'สถานะก่อนโหลดโมดูล'
+                explanation = '<h4>' + ('ตัวเลือกในหน้านี้' if options_available else 'ตัวเลือกเมื่อโหลดโมดูลแล้ว') + '</h4>'
+                if not options_available:
+                    explanation += '<p class="capture-note">ภาพเดิมแสดงว่ายังไม่โหลดโมดูล รายการด้านล่างอธิบายจากโค้ดโมดูล ไม่ใช่ตัวเลือกที่เห็นในภาพนี้</p>'
+                explanation += '<dl>'
+                md_explanation = '' if options_available else 'ภาพแสดงสถานะก่อนโหลดโมดูล; คำอธิบายต่อไปนี้อ้างอิงโค้ดเมื่อโหลดแล้ว<br><br>'
+                for opt, text in options:
+                    explanation += f'<dt data-option-key="{esc(opt, quote=True)}">{esc(labeltext(opt))}</dt><dd>{esc(text)}</dd>'
+                    md_explanation += f'<strong>{esc(labeltext(opt))}</strong><br>{esc(text)}<br><br>'
+                explanation += '</dl>'
+                row, md_row = illustrated_row(capture, caption, explanation, md_explanation)
+                body += row; md.append(md_row)
+        body += '</tbody></table>'; md += ['']
         if content['notes']:
             body += '<ul class="notes">'
             for note in content['notes']:
@@ -121,7 +169,37 @@ for title, text in glossary:
 body += '</dl></section>'
 footer = '<footer><p>ผู้พัฒนา: <a href="https://www.youtube.com/@Online2easy" target="_blank" rel="noopener noreferrer">YouTube Online2easy</a> · <a href="https://www.facebook.com/online2easy" target="_blank" rel="noopener noreferrer">Facebook Online2easy</a> · <a href="https://online2hobby.blogspot.com/" target="_blank" rel="noopener noreferrer">Online2hobby Blog</a></p><p class="fine">โครงการอิสระบน Magic Lantern มี Codex/LLM ช่วยพัฒนาและเรียบเรียงคู่มือ เก็บเครดิตและใบอนุญาตต้นทาง การอธิบายตามโค้ดไม่ใช่ผลทดสอบฮาร์ดแวร์</p></footer>'
 stylesheet = '''@font-face{font-family:ManualThai;src:url("assets/manual/NotoSansThai.ttf") format("truetype");font-weight:100 900;font-display:swap}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{overflow-wrap:anywhere;margin:0;background:#101512;color:#f3f5eb;font:18px/1.95 ManualThai,Arial,sans-serif}main,header,footer{width:min(1060px,calc(100% - 40px));margin:auto}header{padding:28px 0;border-bottom:1px solid #36473b}header nav,.actions{display:flex;flex-wrap:wrap;gap:12px 24px}a{color:#74d7f7;overflow-wrap:anywhere}a:focus-visible{outline:3px solid #ffb99a;outline-offset:4px}h1,h2,h3,h4{line-height:1.55}h1{font-size:clamp(30px,5vw,48px)}h2{color:#c7fb73;font-size:30px}h3{font-size:24px}h4{font-size:19px;color:#c7fb73}p{margin:14px 0}section{padding:30px 0;border-bottom:1px solid #36473b}.lead{padding:40px 0 16px}.fine,.references{font-size:15px;color:#bac9ba}.toc{padding:24px;background:#18201b;border:1px solid #36473b}.toc-group{display:inline-block;vertical-align:top;width:48%;padding:16px}.toc>a{display:block}.toc ul{padding-left:22px}.menu-entry{padding:12px 0 28px;border-bottom:1px solid #36473b;scroll-margin-top:20px}.menu-entry:last-child{border-bottom:0}dt{font-weight:700;margin-top:20px;color:#d4f49f}dd{margin:6px 0 0 18px}li{margin:9px 0}.notes{border-left:3px solid #ffb99a;padding:8px 10px 8px 32px}.button{border:1px solid #c7fb73;padding:8px 15px;border-radius:4px;text-decoration:none}footer{padding:35px 0}code{overflow-wrap:anywhere}@media(max-width:600px){.toc-group{display:block;width:100%;padding:10px 0}body{font-size:17px}h2{font-size:26px}h3{font-size:22px}dd{margin-left:0}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}@page{size:A4;margin:17mm 16mm 20mm}@media print{html{scroll-behavior:auto}body{background:white;color:#111;font-size:11pt;line-height:1.65}main,footer{width:100%}header,.actions,.references,.screen-only{display:none!important}.toc{background:transparent;border-color:#aaa;break-after:page;padding:8px}.toc-group{display:inline-block;width:48%;padding:6px}.toc li{margin:2px 0;font-size:10pt}h1{font-size:25pt}h2{font-size:19pt;color:#111}h3{font-size:14pt}h4,dt{color:#111}a{color:#16404e;text-decoration:none}section{border-color:#bbb;padding:12px 0}.menu-group{break-before:auto}.menu-entry{padding-bottom:12px}h2,h3,h4,dt{break-after:avoid}li,p,dd{orphans:3;widows:3}.notes{border-color:#777}.fine{color:#444;font-size:9pt}footer{border-top:1px solid #aaa}p{margin:6px 0}dt{margin-top:12px}dd{margin-top:3px}li{margin:5px 0}.notes{padding:5px 8px 5px 24px;break-inside:avoid}dl:has(+ul.notes) dd:last-child{break-after:avoid}section:last-child{break-after:auto}}'''
-page = f'''<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>คู่มือเมนูภาษาไทย — Thai-Menu {release}</title><meta name="description" content="คู่มือภาษาไทย 44 เมนูสำหรับ Canon EOS 600D Thai-Menu {release} อธิบายหน้าที่ ตัวเลือก และตัวอย่างการใช้"><link rel="icon" href="assets/icon.svg" type="image/svg+xml"><style>{stylesheet}</style></head><body><header><nav aria-label="เมนูหลัก"><a href="./">หน้าหลัก</a><a href="download.html">ดาวน์โหลด</a><a href="videos.html">วิดีโอ</a><a href="#toc">สารบัญคู่มือ</a></nav></header><main id="main"><div class="lead"><p>FIRMWARE ADD-ON · THAI-MENU {release}</p><h1>คู่มือเมนูภาษาไทย</h1><p>รู้ว่าแต่ละเมนูทำอะไร แล้วเลือกใช้ให้เหมาะกับภาพที่ต้องการ</p><p class="fine">สำหรับ Canon EOS 600D / Canon firmware 1.0.2 · อ้างอิงโค้ด {esc(data['reviewed_source_commit'])} · 44 รายการใน 7 หมวด</p><div class="actions"><a class="button" href="manual/Thai-Menu-{release}-Manual-TH.pdf" download>ดาวน์โหลด PDF ภาษาไทย</a><a class="button" href="{BASE}menu-previews/{release}/">ดูภาพเมนู</a></div></div><div id="toc">{toc}</div>{body}</main>{footer}</body></html>'''
+stylesheet += '''
+/* Paired image/text tables reuse the original capture bytes. */
+.menu-table{width:100%;table-layout:fixed;border-collapse:collapse;margin:18px 0 24px}
+.image-col{width:28%}.menu-table th,.menu-table td{border:1px solid #36473b;padding:16px;vertical-align:top}
+.menu-table th{text-align:left;background:#203025;color:#c7fb73;font-size:16px}
+.print-menu-name{display:none}
+.menu-table tbody tr:nth-child(even){background:#151e18}
+.menu-table figure{margin:0}.menu-image-link{display:block;width:220px;max-width:100%;margin:0 auto}
+.menu-image-link img{display:block;width:100%;height:auto;border:1px solid #526455;border-radius:3px}
+.menu-table figcaption{font-size:12px;line-height:1.7;color:#bac9ba;margin-top:10px;text-align:center}
+.menu-table figcaption span{display:block;color:#74d7f7}.explanation-cell p:first-child{margin-top:0}
+.explanation-cell h4{margin:0 0 10px}.explanation-cell dl{margin:0}.explanation-cell dt{margin-top:14px}
+.explanation-cell dt:first-child{margin-top:0}.explanation-cell dd{margin-left:0}
+.capture-note{font-size:14px;border-left:2px solid #ffb99a;padding-left:12px;color:#d4c4b0}
+@media(max-width:700px){.menu-table,.menu-table tbody,.menu-table tr,.menu-table td{display:block;width:100%}
+.menu-table colgroup,.menu-table thead{display:none}.menu-table tr{margin-bottom:16px}
+.menu-table .image-cell{border-bottom:0;padding-bottom:8px}.menu-table .explanation-cell{border-top:0;padding-top:8px}
+.image-cell figure{max-width:220px;margin:0 auto}.menu-table{margin-bottom:20px}}
+@media print{.menu-table{display:table;width:100%;font-size:10.5pt;line-height:1.55;margin:10px 0 14px}
+.menu-table colgroup{display:table-column-group}.menu-table .image-col{width:44mm}
+.menu-table thead{display:table-header-group}.menu-table tbody{display:table-row-group}
+.menu-table tr{display:table-row;break-inside:avoid;page-break-inside:avoid}
+.menu-table th,.menu-table td{display:table-cell;border-color:#aaa;padding:3mm;background:transparent!important;color:#111}
+.menu-table th{font-size:10pt}.menu-table tbody tr{background:transparent!important}
+.print-menu-name{display:block;font-size:11pt;margin-bottom:3px}
+.menu-image-link{width:38mm;max-width:100%}.menu-image-link img{border-color:#888;border-radius:0}
+.menu-table figcaption,.menu-table figcaption span{font-size:8pt;color:#444;line-height:1.45;margin-top:5px}
+.explanation-cell h4{font-size:10.5pt;margin:0 0 6px}.explanation-cell dt{margin-top:8px}
+.capture-note{font-size:9pt;color:#444;border-color:#888}.menu-entry h3{break-after:avoid}}
+'''
+page = f'''<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>คู่มือเมนูภาษาไทย — Thai-Menu {release}</title><meta name="description" content="คู่มือภาษาไทย 44 เมนูสำหรับ Canon EOS 600D Thai-Menu {release} อธิบายหน้าที่ ตัวเลือก และตัวอย่างการใช้"><link rel="icon" href="assets/icon.svg" type="image/svg+xml"><style>{stylesheet}</style></head><body><header><nav aria-label="เมนูหลัก"><a href="./">หน้าหลัก</a><a href="download.html">ดาวน์โหลด</a><a href="videos.html">วิดีโอ</a><a href="#toc">สารบัญคู่มือ</a></nav></header><main id="main"><div class="lead"><p>FIRMWARE ADD-ON · THAI-MENU {release}</p><h1>คู่มือเมนูภาษาไทย</h1><p>รู้ว่าแต่ละเมนูทำอะไร แล้วเลือกใช้ให้เหมาะกับภาพที่ต้องการ</p><p class="fine">สำหรับ Canon EOS 600D / Canon firmware 1.0.2 · อ้างอิงโค้ด {esc(data['reviewed_source_commit'])} · 44 รายการใน 7 หมวด</p><p class="fine">ภาพย่ออยู่คู่กับคำอธิบายในตาราง คลิกภาพเพื่อเปิดภาพเต็มในแท็บใหม่ ภาพประกอบเป็นภาพจำลองจากโค้ด ไม่ใช่ภาพจับจากกล้องจริง</p><div class="actions"><a class="button" href="manual/Thai-Menu-{release}-Manual-TH.pdf?edition=illustrated-1" download>ดาวน์โหลด PDF ภาษาไทย</a><a class="button" href="{BASE}menu-previews/{release}/">ดูภาพเมนู</a></div></div><div id="toc">{toc}</div>{body}</main>{footer}</body></html>'''
 (ROOT / 'docs/manual-th.html').write_text(page)
 md += ['', '## แหล่งที่มาและผู้พัฒนา', '', f'อ้างอิงโค้ด `{data["reviewed_source_commit"]}`; เนื้อหาคู่มือ: website-content/manual-th.json', '', f'[คู่มือบนเว็บ]({BASE}manual-th.html) · [คู่มือติดตั้ง]({BASE}download.html#first-install-steps) · [วิดีโอ]({BASE}videos.html)', '', '[YouTube Online2easy](https://www.youtube.com/@Online2easy) · [Facebook Online2easy](https://www.facebook.com/online2easy) · [Online2hobby Blog](https://online2hobby.blogspot.com/)', '', 'โครงการอิสระบน Magic Lantern มี Codex/LLM ช่วยพัฒนาและเรียบเรียงคู่มือ เก็บเครดิต/ใบอนุญาตต้นทาง คู่มือไม่ใช่ผลยืนยันการทดสอบบนกล้องจริง', '']
 (ROOT / 'MANUAL_TH.md').write_text('\n'.join(md))
