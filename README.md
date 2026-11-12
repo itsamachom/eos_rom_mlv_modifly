@@ -21,3 +21,7 @@ v3r5 เปลี่ยน “กลไก Live View” เป็น “โห�
 [Provenance และข้อจำกัด inherited dietlibc](release/v3r2/PROVENANCE.md) ยังต้องยืนยัน corresponding source ให้ครบ เอกสาร release/v3r2 เก็บไว้เพราะเป็นหลักฐานของไลบรารีที่ยังใช้ ไม่ใช่รุ่นดาวน์โหลดหลัก
 
 [วิธีมีส่วนร่วมและออกรุ่นถัดไป](CONTRIBUTING.md) · [ประวัติรุ่นเก่า](ARCHIVE.md)
+
+## คู่มือใช้งานภาษาไทย
+
+อ่าน [คู่มือ 44 เมนูและ 116 ตัวเลือกย่อย](https://itsamachom.github.io/eos_rom_mlv_modifly/manual-th.html) หรือ [ดาวน์โหลด PDF ภาษาไทย](https://itsamachom.github.io/eos_rom_mlv_modifly/manual/Thai-Menu-v3r5-Manual-TH.pdf) — ฉบับ Markdown อยู่ที่ [MANUAL_TH.md](MANUAL_TH.md) อธิบายการเลื่อนเมนู ตัวอย่างตั้งค่า และโมดูลที่ต้องเปิด แยกจากคู่มือติดตั้ง

@@ -23,3 +23,7 @@ Display frames are at most 520px wide (approximately 330px high), with responsiv
 ## Video catalog
 
 Add future lessons in videos.json and run tools/render_video_pages.py. The supplied installation video is Ii1Uv8L9Nf8; the supplied playlist is PLUY4HsSfA1IU. Video/playlist live availability could not be checked from the cloud proxy, so no title, duration, recording date or tested firmware version was inferred from YouTube. version_in_video is null until confirmed. Keep the playlist URL exactly as supplied unless the owner provides a replacement.
+
+## Thai user manual
+
+`manual-th.json` contains one Thai explanation per unique Photo UI item (43 unique keys; Modules appears in two categories, so there are 44 entries on screen). Each includes a purpose, usage, exact English control keys and Thai explanations. `tools/render_manual_th.py` takes displayed labels from the current translation dictionary and orders entries from the actual front-end arrays. Do not edit the generated HTML/Markdown/PDF as the source of truth. Verify source behavior as well as labels, especially controls whose short Thai label differs from the upstream English variable.
