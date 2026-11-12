@@ -1,0 +1,1 @@
+Photo UI captures use Magic Lantern GPL-2.0-or-later rendering code and OFL Noto Sans Thai-derived phrase masks. The illustrated host palette and fixture registry do not change firmware. See the project source and included license notices.
