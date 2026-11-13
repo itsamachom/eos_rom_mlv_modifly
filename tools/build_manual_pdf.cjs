@@ -29,7 +29,7 @@ const root=path.resolve(__dirname,'..');
   page.on('response',r=>{if(r.status()>=400)failures.push(`${r.status()} ${r.url()}`);});
   page.on('request',r=>{if(!r.url().startsWith(origin+'/'))remote.push(r.url());});
   for(const width of [1440,1024,768,390,320]){
-   await page.setViewportSize({width,height:900});await page.goto(origin+'/manual-th.html');await page.evaluate(()=>document.fonts.ready);
+   await page.setViewportSize({width,height:900});await page.goto(origin+'/manual-th.html');await page.evaluate(async()=>{await document.fonts.load('11pt ManualThai','คู่มือภาษาไทย');await document.fonts.ready;});
    assert.equal(await page.locator('.menu-entry').count(),44);
    assert.equal(await page.locator('.menu-group').count(),7);
    assert.equal(await page.locator('article dt').count(),116);
@@ -92,21 +92,35 @@ const root=path.resolve(__dirname,'..');
    const link=new URL(await a.getAttribute('href'));const local=path.join(root,'docs',link.pathname.replace('/eos_rom_mlv_modifly/',''));
    await fs.access(local);
   }
-  for(const name of ['/','/download.html','/videos.html']){
+  const referenceStyles=new Map();
+  for(const name of ['/','/download.html','/videos.html','/manual-th.html']){
    for(const width of [1440,1024,768,390,320]){
     await page.setViewportSize({width,height:900});await page.goto(origin+name);
     assert.equal(await page.locator('header a[href="manual-th.html"]').count(),1);
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+    const menu=await page.locator('header nav a').allTextContents();
+    assert.equal(menu.indexOf('คู่มือภาษาไทย'),menu.indexOf('วิดีโอ')+1);
+    const typography=await page.evaluate(()=>{
+     const body=getComputedStyle(document.body),nav=getComputedStyle(document.querySelector('header nav')),
+      link=getComputedStyle(document.querySelector('header nav a')),brand=getComputedStyle(document.querySelector('.brand'));
+     return {family:body.fontFamily,size:body.fontSize,line:body.lineHeight,navSize:nav.fontSize,navLine:nav.lineHeight,linkColor:link.color,brandSize:brand.fontSize};
+    });
+    if(name==='/')referenceStyles.set(width,typography);
+    if(name==='/manual-th.html'){
+     assert.deepEqual(typography,referenceStyles.get(width));
+     assert.equal(await page.locator('header.top .brand .mark').count(),1);
+     for(const href of await page.locator('header nav a').evaluateAll(links=>links.map(a=>a.getAttribute('href'))))assert(!href.startsWith('#'));
+    }
    }
   }
   assert.deepEqual(failures,[]);assert.deepEqual(remote,[]);
-  await page.goto(origin+'/manual-th.html');await page.evaluate(()=>document.fonts.ready);
+  await page.goto(origin+'/manual-th.html');await page.evaluate(async()=>{await document.fonts.load('11pt ManualThai','คู่มือภาษาไทย');await document.fonts.ready;});
   await page.locator('.menu-table img').evaluateAll(async imgs=>{
    imgs.forEach(img=>img.loading='eager');await Promise.all(imgs.map(img=>img.decode()));
   });
   await page.emulateMedia({media:'print'});
   const out=path.join(root,'docs/manual',`Thai-Menu-${release}-Manual-TH.pdf`);await fs.mkdir(path.dirname(out),{recursive:true});
-  await page.pdf({path:out,format:'A4',preferCSSPageSize:true,printBackground:false,tagged:true,outline:true,displayHeaderFooter:true,
+  if(!process.env.MANUAL_SKIP_PDF)await page.pdf({path:out,format:'A4',preferCSSPageSize:true,printBackground:false,tagged:true,outline:true,displayHeaderFooter:true,
    headerTemplate:'<span></span>',footerTemplate:`<div style="font-size:9px;color:#555;width:100%;text-align:center;font-family:Arial">Thai-Menu ${release} | Thai user manual | <span class="pageNumber"></span> / <span class="totalPages"></span></div>`});
   const bytes=await fs.readFile(out);assert.equal(bytes.subarray(0,5).toString(),'%PDF-');
   if(process.env.MANUAL_PREVIEW_OUT){
@@ -114,6 +128,6 @@ const root=path.resolve(__dirname,'..');
    await page.evaluate(()=>{document.documentElement.style.scrollBehavior='auto';document.getElementById('shoot-4').scrollIntoView();});
    await page.screenshot({path:process.env.MANUAL_PREVIEW_OUT});
   }
-  console.log('PASS 44 illustrated tables / 116 child explanations, exact capture-page mapping, image decode/new-tab enlargement, 5 widths, Thai font, TOC/deep links, creator tabs and entry-point navigation; illustrated PDF exported: '+out);
+  console.log('PASS 44 illustrated tables / 116 child explanations, exact capture-page mapping, image decode/new-tab enlargement, 5 widths, Thai font, TOC/deep links, creator tabs and entry-point navigation; illustrated PDF '+(process.env.MANUAL_SKIP_PDF?'preserved: ':'exported: ')+out);
  }finally{if(browser)await browser.close();await new Promise(r=>server.close(r));}
 })().catch(e=>{console.error(e);process.exit(1);});
