@@ -32,3 +32,5 @@ or completeness of corresponding source. See release readiness records.
 - v3r5 Live View wording, separate first-install/update packaging, installation documentation, download navigation cleanup and developer links.
 
 The v3r6-tone1 experiment uses Codex/LLM assistance for recipe provenance/deduplication, independent canister UI, Canon Picture Style/WB adapter, transaction/rollback engine, Thai strings, tests, preview captures and documentation. M-Film is credited for the source native preview recipes. Hardware JPEG appearance and latency remain unverified.
+
+The v3r6-tone2 experiment also uses Codex/LLM assistance for original preset/ISO catalog extraction, read-readiness fixes, ISO backup/restore, cylindrical canister artwork, regression tests and experimental packaging. Original numerical recipes/ISO conversion and film identities remain credited to M-Film. v3r5 main release and website/manual scope remain unchanged.

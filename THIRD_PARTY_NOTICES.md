@@ -53,3 +53,7 @@ the camera payload in this documentation update.
 ## Native JPEG tone recipes (v3r6-tone1 experiment)
 
 The 13 distinct native Picture Style/WB recipes derive from the preview settings in HNGSeries/M-Film 0.2.1 (`8118e9c7c072371bd53eda8920f44910e8a35baf`), `ml-dev/filmos/fos_film.c` and `ml-dev/filmos/tools/genfilms.py`. Credit HNGSeries/M-Film contributors; the derived recipe table retains GPL-2.0-only terms. See `research/jpeg-tones/UPSTREAM_NATIVE_RECIPES.json` and the verbatim GPL text beside it. Recipe names/grouping, transaction adapter and canister menu were implemented for this fork. No Film-Luts tables, M-Film RAW decoder, Darkrooms desktop code or third-party sample photos are included in this feature. These native JPEG approximations do not claim the full developed film looks.
+
+### tone2 original catalog
+
+v3r6-tone2 retains all 72 original preset names, native JPEG preview numbers and ISO conversion from `ml-dev/fork/src/filmroll.c` at the same upstream commit, rather than tone1's 13 deduplicated names. The auditable catalog/source hashes are `research/jpeg-tones/UPSTREAM_ORIGINAL_CATALOG.json`. Preserve the same GPL-2.0-only recipe terms and M-Film contributor attribution. Film names identify source presets and do not imply endorsement or exact photographic reproduction. The independent canister artwork contains no copied upstream textures/logos.

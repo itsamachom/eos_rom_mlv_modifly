@@ -198,7 +198,8 @@ static int photo_tone_platform_ready(void *ctx) { (void)ctx;return tone_host_rea
 static int photo_tone_platform_read(void *ctx,struct photo_tone_state *s) { (void)ctx;if(!tone_host_ready)return 0;*s=tone_host_state;return 1; }
 static int photo_tone_platform_write(void *ctx,int op,const struct photo_tone_state *s) {
     (void)ctx;assert(!owns_menu_lock);assert(tone_host_ready);tone_host_write_calls++;
-    if(op==0)tone_host_state.active=s->active;
+    if(op==13)tone_host_state.raw_iso=s->raw_iso;
+    else if(op==0)tone_host_state.active=s->active;
     else if(op>=1 && op<=3)tone_host_state.style[op-1]=s->style[op-1];
     else if(op>=4 && op<=9)tone_host_state.wb[op-4]=s->wb[op-4];
     else if(op>=10 && op<=12){const int ids[]={0x81,0x83,0x86};tone_host_state.active=ids[op-10];}

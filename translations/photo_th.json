@@ -1473,16 +1473,6 @@
     "max_width": 276,
     "font_size": 23
   },
-  "Warm Tones": {
-    "th": "โทนอุ่น",
-    "max_width": 158,
-    "font_size": 23
-  },
-  "Vivid Tones": {
-    "th": "สีสด",
-    "max_width": 158,
-    "font_size": 23
-  },
   "Cinema Tones": {
     "th": "ซีนีมา",
     "max_width": 158,
@@ -1491,71 +1481,6 @@
   "Mono Tones": {
     "th": "ขาวดำ",
     "max_width": 158,
-    "font_size": 23
-  },
-  "Soft Skin": {
-    "th": "ผิวนุ่ม",
-    "max_width": 196,
-    "font_size": 23
-  },
-  "Golden Warm": {
-    "th": "ทองอุ่น",
-    "max_width": 196,
-    "font_size": 23
-  },
-  "Fresh Green": {
-    "th": "เขียวใส",
-    "max_width": 196,
-    "font_size": 23
-  },
-  "Natural Color": {
-    "th": "สีธรรมชาติ",
-    "max_width": 196,
-    "font_size": 23
-  },
-  "Vivid Color": {
-    "th": "สีจัด",
-    "max_width": 196,
-    "font_size": 23
-  },
-  "Slide Vivid": {
-    "th": "สไลด์จัด",
-    "max_width": 196,
-    "font_size": 23
-  },
-  "Slide Rich": {
-    "th": "สไลด์เข้ม",
-    "max_width": 196,
-    "font_size": 23
-  },
-  "Cross Color": {
-    "th": "สีครอส",
-    "max_width": 196,
-    "font_size": 23
-  },
-  "Night Cool": {
-    "th": "กลางคืนเย็น",
-    "max_width": 196,
-    "font_size": 23
-  },
-  "Cinema Cool": {
-    "th": "ซีนีมาเย็น",
-    "max_width": 196,
-    "font_size": 23
-  },
-  "Cinema Muted": {
-    "th": "ซีนีมานุ่ม",
-    "max_width": 196,
-    "font_size": 23
-  },
-  "Mono Soft": {
-    "th": "ขาวดำนุ่ม",
-    "max_width": 196,
-    "font_size": 23
-  },
-  "Mono Contrast": {
-    "th": "ขาวดำเข้ม",
-    "max_width": 196,
     "font_size": 23
   },
   "13 native JPEG recipes; no RAW development.": {
@@ -1631,6 +1556,16 @@
   "L/R Tone  U/D Group  SET Apply  Q Restore  MENU Back": {
     "th": "ซ้าย/ขวา โทน  ขึ้น/ลง หมวด  SET ใช้  Q คืนค่า  MENU กลับ",
     "max_width": 688,
+    "font_size": 23
+  },
+  "Color Tones": {
+    "th": "ฟิล์มสี",
+    "max_width": 158,
+    "font_size": 23
+  },
+  "Slide Tones": {
+    "th": "ฟิล์มสไลด์",
+    "max_width": 158,
     "font_size": 23
   }
 }

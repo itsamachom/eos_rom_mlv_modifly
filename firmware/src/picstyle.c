@@ -454,12 +454,16 @@ int photo_jpeg_style_read(int id,struct photo_jpeg_style *out)
     if(i<=0 || i>=NUM_PICSTYLES || picstyle_settings_prop_sizes[i]!=sizeof(*picstyle_settings))return 0;
     const struct picstyle_settings_prop_struct *s=&picstyle_settings[i];
     *out=(struct photo_jpeg_style){s->contrast,(int)s->sharpness,s->saturation,s->color_tone};
-    return s->contrast>=-4 && s->contrast<=4 && s->sharpness<=7 && s->saturation>=-4 && s->saturation<=4 && s->color_tone>=-4 && s->color_tone<=4;
+    return s->contrast>=-4 && s->contrast<=4 && s->sharpness<=7 &&
+        (id==0x86 || (s->saturation>=-4 && s->saturation<=4 && s->color_tone>=-4 && s->color_tone<=4));
 }
 int photo_jpeg_style_write(int id,const struct photo_jpeg_style *in)
 {
     struct photo_jpeg_style old,got;
-    if(!photo_jpeg_style_read(id,&old) || in->contrast<-4 || in->contrast>4 || in->sharpness<0 || in->sharpness>7 || in->saturation<-4 || in->saturation>4 || in->color_tone<-4 || in->color_tone>4)return 0;
+    if(!photo_jpeg_style_read(id,&old) || in->contrast<-4 || in->contrast>4 || in->sharpness<0 || in->sharpness>7)return 0;
+    if(id==0x86) {
+        if(in->saturation!=old.saturation || in->color_tone!=old.color_tone)return 0;
+    } else if(in->saturation<-4 || in->saturation>4 || in->color_tone<-4 || in->color_tone>4)return 0;
     int i=get_prop_picstyle_index(id);
     struct picstyle_settings_prop_struct payload=picstyle_settings[i];
     payload.contrast=in->contrast;payload.sharpness=in->sharpness;payload.saturation=in->saturation;payload.color_tone=in->color_tone;

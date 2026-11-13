@@ -64,7 +64,7 @@ module_bindings = {("Shoot", "Silent Picture"), ("Expo", "Dual ISO"), ("Expo", "
 for menu, entry in bindings:
     if (menu, entry) == ("Shoot", "JPEG Tones"):
         assert {"photo_jpeg_style_read","photo_jpeg_style_write","photo_tone_recipes"} <= linked_symbols
-        assert b"JPEG Tones\0" in data and b"Soft Skin\0" in data
+        assert b"JPEG Tones\0" in data and b"Portra 400\0" in data
     elif (menu, entry) in module_bindings:
         # Modules are resolved dynamically on the camera. Check packaged strings.
         mod = {"Silent Picture": "silent", "Dual ISO": "dual_iso", "Auto ETTR": "ettr", "Arkanoid": "arkanoid"}[entry]
