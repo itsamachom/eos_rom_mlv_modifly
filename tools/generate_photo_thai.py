@@ -57,13 +57,13 @@ for key, entry in lexicon.items():
     variants = []
     for size in sizes:
         render_size = min(size, entry.get("font_size", size))
-        cache_key = (text, size, render_size)
+        cache_key = (text, render_size)
         if cache_key not in dedup:
             font = fonts[render_size]
             bbox = font.getbbox(text, language="th", direction="ltr")
             left_pad = max(0, -bbox[0])
             width = math.ceil(max(font.getlength(text, language="th"), bbox[2])) + left_pad + 1
-            height = max(math.ceil(size * 1.35), bbox[3] + 1)
+            height = max(math.ceil(render_size * 1.35), bbox[3] + 1)
             if width > entry["max_width"]:
                 oversize.append((key, text, size, width, entry["max_width"]))
             image = Image.new("L", (width, height))
@@ -81,7 +81,7 @@ for key, entry in lexicon.items():
     records.append((key, variants))
 if oversize:
     raise SystemExit("Shorten translations to avoid clipping:\n" + "\n".join(map(str, oversize)))
-assert len(data) <= 512 * 1024, "Thai atlas exceeds the bounded camera allocation"
+assert len(data) <= 512 * 1024, f"Thai atlas exceeds the bounded camera allocation: {len(data)} bytes"
 asset_dir = root / "firmware/data/photo_thai"
 asset_dir.mkdir(parents=True, exist_ok=True)
 (asset_dir / "PHOTO_TH.BIN").write_bytes(data)

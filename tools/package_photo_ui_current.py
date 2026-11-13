@@ -39,7 +39,7 @@ assert sha256(payload['ML-SETUP.FIR']) == '7e33d8a2a71ad92c412d291fb0ecb6de0b940
 assert {Path(n).stem for n in payload if n.endswith('.mo')} == {'adv_int','autoexpo','deflick','dual_iso','ettr','file_man','img_name','pic_view','arkanoid','lua'}
 # Only indexed project sources: do not sweep local files or build outputs into the archive.
 indexed = subprocess.check_output(['git','ls-files','-z'], cwd=root, text=True).split('\0')
-files = sorted(n for n in indexed if n and n != 'DOWNLOAD.md' and (n.split('/')[0] in {'firmware','scripts','tests','tools','assets','translations','previews','release'} or '/' not in n or n=='baseline-600d-102/bootstrap-toolchain.sh'))
+files = sorted(n for n in indexed if n and n != 'DOWNLOAD.md' and (n.split('/')[0] in {'firmware','scripts','tests','tools','assets','translations','previews','release','research'} or '/' not in n or n=='baseline-600d-102/bootstrap-toolchain.sh'))
 prefix = f'600D-photo-ui-{release}-source/'
 with zipfile.ZipFile(source, 'w', zipfile.ZIP_DEFLATED) as z:
     for name in files:

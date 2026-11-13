@@ -1,0 +1,969 @@
+{
+  "upstream_repository": "https://github.com/HNGSeries/mfilm-canon-film-simulation",
+  "commit": "8118e9c7c072371bd53eda8920f44910e8a35baf",
+  "version": "0.2.1",
+  "license": "GPL-2.0-only",
+  "source_files": {
+    "ml-dev/filmos/fos_film.c": "31fb38be483e96f2992a8713df1536f7488f56ab9fd062136360e1b93d0c1a7c",
+    "ml-dev/filmos/tools/genfilms.py": "d271679d0e0312487372199c0eec53817b3a81c835ea963d8b28d19c1d4f4983",
+    "ml-dev/films/filmluts.py": "9d05af5974b5a8621c9f74fb24806d26dfdb7d145747cae39cce9714f10bca95"
+  },
+  "native_fields": [
+    "Picture Style",
+    "contrast",
+    "sharpness",
+    "saturation",
+    "color tone",
+    "Kelvin",
+    "GM",
+    "BA"
+  ],
+  "excluded": [
+    "ISO",
+    "LUTs",
+    "RAW decoder",
+    "grain",
+    "halation",
+    "film-roll workflow"
+  ],
+  "profile_count": 72,
+  "distinct_native_recipes": 13,
+  "profiles": [
+    {
+      "source_name": "portra400",
+      "native": [
+        129,
+        -1,
+        2,
+        -1,
+        1,
+        5500,
+        0,
+        1
+      ]
+    },
+    {
+      "source_name": "cinestill800t",
+      "native": [
+        129,
+        1,
+        2,
+        1,
+        -1,
+        3200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "ektar100",
+      "native": [
+        131,
+        1,
+        3,
+        2,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "gold200",
+      "native": [
+        129,
+        1,
+        2,
+        1,
+        2,
+        5600,
+        0,
+        2
+      ]
+    },
+    {
+      "source_name": "superia400",
+      "native": [
+        129,
+        1,
+        2,
+        1,
+        0,
+        5200,
+        1,
+        0
+      ]
+    },
+    {
+      "source_name": "velvia50",
+      "native": [
+        131,
+        3,
+        3,
+        4,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "hp5",
+      "native": [
+        134,
+        1,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "trix400",
+      "native": [
+        134,
+        3,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "cinestill400t",
+      "native": [
+        129,
+        1,
+        2,
+        1,
+        -1,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "portra160",
+      "native": [
+        129,
+        0,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "portra800",
+      "native": [
+        129,
+        0,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "portra160nc",
+      "native": [
+        129,
+        0,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "portra160vc",
+      "native": [
+        129,
+        0,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "portra400nc",
+      "native": [
+        129,
+        0,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "portra400vc",
+      "native": [
+        129,
+        0,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "portra400uc",
+      "native": [
+        129,
+        0,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "elite200",
+      "native": [
+        129,
+        0,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "elite400",
+      "native": [
+        129,
+        0,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "pro160c",
+      "native": [
+        129,
+        0,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "pro400h",
+      "native": [
+        129,
+        0,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "pro800z",
+      "native": [
+        129,
+        0,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "reala100",
+      "native": [
+        129,
+        0,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "superia100",
+      "native": [
+        129,
+        0,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "superia200",
+      "native": [
+        129,
+        0,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "superia800",
+      "native": [
+        129,
+        0,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "superia1600",
+      "native": [
+        129,
+        0,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "xtra800",
+      "native": [
+        129,
+        0,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "vista200",
+      "native": [
+        129,
+        0,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "ultra100",
+      "native": [
+        129,
+        0,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "redscale100",
+      "native": [
+        129,
+        0,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "velvia100",
+      "native": [
+        131,
+        2,
+        2,
+        2,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "provia100f",
+      "native": [
+        131,
+        2,
+        2,
+        2,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "provia400f",
+      "native": [
+        131,
+        2,
+        2,
+        2,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "provia400x",
+      "native": [
+        131,
+        2,
+        2,
+        2,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "astia100f",
+      "native": [
+        131,
+        2,
+        2,
+        2,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "sensia100",
+      "native": [
+        131,
+        2,
+        2,
+        2,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "kodachrome25",
+      "native": [
+        131,
+        2,
+        2,
+        2,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "kodachrome64",
+      "native": [
+        131,
+        2,
+        2,
+        2,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "kodachrome200",
+      "native": [
+        131,
+        2,
+        2,
+        2,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "e100gx",
+      "native": [
+        131,
+        2,
+        2,
+        2,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "e100vs",
+      "native": [
+        131,
+        2,
+        2,
+        2,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "elitechrome200",
+      "native": [
+        131,
+        2,
+        2,
+        2,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "elitechrome400",
+      "native": [
+        131,
+        2,
+        2,
+        2,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "extracolor100",
+      "native": [
+        131,
+        2,
+        2,
+        2,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "precisa100",
+      "native": [
+        131,
+        2,
+        2,
+        2,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "elite100xpro",
+      "native": [
+        131,
+        3,
+        2,
+        3,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "superia200xpro",
+      "native": [
+        131,
+        3,
+        2,
+        3,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "xproslide200",
+      "native": [
+        131,
+        3,
+        2,
+        3,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "tmax100",
+      "native": [
+        134,
+        1,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "tmax400",
+      "native": [
+        134,
+        1,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "tmax3200",
+      "native": [
+        134,
+        1,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "bw400cn",
+      "native": [
+        134,
+        1,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "hie",
+      "native": [
+        134,
+        1,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "delta100",
+      "native": [
+        134,
+        1,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "delta400",
+      "native": [
+        134,
+        1,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "delta3200",
+      "native": [
+        134,
+        1,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "fp4",
+      "native": [
+        134,
+        1,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "panf50",
+      "native": [
+        134,
+        1,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "hps800",
+      "native": [
+        134,
+        1,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "xp2",
+      "native": [
+        134,
+        1,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "acros100",
+      "native": [
+        134,
+        1,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "neopan1600",
+      "native": [
+        134,
+        1,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "apx25",
+      "native": [
+        134,
+        1,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "apx100",
+      "native": [
+        134,
+        1,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "retro80s",
+      "native": [
+        134,
+        1,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "retro100",
+      "native": [
+        134,
+        1,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "ortho25",
+      "native": [
+        134,
+        1,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "ir400",
+      "native": [
+        134,
+        1,
+        2,
+        0,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "kodak2383",
+      "native": [
+        129,
+        1,
+        2,
+        -1,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "kodak2393",
+      "native": [
+        129,
+        1,
+        2,
+        -1,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "fuji3510",
+      "native": [
+        129,
+        1,
+        2,
+        -1,
+        0,
+        5200,
+        0,
+        0
+      ]
+    },
+    {
+      "source_name": "fuji3513",
+      "native": [
+        129,
+        1,
+        2,
+        -1,
+        0,
+        5200,
+        0,
+        0
+      ]
+    }
+  ]
+}

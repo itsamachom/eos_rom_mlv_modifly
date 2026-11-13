@@ -1,0 +1,144 @@
+{
+  "release": "v3r6-tone1",
+  "kind": "production UI host capture, simulated properties",
+  "color_effect_preview": false,
+  "animation": "Illustration of acknowledged settings stages, not measured camera latency or post-shot processing",
+  "files": [
+    {
+      "file": "tone-setting-0.png",
+      "sha256": "95a0e398cdeb464f1ae2202a6e905d7e7a37d7407157868828e61fd3acf7fb66"
+    },
+    {
+      "file": "tone-setting-1.png",
+      "sha256": "d47b9d0686ea1f1efa0bb51db77c89cb76c9e1580b0b4a1d99d1d32adae92006"
+    },
+    {
+      "file": "tone-setting-2.png",
+      "sha256": "445fe720b04ed37cd75f656a25eaa6df0180645f88e7eb10e10aca110a370077"
+    },
+    {
+      "file": "tone-setting-3.png",
+      "sha256": "b7902e79878bf9e57930e4a5fe9c0492768e1993050c1db622f528a80756bd8e"
+    },
+    {
+      "file": "tone-setting-4.png",
+      "sha256": "95a0e398cdeb464f1ae2202a6e905d7e7a37d7407157868828e61fd3acf7fb66"
+    },
+    {
+      "file": "tone-setting-5.png",
+      "sha256": "d47b9d0686ea1f1efa0bb51db77c89cb76c9e1580b0b4a1d99d1d32adae92006"
+    },
+    {
+      "file": "tone-setting-6.png",
+      "sha256": "445fe720b04ed37cd75f656a25eaa6df0180645f88e7eb10e10aca110a370077"
+    },
+    {
+      "file": "tone-setting-7.png",
+      "sha256": "b7902e79878bf9e57930e4a5fe9c0492768e1993050c1db622f528a80756bd8e"
+    },
+    {
+      "file": "tones-en-01.png",
+      "sha256": "aaf01157847c59b6a71562a5a77c9282ca51ff94ae168af85ac5de962d6f8a69"
+    },
+    {
+      "file": "tones-en-02.png",
+      "sha256": "eb10c1bf57f805bed762ad3efe480e6fcc3c7aea099303c6bba266e789151a65"
+    },
+    {
+      "file": "tones-en-03.png",
+      "sha256": "436b6851c978bb7026df27eb4a66d0c3dc219aa25e2c31b7495bff7d7f912b76"
+    },
+    {
+      "file": "tones-en-04.png",
+      "sha256": "0b5496b34de764ec3fc425c6dd33d36f303c7a8455d85c8351293c026e0a42c6"
+    },
+    {
+      "file": "tones-en-05.png",
+      "sha256": "278b4f1417995a0671f36335a59b4dfffb96145929c567a923e99658c6b1bc90"
+    },
+    {
+      "file": "tones-en-06.png",
+      "sha256": "bc5deaafea38417c3be3b952719857a3787abfeb2761a59ed42f5e677a01804c"
+    },
+    {
+      "file": "tones-en-07.png",
+      "sha256": "afe231221efcd232c246a7c5d39ae8c067cea9d6321f93efbef6d414aa0a1951"
+    },
+    {
+      "file": "tones-en-08.png",
+      "sha256": "29c7bef4257f998235d7fad762843ee1016a1327c297f113d710bbceca7cbc1d"
+    },
+    {
+      "file": "tones-en-09.png",
+      "sha256": "e05bfcc18d63beda2c31a921bdc0fc079c3a4569b18d480ebd1ff2edae38e39a"
+    },
+    {
+      "file": "tones-en-10.png",
+      "sha256": "75923f90874aac445087c5a015c06b37f2cc325c275a22b58cd8264c72f2a62c"
+    },
+    {
+      "file": "tones-en-11.png",
+      "sha256": "7a5aba0532b50491b814a61b3e00eb9f92e44f9d1ee85d5cf619955bec632797"
+    },
+    {
+      "file": "tones-en-12.png",
+      "sha256": "ba2306dad631d86f8b0f56cb60586f7f9600871b426e235c532fe7502c73141c"
+    },
+    {
+      "file": "tones-en-13.png",
+      "sha256": "d804e1e25eed1d068f9a9e7ec040524341f667325cf4a42b36514289e149c38d"
+    },
+    {
+      "file": "tones-th-01.png",
+      "sha256": "2c1c89886e0dda47e8944f97595e60369ee20e56bcf05be728f1570fa98ad8dc"
+    },
+    {
+      "file": "tones-th-02.png",
+      "sha256": "36faa9a4f58e0611efa6f0c7822bb781437e87ac9a2fd48cef65f677bcafd521"
+    },
+    {
+      "file": "tones-th-03.png",
+      "sha256": "e1d47fff051f327d530e13b25dea05c0bc768b0fabdd2d59d75cb7aa5ffa44a0"
+    },
+    {
+      "file": "tones-th-04.png",
+      "sha256": "da6249f6e050ea935aaa7be0f3768e93e343cf8461b7a7fb918d72e543becab9"
+    },
+    {
+      "file": "tones-th-05.png",
+      "sha256": "ae122208ebad50202e097ad4b9a658d24ec2c079f2fce0e613606c7180b2dc12"
+    },
+    {
+      "file": "tones-th-06.png",
+      "sha256": "24b772be27bb106d10c152b9b7b6c7cac6cc168ee042dace1d71183e4e444609"
+    },
+    {
+      "file": "tones-th-07.png",
+      "sha256": "5aeb40a7e62617025605f81ba17e99c97bd51d63b920030f4a0efbd6f3293711"
+    },
+    {
+      "file": "tones-th-08.png",
+      "sha256": "a735285cda9b89ecbb082276ca7e2219acea81a698740f8d57e3ccca1bcf3a15"
+    },
+    {
+      "file": "tones-th-09.png",
+      "sha256": "3801b30fe731d42bb7b932b550d14d33e0a98ecc81ad7416e18a1bb466013a75"
+    },
+    {
+      "file": "tones-th-10.png",
+      "sha256": "213104a68929ae7f1de4b95f5601983ce21ee2aaf3bf2360611aacba8acf2158"
+    },
+    {
+      "file": "tones-th-11.png",
+      "sha256": "6c5d23d46a7311d668cc36154f8613436c7de9a85207e3dc9ac5aade0d517378"
+    },
+    {
+      "file": "tones-th-12.png",
+      "sha256": "bfc9faa6bcaa2d618cf88e634bd34e6fc88c0c56f293e76b11faea4bcbf47f0b"
+    },
+    {
+      "file": "tones-th-13.png",
+      "sha256": "ba37e1861182990e9f7c2ac2962a95d47b4a6857b6c9ef4174e8ec8262052195"
+    }
+  ]
+}

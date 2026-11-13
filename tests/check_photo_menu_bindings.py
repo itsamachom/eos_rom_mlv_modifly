@@ -40,6 +40,7 @@ arrays = {
     "mov_menus": "Movie", "movie_tweaks_menus": "Movie", "mov_tweak_menus": "Movie Tweaks",
 }
 registered = set()
+linked_symbols = set()
 for s in sections:
     if s[1] != 2:
         continue
@@ -48,6 +49,7 @@ for s in sections:
     for pos in range(s[4], s[4] + s[5], s[9]):
         name_off, addr, size, *_ = struct.unpack_from("<IIIBBH", data, pos)
         name = strtab[name_off:].split(b"\0", 1)[0].decode()
+        linked_symbols.add(name)
         if name not in arrays:
             continue
         assert size % 88 == 0, f"Unexpected ARM menu_entry layout: {name}"
@@ -60,7 +62,10 @@ header = (root / "firmware/src/photo-menu-600d.h").read_text()
 bindings = re.findall(r'\{"[^"]+", "([^"]+)", "([^"]+)"\}', header)
 module_bindings = {("Shoot", "Silent Picture"), ("Expo", "Dual ISO"), ("Expo", "Auto ETTR"), ("Games", "Arkanoid")}
 for menu, entry in bindings:
-    if (menu, entry) in module_bindings:
+    if (menu, entry) == ("Shoot", "JPEG Tones"):
+        assert {"photo_jpeg_style_read","photo_jpeg_style_write","photo_tone_recipes"} <= linked_symbols
+        assert b"JPEG Tones\0" in data and b"Soft Skin\0" in data
+    elif (menu, entry) in module_bindings:
         # Modules are resolved dynamically on the camera. Check packaged strings.
         mod = {"Silent Picture": "silent", "Dual ISO": "dual_iso", "Auto ETTR": "ettr", "Arkanoid": "arkanoid"}[entry]
         blob = (path.parent / "zip/ML/modules" / (mod + ".mo")).read_bytes()

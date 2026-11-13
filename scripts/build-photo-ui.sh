@@ -17,4 +17,4 @@ if [[ ${1:-} == --clean ]]; then
     make -C platform/600D.102 ARM_BINPATH="$arm_bin" clean
     make -C modules ARM_BINPATH="$arm_bin" clean
 fi
-make -C platform/600D.102 -j4 ARM_BINPATH="$arm_bin" CONFIG_QEMU=n VERSION="PHOTO-UI-$photo_release.600D.102"
+make -C platform/600D.102 -j4 ARM_BINPATH="$arm_bin" ML_MODULES="adv_int autoexpo deflick dual_iso ettr file_man img_name pic_view arkanoid lua" CONFIG_QEMU=n VERSION="PHOTO-UI-$photo_release.600D.102"

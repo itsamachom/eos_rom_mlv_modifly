@@ -22,6 +22,7 @@ struct photo_page {
 };
 
 static const struct photo_item photo_shoot[] = {
+    {"JPEG Tones", "Shoot", "JPEG Tones"},
     {"Time-lapse", "Shoot", "Intervalometer"},
     {"Bulb Timer", "Shoot", "Bulb Timer"},
     {"Bracketing", "Shoot", "Advanced Bracket"},
@@ -90,6 +91,7 @@ static const struct photo_page photo_pages[] = {
     PHOTO_PAGE("Games", "G", photo_games),
 };
 
+static int photo_tone_opened;
 static int photo_page_index;
 static int photo_selection[COUNT(photo_pages)];
 static int photo_classic;
@@ -117,6 +119,7 @@ static void photo_menu_reset(void)
 {
     take_semaphore(menu_sem, 0);
     photo_classic = 0;
+    photo_tone_opened = 0;
     photo_pane = PHOTO_CATEGORIES;
     photo_detail_index = photo_editing = photo_confirm = 0;
     photo_display_target[0] = 0;
@@ -184,6 +187,8 @@ static void photo_text(int font, int x, int y, int width, const char * text)
     }
     bmp_printf(font, x, y, "%s", buf);
 }
+
+#include "photo-tone-600d.h"
 
 static void photo_read_info(struct menu_entry * entry, struct menu_display_info * info)
 {
@@ -310,6 +315,7 @@ static void photo_detail_row(int row, const char * name, const char * value, int
 static int photo_menu_draw(void)
 {
     take_semaphore(menu_sem, 0);
+    if (photo_tone_opened) { int result=photo_tone_draw();give_semaphore(menu_sem);return result; }
     if (photo_native_busy)
     {
         /* Keep the displayed buffer until a callback (which may lock menus)
@@ -387,7 +393,12 @@ static int photo_menu_draw(void)
     photo_display_identity.valid = 0;
     photo_display_page = page_index;
     photo_display_item = index;
-    if (!item->entry && parent)
+    if (item->entry && streq(item->entry,"JPEG Tones"))
+    {
+        photo_detail_row(0,"JPEG Tones","SET: Open",0);
+        snprintf(help,sizeof(help),"13 native JPEG recipes; no RAW development.");
+    }
+    else if (!item->entry && parent)
     {
         photo_detail_row(0, "System menu", "SET: Open", 0);
         photo_text(FONT(FONT_MED_LARGE, COLOR_WHITE, COLOR_GRAY(5)), 382, 218, 316, "INFO: Photo / Classic");
@@ -505,11 +516,16 @@ static void photo_run_original(struct menu * parent, int depth, int mode)
         submenu_level = old_level;
 }
 
-struct photo_pending_action { struct menu * parent; int depth, mode; };
+struct photo_pending_action { struct menu * parent; int depth, mode, tone; };
 
 /* menu_sem is held. Callbacks are dispatched only after releasing it. */
 static int photo_menu_key_locked(int key, struct photo_pending_action * pending)
 {
+    if (photo_tone_opened)
+    {
+        pending->tone=photo_tone_key(key);
+        return 1;
+    }
     if (key == BGMT_INFO && !RECORDING)
     {
         /* INFO from a native modal editor returns directly to Photo UI. */
@@ -544,7 +560,7 @@ static int photo_menu_key_locked(int key, struct photo_pending_action * pending)
             int depth = 0;
             struct menu_entry * e = photo_edit_target(&parent, &depth);
             int ok = photo_can_edit(e);
-            if (ok) *pending = (struct photo_pending_action){parent, depth, (left || key == BGMT_WHEEL_UP) ? 1 : 0};
+            if (ok) *pending = (struct photo_pending_action){.parent=parent,.depth=depth,.mode=(left || key == BGMT_WHEEL_UP) ? 1 : 0};
             else photo_invalidate();
             return 1;
         }
@@ -590,6 +606,11 @@ static int photo_menu_key_locked(int key, struct photo_pending_action * pending)
     if (photo_pane < PHOTO_DETAILS && (right || set || q))
     {
         const struct photo_item * item = &page->items[photo_selection[photo_page_index]];
+        if (photo_pane == PHOTO_ITEMS && item->entry && streq(item->entry,"JPEG Tones"))
+        {
+            photo_tone_opened=1;photo_tone_confirm=0;
+            return 1;
+        }
         if (photo_pane == PHOTO_ITEMS && !item->entry)
         {
             struct menu * parent;
@@ -609,7 +630,7 @@ static int photo_menu_key_locked(int key, struct photo_pending_action * pending)
         int action = e && e->icon_type == IT_ACTION;
         int open = e && (e->children || e->select == menu_open_submenu);
         if (!e) { photo_invalidate(); return 1; }
-        if (q) { photo_invalidate(); *pending = (struct photo_pending_action){parent, depth, 2}; }
+        if (q) { photo_invalidate(); *pending = (struct photo_pending_action){.parent=parent,.depth=depth,.mode=2}; }
         else if (editable)
         {
             photo_armed_identity = photo_display_identity;
@@ -618,9 +639,9 @@ static int photo_menu_key_locked(int key, struct photo_pending_action * pending)
         else if (action)
         {
             if (!photo_confirm) { photo_armed_identity = photo_display_identity; photo_confirm = 1; }
-            else { photo_invalidate(); *pending = (struct photo_pending_action){parent, depth, 3}; }
+            else { photo_invalidate(); *pending = (struct photo_pending_action){.parent=parent,.depth=depth,.mode=3}; }
         }
-        else if (open) { photo_invalidate(); *pending = (struct photo_pending_action){parent, depth, 3}; }
+        else if (open) { photo_invalidate(); *pending = (struct photo_pending_action){.parent=parent,.depth=depth,.mode=3}; }
         return 1;
     }
     /* Right at the rightmost pane does not modify anything. */
@@ -631,10 +652,10 @@ static int photo_menu_key_locked(int key, struct photo_pending_action * pending)
  * lock; callbacks remain outside it to permit native menu reentrancy. */
 static int photo_menu_key(int key)
 {
-    /* Native-only keys (notably half-shutter) must not wait for a redraw. */
+    /* Half-shutter passes through, except while tone settings are being acknowledged. */
     switch (key)
     {
-        case BGMT_INFO: case BGMT_MENU: case BGMT_PRESS_SET: case BGMT_Q: case BGMT_PLAY:
+        case BGMT_PRESS_HALFSHUTTER: case BGMT_INFO: case BGMT_MENU: case BGMT_PRESS_SET: case BGMT_Q: case BGMT_PLAY:
         case BGMT_PRESS_UP: case BGMT_PRESS_DOWN: case BGMT_PRESS_LEFT: case BGMT_PRESS_RIGHT:
         case BGMT_WHEEL_UP: case BGMT_WHEEL_DOWN: case BGMT_WHEEL_LEFT: case BGMT_WHEEL_RIGHT:
             break;
@@ -642,14 +663,20 @@ static int photo_menu_key(int key)
     }
     struct photo_pending_action pending = {0};
     take_semaphore(menu_sem, 0);
+    if(key==BGMT_PRESS_HALFSHUTTER) {
+        int consume=photo_tone_opened && photo_tone_working;
+        if(!consume)photo_tone_opened=0;
+        give_semaphore(menu_sem);return consume;
+    }
     if (photo_native_busy) { give_semaphore(menu_sem); return 1; }
     photo_validate_selection();
     int consumed = photo_menu_key_locked(key, &pending);
-    if (pending.parent) photo_native_busy = 1;
+    if (pending.parent || pending.tone) photo_native_busy = 1;
     give_semaphore(menu_sem);
-    if (pending.parent)
+    if (pending.parent || pending.tone)
     {
-        photo_run_original(pending.parent, pending.depth, pending.mode);
+        if(pending.tone)photo_tone_perform(pending.tone);
+        else photo_run_original(pending.parent, pending.depth, pending.mode);
         take_semaphore(menu_sem, 0);
         photo_native_busy = 0;
         give_semaphore(menu_sem);

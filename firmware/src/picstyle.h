@@ -20,6 +20,12 @@ void picstyle_set_current_sharpness_fineness(int value);
 void picstyle_set_current_sharpness_threshold(int value);
 #endif
 
+#ifdef CONFIG_600D
+#include "photo-tone-types.h"
+int photo_jpeg_style_read(int id,struct photo_jpeg_style *out);
+int photo_jpeg_style_write(int id,const struct photo_jpeg_style *in);
+#endif
+
 // Used by lens.c in mvr_create_logfile
 void picstyle_mvr_log_append(char* mvr_logfile_buffer);
 

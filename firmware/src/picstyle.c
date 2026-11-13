@@ -444,6 +444,30 @@ PICSTYLE_GET_PARAM_FROM_OTHER_DUMMY(sharpness_fineness)
 PICSTYLE_GET_PARAM_FROM_OTHER_DUMMY(sharpness_threshold)
 #endif
 
+/* 600D native JPEG recipes: preserve unowned property bytes; require the
+ * Canon-reported property size and verify acknowledgements, never optimistic cache writes. */
+#ifdef CONFIG_600D
+int photo_jpeg_style_read(int id,struct photo_jpeg_style *out)
+{
+    if(id!=0x81 && id!=0x83 && id!=0x86)return 0;
+    int i=get_prop_picstyle_index(id);
+    if(i<=0 || i>=NUM_PICSTYLES || picstyle_settings_prop_sizes[i]!=sizeof(*picstyle_settings))return 0;
+    const struct picstyle_settings_prop_struct *s=&picstyle_settings[i];
+    *out=(struct photo_jpeg_style){s->contrast,(int)s->sharpness,s->saturation,s->color_tone};
+    return s->contrast>=-4 && s->contrast<=4 && s->sharpness<=7 && s->saturation>=-4 && s->saturation<=4 && s->color_tone>=-4 && s->color_tone<=4;
+}
+int photo_jpeg_style_write(int id,const struct photo_jpeg_style *in)
+{
+    struct photo_jpeg_style old,got;
+    if(!photo_jpeg_style_read(id,&old) || in->contrast<-4 || in->contrast>4 || in->sharpness<0 || in->sharpness>7 || in->saturation<-4 || in->saturation>4 || in->color_tone<-4 || in->color_tone>4)return 0;
+    int i=get_prop_picstyle_index(id);
+    struct picstyle_settings_prop_struct payload=picstyle_settings[i];
+    payload.contrast=in->contrast;payload.sharpness=in->sharpness;payload.saturation=in->saturation;payload.color_tone=in->color_tone;
+    prop_request_change_wait(get_picstyle_prop_ID(i),&payload,sizeof(payload),350);
+    return photo_jpeg_style_read(id,&got) && !memcmp(&got,in,sizeof(got));
+}
+#endif
+
 // Data structures for FEATURE_PICSTYLE
 static CONFIG_INT("picstyle.rec.enable", picstyle_rec_enable, 0);
 static CONFIG_INT("picstyle.rec", picstyle_rec, 0);

@@ -49,3 +49,7 @@ the Newlib 1.20.0 source URL, but explicitly says dietlibc source/build notes ar
 not in the repository. This does not resolve the dietlibc corresponding-source
 gate. PR #290 is a Lua header compatibility fix; no build fixes were applied to
 the camera payload in this documentation update.
+
+## Native JPEG tone recipes (v3r6-tone1 experiment)
+
+The 13 distinct native Picture Style/WB recipes derive from the preview settings in HNGSeries/M-Film 0.2.1 (`8118e9c7c072371bd53eda8920f44910e8a35baf`), `ml-dev/filmos/fos_film.c` and `ml-dev/filmos/tools/genfilms.py`. Credit HNGSeries/M-Film contributors; the derived recipe table retains GPL-2.0-only terms. See `research/jpeg-tones/UPSTREAM_NATIVE_RECIPES.json` and the verbatim GPL text beside it. Recipe names/grouping, transaction adapter and canister menu were implemented for this fork. No Film-Luts tables, M-Film RAW decoder, Darkrooms desktop code or third-party sample photos are included in this feature. These native JPEG approximations do not claim the full developed film looks.

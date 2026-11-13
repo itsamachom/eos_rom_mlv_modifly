@@ -39,6 +39,7 @@
 #include "debug.h"
 #include "lvinfo.h"
 #include "powersave.h"
+#include "picstyle.h"
 
 #ifdef CONFIG_600D
 static CONFIG_INT("menu.photo.thai", photo_thai_enabled, 1);

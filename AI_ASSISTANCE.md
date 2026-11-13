@@ -30,3 +30,5 @@ AI assistance does not establish correctness, rights clearance, hardware safety
 or completeness of corresponding source. See release readiness records.
 
 - v3r5 Live View wording, separate first-install/update packaging, installation documentation, download navigation cleanup and developer links.
+
+The v3r6-tone1 experiment uses Codex/LLM assistance for recipe provenance/deduplication, independent canister UI, Canon Picture Style/WB adapter, transaction/rollback engine, Thai strings, tests, preview captures and documentation. M-Film is credited for the source native preview recipes. Hardware JPEG appearance and latency remain unverified.

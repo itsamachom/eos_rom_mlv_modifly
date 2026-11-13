@@ -1467,5 +1467,170 @@
   "Load lua; reboot.": {
     "th": "เปิดโมดูล lua",
     "max_width": 316
+  },
+  "JPEG Tones": {
+    "th": "โทนสี JPEG",
+    "max_width": 276,
+    "font_size": 23
+  },
+  "Warm Tones": {
+    "th": "โทนอุ่น",
+    "max_width": 158,
+    "font_size": 23
+  },
+  "Vivid Tones": {
+    "th": "สีสด",
+    "max_width": 158,
+    "font_size": 23
+  },
+  "Cinema Tones": {
+    "th": "ซีนีมา",
+    "max_width": 158,
+    "font_size": 23
+  },
+  "Mono Tones": {
+    "th": "ขาวดำ",
+    "max_width": 158,
+    "font_size": 23
+  },
+  "Soft Skin": {
+    "th": "ผิวนุ่ม",
+    "max_width": 196,
+    "font_size": 23
+  },
+  "Golden Warm": {
+    "th": "ทองอุ่น",
+    "max_width": 196,
+    "font_size": 23
+  },
+  "Fresh Green": {
+    "th": "เขียวใส",
+    "max_width": 196,
+    "font_size": 23
+  },
+  "Natural Color": {
+    "th": "สีธรรมชาติ",
+    "max_width": 196,
+    "font_size": 23
+  },
+  "Vivid Color": {
+    "th": "สีจัด",
+    "max_width": 196,
+    "font_size": 23
+  },
+  "Slide Vivid": {
+    "th": "สไลด์จัด",
+    "max_width": 196,
+    "font_size": 23
+  },
+  "Slide Rich": {
+    "th": "สไลด์เข้ม",
+    "max_width": 196,
+    "font_size": 23
+  },
+  "Cross Color": {
+    "th": "สีครอส",
+    "max_width": 196,
+    "font_size": 23
+  },
+  "Night Cool": {
+    "th": "กลางคืนเย็น",
+    "max_width": 196,
+    "font_size": 23
+  },
+  "Cinema Cool": {
+    "th": "ซีนีมาเย็น",
+    "max_width": 196,
+    "font_size": 23
+  },
+  "Cinema Muted": {
+    "th": "ซีนีมานุ่ม",
+    "max_width": 196,
+    "font_size": 23
+  },
+  "Mono Soft": {
+    "th": "ขาวดำนุ่ม",
+    "max_width": 196,
+    "font_size": 23
+  },
+  "Mono Contrast": {
+    "th": "ขาวดำเข้ม",
+    "max_width": 196,
+    "font_size": 23
+  },
+  "13 native JPEG recipes; no RAW development.": {
+    "th": "13 โทน JPEG ไม่ต้องล้าง RAW",
+    "max_width": 696,
+    "font_size": 23
+  },
+  "JPEG / RAW+JPEG in Canon": {
+    "th": "เลือก JPEG หรือ RAW+JPEG ใน Canon",
+    "max_width": 688,
+    "font_size": 23
+  },
+  "Tone ready - take a JPEG": {
+    "th": "พร้อมถ่าย JPEG",
+    "max_width": 688,
+    "font_size": 23
+  },
+  "Original settings restored": {
+    "th": "คืนค่าเดิมแล้ว",
+    "max_width": 688,
+    "font_size": 23
+  },
+  "Failed - changes rolled back": {
+    "th": "ตั้งค่าไม่สำเร็จ คืนค่าก่อนหน้าแล้ว",
+    "max_width": 688,
+    "font_size": 23
+  },
+  "Recovery needed - Q Restore": {
+    "th": "ต้องคืนค่า กด Q แล้ว SET",
+    "max_width": 688,
+    "font_size": 23
+  },
+  "Use P/Tv/Av/M and enable JPEG": {
+    "th": "ใช้ P/Tv/Av/M และเปิด JPEG",
+    "max_width": 688,
+    "font_size": 23
+  },
+  "Settings not ready - retry": {
+    "th": "ยังอ่านค่าไม่ครบ ลองอีกครั้ง",
+    "max_width": 688,
+    "font_size": 23
+  },
+  "Setting tone - please wait": {
+    "th": "กำลังตั้งโทน รอสักครู่",
+    "max_width": 688,
+    "font_size": 23
+  },
+  "Apply tone? SET confirms": {
+    "th": "ใช้โทนนี้หรือไม่ กด SET ยืนยัน",
+    "max_width": 688,
+    "font_size": 23
+  },
+  "Restore session settings? SET": {
+    "th": "คืนค่าที่สำรองไว้ กด SET",
+    "max_width": 688,
+    "font_size": 23
+  },
+  "Active JPEG tone": {
+    "th": "โทนที่ใช้อยู่",
+    "max_width": 250,
+    "font_size": 23
+  },
+  "Settings changed in Canon": {
+    "th": "ค่าเปลี่ยนจากเมนู Canon",
+    "max_width": 688,
+    "font_size": 23
+  },
+  "No session backup": {
+    "th": "ยังไม่มีค่าที่สำรอง",
+    "max_width": 688,
+    "font_size": 23
+  },
+  "L/R Tone  U/D Group  SET Apply  Q Restore  MENU Back": {
+    "th": "ซ้าย/ขวา โทน  ขึ้น/ลง หมวด  SET ใช้  Q คืนค่า  MENU กลับ",
+    "max_width": 688,
+    "font_size": 23
   }
 }

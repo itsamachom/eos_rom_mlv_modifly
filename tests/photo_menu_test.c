@@ -36,7 +36,7 @@
 #define FONT(font,fg,bg) ((font)|((fg)<<8)|((bg)<<16))
 enum { BGMT_INFO=1, BGMT_PRESS_LEFT, BGMT_WHEEL_LEFT, BGMT_PRESS_RIGHT,
        BGMT_WHEEL_RIGHT, BGMT_PRESS_UP, BGMT_WHEEL_UP, BGMT_PRESS_DOWN,
-       BGMT_WHEEL_DOWN, BGMT_MENU, BGMT_PRESS_SET, BGMT_Q, BGMT_PLAY };
+       BGMT_WHEEL_DOWN, BGMT_PRESS_HALFSHUTTER, BGMT_MENU, BGMT_PRESS_SET, BGMT_Q, BGMT_PLAY };
 static int submenu_level,edit_mode,menu_lv_transparent_mode,menu_help_active;
 static int recording,locks,close_requests,actions,last_mode,run_actions;
 static int menu_redraw_cancel;
@@ -190,6 +190,22 @@ static void photo_test_camera_value(struct menu_display_info *info,const char *f
 #include "../firmware/src/photo-camera-info-600d.h"
 #undef MENU_SET_VALUE
 #define MENU_SET_VALUE(fmt, ...) snprintf(info->value,MENU_MAX_VALUE_LEN,fmt, ## __VA_ARGS__)
+#define PHOTO_TONE_TEST_ADAPTER 1
+#include "../firmware/src/photo-tone-engine.h"
+static int tone_host_ready,tone_host_write_calls;
+static struct photo_tone_state tone_host_state;
+static int photo_tone_platform_ready(void *ctx) { (void)ctx;return tone_host_ready; }
+static int photo_tone_platform_read(void *ctx,struct photo_tone_state *s) { (void)ctx;if(!tone_host_ready)return 0;*s=tone_host_state;return 1; }
+static int photo_tone_platform_write(void *ctx,int op,const struct photo_tone_state *s) {
+    (void)ctx;assert(!owns_menu_lock);assert(tone_host_ready);tone_host_write_calls++;
+    if(op==0)tone_host_state.active=s->active;
+    else if(op>=1 && op<=3)tone_host_state.style[op-1]=s->style[op-1];
+    else if(op>=4 && op<=9)tone_host_state.wb[op-4]=s->wb[op-4];
+    else if(op>=10 && op<=12){const int ids[]={0x81,0x83,0x86};tone_host_state.active=ids[op-10];}
+    else assert(!"Forbidden write operation");
+    return 1;
+}
+void menu_redraw(void) {}
 static void observe_snapshot(void);
 #define PHOTO_MENU_SNAPSHOT_OBSERVER() observe_snapshot()
 #include "../firmware/src/photo-menu-600d.h"
@@ -258,7 +274,7 @@ static void reset(void)
     overlay.next=&prefs;prefs.next=&options;options.next=NULL;menus=&overlay;
     overlay.selected=1;prefs.selected=0;output[0]=0;text_count=0;
 }
-static void render(void) { output[0]=0;assert(photo_menu_draw());assert(locks==0); }
+static void render(void) { output[0]=0;assert(photo_menu_draw());assert(!owns_menu_lock); }
 static void press(int key) { assert(photo_menu_key(key));if(photo_home_active())render(); }
 static void go_peak(void)
 {
@@ -324,7 +340,7 @@ int main(void)
     press(BGMT_PRESS_DOWN);assert(photo_page_index==0);
     press(BGMT_PRESS_DOWN);assert(photo_page_index==1);
     press(BGMT_PRESS_RIGHT);assert(photo_pane==PHOTO_ITEMS && actions==0);
-    press(BGMT_PRESS_UP);assert(photo_page_index==0 && photo_selection[0]==5);
+    press(BGMT_PRESS_UP);assert(photo_page_index==0 && photo_selection[0]==6);
     press(BGMT_PRESS_DOWN);assert(photo_page_index==1 && photo_selection[1]==0);
     press(BGMT_PRESS_LEFT);assert(photo_pane==PHOTO_CATEGORIES && photo_page_index==1);
     puts("PASS vertical category/item navigation and horizontal pane focus without setting changes");
