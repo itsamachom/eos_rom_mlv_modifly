@@ -8,11 +8,11 @@
 
 ## ชุดทดสอบใหม่: เมนูโทนสี JPEG
 
-**v3r6-tone1** เพิ่มเมนูเลือกม้วนฟิล์ม 4 หมวด / 13 สูตร Picture Style และ WB สำหรับ JPEG ของ Canon โดยไม่ใช้ขั้นตอนล้าง RAW มีตัวบอกขั้นตอนระหว่างตั้งค่า
+**v3r6-tone2** ปรับเมนูเป็นภาพกลักฟิล์มทรงกระบอก 4 หมวด และเก็บครบ 72 รายการตามชื่อ/ค่า ISO, Picture Style และ WB ต้นฉบับ M-Film พร้อมแก้เงื่อนไขอ่านค่าของ tone1 หลายรายการใช้ค่าซ้ำกัน ไม่ใช่ 72 ลุค LUT หลังล้าง RAW
 
-[ดูหน้าตาเมนูและวิธีใช้](https://github.com/itsamachom/eos_rom_mlv_modifly/tree/v3r6-tone1) · [ดาวน์โหลด UPDATE รุ่นทดสอบ](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/v3r6-tone1/downloads/v3r6-tone1/camera/600D-102-Thai-Menu-v3r6-tone1-UPDATE.zip) · [ซอร์สตรงกับบิลด์](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/v3r6-tone1/deliveries/photo-ui-v3r6-tone1-full/600D-PHOTO-UI-v3r6-tone1-source.zip)
+[ดูหน้าตาเมนูและวิธีใช้](https://github.com/itsamachom/eos_rom_mlv_modifly/tree/v3r6-tone2) · [ดาวน์โหลด UPDATE รุ่นทดสอบ](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/v3r6-tone2/downloads/v3r6-tone2/camera/600D-102-Thai-Menu-v3r6-tone2-UPDATE.zip) · [ซอร์สตรงกับบิลด์](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/v3r6-tone2/deliveries/photo-ui-v3r6-tone2-full/600D-PHOTO-UI-v3r6-tone2-source.zip)
 
-ผ่าน host tests และ ARM build **ยังไม่ยืนยันบนกล้องจริง** ต้องใช้ Canon EOS 600D / firmware 1.0.2 ตั้ง JPEG หรือ RAW+JPEG และสำรองชุดเดิมก่อนทดลอง สูตรนี้ไม่ใช่ 72 ลุค LUT ที่ผ่านห้องล้างภาพของ M-Film รายละเอียดการคืนค่าที่สำรองใน RAM อยู่ในวิธีใช้ของชุดทดสอบ ส่วนชุดหลัก v3r5 อยู่ด้านล่าง
+ผ่าน host tests และ ARM build **ยังไม่ยืนยันบนกล้องจริง** ต้องใช้ Canon EOS 600D / firmware 1.0.2 ตั้ง JPEG หรือ RAW+JPEG และสำรองชุดเดิมก่อนทดลอง สูตรนี้ไม่ใช่ 72 ลุค LUT ที่ผ่านห้องล้างภาพของ M-Film รุ่นทดลองนี้เปลี่ยน ISO จริงตามต้นฉบับ รายละเอียดการคืนค่า Picture Style/WB/ISO ที่สำรองใน RAM อยู่ในวิธีใช้ของชุดทดสอบ ส่วนชุดหลัก v3r5 อยู่ด้านล่าง
 
 ## เริ่มต้นตรงนี้
 
