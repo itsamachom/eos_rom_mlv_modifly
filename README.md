@@ -8,9 +8,11 @@
 
 ## ชุดทดสอบใหม่: เมนูโทนสี JPEG
 
-**v3r6-tone2** ปรับเมนูเป็นภาพกลักฟิล์มทรงกระบอก 4 หมวด และเก็บครบ 72 รายการตามชื่อ/ค่า ISO, Picture Style และ WB ต้นฉบับ M-Film พร้อมแก้เงื่อนไขอ่านค่าของ tone1 หลายรายการใช้ค่าซ้ำกัน ไม่ใช่ 72 ลุค LUT หลังล้าง RAW
+**v3r6-tone3** ใช้ชื่อเมนู **FLIM TONE** และกลุ่ม **Color Film / Silde Film / Cinema / Black and White** ตามที่ขอ คงทั้ง 72 รายการและค่า ISO/Picture Style/WB เหมือน tone2 พร้อมภาพร่างกล่องเฉียง/หน้ากล่อง/กลักเดี่ยวให้เลือก ภาพร่างยังไม่ใส่ใน firmware หลายรายการมีค่าเหมือนกัน ไม่ใช่ 72 ลุค LUT หลังล้าง RAW
 
-[ดูหน้าตาเมนูและวิธีใช้](https://github.com/itsamachom/eos_rom_mlv_modifly/tree/v3r6-tone2) · [ดาวน์โหลด UPDATE รุ่นทดสอบ](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/v3r6-tone2/downloads/v3r6-tone2/camera/600D-102-Thai-Menu-v3r6-tone2-UPDATE.zip) · [ซอร์สตรงกับบิลด์](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/v3r6-tone2/deliveries/photo-ui-v3r6-tone2-full/600D-PHOTO-UI-v3r6-tone2-source.zip)
+[ดูหน้าตาเมนูและวิธีใช้](https://github.com/itsamachom/eos_rom_mlv_modifly/tree/v3r6-tone3) · [ดาวน์โหลด UPDATE รุ่นทดสอบ](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/v3r6-tone3/downloads/v3r6-tone3/camera/600D-102-Thai-Menu-v3r6-tone3-UPDATE.zip) · [ซอร์สตรงกับบิลด์](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/v3r6-tone3/deliveries/photo-ui-v3r6-tone3-full/600D-PHOTO-UI-v3r6-tone3-source.zip)
+
+[ดูภาพตัวอย่าง 3 แบบ](https://github.com/itsamachom/eos_rom_mlv_modifly/tree/v3r6-tone3/design/film-concepts/v3r6-tone3)
 
 ผ่าน host tests และ ARM build **ยังไม่ยืนยันบนกล้องจริง** ต้องใช้ Canon EOS 600D / firmware 1.0.2 ตั้ง JPEG หรือ RAW+JPEG และสำรองชุดเดิมก่อนทดลอง สูตรนี้ไม่ใช่ 72 ลุค LUT ที่ผ่านห้องล้างภาพของ M-Film รุ่นทดลองนี้เปลี่ยน ISO จริงตามต้นฉบับ รายละเอียดการคืนค่า Picture Style/WB/ISO ที่สำรองใน RAM อยู่ในวิธีใช้ของชุดทดสอบ ส่วนชุดหลัก v3r5 อยู่ด้านล่าง
 
