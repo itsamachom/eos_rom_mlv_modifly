@@ -1,0 +1,45 @@
+{
+  "version": "v3r6-tone4",
+  "target": "600D.102",
+  "status": "Public Experimental",
+  "audience": "First installation or existing ML: choose the matching package",
+  "project": "FIRMWARE ADD-ON Thai-Menu",
+  "project_website": "https://itsamachom.github.io/eos_rom_mlv_modifly/",
+  "firmware_source_tag": "v3r6-tone4",
+  "firmware_source_commit": null,
+  "source_base_commit": "9507c36279a8cc5659d4f0c8169e5e976cf2b9ea",
+  "full_zip_sha256": "5d02cc23dfef76a0ca824c9ca65e297d29bf4c984ce1f6848a5509fbc8ea6ee9",
+  "autoexec_sha256": "71b8bd3ca5f8492a1bc14c8b956681d15f007fc12802fd8ebbec35c2673828d0",
+  "installer_sha256": "7e33d8a2a71ad92c412d291fb0ecb6de0b9404c212571d51fd82f839688070e3",
+  "first_install": {
+    "filename": "600D-102-Thai-Menu-v3r6-tone4-FIRST-INSTALL.zip",
+    "path": "downloads/v3r6-tone4/first_install/600D-102-Thai-Menu-v3r6-tone4-FIRST-INSTALL.zip",
+    "bytes": 2147480,
+    "sha256": "d8fe69685f3a6215f385b07b546210ddf15bfa4d3316353819f4cf1b4491c575"
+  },
+  "camera": {
+    "filename": "600D-102-Thai-Menu-v3r6-tone4-UPDATE.zip",
+    "path": "downloads/v3r6-tone4/camera/600D-102-Thai-Menu-v3r6-tone4-UPDATE.zip",
+    "bytes": 2081430,
+    "sha256": "93dd71b6aa8af4378d072911cb58eb5528a998880e74dc28d601b9b53373457a"
+  },
+  "source": {
+    "filename": "600D-PHOTO-UI-v3r6-tone4-source.zip",
+    "url": "https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/v3r6-tone4/deliveries/photo-ui-v3r6-tone4-full/600D-PHOTO-UI-v3r6-tone4-source.zip",
+    "bytes": 29591000,
+    "sha256": "a56137d646845a124c2e5c68a01a3e141ad82acbe7a58b0aaf48cd939e48f856"
+  },
+  "verified": [
+    "ZIP CRC",
+    "runtime bytes match Full ZIP in both packages",
+    "original installer size/hash and source-tree identity",
+    "FIR absent in update",
+    "source ZIP identity",
+    "licenses and upstream instructions retained"
+  ],
+  "camera_tested": false,
+  "first_install_hardware_tested": false,
+  "qemu_tested": false,
+  "installer_rebuilt": false,
+  "inherited_dependency_source_verified": false
+}
