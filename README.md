@@ -1,18 +1,18 @@
-# Thai-Menu v3r6-tone5 — โทนสี JPEG (รุ่นทดสอบ)
+# Thai-Menu v3r6-tone6 — โทนสี JPEG (รุ่นทดสอบ)
 
 เพิ่มเมนู **S → FLIM TONE** เป็นรายการแรกของหมวดถ่ายภาพ เลือกจากภาพม้วนฟิล์มใน 4 หมวด รวม 72 รายการตามชื่อและค่า ISO/Picture Style/WB ของต้นฉบับ (หลายรายการใช้ค่าซ้ำกัน) แล้วให้ Canon สร้าง JPEG ตามปกติ
 
 **นี่คือ branch ทดสอบ ยังไม่ได้ลองถ่ายบนกล้องจริง ไม่ใช่รุ่น Stable** รุ่นหลัก **v3r5** และคู่มือเดิมยังอยู่ที่ [หน้าแรก main](https://github.com/itsamachom/eos_rom_mlv_modifly) และ [เว็บไซต์](https://itsamachom.github.io/eos_rom_mlv_modifly/)
 
-[วิธีใช้และข้อจำกัด](PHOTO_UI_V3R6-TONE5.md) · [สูตรและแหล่งที่มา](research/jpeg-tones/README.md) · [ซอร์สที่แก้](firmware/src/photo-tone-600d.h)
+[วิธีใช้และข้อจำกัด](PHOTO_UI_V3R6-TONE6.md) · [สูตรและแหล่งที่มา](research/jpeg-tones/README.md) · [ซอร์สที่แก้](firmware/src/photo-tone-600d.h)
 
 ## ดาวน์โหลดสำหรับทดลอง
 
 สำหรับกล้อง/การ์ดที่ใช้ Magic Lantern ได้อยู่แล้ว เลือก UPDATE และสำรองชุดเดิมทั้งชุดก่อนทดลอง ใช้เฉพาะ **Canon EOS 600D / Canon firmware 1.0.2** อ่าน [INSTALL_TH.md](INSTALL_TH.md) ก่อนคัดลอกไฟล์ ไม่เรียก Firmware Update ซ้ำเพื่ออัปเดตเมนู
 
-- [UPDATE ZIP](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/v3r6-tone5/downloads/v3r6-tone5/camera/600D-102-Thai-Menu-v3r6-tone5-UPDATE.zip)
-- [ซอร์สโค้ดตรงกับชุดทดสอบ](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/v3r6-tone5/deliveries/photo-ui-v3r6-tone5-full/600D-PHOTO-UI-v3r6-tone5-source.zip)
-- [SHA256](downloads/v3r6-tone5/SHA256SUMS)
+- [UPDATE ZIP](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/v3r6-tone6/downloads/v3r6-tone6/camera/600D-102-Thai-Menu-v3r6-tone6-UPDATE.zip)
+- [ซอร์สโค้ดตรงกับชุดทดสอบ](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/v3r6-tone6/deliveries/photo-ui-v3r6-tone6-full/600D-PHOTO-UI-v3r6-tone6-source.zip)
+- [SHA256](downloads/v3r6-tone6/SHA256SUMS)
 
 ## หน้าตาเมนู
 
@@ -66,3 +66,13 @@ UI และ adapter เขียนสำหรับโครงการน�
 [ภาพใช้โทนสำเร็จ](previews/jpeg-tones/tone-active-th.png) · [ภาพระหว่างbrowse](previews/jpeg-tones/tone-browsing-th.png) · [วิธีวาดที่ศึกษาจากต้นทาง](research/film-labels/CYLINDER_RENDERING.md)
 
 ภาพเป็นhost captureจากโค้ดจริง ไม่ใช่ภาพจากกล้องหรือภาพตัวอย่างสีJPEG ยังต้องยืนยันความลื่นและภาพบน600Dจริง รุ่นหลัก/คู่มือบนเว็บยังเป็นv3r5
+
+## tone6: เลือกฟิล์มและอ่านรายละเอียด
+
+จัดกลางชื่อแท็บ/ชื่อฟิล์ม การ์ดขอบมน เลือกด้วยแอนิเมชันขยายแทนกรอบส้ม ป้ายโทนที่ใช้อยู่เป็นสีเหลืองขอบมนพร้อมกลักย่อ
+
+SETครั้งแรกเปิดหน้ากลักใหญ่ด้านซ้าย/คำอธิบายไทยและค่าจริงด้านขวา SETอีกครั้งจึงใช้โทนและกลับหน้ารวม MENUกลับโดยไม่เปลี่ยนค่า
+
+[หน้ารวม](previews/jpeg-tones/tone-active-th.png) · [รายละเอียด](previews/jpeg-tones/tone-detail-th-01.png) · [แอนิเมชันเลือก](previews/jpeg-tones/selection-zoom.gif)
+
+อัปเดตทั้งautoexec.binและML/ให้ครบ รวมML/data/TONEINFO.BIN รุ่นหลัก/เว็บ/คู่มือยังคงv3r5

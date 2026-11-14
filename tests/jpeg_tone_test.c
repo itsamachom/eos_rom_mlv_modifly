@@ -65,6 +65,7 @@ int main(void) {
     photo_page_index=0;photo_selection[0]=0;photo_pane=PHOTO_ITEMS;render();
     press(BGMT_PRESS_SET);assert(photo_tone_opened && !tone_host_write_calls);
     press(BGMT_PRESS_RIGHT);press(BGMT_PRESS_DOWN);press(BGMT_PRESS_LEFT);assert(!tone_host_write_calls);
+    assert(photo_tone_animation_pending());
     press(BGMT_PRESS_SET);assert(photo_tone_confirm==1 && !tone_host_write_calls);
     press(BGMT_MENU);assert(photo_tone_opened && !photo_tone_confirm && !tone_host_write_calls);
     press(BGMT_PRESS_SET);press(BGMT_PRESS_SET);assert(photo_tone_session.active>=0 && tone_host_write_calls==9 && !photo_tone_working);
@@ -81,11 +82,36 @@ int main(void) {
         for(int group=0;group<4;group++) {
             photo_tone_group=group;int ids[PHOTO_TONE_COUNT],n=photo_tone_ids(group,ids);
             for(int option=0;option<n;option++) {
-                photo_tone_selected[group]=option;photo_tone_confirm=0;photo_tone_working=0;render();assert(!lang || photo_thai_active());
+                photo_tone_selected[group]=option;photo_tone_confirm=0;photo_tone_working=0;photo_tone_anim_step=3;render();assert(!lang || photo_thai_active());
                 char name[128];snprintf(name,sizeof(name),"tones-%s-%02d",lang?"th":"en",ids[option]+1);save_proof(name);
             }
         }
     }
+    /* All 72 detail pages fit in each language, and preview never writes. */
+    for(int lang=0;lang<2;lang++) {
+        reset();tone_host_ready=1;photo_thai_enabled=lang;photo_tone_opened=1;
+        int before_writes=tone_host_write_calls;
+        for(int group=0;group<4;group++) {
+            photo_tone_group=group;int ids[PHOTO_TONE_COUNT],n=photo_tone_ids(group,ids);
+            for(int option=0;option<n;option++) {
+                photo_tone_selected[group]=option;photo_tone_confirm=1;photo_tone_working=0;render();
+                int index=ids[option];
+                if(index==0 || index==1 || index==5 || index==6 || index==39 || index==52) {
+                    char p[64];snprintf(p,sizeof(p),"tone-detail-%s-%02d",lang?"th":"en",index+1);save_proof(p);
+                }
+            }
+        }
+        assert(tone_host_write_calls==before_writes);photo_tone_confirm=0;
+    }
+    reset();tone_host_ready=1;photo_thai_enabled=1;photo_tone_opened=1;
+    photo_tone_group=0;photo_tone_selected[0]=0;photo_tone_confirm=0;photo_tone_working=0;
+    int no_writes=tone_host_write_calls;
+    press(BGMT_PRESS_RIGHT);save_proof("tone-zoom-0");
+    for(int frame=1;frame<4;frame++){render();char p[40];snprintf(p,sizeof(p),"tone-zoom-%d",frame);save_proof(p);}
+    assert(!photo_tone_animation_pending() && tone_host_write_calls==no_writes);
+    press(BGMT_PRESS_SET);int preview=photo_tone_current();press(BGMT_PRESS_LEFT);
+    assert(photo_tone_confirm==1 && photo_tone_current()==preview && tone_host_write_calls==no_writes);
+    press(BGMT_MENU);assert(!photo_tone_confirm && photo_tone_opened && tone_host_write_calls==no_writes);
     for(int lang=0;lang<2;lang++) {
         reset();tone_host_ready=1;photo_thai_enabled=lang;photo_tone_opened=1;
         tone_host_state=initial_state();photo_tone_group=0;photo_tone_selected[0]=0;
@@ -99,6 +125,10 @@ int main(void) {
         snprintf(path,sizeof(path),"tone-changed-%s",lang?"th":"en");save_proof(path);
         photo_tone_perform(2);
     }
+    unsigned char *info=photo_film_info;photo_film_info=NULL;photo_film_info_attempted=0;io_corrupt=1;
+    assert(!photo_film_info_prepare());io_corrupt=0;
+    photo_film_info_attempted=0;io_short=1;assert(!photo_film_info_prepare());io_short=0;
+    photo_film_info=info;photo_film_info_attempted=1;
     /* Bounded texture allocation may fail: the existing flat renderer stays usable. */
     unsigned char *cached=photo_film_texture;photo_film_texture=NULL;photo_film_texture_attempted=1;
     render();photo_film_texture=cached;

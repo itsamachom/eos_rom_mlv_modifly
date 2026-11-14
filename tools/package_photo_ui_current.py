@@ -35,6 +35,9 @@ assert version.encode() in binary, 'Build version differs from version file; reb
 assert len(binary) % 4 == 0
 assert functools.reduce(operator.xor, struct.unpack('<%dI' % (len(binary)//4), binary), 0) == 0
 assert payload['ML/data/PHOTO_TH.BIN'] == (root/'firmware/data/photo_thai/PHOTO_TH.BIN').read_bytes()
+if b'ML/data/TONEINFO.BIN' in binary:
+    assert payload['ML/data/TONEINFO.BIN']==(root/'firmware/data/photo_thai/TONEINFO.BIN').read_bytes()
+    assert payload['ML/data/TONEINFO_OFL.txt']==(root/'assets/fonts/noto-sans-thai/OFL.txt').read_bytes()
 assert sha256(payload['ML-SETUP.FIR']) == '7e33d8a2a71ad92c412d291fb0ecb6de0b9404c212571d51fd82f839688070e3'
 assert {Path(n).stem for n in payload if n.endswith('.mo')} == {'adv_int','autoexpo','deflick','dual_iso','ettr','file_man','img_name','pic_view','arkanoid','lua'}
 # Only indexed project sources: do not sweep local files or build outputs into the archive.

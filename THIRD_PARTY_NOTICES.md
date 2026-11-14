@@ -65,3 +65,7 @@ The compact label table additionally derives from M-Film's `ml-dev/filmos/tools/
 ### tone5 cylinder technique review
 
 M-Film's `fos_film.c` at the same pinned 8118e9c commit was reviewed for cylinder-angle texture projection, diffuse/specular/material profiles and palette dithering. Credit M-Film contributors for this approach. The fork implements an independent small integer column-profile adaptation and uses the already shipped RBF fonts, without importing the upstream texture/font engine or custom palette. See research/film-labels/CYLINDER_RENDERING.md and tools/generate_film_cylinder.py. Existing GPL label-data terms and notices remain.
+
+### tone6 reference descriptions and Thai masks
+
+Reference-character text derives from M-Film's DESC catalog and eight built-in descriptions at the same pinned commit; preserve GPL-2.0-only attribution to M-Film contributors. Short Thai translations/adaptations are recorded with the original English in research/film-labels/DETAILS_TH.json. TONEINFO.BIN contains bounded, CRC-checked offline masks shaped from Noto Sans Thai plus English reference strings. Preserve the Noto font OFL notice; TONEINFO_OFL.txt is included in the runtime data directory and the font source/license remains in assets/fonts/noto-sans-thai. No source photograph or RAW/LUT implementation is introduced.

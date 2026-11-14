@@ -338,19 +338,158 @@ static int photo_tone_matches(const struct photo_tone_recipe *r) {
         actual.wb[0]==9 && actual.wb[1]==9 && actual.wb[2]==r->kelvin && actual.wb[3]==r->kelvin && actual.wb[4]==r->gm && actual.wb[5]==r->ba;
 }
 
+/* Shared surface cache: snapshot the scratch card, extract art, then restore it. */
+static unsigned char *photo_film_surface;
+static int photo_film_surface_attempted,photo_tone_anim_step=3;
+static void photo_tone_art_release(void) {
+    if(photo_film_surface)fio_free(photo_film_surface);
+    photo_film_surface=NULL;photo_film_surface_attempted=0;
+}
+static int photo_tone_animation_pending(void) {
+    take_semaphore(menu_sem,0);
+    int pending=photo_tone_opened && !photo_tone_confirm && !photo_tone_working && photo_tone_anim_step<3;
+    give_semaphore(menu_sem);return pending;
+}
+static int photo_film_inset(int y,int h,int r) {
+    int q=y<r?r-y:y>=h-r?y-(h-r-1):0;
+    int n=r;while(n>0 && n*n+q*q>r*r)n--;
+    return q?r-n:0;
+}
+static void photo_film_round(int x,int y,int w,int h,int r,int fill,int edge) {
+    bmp_fill(COLOR_BLACK,x,y,w,h);
+    for(int j=0;j<h;j++) {
+        int k=photo_film_inset(j,h,r);
+        bmp_fill(edge,x+k,y+j,w-2*k,1);
+        if(j>0 && j<h-1 && w-2*k>2)bmp_fill(fill,x+k+1,y+j,w-2*k-2,1);
+    }
+}
+static int photo_film_scaled(int index,int dx,int dy,int dw,int dh,int clear_bg) {
+    if(!photo_film_surface_attempted) {
+        photo_film_surface_attempted=1;photo_film_surface=fio_malloc(212*238+176*194);
+    }
+    if(!photo_film_surface)return 0;
+    unsigned char *v=bmp_vram(),*sprite=photo_film_surface+212*238;
+    for(int y=0;y<238;y++)memcpy(photo_film_surface+y*212,v+(102+y)*BMPPITCH+24,212);
+    photo_tone_canister(24,index,0);
+    for(int y=0;y<194;y++)memcpy(sprite+y*176,v+(140+y)*BMPPITCH+51,176);
+    for(int y=0;y<238;y++)memcpy(v+(102+y)*BMPPITCH+24,photo_film_surface+y*212,212);
+    for(int y=0;y<dh;y++)for(int x=0;x<dw;x++) {
+        int c=sprite[(y*194/dh)*176+x*176/dw];
+        if(c!=COLOR_GRAY(3))bmp_putpixel_fast(v,dx+x,dy+y,c);
+        else if(clear_bg>=0)bmp_putpixel_fast(v,dx+x,dy+y,clear_bg);
+    }
+    return 1;
+}
+static void photo_film_center_title(int font,int x,int y,int width,const char *text,int fg,int bg) {
+    int f=font,w=bmp_string_width(FONT(f,fg,bg),text);
+    if(w>width){f=FONT_MED;w=bmp_string_width(FONT(f,fg,bg),text);}
+    photo_text(FONT(f,fg,bg),x+(width-w)/2,y,width,text);
+}
+static void photo_film_card(int x,int index,int chosen,int scale) {
+    int bg=COLOR_GRAY(3);
+    photo_film_round(x,102,212,238,14,bg,COLOR_GRAY(22));
+    if(!photo_film_scaled(index,x+100-73*scale/100,334-194*scale/100,176*scale/100,194*scale/100,-1))
+        photo_tone_canister_flat(x,index,0);
+    photo_film_center_title(FONT_MED_LARGE,x+1,108,210,photo_tone_recipes[index].name,chosen?COLOR_WHITE:COLOR_GRAY(76),bg);
+}
+#include "photo-film-details-data.h"
+static unsigned char *photo_film_info;
+static int photo_film_info_attempted;
+static int photo_film_info_prepare(void) {
+    if(photo_film_info_attempted)return photo_film_info!=NULL;
+    photo_film_info_attempted=1;uint32_t size=0;
+    if(FIO_GetFileSize("ML/data/TONEINFO.BIN",&size) || size!=PHOTO_FILM_INFO_BYTES || size>256*1024)return 0;
+    unsigned char *b=fio_malloc(size);if(!b)return 0;
+    FILE *f=FIO_OpenFile("ML/data/TONEINFO.BIN",O_RDONLY|O_SYNC);
+    if(!f){fio_free(b);return 0;}
+    int n=FIO_ReadFile(f,b,size);FIO_CloseFile(f);
+    if(n!=(int)size){fio_free(b);return 0;}
+    unsigned crc=~0u;
+    for(unsigned i=0;i<size;i++){crc^=b[i];for(int j=0;j<8;j++)crc=(crc>>1)^((crc&1)?0xedb88320u:0);}
+    if(~crc!=PHOTO_FILM_INFO_CRC || memcmp(b,"FTD6",4)){fio_free(b);return 0;}
+    photo_film_info=b;return 1;
+}
+static int photo_film_info_draw(int index,int x,int y,int color) {
+    if(!photo_thai_enabled || !photo_film_info_prepare() || index<0 || index>=PHOTO_FILM_INFO_COUNT)return 0;
+    struct {unsigned short w,h;unsigned off,bytes;} r;
+    memcpy(&r,photo_film_info+16+index*12,12);
+    if(r.w>368 || r.h>80 || x+r.w>720 || y+r.h>480 || r.off>PHOTO_FILM_INFO_BYTES || r.bytes>PHOTO_FILM_INFO_BYTES-r.off)return 0;
+    unsigned stride=(r.w+7)/8,total=stride*r.h,out=0,pos=r.off,end=r.off+r.bytes;
+    unsigned char *v=bmp_vram();
+    while(out<total && pos<end) {
+        unsigned tag=photo_film_info[pos++],run=(tag&127)+1;
+        if(run>total-out || (!(tag&128) && run>end-pos))return 0;
+        if(tag&128){out+=run;continue;}
+        while(run--) {
+            unsigned bits=photo_film_info[pos++],xx=(out%stride)*8,yy=out/stride;
+            for(unsigned k=0;k<8 && xx+k<r.w;k++)if(bits & (128>>k))bmp_putpixel_fast(v,x+xx+k,y+yy,color);
+            out++;
+        }
+    }
+    if(out!=total || pos!=end)return 0;
+    return 1;
+}
+static void photo_film_english_desc(int index) {
+    char line[64];
+    if(photo_film_info_prepare())snprintf(line,sizeof(line),"%.63s",photo_film_info+PHOTO_FILM_EN_OFFSET+index*64);
+    else snprintf(line,sizeof(line),"Native JPEG preset");
+    int cut=strlen(line);
+    while(cut && bmp_string_width(FONT(FONT_MED,COLOR_WHITE,COLOR_BLACK),line)>368){
+        char *p=strrchr(line,' ');if(!p)break;cut=p-line;*p=0;
+    }
+    photo_text(FONT(FONT_MED,COLOR_WHITE,COLOR_BLACK),320,201,368,line);
+    if(photo_film_info && cut<(int)strlen((char*)photo_film_info+PHOTO_FILM_EN_OFFSET+index*64))
+        photo_text(FONT(FONT_MED,COLOR_WHITE,COLOR_BLACK),320,232,368,(char*)photo_film_info+PHOTO_FILM_EN_OFFSET+index*64+cut+1);
+}
+static void photo_tone_detail(void) {
+    int i=photo_tone_current();const struct photo_tone_recipe *r=&photo_tone_recipes[i];
+    if(!photo_film_info_draw(75,320,56,COLOR_CYAN))photo_text(FONT(FONT_MED,COLOR_CYAN,COLOR_BLACK),320,56,380,"FILM DETAILS");
+    photo_film_round(14,94,286,330,18,COLOR_GRAY(3),COLOR_GRAY(20));
+    if(!photo_film_scaled(i,22,110,262,289,-1))photo_tone_canister_flat(24,i,0);
+    photo_text(FONT(FONT_LARGE,COLOR_WHITE,COLOR_BLACK),320,96,380,r->name);
+    photo_text(FONT(FONT_MED,COLOR_YELLOW,COLOR_BLACK),320,132,380,r->brand);
+    if(!photo_film_info_draw(72,320,165,COLOR_CYAN))photo_text(FONT(FONT_MED,COLOR_CYAN,COLOR_BLACK),320,165,380,"REFERENCE CHARACTER");
+    if(!photo_film_info_draw(i,320,201,COLOR_WHITE))photo_film_english_desc(i);
+    bmp_printf(FONT(FONT_MED,COLOR_WHITE,COLOR_BLACK),320,283,"ISO%d  %dK  %s",r->effective_iso,r->kelvin,r->process);
+    bmp_printf(FONT(FONT_MED,COLOR_WHITE,COLOR_BLACK),320,312,"%s C%+d S%d",r->style==0x86?"Mono":r->style==0x83?"Landscape":"Standard",r->contrast,r->sharpness);
+    if(r->style==0x86)bmp_printf(FONT(FONT_MED,COLOR_WHITE,COLOR_BLACK),320,342,"GM%+d BA%+d Filter/Tone kept",r->gm,r->ba);
+    else bmp_printf(FONT(FONT_MED,COLOR_WHITE,COLOR_BLACK),320,342,"Sat%+d Tone%+d GM%+d BA%+d",r->saturation,r->color_tone,r->gm,r->ba);
+    if(!photo_film_info_draw(74,320,385,COLOR_GRAY(75))) {
+        photo_text(FONT(FONT_MED,COLOR_GRAY(75),COLOR_BLACK),320,378,380,"Native JPEG presets");
+        photo_text(FONT(FONT_MED,COLOR_GRAY(75),COLOR_BLACK),320,406,380,"Several profiles share settings.");
+    }
+    if(photo_tone_working)photo_text(FONT(FONT_MED,COLOR_CYAN,COLOR_BLACK),16,442,688,"Setting tone - please wait");
+    else if(!photo_film_info_draw(73,16,442,COLOR_CYAN))photo_text(FONT(FONT_MED,COLOR_CYAN,COLOR_BLACK),16,442,688,"SET Apply   MENU Back");
+}
+static void photo_film_pill(const struct photo_tone_recipe *r,int index,int active) {
+    photo_text(FONT(FONT_MED,active?COLOR_CYAN:COLOR_WHITE,COLOR_BLACK),420,364,288,active?"Active JPEG tone":"FLIM TONE");
+    photo_film_round(422,393,230,43,12,COLOR_GRAY(10),COLOR_GRAY(7));
+    photo_film_round(420,390,230,43,12,COLOR_YELLOW,COLOR_ORANGE);
+    for(int y=2;y<41;y++) {
+        int k=photo_film_inset(y,43,12);
+        for(int x=k+1;x<230-k-1;x++)bmp_putpixel_fast(bmp_vram(),420+x,390+y,((x+y)&3)<(y*4/43)?COLOR_ORANGE:COLOR_YELLOW);
+    }
+    int f=bmp_string_width(FONT(FONT_LARGE,COLOR_BLACK,COLOR_YELLOW),r->name)<=210?FONT_LARGE:FONT_MED;
+    int w=bmp_string_width(FONT(f,COLOR_BLACK,COLOR_YELLOW),r->name);
+    photo_text(FONT(f,COLOR_BLACK,NO_BG_ERASE),430+(210-w)/2,395,w,r->name);
+    photo_film_scaled(index,656,376,50,56,-1);
+}
+
 static int photo_tone_draw(void) {
     photo_thai_prepare();
     bmp_fill(COLOR_BLACK,0,0,720,480);bmp_fill(COLOR_GRAY(5),0,0,720,48);
     photo_text(FONT(FONT_LARGE,COLOR_WHITE,COLOR_GRAY(5)),16,2,570,"FLIM TONE");
+    if(photo_tone_confirm==1){photo_tone_detail();return 1;}
     for(int g=0;g<4;g++) {
         int bg=g==photo_tone_group?COLOR_BLUE:COLOR_BLACK;
         int x=8+g*158,width=g==3?230:150;
         bmp_fill(bg,x,54,width,40);
-        photo_text(FONT(FONT_MED,g==photo_tone_group?COLOR_WHITE:COLOR_CYAN,bg),x+6,60,width-12,photo_tone_groups[g]);
+        photo_text(FONT(FONT_MED,g==photo_tone_group?COLOR_WHITE:COLOR_CYAN,bg),x+(width-bmp_string_width(FONT(FONT_MED,COLOR_WHITE,bg),photo_tone_groups[g]))/2,60,width-12,photo_tone_groups[g]);
     }
     int ids[PHOTO_TONE_COUNT],n=photo_tone_ids(photo_tone_group,ids),selected=photo_tone_selected[photo_tone_group];
     int first=selected/3*3;
-    for(int i=0;i<3 && first+i<n;i++)photo_tone_canister(24+i*234,ids[first+i],first+i==selected);
+    for(int i=0;i<3 && first+i<n;i++)photo_film_card(24+i*234,ids[first+i],first+i==selected,first+i==selected?84+photo_tone_anim_step*16/3:84);
+    if(photo_tone_anim_step<3)photo_tone_anim_step++;
     const struct photo_tone_recipe *r=&photo_tone_recipes[photo_tone_current()];
     bmp_printf(FONT(FONT_MED,COLOR_WHITE,COLOR_BLACK),16,350,"%d/%d ISO%d K%d",selected+1,n,r->effective_iso,r->kelvin);
     bmp_printf(FONT(FONT_MED,COLOR_WHITE,COLOR_BLACK),16,376,"GM%+d BA%+d",r->gm,r->ba);
@@ -363,38 +502,33 @@ static int photo_tone_draw(void) {
         else if(streq(message,"Tone ready - take a JPEG"))message="Settings changed in Canon";
     }
     photo_text(FONT(FONT_MED_LARGE,COLOR_CYAN,COLOR_BLACK),16,403,392,message);
-    int bg=COLOR_GRAY(7),border=active?COLOR_CYAN:COLOR_ORANGE;
-    bmp_fill(bg,420,363,288,72);bmp_draw_rect(border,420,363,288,72);
-    bmp_draw_rect(COLOR_GRAY(28),422,365,284,68);
-    photo_text(FONT(FONT_MED,active?COLOR_CYAN:COLOR_WHITE,bg),430,366,268,active?"Active JPEG tone":"FLIM TONE");
-    int f=bmp_string_width(FONT(FONT_LARGE,COLOR_WHITE,bg),badge->name)<=268?FONT_LARGE:FONT_MED_LARGE;
-    int name_width=bmp_string_width(FONT(f,COLOR_WHITE,bg),badge->name);
-    photo_text(FONT(f,COLOR_WHITE,bg),430+(268-name_width)/2,394,name_width,badge->name);
+    photo_film_pill(badge,active?photo_tone_session.active:photo_tone_current(),active);
     if(!photo_tone_working && !photo_tone_confirm && streq(photo_tone_message,"Settings not ready - retry")) {
         char first[33];snprintf(first,sizeof(first),"%.32s",photo_tone_read_detail);
         bmp_fill(COLOR_BLACK,16,347,392,54);
         photo_text(FONT(FONT_MED,COLOR_WHITE,COLOR_BLACK),16,350,392,first);
         photo_text(FONT(FONT_MED,COLOR_WHITE,COLOR_BLACK),16,376,392,strlen(photo_tone_read_detail)>32?photo_tone_read_detail+32:"");
     }
-    photo_text(FONT(FONT_MED,COLOR_CYAN,COLOR_BLACK),16,442,688,"L/R Tone  U/D Group  SET Apply  Q Restore  MENU Back");
+    photo_text(FONT(FONT_MED,COLOR_CYAN,COLOR_BLACK),16,442,688,"L/R Tone U/D Group SET Details Q Restore MENU Back");
     return 1;
 }
 /* Called with menu_sem held. Returns a pending action, dispatched outside it. */
 static int photo_tone_key(int key) {
     if(photo_tone_working)return 0;
-    if(key==BGMT_MENU){if(photo_tone_confirm)photo_tone_confirm=0;else photo_tone_opened=0;return 0;}
+    if(key==BGMT_MENU){if(photo_tone_confirm)photo_tone_confirm=0;else {photo_tone_opened=0;photo_tone_art_release();}return 0;}
+    if(photo_tone_confirm==1 && key!=BGMT_PRESS_SET)return 0;
     if(key==BGMT_PRESS_LEFT || key==BGMT_WHEEL_LEFT || key==BGMT_PRESS_RIGHT || key==BGMT_WHEEL_RIGHT) {
         int ids[PHOTO_TONE_COUNT],n=photo_tone_ids(photo_tone_group,ids);
         int d=key==BGMT_PRESS_LEFT || key==BGMT_WHEEL_LEFT?-1:1;
-        photo_tone_selected[photo_tone_group]=MOD(photo_tone_selected[photo_tone_group]+d,n);photo_tone_confirm=0;return 0;
+        photo_tone_selected[photo_tone_group]=MOD(photo_tone_selected[photo_tone_group]+d,n);photo_tone_confirm=0;photo_tone_anim_step=0;return 0;
     }
     if(key==BGMT_PRESS_UP || key==BGMT_WHEEL_UP || key==BGMT_PRESS_DOWN || key==BGMT_WHEEL_DOWN) {
-        photo_tone_group=MOD(photo_tone_group+(key==BGMT_PRESS_UP || key==BGMT_WHEEL_UP?-1:1),4);photo_tone_confirm=0;return 0;
+        photo_tone_group=MOD(photo_tone_group+(key==BGMT_PRESS_UP || key==BGMT_WHEEL_UP?-1:1),4);photo_tone_confirm=0;photo_tone_anim_step=0;return 0;
     }
     if(key==BGMT_Q){photo_tone_confirm=photo_tone_session.saved?2:0;photo_tone_message="No session backup";return 0;}
     if(key==BGMT_PRESS_SET) {
         if(!photo_tone_confirm){photo_tone_confirm=1;return 0;}
-        int action=photo_tone_confirm;photo_tone_confirm=0;photo_tone_working=1;photo_tone_step=0;photo_tone_steps=9;return action;
+        int action=photo_tone_confirm;photo_tone_confirm=action==1?1:0;photo_tone_anim_step=3;photo_tone_working=1;photo_tone_step=0;photo_tone_steps=9;return action;
     }
     return 0;
 }

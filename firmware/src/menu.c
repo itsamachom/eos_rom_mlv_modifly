@@ -5004,6 +5004,9 @@ menu_redraw_task()
             if (!menu_redraw_blocked)
             {
                 menu_redraw_do();
+                #ifdef CONFIG_600D
+                if(photo_tone_animation_pending()){msleep(35);menu_redraw();}
+                #endif
             }
         }
     }

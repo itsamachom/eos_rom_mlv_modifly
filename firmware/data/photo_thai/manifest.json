@@ -3,9 +3,9 @@
   "weight": 600,
   "font_version": "Version 2.002",
   "font_sha256": "5a1c559bb539583c8a1fd99d1c5b9491e5e14478c9cd2bd0970d5c3096cc9ef8",
-  "atlas_sha256": "52970a0c3b82cf070d19a9c34d45695f613536faeb999b8f15daaa2051a5622c",
-  "atlas_crc32": "c5b39ead",
-  "atlas_bytes": 509246,
+  "atlas_sha256": "b391521d0f5dacd47ff8c0ab39c39c7b68898e2b07d4578560b61192b390fe0e",
+  "atlas_crc32": "c51d629a",
+  "atlas_bytes": 509189,
   "translated_phrases": 370,
   "font_sizes": [
     23,
@@ -29,12 +29,12 @@
     "Active JPEG tone": 23,
     "Settings changed in Canon": 23,
     "No session backup": 23,
-    "L/R Tone  U/D Group  SET Apply  Q Restore  MENU Back": 23,
     "FLIM TONE": 23,
     "Color Film": 23,
     "Silde Film": 23,
     "Cinema": 23,
     "Black and White": 23,
-    "72 native JPEG presets; no RAW development.": 23
+    "72 native JPEG presets; no RAW development.": 23,
+    "L/R Tone U/D Group SET Details Q Restore MENU Back": 23
   }
 }

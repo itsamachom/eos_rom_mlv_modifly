@@ -1533,11 +1533,6 @@
     "max_width": 688,
     "font_size": 23
   },
-  "L/R Tone  U/D Group  SET Apply  Q Restore  MENU Back": {
-    "th": "ซ้าย/ขวา โทน  ขึ้น/ลง หมวด  SET ใช้  Q คืนค่า  MENU กลับ",
-    "max_width": 688,
-    "font_size": 23
-  },
   "FLIM TONE": {
     "th": "FLIM TONE",
     "max_width": 276,
@@ -1566,6 +1561,11 @@
   "72 native JPEG presets; no RAW development.": {
     "th": "72 รายการ JPEG ต้นฉบับ ไม่ต้องล้าง RAW",
     "max_width": 696,
+    "font_size": 23
+  },
+  "L/R Tone U/D Group SET Details Q Restore MENU Back": {
+    "th": "ซ้าย/ขวา โทน ขึ้น/ลง หมวด SET ดู Q คืนค่า MENU กลับ",
+    "max_width": 688,
     "font_size": 23
   }
 }

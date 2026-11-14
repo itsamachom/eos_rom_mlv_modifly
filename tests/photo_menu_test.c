@@ -24,6 +24,7 @@
 #define FONT_MED_LARGE 3
 #define FONT_LARGE 4
 #define BMPPITCH 720
+#define NO_BG_ERASE 255
 #define COLOR_BLACK 0
 #define COLOR_WHITE 1
 #define COLOR_BLUE 2
@@ -59,15 +60,15 @@ static const int menu_sem=1,gui_sem=2;
 static int photo_thai_enabled;
 static int io_missing,io_corrupt,io_short,thai_pixels;
 static unsigned char framebuffer[720*480];
-static const char * atlas_path(void) { const char * p=getenv("PHOTO_TEST_ATLAS");assert(p);return p; }
+static const char * tone_asset_path(const char *p) { return strstr(p,"TONEINFO.BIN")?getenv("PHOTO_TEST_TONE_INFO"):getenv("PHOTO_TEST_ATLAS"); }
 static int FIO_GetFileSize(const char * p,unsigned * size)
 {
-    (void)p;struct stat st;if(io_missing || stat(atlas_path(),&st))return -1;
+    const char *path=tone_asset_path(p);struct stat st;if(!path || io_missing || stat(path,&st))return -1;
     *size=(unsigned)st.st_size;return 0;
 }
 static void * fio_malloc(unsigned n) { assert(n<=512*1024);return malloc(n); }
 static void fio_free(void * p) { free(p); }
-static FILE * FIO_OpenFile(const char * p,int flags) { (void)p;(void)flags;return fopen(atlas_path(),"rb"); }
+static FILE * FIO_OpenFile(const char * p,int flags) { (void)flags;const char *path=tone_asset_path(p);return path?fopen(path,"rb"):NULL; }
 static int FIO_ReadFile(FILE * file,void * data,unsigned n)
 {
     int got=fread(data,1,n,file);
@@ -113,7 +114,8 @@ static void proof_ascii(int font,int x,int y,const char *text) {
         unsigned char * bits=font_data+h[8]+(*c-h[4])*h[0];
         for(int yy=0;yy<h[2];yy++)for(int xx=0;xx<w;xx++) {
             assert(x+xx>=0 && x+xx<720 && y+yy>=0 && y+yy<480);
-            framebuffer[(y+yy)*720+x+xx]=(bits[yy*stride+xx/8] & (1<<(xx%8))) ? FONT_FG(font) : (font>>16)&255;
+            if(bits[yy*stride+xx/8] & (1<<(xx%8)))framebuffer[(y+yy)*720+x+xx]=FONT_FG(font);
+            else if(((font>>16)&255)!=NO_BG_ERASE)framebuffer[(y+yy)*720+x+xx]=(font>>16)&255;
         }
         x+=w;
     }
@@ -223,7 +225,8 @@ static int photo_tone_platform_write(void *ctx,int op,const struct photo_tone_st
     else assert(!"Forbidden write operation");
     return 1;
 }
-void menu_redraw(void) {}
+static int photo_tone_animation_pending(void);
+void menu_redraw(void) { (void)photo_tone_animation_pending; }
 static void observe_snapshot(void);
 #define PHOTO_MENU_SNAPSHOT_OBSERVER() observe_snapshot()
 #include "../firmware/src/photo-menu-600d.h"

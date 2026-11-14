@@ -1,0 +1,582 @@
+{
+  "scope": "Thai reference-character descriptions; native JPEG preview recipes do not reproduce RAW/LUT/grain/IR effects. Numeric parameters shown on the camera are the actual applied recipe.",
+  "upstream_commit": "8118e9c7c072371bd53eda8920f44910e8a35baf",
+  "items": [
+    {
+      "key": "portra400",
+      "lines": [
+        "ผิวนุ่ม โทนอุ่น",
+        "ไฮไลต์นุ่มนวล"
+      ],
+      "en": "Soft warm skin, gentle highlights"
+    },
+    {
+      "key": "cinestill800t",
+      "lines": [
+        "ฟิล์มแสงทังสเตน",
+        "แนวอ้างอิงสำหรับกลางคืน"
+      ],
+      "en": "Tungsten cine film, night goes blue"
+    },
+    {
+      "key": "ektar100",
+      "lines": [
+        "สีสด คอนทราสต์เด่น",
+        "แนวฟิล์มเม็ดละเอียด"
+      ],
+      "en": "Punchy colour, ultra fine grain"
+    },
+    {
+      "key": "gold200",
+      "lines": [
+        "โทนทองอุ่น",
+        "แนวภาพทั่วไปและแสงเย็น"
+      ],
+      "en": "Golden hour, all day long"
+    },
+    {
+      "key": "superia400",
+      "lines": [
+        "เงาอมเขียว",
+        "แนวภาพถ่ายในชีวิตประจำวัน"
+      ],
+      "en": "Green shadows, everyday snaps"
+    },
+    {
+      "key": "velvia50",
+      "lines": [
+        "แนวฟิล์มสไลด์สีจัด",
+        "คอนทราสต์สูง"
+      ],
+      "en": "Vivid slide film, hard contrast"
+    },
+    {
+      "key": "hp5",
+      "lines": [
+        "แนวขาวดำคลาสสิก",
+        "น้ำหนักภาพนุ่มนวล"
+      ],
+      "en": "Classic B&W, forgiving latitude"
+    },
+    {
+      "key": "trix400",
+      "lines": [
+        "แนวขาวดำคอนทราสต์จัด",
+        "เหมาะเป็นแนวภาพสตรีท"
+      ],
+      "en": "Gritty contrast, street classic"
+    },
+    {
+      "key": "cinestill400t",
+      "lines": [
+        "แนวฟิล์มภาพยนตร์",
+        "โทนเย็นแบบสูตรต้นทาง"
+      ],
+      "en": "Cine film, cool shadows, red halos"
+    },
+    {
+      "key": "portra160",
+      "lines": [
+        "แนวเม็ดฟิล์มละเอียด",
+        "สีผิวเป็นธรรมชาติ"
+      ],
+      "en": "Fine grain, natural skin tones"
+    },
+    {
+      "key": "portra800",
+      "lines": [
+        "แนวพอร์ตเทรตแสงน้อย",
+        "คงบรรยากาศโทนอุ่น"
+      ],
+      "en": "Low light portraits, warm grain"
+    },
+    {
+      "key": "portra160nc",
+      "lines": [
+        "แนวสีธรรมชาติ",
+        "คอนทราสต์นุ่ม"
+      ],
+      "en": "Natural colour, soft contrast"
+    },
+    {
+      "key": "portra160vc",
+      "lines": [
+        "แนวสีสดขึ้น",
+        "เหมาะเป็นแนวพอร์ตเทรต"
+      ],
+      "en": "Vivid colour for portraits"
+    },
+    {
+      "key": "portra400nc",
+      "lines": [
+        "แนวสีผิวเป็นกลาง",
+        "โทนภาพนุ่มและสงบ"
+      ],
+      "en": "Neutral skin, quiet colour"
+    },
+    {
+      "key": "portra400vc",
+      "lines": [
+        "แนวพอร์ตเทรตสีสด",
+        "คงโทนอุ่นของฟิล์ม"
+      ],
+      "en": "More colour, same skin tones"
+    },
+    {
+      "key": "portra400uc",
+      "lines": [
+        "แนวสีสดจัด",
+        "ใช้เป็นแนวภาพทั่วไป"
+      ],
+      "en": "Ultra colour, punchy everyday"
+    },
+    {
+      "key": "elite200",
+      "lines": [
+        "แนวฟิล์มสีสว่าง",
+        "สีสดแบบฟิล์มทั่วไป"
+      ],
+      "en": "Bright consumer colour"
+    },
+    {
+      "key": "elite400",
+      "lines": [
+        "แนวฟิล์มสีใช้งานทั่วไป",
+        "อ้างอิงความไวแสงสูงขึ้น"
+      ],
+      "en": "Everyday colour, more speed"
+    },
+    {
+      "key": "pro160c",
+      "lines": [
+        "แนวภาพคมและสะอาด",
+        "สีออกเย็นเล็กน้อย"
+      ],
+      "en": "Crisp colour, cool and clean"
+    },
+    {
+      "key": "pro400h",
+      "lines": [
+        "แนวสีพาสเทลนุ่ม",
+        "บรรยากาศโปร่งเบา"
+      ],
+      "en": "Airy pastels, fourth colour layer"
+    },
+    {
+      "key": "pro800z",
+      "lines": [
+        "แนวพอร์ตเทรตกลางคืน",
+        "สีอ่อนและนุ่มนวล"
+      ],
+      "en": "Night portraits, soft palette"
+    },
+    {
+      "key": "reala100",
+      "lines": [
+        "แนวสีใกล้ธรรมชาติ",
+        "อ้างอิงฟิล์มเม็ดละเอียด"
+      ],
+      "en": "True-to-life colour, fine grain"
+    },
+    {
+      "key": "superia100",
+      "lines": [
+        "แนวภาพกลางวันสะอาด",
+        "ใช้โทนเขียวแบบฟูจิ"
+      ],
+      "en": "Clean daylight colour"
+    },
+    {
+      "key": "superia200",
+      "lines": [
+        "แนวสีเขียวแบบฟูจิ",
+        "ใช้เป็นแนวภาพทั่วไป"
+      ],
+      "en": "Fuji greens, everyday snaps"
+    },
+    {
+      "key": "superia800",
+      "lines": [
+        "แนวฟิล์มในอาคาร",
+        "สีและความไวแสงสูงขึ้น"
+      ],
+      "en": "Indoor speed, Fuji colour"
+    },
+    {
+      "key": "superia1600",
+      "lines": [
+        "แนวภาพกลางคืน",
+        "สีเด่นและบรรยากาศจัด"
+      ],
+      "en": "Night snaps, bold grain"
+    },
+    {
+      "key": "xtra800",
+      "lines": [
+        "แนวฟิล์มไวแสงสูง",
+        "เงาออกเย็นเล็กน้อย"
+      ],
+      "en": "Fast all-rounder, cool shadows"
+    },
+    {
+      "key": "vista200",
+      "lines": [
+        "แนวสีแดงโทนอุ่น",
+        "บรรยากาศวันพักผ่อน"
+      ],
+      "en": "Warm reds, holiday colour"
+    },
+    {
+      "key": "ultra100",
+      "lines": [
+        "แนวสีสดอิ่มตัว",
+        "สีเด่นแบบฟิล์มอักฟา"
+      ],
+      "en": "Saturated, punchy Agfa colour"
+    },
+    {
+      "key": "redscale100",
+      "lines": [
+        "แนวสีแดงและส้ม",
+        "อ้างอิงฟิล์มเรดสเกล"
+      ],
+      "en": "Shot through the back: red-orange"
+    },
+    {
+      "key": "velvia100",
+      "lines": [
+        "แนวสไลด์สีอิ่มตัว",
+        "นุ่มกว่าสูตรเวลเวียห้าสิบ"
+      ],
+      "en": "Rich colour, softer than the 50"
+    },
+    {
+      "key": "provia100f",
+      "lines": [
+        "แนวสไลด์สีเป็นกลาง",
+        "รักษาบรรยากาศสีธรรมชาติ"
+      ],
+      "en": "Neutral slide, faithful colour"
+    },
+    {
+      "key": "provia400f",
+      "lines": [
+        "แนวสไลด์ไวแสงสูง",
+        "ภาพสะอาด สีเป็นกลาง"
+      ],
+      "en": "Fast slide, clean colour"
+    },
+    {
+      "key": "provia400x",
+      "lines": [
+        "แนวสไลด์ความไวสูง",
+        "อ้างอิงเม็ดฟิล์มละเอียด"
+      ],
+      "en": "Fast slide, finer grain"
+    },
+    {
+      "key": "astia100f",
+      "lines": [
+        "แนวสไลด์สีอ่อน",
+        "เน้นผิวและพอร์ตเทรต"
+      ],
+      "en": "Soft slide film for skin"
+    },
+    {
+      "key": "sensia100",
+      "lines": [
+        "แนวสไลด์สีสว่าง",
+        "สีสดสำหรับภาพทั่วไป"
+      ],
+      "en": "Bright consumer slide"
+    },
+    {
+      "key": "kodachrome25",
+      "lines": [
+        "แนวแดงอุ่นแบบคลาสสิก",
+        "อ้างอิงเม็ดฟิล์มละเอียด"
+      ],
+      "en": "Legendary fine grain, deep reds"
+    },
+    {
+      "key": "kodachrome64",
+      "lines": [
+        "แนวสีภาพนิตยสารเก่า",
+        "แดงเด่นและเงาเข้ม"
+      ],
+      "en": "Magazine colour of the 70s"
+    },
+    {
+      "key": "kodachrome200",
+      "lines": [
+        "แนวโคดาโครมไวแสงสูง",
+        "โทนอุ่นเป็นเอกลักษณ์"
+      ],
+      "en": "Faster Kodachrome, warm grain"
+    },
+    {
+      "key": "e100gx",
+      "lines": [
+        "แนวเอ็กทาโครมโทนอุ่น",
+        "ภาพนุ่มนวล"
+      ],
+      "en": "Warm, gentle Ektachrome"
+    },
+    {
+      "key": "e100vs",
+      "lines": [
+        "แนวเอ็กทาโครมสีจัด",
+        "เน้นความอิ่มตัวของสี"
+      ],
+      "en": "Very saturated Ektachrome"
+    },
+    {
+      "key": "elitechrome200",
+      "lines": [
+        "แนวสไลด์ทั่วไป",
+        "สีเด่นแบบต้นฉบับ"
+      ],
+      "en": "Everyday Kodak slide"
+    },
+    {
+      "key": "elitechrome400",
+      "lines": [
+        "แนวสไลด์ไวแสงสูง",
+        "อ้างอิงบรรยากาศฟิล์ม"
+      ],
+      "en": "Fast Kodak slide, more grain"
+    },
+    {
+      "key": "extracolor100",
+      "lines": [
+        "แนวสไลด์สีอิ่มจัด",
+        "สีเข้มขึ้นตามแนวอ้างอิง"
+      ],
+      "en": "Extra saturated Kodak slide"
+    },
+    {
+      "key": "precisa100",
+      "lines": [
+        "แนวสไลด์โทนเย็น",
+        "ภาพคมและสะอาด"
+      ],
+      "en": "Cool, crisp Agfa slide"
+    },
+    {
+      "key": "elite100xpro",
+      "lines": [
+        "แนวสูตรครอสโปรเซส",
+        "คอนทราสต์และสีจัด"
+      ],
+      "en": "Slide in C-41: wild contrast"
+    },
+    {
+      "key": "superia200xpro",
+      "lines": [
+        "แนวครอสโปรเซส",
+        "ไฮไลต์ออกเหลือง"
+      ],
+      "en": "Cross-processed, yellow highlights"
+    },
+    {
+      "key": "xproslide200",
+      "lines": [
+        "แนวครอสโปรเซสสไลด์",
+        "สีฟ้าและเหลืองเด่น"
+      ],
+      "en": "Cross-process blues and yellows"
+    },
+    {
+      "key": "tmax100",
+      "lines": [
+        "แนวขาวดำเม็ดละเอียด",
+        "ไล่น้ำหนักภาพนุ่ม"
+      ],
+      "en": "Ultra fine grain, smooth tones"
+    },
+    {
+      "key": "tmax400",
+      "lines": [
+        "แนวขาวดำสมัยใหม่",
+        "ภาพคมและรายละเอียดเด่น"
+      ],
+      "en": "Sharp, modern B&W"
+    },
+    {
+      "key": "tmax3200",
+      "lines": [
+        "แนวขาวดำแสงน้อย",
+        "บรรยากาศกลางคืน"
+      ],
+      "en": "Push-ready, grainy nights"
+    },
+    {
+      "key": "bw400cn",
+      "lines": [
+        "แนวขาวดำแบบซีสี่สิบเอ็ด",
+        "น้ำหนักภาพนุ่มนวล"
+      ],
+      "en": "Chromogenic B&W, smooth grain"
+    },
+    {
+      "key": "hie",
+      "lines": [
+        "แนวขาวดำอินฟราเรด",
+        "เป็นลักษณะอ้างอิงเท่านั้น"
+      ],
+      "en": "Infrared: white leaves, dark skies"
+    },
+    {
+      "key": "delta100",
+      "lines": [
+        "แนวขาวดำคมละเอียด",
+        "น้ำหนักภาพสะอาด"
+      ],
+      "en": "Fine, sharp modern B&W"
+    },
+    {
+      "key": "delta400",
+      "lines": [
+        "แนวขาวดำใช้งานทั่วไป",
+        "อ้างอิงน้ำหนักภาพนุ่ม"
+      ],
+      "en": "Smooth grain at 400"
+    },
+    {
+      "key": "delta3200",
+      "lines": [
+        "แนวขาวดำไวแสงสูง",
+        "บรรยากาศแสงน้อย"
+      ],
+      "en": "Pushes into the dark"
+    },
+    {
+      "key": "fp4",
+      "lines": [
+        "แนวขาวดำคลาสสิก",
+        "ความไวแสงปานกลาง"
+      ],
+      "en": "Classic medium speed B&W"
+    },
+    {
+      "key": "panf50",
+      "lines": [
+        "แนวขาวดำเม็ดละเอียดมาก",
+        "อ้างอิงฟิล์มไวแสงต่ำ"
+      ],
+      "en": "Slow, super fine grain"
+    },
+    {
+      "key": "hps800",
+      "lines": [
+        "แนวขาวดำคลาสสิกไวสูง",
+        "คงบรรยากาศฟิล์มเก่า"
+      ],
+      "en": "Fast classic Ilford"
+    },
+    {
+      "key": "xp2",
+      "lines": [
+        "แนวขาวดำซีสี่สิบเอ็ด",
+        "น้ำหนักภาพนุ่ม"
+      ],
+      "en": "C-41 B&W, smooth tones"
+    },
+    {
+      "key": "acros100",
+      "lines": [
+        "แนวขาวดำสะอาดละเอียด",
+        "เงาดำลึก"
+      ],
+      "en": "Fine grain, deep blacks"
+    },
+    {
+      "key": "neopan1600",
+      "lines": [
+        "แนวขาวดำไวแสงสูง",
+        "คอนทราสต์เด่น"
+      ],
+      "en": "Fast and contrasty B&W"
+    },
+    {
+      "key": "apx25",
+      "lines": [
+        "แนวขาวดำไวแสงต่ำ",
+        "อ้างอิงรายละเอียดสูง"
+      ],
+      "en": "Very fine, slow Agfa B&W"
+    },
+    {
+      "key": "apx100",
+      "lines": [
+        "แนวขาวดำอักฟาคลาสสิก",
+        "ใช้เป็นแนวภาพทั่วไป"
+      ],
+      "en": "Classic Agfa B&W"
+    },
+    {
+      "key": "retro80s",
+      "lines": [
+        "แนวขาวดำเรโทร",
+        "อ้างอิงการตอบสนองสีแดง"
+      ],
+      "en": "Extended red, dark skies"
+    },
+    {
+      "key": "retro100",
+      "lines": [
+        "แนวขาวดำเรโทรโทนัล",
+        "ไล่น้ำหนักภาพนุ่ม"
+      ],
+      "en": "Soft tonal B&W"
+    },
+    {
+      "key": "ortho25",
+      "lines": [
+        "แนวขาวดำออร์โท",
+        "เป็นลักษณะอ้างอิงเท่านั้น"
+      ],
+      "en": "Orthochromatic: reds go dark"
+    },
+    {
+      "key": "ir400",
+      "lines": [
+        "แนวขาวดำอินฟราเรด",
+        "ไม่ได้เปลี่ยนเซนเซอร์กล้อง"
+      ],
+      "en": "Infrared touch, glowing foliage"
+    },
+    {
+      "key": "kodak2383",
+      "lines": [
+        "แนวฟิล์มพิมพ์ภาพยนตร์",
+        "อ้างอิงเงาสีฟ้าเขียว"
+      ],
+      "en": "Cinema print: teal shadows"
+    },
+    {
+      "key": "kodak2393",
+      "lines": [
+        "แนวฟิล์มพิมพ์ภาพยนตร์",
+        "สีเข้มและคอนทราสต์เด่น"
+      ],
+      "en": "Cinema print, richer blacks"
+    },
+    {
+      "key": "fuji3510",
+      "lines": [
+        "แนวฟิล์มพิมพ์ภาพยนตร์ฟูจิ",
+        "สีอ่อนและนุ่มนวล"
+      ],
+      "en": "Fuji print film, soft colour"
+    },
+    {
+      "key": "fuji3513",
+      "lines": [
+        "แนวฟิล์มพิมพ์ภาพยนตร์",
+        "อ้างอิงงานดิจิทัลมาสเตอร์"
+      ],
+      "en": "Fuji print for digital masters"
+    }
+  ]
+}

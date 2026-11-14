@@ -92,6 +92,7 @@ static const struct photo_page photo_pages[] = {
 };
 
 static int photo_tone_opened;
+static void photo_tone_art_release(void);
 static int photo_page_index;
 static int photo_selection[COUNT(photo_pages)];
 static int photo_classic;
@@ -120,6 +121,7 @@ static void photo_menu_reset(void)
     take_semaphore(menu_sem, 0);
     photo_classic = 0;
     photo_tone_opened = 0;
+    photo_tone_art_release();
     photo_pane = PHOTO_CATEGORIES;
     photo_detail_index = photo_editing = photo_confirm = 0;
     photo_display_target[0] = 0;
@@ -665,7 +667,7 @@ static int photo_menu_key(int key)
     take_semaphore(menu_sem, 0);
     if(key==BGMT_PRESS_HALFSHUTTER) {
         int consume=photo_tone_opened && photo_tone_working;
-        if(!consume)photo_tone_opened=0;
+        if(!consume){photo_tone_opened=0;photo_tone_art_release();}
         give_semaphore(menu_sem);return consume;
     }
     if (photo_native_busy) { give_semaphore(menu_sem); return 1; }
