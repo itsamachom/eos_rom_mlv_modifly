@@ -1,0 +1,26 @@
+{
+  "project": "FIRMWARE ADD-ON Thai-Menu",
+  "project_website": "https://itsamachom.github.io/eos_rom_mlv_modifly/",
+  "distribution_status": "Public Experimental; not Stable or source-audit complete",
+  "version": "PHOTO-UI-v3r6-tone5.600D.102",
+  "target": "600D.102",
+  "base_commit": "216499700f9992e62187569a4cf07d61891850ad",
+  "source_state": "Exact indexed build/source files and notes; generated DOWNLOAD.md is omitted to avoid checksum self-reference. Base commit plus working changes, not base alone.",
+  "source_zip_sha256": "4241be08e63310862a65f35b346d7f47f6d7dba65553648de64a9ee60e222092",
+  "autoexec_sha256": "edb6d9fd6925504162dd233c4550d553a99f79ebf4fe85605a56bb8cf661e4c5",
+  "camera_tested": false,
+  "qemu_tested": false,
+  "installer_modified": false,
+  "packager_checks": [
+    "build-version identity",
+    "ZIP CRC",
+    "autoexec XOR",
+    "Thai atlas identity",
+    "module inventory",
+    "unchanged installer",
+    "exact working-source bytes"
+  ],
+  "dependency_source_status": "Inherited dietlibc corresponding source remains unverified; see included release/v3r2/PROVENANCE.md and READINESS.json.",
+  "ai_assistance": "Codex/LLM-assisted fork; see AI_ASSISTANCE.md and release notes.",
+  "full_zip_sha256": "43742885d2b14385c71dfaba8bab3fe4c1f4d9544e3c82cef0f60318dae6b1f1"
+}
