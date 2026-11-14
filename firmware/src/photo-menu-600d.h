@@ -22,7 +22,7 @@ struct photo_page {
 };
 
 static const struct photo_item photo_shoot[] = {
-    {"JPEG Tones", "Shoot", "JPEG Tones"},
+    {"FLIM TONE", "Shoot", "FLIM TONE"},
     {"Time-lapse", "Shoot", "Intervalometer"},
     {"Bulb Timer", "Shoot", "Bulb Timer"},
     {"Bracketing", "Shoot", "Advanced Bracket"},
@@ -393,10 +393,10 @@ static int photo_menu_draw(void)
     photo_display_identity.valid = 0;
     photo_display_page = page_index;
     photo_display_item = index;
-    if (item->entry && streq(item->entry,"JPEG Tones"))
+    if (item->entry && streq(item->entry,"FLIM TONE"))
     {
-        photo_detail_row(0,"JPEG Tones","SET: Open",0);
-        snprintf(help,sizeof(help),"13 native JPEG recipes; no RAW development.");
+        photo_detail_row(0,"FLIM TONE","SET: Open",0);
+        snprintf(help,sizeof(help),"%d native JPEG presets; no RAW development.",PHOTO_TONE_COUNT);
     }
     else if (!item->entry && parent)
     {
@@ -606,7 +606,7 @@ static int photo_menu_key_locked(int key, struct photo_pending_action * pending)
     if (photo_pane < PHOTO_DETAILS && (right || set || q))
     {
         const struct photo_item * item = &page->items[photo_selection[photo_page_index]];
-        if (photo_pane == PHOTO_ITEMS && item->entry && streq(item->entry,"JPEG Tones"))
+        if (photo_pane == PHOTO_ITEMS && item->entry && streq(item->entry,"FLIM TONE"))
         {
             photo_tone_opened=1;photo_tone_confirm=0;
             return 1;

@@ -3,10 +3,10 @@
   "weight": 600,
   "font_version": "Version 2.002",
   "font_sha256": "5a1c559bb539583c8a1fd99d1c5b9491e5e14478c9cd2bd0970d5c3096cc9ef8",
-  "atlas_sha256": "3be4216dceddce70be66c6e1fbc9721e66fd90c2c19e3aea75bb6a7b24e96c65",
-  "atlas_crc32": "49d82d4f",
-  "atlas_bytes": 509776,
-  "translated_phrases": 375,
+  "atlas_sha256": "52970a0c3b82cf070d19a9c34d45695f613536faeb999b8f15daaa2051a5622c",
+  "atlas_crc32": "c5b39ead",
+  "atlas_bytes": 509246,
+  "translated_phrases": 370,
   "font_sizes": [
     23,
     28,
@@ -16,10 +16,6 @@
   "pillow": "13.0.0",
   "font_size_overrides": {
     "Normal MLU Delay": 25,
-    "JPEG Tones": 23,
-    "Cinema Tones": 23,
-    "Mono Tones": 23,
-    "13 native JPEG recipes; no RAW development.": 23,
     "JPEG / RAW+JPEG in Canon": 23,
     "Tone ready - take a JPEG": 23,
     "Original settings restored": 23,
@@ -34,7 +30,11 @@
     "Settings changed in Canon": 23,
     "No session backup": 23,
     "L/R Tone  U/D Group  SET Apply  Q Restore  MENU Back": 23,
-    "Color Tones": 23,
-    "Slide Tones": 23
+    "FLIM TONE": 23,
+    "Color Film": 23,
+    "Silde Film": 23,
+    "Cinema": 23,
+    "Black and White": 23,
+    "72 native JPEG presets; no RAW development.": 23
   }
 }

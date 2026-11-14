@@ -1,18 +1,18 @@
-# Thai-Menu v3r6-tone2 — โทนสี JPEG (รุ่นทดสอบ)
+# Thai-Menu v3r6-tone3 — โทนสี JPEG (รุ่นทดสอบ)
 
-เพิ่มเมนู **S → โทนสี JPEG** เป็นรายการแรกของหมวดถ่ายภาพ เลือกจากภาพม้วนฟิล์มใน 4 หมวด รวม 72 รายการตามชื่อและค่า ISO/Picture Style/WB ของต้นฉบับ (หลายรายการใช้ค่าซ้ำกัน) แล้วให้ Canon สร้าง JPEG ตามปกติ
+เพิ่มเมนู **S → FLIM TONE** เป็นรายการแรกของหมวดถ่ายภาพ เลือกจากภาพม้วนฟิล์มใน 4 หมวด รวม 72 รายการตามชื่อและค่า ISO/Picture Style/WB ของต้นฉบับ (หลายรายการใช้ค่าซ้ำกัน) แล้วให้ Canon สร้าง JPEG ตามปกติ
 
 **นี่คือ branch ทดสอบ ยังไม่ได้ลองถ่ายบนกล้องจริง ไม่ใช่รุ่น Stable** รุ่นหลัก **v3r5** และคู่มือเดิมยังอยู่ที่ [หน้าแรก main](https://github.com/itsamachom/eos_rom_mlv_modifly) และ [เว็บไซต์](https://itsamachom.github.io/eos_rom_mlv_modifly/)
 
-[วิธีใช้และข้อจำกัด](PHOTO_UI_V3R6-TONE2.md) · [สูตรและแหล่งที่มา](research/jpeg-tones/README.md) · [ซอร์สที่แก้](firmware/src/photo-tone-600d.h)
+[วิธีใช้และข้อจำกัด](PHOTO_UI_V3R6-TONE3.md) · [สูตรและแหล่งที่มา](research/jpeg-tones/README.md) · [ซอร์สที่แก้](firmware/src/photo-tone-600d.h)
 
 ## ดาวน์โหลดสำหรับทดลอง
 
 สำหรับกล้อง/การ์ดที่ใช้ Magic Lantern ได้อยู่แล้ว เลือก UPDATE และสำรองชุดเดิมทั้งชุดก่อนทดลอง ใช้เฉพาะ **Canon EOS 600D / Canon firmware 1.0.2** อ่าน [INSTALL_TH.md](INSTALL_TH.md) ก่อนคัดลอกไฟล์ ไม่เรียก Firmware Update ซ้ำเพื่ออัปเดตเมนู
 
-- [UPDATE ZIP](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/v3r6-tone2/downloads/v3r6-tone2/camera/600D-102-Thai-Menu-v3r6-tone2-UPDATE.zip)
-- [ซอร์สโค้ดตรงกับชุดทดสอบ](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/v3r6-tone2/deliveries/photo-ui-v3r6-tone2-full/600D-PHOTO-UI-v3r6-tone2-source.zip)
-- [SHA256](downloads/v3r6-tone2/SHA256SUMS)
+- [UPDATE ZIP](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/v3r6-tone3/downloads/v3r6-tone3/camera/600D-102-Thai-Menu-v3r6-tone3-UPDATE.zip)
+- [ซอร์สโค้ดตรงกับชุดทดสอบ](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/v3r6-tone3/deliveries/photo-ui-v3r6-tone3-full/600D-PHOTO-UI-v3r6-tone3-source.zip)
+- [SHA256](downloads/v3r6-tone3/SHA256SUMS)
 
 ## หน้าตาเมนู
 
@@ -31,7 +31,7 @@
 ## ใช้แบบย่อ
 
 1. เลือก P / Tv / Av / M และตั้งคุณภาพภาพใน Canon เป็น JPEG หรือ RAW+JPEG
-2. S → โทนสี JPEG → SET; ขึ้น/ลงเปลี่ยนหมวด ซ้าย/ขวาเปลี่ยนโทน
+2. S → FLIM TONE → SET; ขึ้น/ลงเปลี่ยนหมวด ซ้าย/ขวาเปลี่ยนโทน
 3. SET แล้ว SET ยืนยัน รอชื่อ **โทนที่ใช้อยู่** ก่อนถ่าย
 4. Q แล้ว SET คืนค่าเดิมที่สำรองใน RAM ก่อนปิดกล้อง การเปลี่ยนโทนแก้ Picture Style/WB/ISO ของ Canon จริง ซึ่งอาจคงอยู่หลังรีสตาร์ต ข้อมูลสำรองไม่ข้ามการปิดกล้อง
 
@@ -44,3 +44,9 @@
 UI และ adapter เขียนสำหรับโครงการนี้ มี Codex/LLM ช่วยพัฒนา ผ่าน host tests และ ARM build ยังต้องยืนยันการบูต/คุณภาพ JPEG/ความเร็วบน 600D จริง ข้อค้างซอร์ส inherited dietlibc ยังอยู่ตาม [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)
 
 ผู้พัฒนา: [YouTube Online2easy](https://www.youtube.com/@Online2easy) · [Facebook Online2easy](https://www.facebook.com/online2easy) · [Online2hobby Blog](https://online2hobby.blogspot.com/)
+
+## ตัวอย่างออกแบบภาพฟิล์ม — ยังไม่ใส่ในกล้อง
+
+[กล่องมุมเฉียง](design/film-concepts/v3r6-tone3/angled-box.png) · [ด้านหน้ากล่อง](design/film-concepts/v3r6-tone3/front-box.png) · [กลักฟิล์มเดี่ยว](design/film-concepts/v3r6-tone3/canister.png)
+
+ชื่อเมนูทดลอง: **FLIM TONE** · **Color Film** · **Silde Film** · **Cinema** · **Black and White** ตามการสะกดที่ขอ

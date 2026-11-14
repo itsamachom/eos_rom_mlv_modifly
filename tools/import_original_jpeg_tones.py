@@ -55,7 +55,7 @@ struct photo_tone_recipe {
     int group, style, contrast, sharpness, saturation, color_tone, kelvin, gm, ba;
     int box_iso, camera_iso, raw_iso, effective_iso;
 };
-static const char *const photo_tone_groups[] = {"Color Tones","Slide Tones","Cinema Tones","Mono Tones"};
+static const char *const photo_tone_groups[] = {"Color Film","Silde Film","Cinema","Black and White"};
 static const struct photo_tone_recipe photo_tone_recipes[] = {
 """
 for r in rows:

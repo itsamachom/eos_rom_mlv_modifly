@@ -10,7 +10,7 @@ struct photo_tone_recipe {
     int group, style, contrast, sharpness, saturation, color_tone, kelvin, gm, ba;
     int box_iso, camera_iso, raw_iso, effective_iso;
 };
-static const char *const photo_tone_groups[] = {"Color Tones","Slide Tones","Cinema Tones","Mono Tones"};
+static const char *const photo_tone_groups[] = {"Color Film","Silde Film","Cinema","Black and White"};
 static const struct photo_tone_recipe photo_tone_recipes[] = {
     {"Portra 400","KODAK","portra400","C-41",0,129,-1,2,-1,1,5500,0,1,400,400,88,400},
     {"800T","CINESTILL","cinestill800t","C-41",2,129,1,2,1,-1,3200,0,0,800,800,96,800},

@@ -148,11 +148,12 @@ static void photo_tone_canister(int x,int index,int selected) {
 static int photo_tone_draw(void) {
     photo_thai_prepare();
     bmp_fill(COLOR_BLACK,0,0,720,480);bmp_fill(COLOR_GRAY(5),0,0,720,48);
-    photo_text(FONT(FONT_LARGE,COLOR_WHITE,COLOR_GRAY(5)),16,2,570,"JPEG Tones");
+    photo_text(FONT(FONT_LARGE,COLOR_WHITE,COLOR_GRAY(5)),16,2,570,"FLIM TONE");
     for(int g=0;g<4;g++) {
         int bg=g==photo_tone_group?COLOR_BLUE:COLOR_BLACK;
-        bmp_fill(bg,8+g*178,54,170,40);
-        photo_text(FONT(FONT_MED,g==photo_tone_group?COLOR_WHITE:COLOR_CYAN,bg),14+g*178,60,158,photo_tone_groups[g]);
+        int x=8+g*158,width=g==3?230:150;
+        bmp_fill(bg,x,54,width,40);
+        photo_text(FONT(FONT_MED,g==photo_tone_group?COLOR_WHITE:COLOR_CYAN,bg),x+6,60,width-12,photo_tone_groups[g]);
     }
     int ids[PHOTO_TONE_COUNT],n=photo_tone_ids(photo_tone_group,ids),selected=photo_tone_selected[photo_tone_group];
     int first=selected/3*3;

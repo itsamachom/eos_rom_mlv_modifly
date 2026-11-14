@@ -1468,26 +1468,6 @@
     "th": "เปิดโมดูล lua",
     "max_width": 316
   },
-  "JPEG Tones": {
-    "th": "โทนสี JPEG",
-    "max_width": 276,
-    "font_size": 23
-  },
-  "Cinema Tones": {
-    "th": "ซีนีมา",
-    "max_width": 158,
-    "font_size": 23
-  },
-  "Mono Tones": {
-    "th": "ขาวดำ",
-    "max_width": 158,
-    "font_size": 23
-  },
-  "13 native JPEG recipes; no RAW development.": {
-    "th": "13 โทน JPEG ไม่ต้องล้าง RAW",
-    "max_width": 696,
-    "font_size": 23
-  },
   "JPEG / RAW+JPEG in Canon": {
     "th": "เลือก JPEG หรือ RAW+JPEG ใน Canon",
     "max_width": 688,
@@ -1558,14 +1538,34 @@
     "max_width": 688,
     "font_size": 23
   },
-  "Color Tones": {
-    "th": "ฟิล์มสี",
+  "FLIM TONE": {
+    "th": "FLIM TONE",
+    "max_width": 276,
+    "font_size": 23
+  },
+  "Color Film": {
+    "th": "Color Film",
     "max_width": 158,
     "font_size": 23
   },
-  "Slide Tones": {
-    "th": "ฟิล์มสไลด์",
+  "Silde Film": {
+    "th": "Silde Film",
     "max_width": 158,
+    "font_size": 23
+  },
+  "Cinema": {
+    "th": "Cinema",
+    "max_width": 158,
+    "font_size": 23
+  },
+  "Black and White": {
+    "th": "Black and White",
+    "max_width": 158,
+    "font_size": 23
+  },
+  "72 native JPEG presets; no RAW development.": {
+    "th": "72 รายการ JPEG ต้นฉบับ ไม่ต้องล้าง RAW",
+    "max_width": 696,
     "font_size": 23
   }
 }
