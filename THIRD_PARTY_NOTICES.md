@@ -61,3 +61,7 @@ v3r6-tone2 retains all 72 original preset names, native JPEG preview numbers and
 ### Stock-specific canister labels (tone4)
 
 The compact label table additionally derives from M-Film's `ml-dev/filmos/tools/catalog.py` and the eight built-in label cues in `ml-dev/filmos/fos_film.c`, pinned to the same 8118e9c commit. Credit HNGSeries/M-Film contributors; preserve GPL-2.0-only terms and the verbatim GPL text in research/jpeg-tones. Source hashes, original ramp/level data and scope are in research/film-labels/CATALOG.json. The independent renderer and compact letterforms are fork changes. No manufacturer photograph, third-party logo artwork, upstream raster label texture or RAW/LUT code is bundled by this change. Brand words identify presets and do not imply endorsement. Actual packaging varies; cross-process/cinema-print illustrations do not claim a retail cartridge existed. External retail-photo verification remains incomplete.
+
+### tone5 cylinder technique review
+
+M-Film's `fos_film.c` at the same pinned 8118e9c commit was reviewed for cylinder-angle texture projection, diffuse/specular/material profiles and palette dithering. Credit M-Film contributors for this approach. The fork implements an independent small integer column-profile adaptation and uses the already shipped RBF fonts, without importing the upstream texture/font engine or custom palette. See research/film-labels/CYLINDER_RENDERING.md and tools/generate_film_cylinder.py. Existing GPL label-data terms and notices remain.

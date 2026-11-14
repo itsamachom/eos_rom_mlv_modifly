@@ -12,7 +12,7 @@ with tempfile.TemporaryDirectory(prefix='jpeg-tone-proof-') as tmp:
  palette.update({120:(55,170,65),121:(15,85,35),122:(220,40,40),123:(130,20,40),124:(245,205,35),125:(150,60,170)})
  frames=[];records=[]
  for p in sorted(Path(tmp).glob('*.pgm')):
-  if not p.name.startswith(('tones-','tone-setting-')):continue
+  if not p.name.startswith(('tones-','tone-setting-','tone-active-','tone-browsing-','tone-changed-')):continue
   raw=Image.open(p);assert raw.size==(720,480);assert set(raw.tobytes())<=palette.keys()
   image=Image.frombytes('RGB',raw.size,b''.join(bytes(palette[v]) for v in raw.tobytes()))
   proof=Image.new('RGB',(720,510),'#111111');proof.paste(image,(0,30))

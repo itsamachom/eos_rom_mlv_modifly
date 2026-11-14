@@ -23,6 +23,7 @@
 #define FONT_MED 2
 #define FONT_MED_LARGE 3
 #define FONT_LARGE 4
+#define BMPPITCH 720
 #define COLOR_BLACK 0
 #define COLOR_WHITE 1
 #define COLOR_BLUE 2
@@ -81,25 +82,35 @@ static void bmp_putpixel_fast(uint8_t * b,int x,int y,int color)
 }
 static char output[30000];
 static int text_count;
-static int bmp_string_width(int font,const char * s) { return (int)strlen(s)*((font&255)==FONT_SMALL?8:(font&255)==FONT_MED?12:(font&255)==FONT_MED_LARGE?14:16); }
-/* Optional host proofs use the shipped RBF glyphs and production Thai blitter.
- * Camera values below are explicit test fixtures, never hardware readings. */
-static void proof_ascii(int font,int x,int y,const char * text)
-{
-    const char * dir=getenv("PHOTO_PROOF_RBF_DIR");if(!dir)return;
-    static unsigned char * rbf[5];
-    int id=FONT_ID(font);assert(id>=2 && id<=4);
+static int proof_measure_fonts;
+/* Use shipped metrics for the new JPEG captures; legacy menu fixtures retain their historical metrics. */
+static unsigned char *proof_font(int font) {
+    const char *dir=getenv("PHOTO_PROOF_RBF_DIR");int id=FONT_ID(font);
+    if(!dir || id<2 || id>4)return NULL;
+    static unsigned char *rbf[5];
     if(!rbf[id]) {
         char path[512];snprintf(path,sizeof(path),"%s/argnor%d.rbf",dir,id==2?23:id==3?28:32);
-        FILE * f=fopen(path,"rb");assert(f);assert(!fseek(f,0,SEEK_END));long size=ftell(f);rewind(f);
+        FILE *f=fopen(path,"rb");assert(f);assert(!fseek(f,0,SEEK_END));long size=ftell(f);rewind(f);
         rbf[id]=malloc(size);assert(rbf[id]);assert(fread(rbf[id],1,size,f)==(size_t)size);fclose(f);
     }
-    int h[11];memcpy(h,rbf[id]+72,sizeof(h));
+    return rbf[id];
+}
+static int bmp_string_width(int font,const char *s) {
+    unsigned char *rbf=proof_measure_fonts?proof_font(font):NULL;
+    if(!rbf)return (int)strlen(s)*((font&255)==FONT_SMALL?8:(font&255)==FONT_MED?12:(font&255)==FONT_MED_LARGE?14:16);
+    int h[11],width=0;memcpy(h,rbf+72,sizeof(h));
+    for(const unsigned char *c=(const unsigned char*)s;*c;c++){assert(*c>=h[4] && *c<=h[5]);width+=rbf[h[7]+*c-h[4]];}
+    return width;
+}
+/* Host captures draw exactly the same RBF glyphs measured above. */
+static void proof_ascii(int font,int x,int y,const char *text) {
+    unsigned char *font_data=proof_font(font);if(!font_data)return;
+    int h[11];memcpy(h,font_data+72,sizeof(h));
     int stride=h[0]/h[2];
     for(const unsigned char * c=(const unsigned char*)text;*c;c++) {
         assert(*c>=h[4] && *c<=h[5]);
-        int w=rbf[id][h[7]+*c-h[4]];
-        unsigned char * bits=rbf[id]+h[8]+(*c-h[4])*h[0];
+        int w=font_data[h[7]+*c-h[4]];
+        unsigned char * bits=font_data+h[8]+(*c-h[4])*h[0];
         for(int yy=0;yy<h[2];yy++)for(int xx=0;xx<w;xx++) {
             assert(x+xx>=0 && x+xx<720 && y+yy>=0 && y+yy<480);
             framebuffer[(y+yy)*720+x+xx]=(bits[yy*stride+xx/8] & (1<<(xx%8))) ? FONT_FG(font) : (font>>16)&255;

@@ -171,7 +171,7 @@ static void photo_film_center(int x,int y,int width,const char *text,int scale,i
     int n=strlen(text),max=(width+scale)/(6*scale);if(n>max)n=max;
     photo_film_text(x+(width-(n*6-1)*scale)/2,y,text,scale,0,color,n);
 }
-static void photo_tone_canister(int x,int index,int selected) {
+static void photo_tone_canister_flat(int x,int index,int selected) {
     const struct photo_tone_recipe *r=&photo_tone_recipes[index];
     const struct photo_film_label *l=&photo_film_labels[index];
     int frame=selected?COLOR_ORANGE:COLOR_GRAY(18);
@@ -234,6 +234,110 @@ static void photo_tone_canister(int x,int index,int selected) {
     }
 }
 
+#include "photo-film-cylinder-600d.h"
+/* One bounded, reusable ~19KiB label buffer. Low memory retains the flat renderer. */
+static unsigned char *photo_film_texture;
+static int photo_film_texture_attempted;
+static int photo_film_shade(int color,int light,int spec,int x,int y) {
+    static const unsigned char bayer[16]={0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5};
+    int q=bayer[(y&3)*4+(x&3)]*16+8;
+    int lo=COLOR_GRAY(0),hi=COLOR_GRAY(100);
+    if(color==COLOR_BLACK || color==COLOR_WHITE || (color>=lo && color<=hi)) {
+        int lum=color==COLOR_BLACK?0:color==COLOR_WHITE?255:(color-lo)*255/(hi-lo);
+        lum=(lum*light+spec*(255-lum))/255;if(lum>255)lum=255;
+        return COLOR_GRAY(lum*100/255);
+    }
+    if(spec>q)return COLOR_GRAY(65+spec*35/255);
+    if(light>225 || light>q)return color;
+    if(light>100) {
+        if(color==COLOR_RED)return COLOR_DARK_RED;
+        if(color==COLOR_GREEN1)return COLOR_GREEN2;
+        if(color==COLOR_YELLOW)return COLOR_ORANGE;
+    }
+    return COLOR_GRAY(3);
+}
+static void photo_film_caps(int x) {
+    for(int i=0;i<98;i++) {
+        int h=photo_film_cap_height[i],v=photo_film_columns[i*92/98].metal;
+        for(int y=-h;y<=h;y++)bmp_fill(COLOR_GRAY(y==-h || y==h?85:v),x+51+i,162+y,1,1);
+        int b=h*5/7;
+        for(int y=-b;y<=b;y++)bmp_fill(COLOR_GRAY(y==-b?75:v*2/3),x+51+i,316+y,1,1);
+    }
+    photo_tone_ellipse(x+100,160,41,4,COLOR_GRAY(7));
+    for(int i=0;i<26;i++)bmp_fill(COLOR_GRAY(5+photo_film_columns[i*92/26].metal/3),x+87+i,145,1,15);
+    photo_tone_ellipse(x+100,145,13,4,COLOR_GRAY(42));
+    photo_tone_ellipse(x+100,144,10,2,COLOR_BLACK);
+}
+static void photo_tone_canister(int x,int index,int selected) {
+    photo_tone_canister_flat(x,index,selected);
+    if(!photo_film_texture_attempted) {
+        photo_film_texture_attempted=1;
+        photo_film_texture=fio_malloc(144*134);
+    }
+    if(!photo_film_texture)return;
+    const struct photo_tone_recipe *r=&photo_tone_recipes[index];
+    const struct photo_film_label *l=&photo_film_labels[index];
+    /* Paint a wider label with the shipped RBF letterforms, then wrap it.
+     * This temporary plane is erased before the projected cylinder is shown. */
+    bmp_fill(l->bg,x+28,175,144,134);
+    if(l->pattern==0) {
+        bmp_fill(l->band,x+28,197,144,32);bmp_fill(l->accent,x+28,278,144,3);
+    }else if(l->pattern==1) {
+        bmp_fill(l->band,x+28,175,144,21);bmp_fill(l->accent,x+28,196,144,3);
+        bmp_fill(l->band,x+28,278,144,7);
+    }else {
+        bmp_fill(l->accent,x+28,178,144,3);
+        for(int i=0;i<144;i++)for(int j=0;j<2;j++)bmp_fill(l->accent,x+28+i,280+j*6-i/22,1,2);
+    }
+    int ink=l->text;
+    if(l->pattern==0 && (l->band==COLOR_YELLOW || l->band==COLOR_WHITE) && ink==COLOR_WHITE)ink=COLOR_BLACK;
+    int fw=bmp_string_width(FONT(FONT_MED,ink,l->bg),l->word);
+    bmp_printf(FONT(FONT_MED,ink,l->pattern==0?l->band:l->bg),x+100-fw/2,201,"%s",l->word);
+    fw=bmp_string_width(FONT(FONT_LARGE,l->num,l->bg),l->number);
+    bmp_printf(FONT(FONT_LARGE,l->num,l->bg),x+100-fw/2,235,"%s",l->number);
+    const char *sub=l->sub;
+    if(streq(sub,"PROFESSIONAL"))sub="PRO";
+    if(streq(sub,"COLOR PRINT"))sub="PRINT";
+    if(streq(sub,"SUPER PRESTO"))sub="PRESTO";
+    photo_film_center(x+40,270,120,sub,1,l->num);
+    photo_film_center(x+40,298,120,r->process,1,l->num);
+    photo_film_text(x+32,181,r->brand,1,1,l->num,20);
+    photo_film_text(x+161,181,r->name,1,1,l->num,20);
+    unsigned char *vram=bmp_vram();
+    for(int y=0;y<134;y++)memcpy(photo_film_texture+y*144,vram+(175+y)*BMPPITCH+x+28,144);
+    photo_tone_canister_flat(x,index,selected);
+    /* Angle-dependent texture projection, curved bands, smooth gray lighting,
+     * and ordered dithering for the existing fixed-color camera palette. */
+    for(int i=0;i<92;i++) {
+        const struct photo_film_column *c=&photo_film_columns[i];
+        for(int y=0;y<134;y++) {
+            int px=x+54+i,py=175+y+c->dy;
+            int color=photo_film_texture[y*144+c->u];
+            bmp_putpixel_fast(vram,px,py,photo_film_shade(color,c->light,c->spec,px,py));
+        }
+    }
+    for(int i=0;i<52;i++)for(int y=0;y<94;y++) {
+        if(i%12<6 && ((y>=6 && y<13) || (y>=80 && y<87)))continue;
+        int px=x+145+i,py=184+i*i/230+y;
+        int sheen=28-((y-28)<0?28-y:y-28);if(sheen<0)sheen=0;
+        int color=r->group==3?COLOR_GRAY(35):COLOR_ORANGE;
+        bmp_putpixel_fast(vram,px,py,photo_film_shade(color,70+i, sheen,px,py));
+    }
+    photo_film_caps(x);
+    if(photo_tone_working && selected) {
+        int k=photo_tone_step%4;
+        bmp_draw_rect(COLOR_WHITE,x+91,154,18,11);
+        bmp_fill(COLOR_CYAN,x+93+(k&1)*7,156+(k>>1)*4,5,3);
+    }
+}
+static int photo_tone_matches(const struct photo_tone_recipe *r) {
+    struct photo_tone_state actual;int slot=photo_tone_style_slot(r->style);
+    return photo_tone_platform_read(NULL,&actual) && actual.active==r->style && actual.raw_iso==r->raw_iso &&
+        actual.style[slot].contrast==r->contrast && actual.style[slot].sharpness==r->sharpness &&
+        (r->style==0x86 || (actual.style[slot].saturation==r->saturation && actual.style[slot].color_tone==r->color_tone)) &&
+        actual.wb[0]==9 && actual.wb[1]==9 && actual.wb[2]==r->kelvin && actual.wb[3]==r->kelvin && actual.wb[4]==r->gm && actual.wb[5]==r->ba;
+}
+
 static int photo_tone_draw(void) {
     photo_thai_prepare();
     bmp_fill(COLOR_BLACK,0,0,720,480);bmp_fill(COLOR_GRAY(5),0,0,720,48);
@@ -248,24 +352,30 @@ static int photo_tone_draw(void) {
     int first=selected/3*3;
     for(int i=0;i<3 && first+i<n;i++)photo_tone_canister(24+i*234,ids[first+i],first+i==selected);
     const struct photo_tone_recipe *r=&photo_tone_recipes[photo_tone_current()];
-    bmp_printf(FONT(FONT_MED,COLOR_WHITE,COLOR_BLACK),16,350,"%d/%d ISO%d K%d GM%+d BA%+d",selected+1,n,r->effective_iso,r->kelvin,r->gm,r->ba);
+    bmp_printf(FONT(FONT_MED,COLOR_WHITE,COLOR_BLACK),16,350,"%d/%d ISO%d K%d",selected+1,n,r->effective_iso,r->kelvin);
+    bmp_printf(FONT(FONT_MED,COLOR_WHITE,COLOR_BLACK),16,376,"GM%+d BA%+d",r->gm,r->ba);
     const char *message=photo_tone_working?"Setting tone - please wait":photo_tone_confirm==1?"Apply tone? SET confirms":photo_tone_confirm==2?"Restore session settings? SET":photo_tone_message;
-    if(!photo_tone_working && !photo_tone_confirm && photo_tone_session.active>=0 && streq(photo_tone_message,"Tone ready - take a JPEG")) {
-        struct photo_tone_state actual;
-        const struct photo_tone_recipe *active=&photo_tone_recipes[photo_tone_session.active];
-        int slot=photo_tone_style_slot(active->style);
-        int matches=photo_tone_platform_read(NULL,&actual) && actual.active==active->style && actual.raw_iso==active->raw_iso &&
-            actual.style[slot].contrast==active->contrast && actual.style[slot].sharpness==active->sharpness &&
-            (active->style==0x86 || (actual.style[slot].saturation==active->saturation && actual.style[slot].color_tone==active->color_tone)) &&
-            actual.wb[0]==9 && actual.wb[1]==9 && actual.wb[2]==active->kelvin && actual.wb[3]==active->kelvin && actual.wb[4]==active->gm && actual.wb[5]==active->ba;
-        if(matches){
-            photo_text(FONT(FONT_MED_LARGE,COLOR_CYAN,COLOR_BLACK),16,390,250,"Active JPEG tone");
-            photo_text(FONT(FONT_MED_LARGE,COLOR_WHITE,COLOR_BLACK),280,390,424,active->name);
-        }else photo_text(FONT(FONT_MED_LARGE,COLOR_CYAN,COLOR_BLACK),16,390,688,"Settings changed in Canon");
-    }else photo_text(FONT(FONT_MED_LARGE,COLOR_CYAN,COLOR_BLACK),16,390,688,message);
-    if(!photo_tone_working && !photo_tone_confirm && streq(photo_tone_message,"Settings not ready - retry"))
-        photo_text(FONT(FONT_MED,COLOR_WHITE,COLOR_BLACK),16,420,688,photo_tone_read_detail);
-    else bmp_printf(FONT(FONT_MED,COLOR_WHITE,COLOR_BLACK),16,420,"%s %s / %s",r->brand,r->name,r->process);
+    const struct photo_tone_recipe *badge=r;
+    int active=0;
+    if(!photo_tone_working && photo_tone_session.active>=0) {
+        const struct photo_tone_recipe *current=&photo_tone_recipes[photo_tone_session.active];
+        if(photo_tone_matches(current)){badge=current;active=1;}
+        else if(streq(message,"Tone ready - take a JPEG"))message="Settings changed in Canon";
+    }
+    photo_text(FONT(FONT_MED_LARGE,COLOR_CYAN,COLOR_BLACK),16,403,392,message);
+    int bg=COLOR_GRAY(7),border=active?COLOR_CYAN:COLOR_ORANGE;
+    bmp_fill(bg,420,363,288,72);bmp_draw_rect(border,420,363,288,72);
+    bmp_draw_rect(COLOR_GRAY(28),422,365,284,68);
+    photo_text(FONT(FONT_MED,active?COLOR_CYAN:COLOR_WHITE,bg),430,366,268,active?"Active JPEG tone":"FLIM TONE");
+    int f=bmp_string_width(FONT(FONT_LARGE,COLOR_WHITE,bg),badge->name)<=268?FONT_LARGE:FONT_MED_LARGE;
+    int name_width=bmp_string_width(FONT(f,COLOR_WHITE,bg),badge->name);
+    photo_text(FONT(f,COLOR_WHITE,bg),430+(268-name_width)/2,394,name_width,badge->name);
+    if(!photo_tone_working && !photo_tone_confirm && streq(photo_tone_message,"Settings not ready - retry")) {
+        char first[33];snprintf(first,sizeof(first),"%.32s",photo_tone_read_detail);
+        bmp_fill(COLOR_BLACK,16,347,392,54);
+        photo_text(FONT(FONT_MED,COLOR_WHITE,COLOR_BLACK),16,350,392,first);
+        photo_text(FONT(FONT_MED,COLOR_WHITE,COLOR_BLACK),16,376,392,strlen(photo_tone_read_detail)>32?photo_tone_read_detail+32:"");
+    }
     photo_text(FONT(FONT_MED,COLOR_CYAN,COLOR_BLACK),16,442,688,"L/R Tone  U/D Group  SET Apply  Q Restore  MENU Back");
     return 1;
 }

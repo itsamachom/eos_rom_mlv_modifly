@@ -22,6 +22,7 @@ static int fixture_write(void *ctx,int op,const struct photo_tone_state *s) {
 }
 int main(void) {
     assert(existing_photo_menu_tests()==0);
+    proof_measure_fonts=1;
     for(int i=0;i<PHOTO_TONE_COUNT;i++) {
         struct tone_fixture f={.state=initial_state(),.ready=1};
         struct photo_tone_io io={&f,fixture_ready,fixture_read,fixture_write,NULL};
@@ -85,6 +86,22 @@ int main(void) {
             }
         }
     }
+    for(int lang=0;lang<2;lang++) {
+        reset();tone_host_ready=1;photo_thai_enabled=lang;photo_tone_opened=1;
+        tone_host_state=initial_state();photo_tone_group=0;photo_tone_selected[0]=0;
+        photo_tone_session=(struct photo_tone_session){.active=-1};photo_tone_working=0;photo_tone_confirm=0;
+        photo_tone_perform(1);render();
+        char path[64];snprintf(path,sizeof(path),"tone-active-%s",lang?"th":"en");save_proof(path);
+        photo_tone_selected[0]=1;render();
+        assert(photo_tone_session.active==0); /* Browsing must not change the active recipe. */
+        snprintf(path,sizeof(path),"tone-browsing-%s",lang?"th":"en");save_proof(path);
+        tone_host_state.raw_iso=72;render();
+        snprintf(path,sizeof(path),"tone-changed-%s",lang?"th":"en");save_proof(path);
+        photo_tone_perform(2);
+    }
+    /* Bounded texture allocation may fail: the existing flat renderer stays usable. */
+    unsigned char *cached=photo_film_texture;photo_film_texture=NULL;photo_film_texture_attempted=1;
+    render();photo_film_texture=cached;
     photo_thai_enabled=1;photo_tone_group=0;photo_tone_selected[0]=0;
     for(int step=0;step<9;step++){photo_tone_working=1;photo_tone_step=step;render();char name[40];snprintf(name,sizeof(name),"tone-setting-%d",step);save_proof(name);}
     photo_tone_working=0;puts("PASS all tone/category screens and setting-indicator frames stay inside the real framebuffer in Thai/English");
