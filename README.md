@@ -8,11 +8,11 @@
 
 ## ชุดทดสอบใหม่: เมนูโทนสี JPEG
 
-**v3r6-tone4** ปรับภาพกลักฟิล์มเป็นทรงสูง พร้อมสี/ลาย/ชื่อแนวตั้งแยกตาม72ชื่อฟิล์ม อ้างอิงข้อมูลฉลาก M-Film ที่ระบุแหล่งที่มา สูตร ISO/Picture Style/WB เดิมไม่เปลี่ยน เมนูยังเป็น FLIM TONE / Color Film / Silde Film / Cinema / Black and White ภาพในกล้องเป็นภาพวาดขนาดเล็ก ไม่ใช่รูปสินค้าจริง; ยังตรวจภาพสินค้าจริงไม่ครบเพราะเว็บค้นรูปถูกเครือข่ายบล็อก
+**v3r6-tone5** เพิ่มการพันฉลากบนทรงกระบอก ไล่เงา/แสงสะท้อนและวัสดุฝาโลหะ พร้อมกรอบชื่อโทนที่ใช้อยู่มุมล่างขวา ชื่อ/สีฐานทั้ง72รายการและสูตรISO/WB/Picture Styleเดิมไม่เปลี่ยน เมื่อเลื่อนไปดูตัวอื่น กรอบยังแสดงโทนที่ใช้อยู่จริงจนกดSETยืนยันตัวใหม่ ภาพเป็นตัววาดขนาดเล็กในพาเลตเดิมของกล้อง
 
-[ดูหน้าตาเมนูและวิธีใช้](https://github.com/itsamachom/eos_rom_mlv_modifly/tree/v3r6-tone4) · [ดาวน์โหลด UPDATE รุ่นทดสอบ](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/v3r6-tone4/downloads/v3r6-tone4/camera/600D-102-Thai-Menu-v3r6-tone4-UPDATE.zip) · [ซอร์สตรงกับบิลด์](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/v3r6-tone4/deliveries/photo-ui-v3r6-tone4-full/600D-PHOTO-UI-v3r6-tone4-source.zip)
+[ดูหน้าตาเมนูและวิธีใช้](https://github.com/itsamachom/eos_rom_mlv_modifly/tree/v3r6-tone5) · [ดาวน์โหลด UPDATE รุ่นทดสอบ](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/v3r6-tone5/downloads/v3r6-tone5/camera/600D-102-Thai-Menu-v3r6-tone5-UPDATE.zip) · [ซอร์สตรงกับบิลด์](https://raw.githubusercontent.com/itsamachom/eos_rom_mlv_modifly/v3r6-tone5/deliveries/photo-ui-v3r6-tone5-full/600D-PHOTO-UI-v3r6-tone5-source.zip)
 
-[ดูภาพเมนูที่วาดจากโค้ด](https://github.com/itsamachom/eos_rom_mlv_modifly/blob/v3r6-tone4/previews/jpeg-tones/tones-th-01.png) · [ดูภาพและรายชื่อครบ72](https://github.com/itsamachom/eos_rom_mlv_modifly/blob/v3r6-tone4/research/film-labels/GALLERY_TH.md)
+[ดูภาพเมนูที่วาดจากโค้ด](https://github.com/itsamachom/eos_rom_mlv_modifly/blob/v3r6-tone5/previews/jpeg-tones/tone-active-th.png) · [ดูภาพและรายชื่อครบ72](https://github.com/itsamachom/eos_rom_mlv_modifly/blob/v3r6-tone5/research/film-labels/GALLERY_TH.md)
 
 ผ่าน host tests และ ARM build **ยังไม่ยืนยันบนกล้องจริง** ต้องใช้ Canon EOS 600D / firmware 1.0.2 ตั้ง JPEG หรือ RAW+JPEG และสำรองชุดเดิมก่อนทดลอง สูตรนี้ไม่ใช่ 72 ลุค LUT ที่ผ่านห้องล้างภาพของ M-Film รุ่นทดลองนี้เปลี่ยน ISO จริงตามต้นฉบับ รายละเอียดการคืนค่า Picture Style/WB/ISO ที่สำรองใน RAM อยู่ในวิธีใช้ของชุดทดสอบ ส่วนชุดหลัก v3r5 อยู่ด้านล่าง
 
