@@ -2,6 +2,7 @@
  * Recipe values credited in photo-tone-recipes-600d.h; graphics/UI written for this fork.
  * Included after photo_text; all UI state is protected by menu_sem. */
 #include "photo-tone-engine.h"
+#include "photo-film-labels-600d.h"
 static int photo_tone_opened,photo_tone_group,photo_tone_selected[4],photo_tone_confirm;
 static int photo_tone_working,photo_tone_step,photo_tone_steps;
 static const char *photo_tone_message="JPEG / RAW+JPEG in Canon";
@@ -109,42 +110,130 @@ static void photo_tone_ellipse(int cx,int cy,int rx,int ry,int color) {
         bmp_fill(color,cx-x,cy+y,2*x+1,1);
     }
 }
+/* Original compact lettering for miniature labels and 90-degree side names. */
+static const char photo_film_letters[]="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-+./ &";
+static const unsigned char photo_film_glyphs[][7]={
+    {14,17,17,31,17,17,17}, /* A */
+    {30,17,17,30,17,17,30}, /* B */
+    {15,16,16,16,16,16,15}, /* C */
+    {30,17,17,17,17,17,30}, /* D */
+    {31,16,16,30,16,16,31}, /* E */
+    {31,16,16,30,16,16,16}, /* F */
+    {15,16,16,23,17,17,15}, /* G */
+    {17,17,17,31,17,17,17}, /* H */
+    {31,4,4,4,4,4,31}, /* I */
+    {7,2,2,2,18,18,12}, /* J */
+    {17,18,20,24,20,18,17}, /* K */
+    {16,16,16,16,16,16,31}, /* L */
+    {17,27,21,21,17,17,17}, /* M */
+    {17,25,25,21,19,19,17}, /* N */
+    {14,17,17,17,17,17,14}, /* O */
+    {30,17,17,30,16,16,16}, /* P */
+    {14,17,17,17,21,18,13}, /* Q */
+    {30,17,17,30,20,18,17}, /* R */
+    {15,16,16,14,1,1,30}, /* S */
+    {31,4,4,4,4,4,4}, /* T */
+    {17,17,17,17,17,17,14}, /* U */
+    {17,17,17,17,17,10,4}, /* V */
+    {17,17,17,21,21,27,17}, /* W */
+    {17,17,10,4,10,17,17}, /* X */
+    {17,17,10,4,4,4,4}, /* Y */
+    {31,1,2,4,8,16,31}, /* Z */
+    {14,17,19,21,25,17,14}, /* 0 */
+    {4,12,4,4,4,4,14}, /* 1 */
+    {14,17,1,2,4,8,31}, /* 2 */
+    {30,1,1,14,1,1,30}, /* 3 */
+    {2,6,10,18,31,2,2}, /* 4 */
+    {31,16,16,30,1,1,30}, /* 5 */
+    {14,16,16,30,17,17,14}, /* 6 */
+    {31,1,2,4,8,8,8}, /* 7 */
+    {14,17,17,14,17,17,14}, /* 8 */
+    {14,17,17,15,1,1,14}, /* 9 */
+    {0,0,0,31,0,0,0}, /* - */
+    {0,4,4,31,4,4,0}, /* + */
+    {0,0,0,0,0,6,6}, /* . */
+    {1,1,2,4,8,16,16}, /* / */
+    {0,0,0,0,0,0,0}, /*   */
+    {12,18,20,8,21,18,13}, /* & */
+};
+static void photo_film_text(int x,int y,const char *text,int scale,int vertical,int color,int max_chars) {
+    for(int i=0;text[i] && i<max_chars;i++) {
+        char c=text[i];if(c>='a' && c<='z')c-=32;
+        const char *p=strchr(photo_film_letters,c);if(!p)continue;
+        const unsigned char *glyph=photo_film_glyphs[p-photo_film_letters];
+        for(int row=0;row<7;row++)for(int col=0;col<5;col++)if(glyph[row] & (16>>col)) {
+            int px=vertical?6-row:i*6+col,py=vertical?i*6+col:row;
+            bmp_fill(color,x+px*scale,y+py*scale,scale,scale);
+        }
+    }
+}
+static void photo_film_center(int x,int y,int width,const char *text,int scale,int color) {
+    int n=strlen(text),max=(width+scale)/(6*scale);if(n>max)n=max;
+    photo_film_text(x+(width-(n*6-1)*scale)/2,y,text,scale,0,color,n);
+}
 static void photo_tone_canister(int x,int index,int selected) {
     const struct photo_tone_recipe *r=&photo_tone_recipes[index];
+    const struct photo_film_label *l=&photo_film_labels[index];
     int frame=selected?COLOR_ORANGE:COLOR_GRAY(18);
     bmp_fill(COLOR_GRAY(3),x,102,212,238);bmp_draw_rect(frame,x,102,212,238);
     photo_text(FONT(FONT_MED_LARGE,selected?COLOR_ORANGE:COLOR_WHITE,COLOR_GRAY(3)),x+8,108,196,r->name);
-    /* Cast shadow, cylindrical metal body, rolled rims, spool and perforated leader. */
-    photo_tone_ellipse(x+106,318,78,7,COLOR_GRAY(1));
-    bmp_fill(COLOR_BLACK,x+170,184,8,115);
-    bmp_fill(COLOR_GRAY(24),x+178,200,27,91);
-    for(int y=206;y<285;y+=14){bmp_fill(COLOR_BLACK,x+180,y,4,6);bmp_fill(COLOR_BLACK,x+199,y,4,6);}
-    photo_tone_ellipse(x+105,302,68,12,COLOR_GRAY(55));
-    for(int i=0;i<134;i++) {
-        int light=i<44?12+i*55/44:67-(i-44)*57/90;
-        bmp_fill(COLOR_GRAY(light),x+38+i,180,1,121);
+    /* Tall 35mm cartridge: 92px body / 158px height, rounded rims and spool.
+     * Stock-specific labels are small GPL-derived data; all geometry/lettering
+     * here is independent. No SD reads, bitmap allocation or palette mutation. */
+    photo_tone_ellipse(x+105,329,61,5,COLOR_GRAY(1));
+    /* Curved perforated leader behind the body. */
+    for(int i=0;i<52;i++) {
+        int bend=i*i/230;
+        bmp_fill(COLOR_GRAY(r->group==3?25:31),x+145+i,184+bend,1,94);
+        if(i%12<6){bmp_fill(COLOR_GRAY(3),x+145+i,190+bend,1,7);bmp_fill(COLOR_GRAY(3),x+145+i,264+bend,1,7);}
     }
-    bmp_fill(COLOR_WHITE,x+45,184,2,108);
-    photo_tone_ellipse(x+105,178,69,12,COLOR_GRAY(12));
-    photo_tone_ellipse(x+105,172,66,10,COLOR_GRAY(72));
-    photo_tone_ellipse(x+103,170,55,7,COLOR_GRAY(88));
-    photo_tone_ellipse(x+105,162,17,5,COLOR_BLACK);
-    bmp_fill(COLOR_GRAY(55),x+90,156,30,7);
-    photo_tone_ellipse(x+105,156,15,4,COLOR_GRAY(80));
-    int band=r->group==3?COLOR_GRAY(82):r->group==1?COLOR_BLUE:r->group==2?COLOR_GRAY(12):COLOR_ORANGE;
-    int ink=(r->group==0 || r->group==3)?COLOR_BLACK:COLOR_WHITE;
-    bmp_fill(band,x+39,211,132,65);
-    bmp_fill(COLOR_BLACK,x+39,211,132,3);bmp_fill(COLOR_BLACK,x+39,273,132,3);
-    photo_text(FONT(FONT_MED,ink,band),x+44,216,123,r->brand);
-    bmp_printf(FONT(FONT_MED,ink,band),x+44,246,"%s %d",r->process,r->box_iso);
-    bmp_fill(COLOR_GRAY(15),x+48,282,110,12);
-    for(int i=0;i<18;i++)bmp_fill(i%3?COLOR_WHITE:COLOR_GRAY(25),x+51+i*5,283,2,10);
+    bmp_fill(COLOR_BLACK,x+143,178,6,131);
+    photo_tone_ellipse(x+100,317,48,9,COLOR_GRAY(40));
+    for(int i=0;i<92;i++) {
+        int light=i<28?17+i*60/28:77-(i-28)*64/64;
+        bmp_fill(COLOR_GRAY(light),x+54+i,166,1,150);
+    }
+    bmp_fill(l->bg,x+57,175,86,134);
+    if(l->pattern==0) {
+        bmp_fill(l->band,x+57,201,86,32);bmp_fill(l->accent,x+57,278,86,3);
+    }else if(l->pattern==1) {
+        bmp_fill(l->band,x+57,175,86,21);bmp_fill(l->accent,x+57,196,86,3);
+        bmp_fill(l->band,x+57,278,86,7);
+    }else {
+        bmp_fill(l->accent,x+57,178,86,3);
+        for(int i=0;i<86;i++)for(int j=0;j<2;j++)bmp_fill(l->accent,x+57+i,280+j*6-i/14,1,2);
+    }
+    int word_color=l->text;
+    if(l->pattern==0 && (l->band==COLOR_YELLOW || l->band==COLOR_WHITE) && word_color==COLOR_WHITE)word_color=COLOR_BLACK;
+    photo_film_center(x+68,211,62,l->word,1,word_color);
+    int num_scale=strlen(l->number)>3?2:3;
+    photo_film_center(x+68,243,62,l->number,num_scale,l->num);
+    const char *sub=l->sub;
+    if(streq(sub,"PROFESSIONAL"))sub="PRO";
+    if(streq(sub,"COLOR PRINT"))sub="PRINT";
+    if(streq(sub,"SUPER PRESTO"))sub="PRESTO";
+    photo_film_center(x+68,288,62,sub,1,l->num);
+    photo_film_center(x+68,301,62,r->process,1,l->num);
+    /* Side names identify every selected preset, not only its broad category. */
+    photo_film_text(x+58,183,r->brand,1,1,l->num,20);
+    photo_film_text(x+134,183,r->name,1,1,l->num,20);
+    /* Steel edge highlight and crimped black caps remain outside the label. */
+    bmp_fill(COLOR_GRAY(86),x+54,172,2,135);bmp_fill(COLOR_GRAY(25),x+144,172,2,135);
+    photo_tone_ellipse(x+100,313,47,5,COLOR_BLACK);
+    photo_tone_ellipse(x+100,316,47,5,COLOR_GRAY(35));
+    photo_tone_ellipse(x+100,163,49,8,COLOR_BLACK);
+    photo_tone_ellipse(x+99,160,46,6,COLOR_GRAY(48));
+    photo_tone_ellipse(x+100,159,40,4,COLOR_BLACK);
+    bmp_fill(COLOR_BLACK,x+87,145,26,14);
+    photo_tone_ellipse(x+100,145,13,4,COLOR_GRAY(35));
+    photo_tone_ellipse(x+100,144,9,2,COLOR_BLACK);
     if(photo_tone_working && selected) {
         int pos=photo_tone_step%4;
-        bmp_draw_rect(COLOR_WHITE,x+94,167,22,16);
-        bmp_fill(COLOR_CYAN,x+96+(pos&1)*9,169+(pos>>1)*6,7,4);
+        bmp_draw_rect(COLOR_WHITE,x+91,154,18,11);
+        bmp_fill(COLOR_CYAN,x+93+(pos&1)*7,156+(pos>>1)*4,5,3);
     }
 }
+
 static int photo_tone_draw(void) {
     photo_thai_prepare();
     bmp_fill(COLOR_BLACK,0,0,720,480);bmp_fill(COLOR_GRAY(5),0,0,720,48);

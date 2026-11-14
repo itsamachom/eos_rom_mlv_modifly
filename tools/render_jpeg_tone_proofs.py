@@ -9,6 +9,7 @@ with tempfile.TemporaryDirectory(prefix='jpeg-tone-proof-') as tmp:
  subprocess.run(['bash','tests/run-jpeg-tone-tests.sh'],cwd=root,env=env,check=True)
  palette={0:(0,0,0),1:(255,255,255),2:(20,75,150),3:(255,160,50),4:(80,220,255)}
  for i in range(10,111):palette[i]=(min(255,max(0,round((i-10)*2.55))),)*3
+ palette.update({120:(55,170,65),121:(15,85,35),122:(220,40,40),123:(130,20,40),124:(245,205,35),125:(150,60,170)})
  frames=[];records=[]
  for p in sorted(Path(tmp).glob('*.pgm')):
   if not p.name.startswith(('tones-','tone-setting-')):continue

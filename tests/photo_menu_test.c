@@ -28,6 +28,12 @@
 #define COLOR_BLUE 2
 #define COLOR_ORANGE 3
 #define COLOR_CYAN 4
+#define COLOR_GREEN1 120
+#define COLOR_GREEN2 121
+#define COLOR_RED 122
+#define COLOR_DARK_RED 123
+#define COLOR_YELLOW 124
+#define COLOR_MAGENTA 125
 #define COLOR_GRAY(a) ((a)+10)
 #define FONT_ID(font) ((font)&255)
 #define FONT_FG(font) (((font)>>8)&255)

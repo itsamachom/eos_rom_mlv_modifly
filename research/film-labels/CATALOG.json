@@ -1,0 +1,2316 @@
+{
+  "upstream": "https://github.com/HNGSeries/mfilm-canon-film-simulation",
+  "commit": "8118e9c7c072371bd53eda8920f44910e8a35baf",
+  "license": "GPL-2.0-only",
+  "source_sha256": {
+    "ml-dev/filmos/tools/catalog.py": "bdd882e192f17508a8e7ba3bb10b97b1d43102846150e8cea1bc8e4908aa7a34",
+    "ml-dev/filmos/fos_film.c": "31fb38be483e96f2992a8713df1536f7488f56ab9fd062136360e1b93d0c1a7c"
+  },
+  "photo_search_status": "External Google Images CONNECT rejected with HTTP403; no claim that every retail photograph was verified",
+  "labels": [
+    {
+      "key": "portra400",
+      "brand": "KODAK",
+      "name": "Portra 400",
+      "style": 1,
+      "bg": [
+        0,
+        226
+      ],
+      "band": [
+        2,
+        188
+      ],
+      "accent": [
+        4,
+        160
+      ],
+      "text": [
+        0,
+        22
+      ],
+      "num": [
+        0,
+        22
+      ],
+      "top": "KODAK PROFESSIONAL",
+      "word": "PORTRA",
+      "num_s": "400",
+      "sub": "",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "cinestill800t",
+      "brand": "CINESTILL",
+      "name": "800T",
+      "style": 2,
+      "bg": [
+        0,
+        20
+      ],
+      "band": [
+        0,
+        20
+      ],
+      "accent": [
+        3,
+        150
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        238
+      ],
+      "top": "CINESTILL",
+      "word": "CINESTILL",
+      "num_s": "800T",
+      "sub": "TUNGSTEN",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "ektar100",
+      "brand": "KODAK",
+      "name": "Ektar 100",
+      "style": 2,
+      "bg": [
+        5,
+        128
+      ],
+      "band": [
+        5,
+        128
+      ],
+      "accent": [
+        2,
+        188
+      ],
+      "text": [
+        0,
+        240
+      ],
+      "num": [
+        2,
+        188
+      ],
+      "top": "KODAK PROFESSIONAL",
+      "word": "EKTAR",
+      "num_s": "100",
+      "sub": "",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "gold200",
+      "brand": "KODAK",
+      "name": "Gold 200",
+      "style": 0,
+      "bg": [
+        2,
+        190
+      ],
+      "band": [
+        3,
+        148
+      ],
+      "accent": [
+        3,
+        148
+      ],
+      "text": [
+        0,
+        240
+      ],
+      "num": [
+        0,
+        22
+      ],
+      "top": "KODAK",
+      "word": "GOLD",
+      "num_s": "200",
+      "sub": "",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "superia400",
+      "brand": "FUJIFILM",
+      "name": "Superia 400",
+      "style": 0,
+      "bg": [
+        6,
+        140
+      ],
+      "band": [
+        6,
+        70
+      ],
+      "accent": [
+        3,
+        150
+      ],
+      "text": [
+        0,
+        240
+      ],
+      "num": [
+        0,
+        240
+      ],
+      "top": "FUJIFILM",
+      "word": "SUPERIA",
+      "num_s": "400",
+      "sub": "",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "velvia50",
+      "brand": "FUJIFILM",
+      "name": "Velvia 50",
+      "style": 2,
+      "bg": [
+        7,
+        118
+      ],
+      "band": [
+        7,
+        118
+      ],
+      "accent": [
+        7,
+        225
+      ],
+      "text": [
+        0,
+        240
+      ],
+      "num": [
+        7,
+        225
+      ],
+      "top": "FUJICHROME",
+      "word": "VELVIA",
+      "num_s": "50",
+      "sub": "RVP 50",
+      "leader": 70,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "hp5",
+      "brand": "ILFORD",
+      "name": "HP5 Plus",
+      "style": 0,
+      "bg": [
+        0,
+        236
+      ],
+      "band": [
+        0,
+        20
+      ],
+      "accent": [
+        8,
+        160
+      ],
+      "text": [
+        0,
+        240
+      ],
+      "num": [
+        0,
+        22
+      ],
+      "top": "ILFORD",
+      "word": "HP5",
+      "num_s": "400",
+      "sub": "PLUS",
+      "leader": 52,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "trix400",
+      "brand": "KODAK",
+      "name": "Tri-X 400",
+      "style": 0,
+      "bg": [
+        0,
+        18
+      ],
+      "band": [
+        2,
+        190
+      ],
+      "accent": [
+        3,
+        150
+      ],
+      "text": [
+        0,
+        22
+      ],
+      "num": [
+        0,
+        238
+      ],
+      "top": "KODAK",
+      "word": "TRI-X",
+      "num_s": "400",
+      "sub": "TX",
+      "leader": 48,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "cinestill400t",
+      "brand": "CINESTILL",
+      "name": "400T",
+      "style": 2,
+      "bg": [
+        0,
+        20
+      ],
+      "band": [
+        0,
+        20
+      ],
+      "accent": [
+        3,
+        150
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        238
+      ],
+      "top": "",
+      "word": "CINESTILL",
+      "num_s": "400T",
+      "sub": "CINE",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "portra160",
+      "brand": "KODAK",
+      "name": "Portra 160",
+      "style": 1,
+      "bg": [
+        0,
+        226
+      ],
+      "band": [
+        2,
+        190
+      ],
+      "accent": [
+        3,
+        150
+      ],
+      "text": [
+        0,
+        22
+      ],
+      "num": [
+        0,
+        22
+      ],
+      "top": "KODAK PROFESSIONAL",
+      "word": "PORTRA",
+      "num_s": "160",
+      "sub": "",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "portra800",
+      "brand": "KODAK",
+      "name": "Portra 800",
+      "style": 1,
+      "bg": [
+        0,
+        226
+      ],
+      "band": [
+        2,
+        190
+      ],
+      "accent": [
+        3,
+        150
+      ],
+      "text": [
+        0,
+        22
+      ],
+      "num": [
+        0,
+        22
+      ],
+      "top": "KODAK PROFESSIONAL",
+      "word": "PORTRA",
+      "num_s": "800",
+      "sub": "",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "portra160nc",
+      "brand": "KODAK",
+      "name": "Portra 160NC",
+      "style": 1,
+      "bg": [
+        0,
+        226
+      ],
+      "band": [
+        2,
+        190
+      ],
+      "accent": [
+        3,
+        150
+      ],
+      "text": [
+        0,
+        22
+      ],
+      "num": [
+        0,
+        22
+      ],
+      "top": "KODAK PROFESSIONAL",
+      "word": "PORTRA",
+      "num_s": "160",
+      "sub": "NC",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "portra160vc",
+      "brand": "KODAK",
+      "name": "Portra 160VC",
+      "style": 1,
+      "bg": [
+        0,
+        226
+      ],
+      "band": [
+        2,
+        190
+      ],
+      "accent": [
+        3,
+        150
+      ],
+      "text": [
+        0,
+        22
+      ],
+      "num": [
+        0,
+        22
+      ],
+      "top": "KODAK PROFESSIONAL",
+      "word": "PORTRA",
+      "num_s": "160",
+      "sub": "VC",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "portra400nc",
+      "brand": "KODAK",
+      "name": "Portra 400NC",
+      "style": 1,
+      "bg": [
+        0,
+        226
+      ],
+      "band": [
+        2,
+        190
+      ],
+      "accent": [
+        3,
+        150
+      ],
+      "text": [
+        0,
+        22
+      ],
+      "num": [
+        0,
+        22
+      ],
+      "top": "KODAK PROFESSIONAL",
+      "word": "PORTRA",
+      "num_s": "400",
+      "sub": "NC",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "portra400vc",
+      "brand": "KODAK",
+      "name": "Portra 400VC",
+      "style": 1,
+      "bg": [
+        0,
+        226
+      ],
+      "band": [
+        2,
+        190
+      ],
+      "accent": [
+        3,
+        150
+      ],
+      "text": [
+        0,
+        22
+      ],
+      "num": [
+        0,
+        22
+      ],
+      "top": "KODAK PROFESSIONAL",
+      "word": "PORTRA",
+      "num_s": "400",
+      "sub": "VC",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "portra400uc",
+      "brand": "KODAK",
+      "name": "Portra 400UC",
+      "style": 1,
+      "bg": [
+        0,
+        226
+      ],
+      "band": [
+        2,
+        190
+      ],
+      "accent": [
+        3,
+        150
+      ],
+      "text": [
+        0,
+        22
+      ],
+      "num": [
+        0,
+        22
+      ],
+      "top": "KODAK PROFESSIONAL",
+      "word": "PORTRA",
+      "num_s": "400",
+      "sub": "UC",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "elite200",
+      "brand": "KODAK",
+      "name": "Elite Color 200",
+      "style": 0,
+      "bg": [
+        2,
+        190
+      ],
+      "band": [
+        3,
+        148
+      ],
+      "accent": [
+        3,
+        148
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        22
+      ],
+      "top": "KODAK",
+      "word": "ELITE",
+      "num_s": "200",
+      "sub": "COLOR",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "elite400",
+      "brand": "KODAK",
+      "name": "Elite Color 400",
+      "style": 0,
+      "bg": [
+        2,
+        190
+      ],
+      "band": [
+        3,
+        148
+      ],
+      "accent": [
+        3,
+        148
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        22
+      ],
+      "top": "KODAK",
+      "word": "ELITE",
+      "num_s": "400",
+      "sub": "COLOR",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "pro160c",
+      "brand": "FUJIFILM",
+      "name": "Pro 160C",
+      "style": 0,
+      "bg": [
+        0,
+        236
+      ],
+      "band": [
+        6,
+        110
+      ],
+      "accent": [
+        6,
+        110
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        6,
+        90
+      ],
+      "top": "FUJICOLOR",
+      "word": "PRO",
+      "num_s": "160",
+      "sub": "160C",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "pro400h",
+      "brand": "FUJIFILM",
+      "name": "Pro 400H",
+      "style": 0,
+      "bg": [
+        0,
+        236
+      ],
+      "band": [
+        6,
+        110
+      ],
+      "accent": [
+        6,
+        110
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        6,
+        90
+      ],
+      "top": "FUJICOLOR",
+      "word": "PRO",
+      "num_s": "400",
+      "sub": "400H",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "pro800z",
+      "brand": "FUJIFILM",
+      "name": "Pro 800Z",
+      "style": 0,
+      "bg": [
+        0,
+        236
+      ],
+      "band": [
+        6,
+        110
+      ],
+      "accent": [
+        6,
+        110
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        6,
+        90
+      ],
+      "top": "FUJICOLOR",
+      "word": "PRO",
+      "num_s": "800",
+      "sub": "800Z",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "reala100",
+      "brand": "FUJIFILM",
+      "name": "Reala 100",
+      "style": 2,
+      "bg": [
+        8,
+        110
+      ],
+      "band": [
+        8,
+        110
+      ],
+      "accent": [
+        6,
+        150
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        238
+      ],
+      "top": "FUJICOLOR",
+      "word": "REALA",
+      "num_s": "100",
+      "sub": "",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "superia100",
+      "brand": "FUJIFILM",
+      "name": "Superia 100",
+      "style": 0,
+      "bg": [
+        6,
+        140
+      ],
+      "band": [
+        3,
+        140
+      ],
+      "accent": [
+        0,
+        238
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        238
+      ],
+      "top": "FUJIFILM",
+      "word": "SUPERIA",
+      "num_s": "100",
+      "sub": "",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "superia200",
+      "brand": "FUJIFILM",
+      "name": "Superia 200",
+      "style": 0,
+      "bg": [
+        6,
+        140
+      ],
+      "band": [
+        6,
+        70
+      ],
+      "accent": [
+        0,
+        238
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        238
+      ],
+      "top": "FUJIFILM",
+      "word": "SUPERIA",
+      "num_s": "200",
+      "sub": "",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "superia800",
+      "brand": "FUJIFILM",
+      "name": "Superia 800",
+      "style": 0,
+      "bg": [
+        6,
+        140
+      ],
+      "band": [
+        7,
+        100
+      ],
+      "accent": [
+        0,
+        238
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        238
+      ],
+      "top": "FUJIFILM",
+      "word": "SUPERIA",
+      "num_s": "800",
+      "sub": "",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "superia1600",
+      "brand": "FUJIFILM",
+      "name": "Superia 1600",
+      "style": 0,
+      "bg": [
+        6,
+        140
+      ],
+      "band": [
+        0,
+        24
+      ],
+      "accent": [
+        0,
+        238
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        238
+      ],
+      "top": "FUJIFILM",
+      "word": "SUPERIA",
+      "num_s": "1600",
+      "sub": "",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "xtra800",
+      "brand": "FUJIFILM",
+      "name": "X-TRA 800",
+      "style": 0,
+      "bg": [
+        6,
+        140
+      ],
+      "band": [
+        7,
+        100
+      ],
+      "accent": [
+        0,
+        238
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        238
+      ],
+      "top": "FUJIFILM",
+      "word": "X-TRA",
+      "num_s": "800",
+      "sub": "SUPERIA",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "vista200",
+      "brand": "AGFA",
+      "name": "Vista 200",
+      "style": 0,
+      "bg": [
+        3,
+        150
+      ],
+      "band": [
+        4,
+        175
+      ],
+      "accent": [
+        0,
+        238
+      ],
+      "text": [
+        0,
+        22
+      ],
+      "num": [
+        0,
+        238
+      ],
+      "top": "AGFA",
+      "word": "VISTA",
+      "num_s": "200",
+      "sub": "",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "ultra100",
+      "brand": "AGFA",
+      "name": "Ultra 100",
+      "style": 0,
+      "bg": [
+        5,
+        120
+      ],
+      "band": [
+        4,
+        175
+      ],
+      "accent": [
+        0,
+        238
+      ],
+      "text": [
+        0,
+        22
+      ],
+      "num": [
+        0,
+        238
+      ],
+      "top": "AGFA",
+      "word": "ULTRA",
+      "num_s": "100",
+      "sub": "COLOR",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "redscale100",
+      "brand": "LOMOGRAPHY",
+      "name": "Redscale 100",
+      "style": 0,
+      "bg": [
+        3,
+        150
+      ],
+      "band": [
+        0,
+        22
+      ],
+      "accent": [
+        4,
+        185
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        22
+      ],
+      "top": "LOMOGRAPHY",
+      "word": "REDSCALE",
+      "num_s": "100",
+      "sub": "",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "velvia100",
+      "brand": "FUJIFILM",
+      "name": "Velvia 100",
+      "style": 2,
+      "bg": [
+        7,
+        140
+      ],
+      "band": [
+        7,
+        140
+      ],
+      "accent": [
+        7,
+        225
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        7,
+        225
+      ],
+      "top": "FUJICHROME",
+      "word": "VELVIA",
+      "num_s": "100",
+      "sub": "RVP 100",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "provia100f",
+      "brand": "FUJIFILM",
+      "name": "Provia 100F",
+      "style": 2,
+      "bg": [
+        8,
+        140
+      ],
+      "band": [
+        8,
+        140
+      ],
+      "accent": [
+        6,
+        170
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        6,
+        190
+      ],
+      "top": "FUJICHROME",
+      "word": "PROVIA",
+      "num_s": "100",
+      "sub": "RDP III",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "provia400f",
+      "brand": "FUJIFILM",
+      "name": "Provia 400F",
+      "style": 2,
+      "bg": [
+        8,
+        110
+      ],
+      "band": [
+        8,
+        110
+      ],
+      "accent": [
+        6,
+        170
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        6,
+        190
+      ],
+      "top": "FUJICHROME",
+      "word": "PROVIA",
+      "num_s": "400",
+      "sub": "RHP III",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "provia400x",
+      "brand": "FUJIFILM",
+      "name": "Provia 400X",
+      "style": 2,
+      "bg": [
+        8,
+        80
+      ],
+      "band": [
+        8,
+        80
+      ],
+      "accent": [
+        6,
+        170
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        6,
+        190
+      ],
+      "top": "FUJICHROME",
+      "word": "PROVIA",
+      "num_s": "400",
+      "sub": "RXP",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "astia100f",
+      "brand": "FUJIFILM",
+      "name": "Astia 100F",
+      "style": 2,
+      "bg": [
+        4,
+        150
+      ],
+      "band": [
+        4,
+        150
+      ],
+      "accent": [
+        2,
+        215
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        2,
+        215
+      ],
+      "top": "FUJICHROME",
+      "word": "ASTIA",
+      "num_s": "100",
+      "sub": "RAP F",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "sensia100",
+      "brand": "FUJIFILM",
+      "name": "Sensia 100",
+      "style": 2,
+      "bg": [
+        6,
+        110
+      ],
+      "band": [
+        6,
+        110
+      ],
+      "accent": [
+        2,
+        200
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        2,
+        200
+      ],
+      "top": "FUJICHROME",
+      "word": "SENSIA",
+      "num_s": "100",
+      "sub": "",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "kodachrome25",
+      "brand": "KODAK",
+      "name": "Kodachrome 25",
+      "style": 0,
+      "bg": [
+        2,
+        190
+      ],
+      "band": [
+        3,
+        148
+      ],
+      "accent": [
+        3,
+        148
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        22
+      ],
+      "top": "KODAK",
+      "word": "KODACHROME",
+      "num_s": "25",
+      "sub": "KM",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "kodachrome64",
+      "brand": "KODAK",
+      "name": "Kodachrome 64",
+      "style": 0,
+      "bg": [
+        2,
+        190
+      ],
+      "band": [
+        3,
+        148
+      ],
+      "accent": [
+        3,
+        148
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        22
+      ],
+      "top": "KODAK",
+      "word": "KODACHROME",
+      "num_s": "64",
+      "sub": "KR",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "kodachrome200",
+      "brand": "KODAK",
+      "name": "Kodachrome 200",
+      "style": 0,
+      "bg": [
+        2,
+        190
+      ],
+      "band": [
+        3,
+        148
+      ],
+      "accent": [
+        3,
+        148
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        22
+      ],
+      "top": "KODAK",
+      "word": "KODACHROME",
+      "num_s": "200",
+      "sub": "KL",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "e100gx",
+      "brand": "KODAK",
+      "name": "Ektachrome E100GX",
+      "style": 2,
+      "bg": [
+        0,
+        22
+      ],
+      "band": [
+        0,
+        22
+      ],
+      "accent": [
+        2,
+        190
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        238
+      ],
+      "top": "KODAK PROFESSIONAL",
+      "word": "EKTACHROME",
+      "num_s": "100",
+      "sub": "E100GX",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "e100vs",
+      "brand": "KODAK",
+      "name": "Ektachrome E100VS",
+      "style": 2,
+      "bg": [
+        0,
+        22
+      ],
+      "band": [
+        0,
+        22
+      ],
+      "accent": [
+        3,
+        160
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        238
+      ],
+      "top": "KODAK PROFESSIONAL",
+      "word": "EKTACHROME",
+      "num_s": "100",
+      "sub": "E100VS",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "elitechrome200",
+      "brand": "KODAK",
+      "name": "Elite Chrome 200",
+      "style": 2,
+      "bg": [
+        8,
+        120
+      ],
+      "band": [
+        8,
+        120
+      ],
+      "accent": [
+        2,
+        190
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        2,
+        190
+      ],
+      "top": "KODAK",
+      "word": "ELITE",
+      "num_s": "200",
+      "sub": "CHROME",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "elitechrome400",
+      "brand": "KODAK",
+      "name": "Elite Chrome 400",
+      "style": 2,
+      "bg": [
+        8,
+        95
+      ],
+      "band": [
+        8,
+        95
+      ],
+      "accent": [
+        2,
+        190
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        2,
+        190
+      ],
+      "top": "KODAK",
+      "word": "ELITE",
+      "num_s": "400",
+      "sub": "CHROME",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "extracolor100",
+      "brand": "KODAK",
+      "name": "ExtraColor 100",
+      "style": 2,
+      "bg": [
+        8,
+        120
+      ],
+      "band": [
+        8,
+        120
+      ],
+      "accent": [
+        2,
+        190
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        238
+      ],
+      "top": "KODAK ELITE",
+      "word": "EXTRACOLOR",
+      "num_s": "100",
+      "sub": "",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "precisa100",
+      "brand": "AGFA",
+      "name": "Precisa 100",
+      "style": 2,
+      "bg": [
+        8,
+        100
+      ],
+      "band": [
+        8,
+        100
+      ],
+      "accent": [
+        4,
+        180
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        4,
+        190
+      ],
+      "top": "AGFA",
+      "word": "PRECISA",
+      "num_s": "100",
+      "sub": "CT",
+      "leader": 0,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "elite100xpro",
+      "brand": "KODAK",
+      "name": "Elite 100 X-Pro",
+      "style": 0,
+      "bg": [
+        0,
+        22
+      ],
+      "band": [
+        5,
+        120
+      ],
+      "accent": [
+        3,
+        150
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        238
+      ],
+      "top": "KODAK",
+      "word": "ELITE",
+      "num_s": "100",
+      "sub": "X-PRO",
+      "leader": 0,
+      "reference_status": "cross-process recipe illustration; not a unique retail canister"
+    },
+    {
+      "key": "superia200xpro",
+      "brand": "FUJIFILM",
+      "name": "Superia 200 X-Pro",
+      "style": 0,
+      "bg": [
+        6,
+        70
+      ],
+      "band": [
+        5,
+        120
+      ],
+      "accent": [
+        0,
+        238
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        238
+      ],
+      "top": "FUJIFILM",
+      "word": "SUPERIA",
+      "num_s": "200",
+      "sub": "X-PRO",
+      "leader": 0,
+      "reference_status": "cross-process recipe illustration; not a unique retail canister"
+    },
+    {
+      "key": "xproslide200",
+      "brand": "LOMOGRAPHY",
+      "name": "X-Pro Slide 200",
+      "style": 2,
+      "bg": [
+        0,
+        22
+      ],
+      "band": [
+        0,
+        22
+      ],
+      "accent": [
+        7,
+        170
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        7,
+        190
+      ],
+      "top": "LOMOGRAPHY",
+      "word": "X-PRO",
+      "num_s": "200",
+      "sub": "SLIDE",
+      "leader": 0,
+      "reference_status": "cross-process recipe illustration; not a unique retail canister"
+    },
+    {
+      "key": "tmax100",
+      "brand": "KODAK",
+      "name": "T-MAX 100",
+      "style": 0,
+      "bg": [
+        2,
+        190
+      ],
+      "band": [
+        0,
+        22
+      ],
+      "accent": [
+        0,
+        22
+      ],
+      "text": [
+        2,
+        190
+      ],
+      "num": [
+        0,
+        22
+      ],
+      "top": "KODAK PROFESSIONAL",
+      "word": "T-MAX",
+      "num_s": "100",
+      "sub": "TMX",
+      "leader": 50,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "tmax400",
+      "brand": "KODAK",
+      "name": "T-MAX 400",
+      "style": 0,
+      "bg": [
+        2,
+        190
+      ],
+      "band": [
+        0,
+        22
+      ],
+      "accent": [
+        0,
+        22
+      ],
+      "text": [
+        2,
+        190
+      ],
+      "num": [
+        0,
+        22
+      ],
+      "top": "KODAK PROFESSIONAL",
+      "word": "T-MAX",
+      "num_s": "400",
+      "sub": "TMY",
+      "leader": 50,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "tmax3200",
+      "brand": "KODAK",
+      "name": "T-MAX P3200",
+      "style": 0,
+      "bg": [
+        2,
+        190
+      ],
+      "band": [
+        0,
+        22
+      ],
+      "accent": [
+        0,
+        22
+      ],
+      "text": [
+        2,
+        190
+      ],
+      "num": [
+        0,
+        22
+      ],
+      "top": "KODAK PROFESSIONAL",
+      "word": "T-MAX",
+      "num_s": "3200",
+      "sub": "P3200",
+      "leader": 50,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "bw400cn",
+      "brand": "KODAK",
+      "name": "BW400CN",
+      "style": 2,
+      "bg": [
+        0,
+        232
+      ],
+      "band": [
+        0,
+        232
+      ],
+      "accent": [
+        2,
+        190
+      ],
+      "text": [
+        0,
+        22
+      ],
+      "num": [
+        0,
+        22
+      ],
+      "top": "KODAK PROFESSIONAL",
+      "word": "BW400CN",
+      "num_s": "400",
+      "sub": "C-41",
+      "leader": 50,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "hie",
+      "brand": "KODAK",
+      "name": "HIE Infrared",
+      "style": 2,
+      "bg": [
+        0,
+        20
+      ],
+      "band": [
+        0,
+        20
+      ],
+      "accent": [
+        3,
+        150
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        3,
+        160
+      ],
+      "top": "KODAK",
+      "word": "INFRARED",
+      "num_s": "400",
+      "sub": "HIE",
+      "leader": 50,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "delta100",
+      "brand": "ILFORD",
+      "name": "Delta 100",
+      "style": 0,
+      "bg": [
+        0,
+        236
+      ],
+      "band": [
+        0,
+        20
+      ],
+      "accent": [
+        8,
+        160
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        20
+      ],
+      "top": "ILFORD",
+      "word": "DELTA",
+      "num_s": "100",
+      "sub": "PROFESSIONAL",
+      "leader": 52,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "delta400",
+      "brand": "ILFORD",
+      "name": "Delta 400",
+      "style": 0,
+      "bg": [
+        0,
+        236
+      ],
+      "band": [
+        0,
+        20
+      ],
+      "accent": [
+        6,
+        150
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        20
+      ],
+      "top": "ILFORD",
+      "word": "DELTA",
+      "num_s": "400",
+      "sub": "PROFESSIONAL",
+      "leader": 52,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "delta3200",
+      "brand": "ILFORD",
+      "name": "Delta 3200",
+      "style": 0,
+      "bg": [
+        0,
+        236
+      ],
+      "band": [
+        0,
+        20
+      ],
+      "accent": [
+        7,
+        150
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        20
+      ],
+      "top": "ILFORD",
+      "word": "DELTA",
+      "num_s": "3200",
+      "sub": "PROFESSIONAL",
+      "leader": 52,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "fp4",
+      "brand": "ILFORD",
+      "name": "FP4 Plus",
+      "style": 0,
+      "bg": [
+        0,
+        236
+      ],
+      "band": [
+        0,
+        20
+      ],
+      "accent": [
+        3,
+        150
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        20
+      ],
+      "top": "ILFORD",
+      "word": "FP4",
+      "num_s": "125",
+      "sub": "PLUS",
+      "leader": 52,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "panf50",
+      "brand": "ILFORD",
+      "name": "Pan F Plus",
+      "style": 0,
+      "bg": [
+        0,
+        236
+      ],
+      "band": [
+        0,
+        20
+      ],
+      "accent": [
+        8,
+        200
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        20
+      ],
+      "top": "ILFORD",
+      "word": "PAN F",
+      "num_s": "50",
+      "sub": "PLUS",
+      "leader": 52,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "hps800",
+      "brand": "ILFORD",
+      "name": "HPS 800",
+      "style": 0,
+      "bg": [
+        0,
+        236
+      ],
+      "band": [
+        0,
+        20
+      ],
+      "accent": [
+        4,
+        170
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        20
+      ],
+      "top": "ILFORD",
+      "word": "HPS",
+      "num_s": "800",
+      "sub": "",
+      "leader": 52,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "xp2",
+      "brand": "ILFORD",
+      "name": "XP2 Super",
+      "style": 0,
+      "bg": [
+        0,
+        236
+      ],
+      "band": [
+        0,
+        20
+      ],
+      "accent": [
+        2,
+        190
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        20
+      ],
+      "top": "ILFORD",
+      "word": "XP2",
+      "num_s": "400",
+      "sub": "SUPER",
+      "leader": 52,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "acros100",
+      "brand": "FUJIFILM",
+      "name": "Acros 100",
+      "style": 2,
+      "bg": [
+        0,
+        22
+      ],
+      "band": [
+        0,
+        22
+      ],
+      "accent": [
+        0,
+        200
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        238
+      ],
+      "top": "FUJIFILM",
+      "word": "ACROS",
+      "num_s": "100",
+      "sub": "NEOPAN",
+      "leader": 50,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "neopan1600",
+      "brand": "FUJIFILM",
+      "name": "Neopan 1600",
+      "style": 0,
+      "bg": [
+        0,
+        236
+      ],
+      "band": [
+        0,
+        22
+      ],
+      "accent": [
+        0,
+        22
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        22
+      ],
+      "top": "FUJIFILM",
+      "word": "NEOPAN",
+      "num_s": "1600",
+      "sub": "SUPER PRESTO",
+      "leader": 50,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "apx25",
+      "brand": "AGFA",
+      "name": "APX 25",
+      "style": 0,
+      "bg": [
+        0,
+        236
+      ],
+      "band": [
+        3,
+        140
+      ],
+      "accent": [
+        3,
+        140
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        22
+      ],
+      "top": "AGFA",
+      "word": "APX",
+      "num_s": "25",
+      "sub": "",
+      "leader": 50,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "apx100",
+      "brand": "AGFA",
+      "name": "APX 100",
+      "style": 0,
+      "bg": [
+        0,
+        236
+      ],
+      "band": [
+        8,
+        110
+      ],
+      "accent": [
+        8,
+        110
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        22
+      ],
+      "top": "AGFA",
+      "word": "APX",
+      "num_s": "100",
+      "sub": "",
+      "leader": 50,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "retro80s",
+      "brand": "ROLLEI",
+      "name": "Retro 80S",
+      "style": 0,
+      "bg": [
+        0,
+        22
+      ],
+      "band": [
+        3,
+        150
+      ],
+      "accent": [
+        0,
+        230
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        230
+      ],
+      "top": "ROLLEI",
+      "word": "RETRO",
+      "num_s": "80",
+      "sub": "80S",
+      "leader": 50,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "retro100",
+      "brand": "ROLLEI",
+      "name": "Retro 100 Tonal",
+      "style": 0,
+      "bg": [
+        0,
+        22
+      ],
+      "band": [
+        2,
+        180
+      ],
+      "accent": [
+        0,
+        230
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        230
+      ],
+      "top": "ROLLEI",
+      "word": "RETRO",
+      "num_s": "100",
+      "sub": "TONAL",
+      "leader": 50,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "ortho25",
+      "brand": "ROLLEI",
+      "name": "Ortho 25",
+      "style": 0,
+      "bg": [
+        0,
+        22
+      ],
+      "band": [
+        8,
+        130
+      ],
+      "accent": [
+        0,
+        230
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        230
+      ],
+      "top": "ROLLEI",
+      "word": "ORTHO",
+      "num_s": "25",
+      "sub": "PLUS",
+      "leader": 50,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "ir400",
+      "brand": "ROLLEI",
+      "name": "Infrared 400",
+      "style": 0,
+      "bg": [
+        0,
+        22
+      ],
+      "band": [
+        5,
+        110
+      ],
+      "accent": [
+        0,
+        230
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        230
+      ],
+      "top": "ROLLEI",
+      "word": "INFRARED",
+      "num_s": "400",
+      "sub": "IR",
+      "leader": 50,
+      "reference_status": "stylized label data, not verified against a retail photograph"
+    },
+    {
+      "key": "kodak2383",
+      "brand": "KODAK",
+      "name": "Vision 2383",
+      "style": 2,
+      "bg": [
+        0,
+        22
+      ],
+      "band": [
+        0,
+        22
+      ],
+      "accent": [
+        2,
+        190
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        2,
+        190
+      ],
+      "top": "KODAK",
+      "word": "VISION",
+      "num_s": "2383",
+      "sub": "COLOR PRINT",
+      "leader": 0,
+      "reference_status": "cinema print-stock illustration; not a retail 35mm cartridge"
+    },
+    {
+      "key": "kodak2393",
+      "brand": "KODAK",
+      "name": "Vision 2393",
+      "style": 2,
+      "bg": [
+        0,
+        22
+      ],
+      "band": [
+        0,
+        22
+      ],
+      "accent": [
+        2,
+        190
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        2,
+        190
+      ],
+      "top": "KODAK",
+      "word": "VISION",
+      "num_s": "2393",
+      "sub": "PREMIER",
+      "leader": 0,
+      "reference_status": "cinema print-stock illustration; not a retail 35mm cartridge"
+    },
+    {
+      "key": "fuji3510",
+      "brand": "FUJIFILM",
+      "name": "Eterna 3510",
+      "style": 2,
+      "bg": [
+        6,
+        60
+      ],
+      "band": [
+        6,
+        60
+      ],
+      "accent": [
+        0,
+        220
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        220
+      ],
+      "top": "FUJIFILM",
+      "word": "ETERNA",
+      "num_s": "3510",
+      "sub": "COLOR PRINT",
+      "leader": 0,
+      "reference_status": "cinema print-stock illustration; not a retail 35mm cartridge"
+    },
+    {
+      "key": "fuji3513",
+      "brand": "FUJIFILM",
+      "name": "Eterna 3513",
+      "style": 2,
+      "bg": [
+        6,
+        60
+      ],
+      "band": [
+        6,
+        60
+      ],
+      "accent": [
+        0,
+        220
+      ],
+      "text": [
+        0,
+        238
+      ],
+      "num": [
+        0,
+        220
+      ],
+      "top": "FUJIFILM",
+      "word": "ETERNA",
+      "num_s": "3513",
+      "sub": "DI",
+      "leader": 0,
+      "reference_status": "cinema print-stock illustration; not a retail 35mm cartridge"
+    }
+  ]
+}
